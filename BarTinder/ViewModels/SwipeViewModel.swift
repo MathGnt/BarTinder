@@ -6,27 +6,27 @@
 //
 
 import Foundation
+import Observation
 
 @Observable
 class SwipeViewModel {
     
+    
+    let repo: CocktailRepo
     var cocktails: [Cocktail] = []
     var possibleCocktails: [Cocktail] = []
-    
-    let networkManager: NetworkManager
     var selectedIngredients: Set<String> = []
     
-    
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
+    init(repo: CocktailRepo) {
+        self.repo = repo
     }
     
-    func getAllCocktails() throws {
+    func getCocktails() {
         do {
-            self.cocktails = try networkManager.getCocktails()
+            let cocktails = try repo.getAllCocktails()
+            self.cocktails = cocktails
         } catch {
-            print(NetworkErrors.couldntFetchCocktails.localizedDescription)
-            throw NetworkErrors.couldntFetchCocktails
+            print(VMErrors.couldntFetchCocktails.localizedDescription as Any)
         }
     }
     

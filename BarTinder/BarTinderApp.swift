@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct BarTinderApp: App {
+    
+    let cocktailRepo = CocktailRepo(networkManager: NetworkManager())
+    
     var body: some Scene {
         WindowGroup {
-            SwipeView()
+            SwipeView(repo: cocktailRepo)
         }
+        .modelContainer(for: Cocktail.self)
     }
 }

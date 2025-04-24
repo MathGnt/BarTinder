@@ -2,13 +2,28 @@
 //  Cocktail.swift
 //  BarTinder
 //
-//  Created by Mathis Gaignet on 17/04/2025.
+//  Created by Mathis Gaignet on 24/04/2025.
 //
 
 import Foundation
+import SwiftData
 
-struct Cocktail: Codable {
-    let name: String
-    let ingredients: [String]
+@Model
+final class Cocktail {
+    var name: String
+    var ingredients: [String]
+    var isInBar: Bool
+    
+    init(name: String, ingredients: [String], isInBar: Bool) {
+        self.name = name
+        self.ingredients = ingredients
+        self.isInBar = isInBar
+    }
 }
 
+enum Category {
+    case possibleCocktails
+    case gin
+    case vodka
+    case vermouth
+}

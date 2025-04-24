@@ -7,16 +7,16 @@
 
 import Foundation
 
-class NetworkManager {
+class NetworkManager { /// Doesn't need protocol because I control the json source
     
-    func getCocktails() throws -> [Cocktail] {
+    func getCocktails() throws -> [CocktailResponse] {
         guard let url = Bundle.main.url(forResource: "cocktails", withExtension: "json") else {
             throw URLError(.badURL)
         }
         do {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
-            let decodedData = try decoder.decode([Cocktail].self, from: data)
+            let decodedData = try decoder.decode([CocktailResponse].self, from: data)
             return decodedData
         } catch {
             throw URLError(.cannotParseResponse)
