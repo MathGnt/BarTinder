@@ -11,7 +11,7 @@ import SwiftUI
 struct BarTinderApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SwipeView()
         }
     }
 }

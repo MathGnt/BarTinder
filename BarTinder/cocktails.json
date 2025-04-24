@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Old Fashioned",
+    "ingredients": ["whisky", "sucre", "angostura bitters", "sparkling water"]
+  },
+  {
+    "name": "Negroni",
+    "ingredients": ["gin", "vermouth", "campari"]
+  },
+  {
+    "name": "Daiquiri",
+    "ingredients": ["rum", "lime juice", "sugar cane syrup"]
+  },
+  {
+    "name": "Dry Martini",
+    "ingredients": ["gin", "vermouth"]
+  },
+  {
+    "name": "Margarita",
+    "ingredients": ["tequila", "triple sec", "lime juice"]
+  },
+  {
+    "name": "Espresso Martini",
+    "ingredients": ["vodka", "coffee liqueur", "espresso", "sugar cane syrup"]
+  },
+  {
+    "name": "Whiskey Sour",
+    "ingredients": ["whisky", "lemon juice", "sugar cane syrup", "egg white"]
+  },
+  {
+    "name": "Manhattan",
+    "ingredients": ["whisky", "vermouth", "angostura bitters"]
+  },
+  {
+    "name": "Mojito",
+    "ingredients": ["rum", "lime", "mint", "sugar cane syrup", "sparkling water"]
+  },
+  {
+    "name": "Bloody Mary",
+    "ingredients": ["vodka", "tomato juice", "lemon juice", "worcestershire sauce", "tabasco sauce", "celery salt", "pepper"]
+  },
+  {
+    "name": "Aperol Spritz",
+    "ingredients": ["prosecco", "aperol", "sparkling water"]
+  },
+  {
+    "name": "Cosmopolitan",
+    "ingredients": ["vodka", "triple sec", "cranberry juice", "lime juice"]
+  },
+  {
+    "name": "Moscow Mule",
+    "ingredients": ["vodka", "ginger beer", "lime juice"]
+  },
+  {
+    "name": "Mai Tai",
+    "ingredients": ["rum", "amber rum", "orange liqueur", "orgeat syrup", "lime juice", "sugar cane syrup"]
+  },
+  {
+    "name": "Piña Colada",
+    "ingredients": ["rum", "pineapple juice", "coco cream", "sugar cane syrup"]
+  },
+  {
+    "name": "Gin Tonic",
+    "ingredients": ["gin", "tonic water", "lime"]
+  },
+  {
+    "name": "Long Island Iced Tea",
+    "ingredients": ["vodka", "gin", "rum", "tequila", "triple sec", "lemon juice", "sugar cane syrup", "coke"]
+  },
+  {
+    "name": "French 75",
+    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "champagne"]
+  },
+  {
+    "name": "Bellini",
+    "ingredients": ["white peach puree", "prosecco"]
+  },
+  {
+    "name": "Sidecar",
+    "ingredients": ["cognac", "orange liqueur", "lemon juice"]
+  },
+  {
+    "name": "White Russian",
+    "ingredients": ["vodka", "coffee liqueur", "cream"]
+  },
+  {
+    "name": "Caipirinha",
+    "ingredients": ["cachaça", "lime", "sugar cane syrup"]
+  },
+  {
+    "name": "Sazerac",
+    "ingredients": ["rye whiskey", "absinthe", "sugar cane syrup", "peychaud’s bitters"]
+  },
+  {
+    "name": "Singapore Sling",
+    "ingredients": ["gin", "cherry liqueur", "orange liqueur", "Benedictine liqueur", "pineapple juice", "lime juice", "grenadine syrup", "angostura bitters"]
+  },
+  {
+    "name": "Tequila Sunrise",
+    "ingredients": ["tequila", "orange juice", "grenadine syrup"]
+  },
+  {
+    "name": "Tom Collins",
+    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "sparkling water"]
+  },
+  {
+    "name": "Paloma",
+    "ingredients": ["tequila", "lime juice", "salt", "grapefruit soda"]
+  },
+  {
+    "name": "Mimosa",
+    "ingredients": ["champagne", "orange juice"]
+  },
+  {
+    "name": "Sex on the Beach",
+    "ingredients": ["vodka", "peach liqueur", "cranberry juice", "orange juice"]
+  },
+  {
+    "name": "Irish Coffee",
+    "ingredients": ["irish whisky", "coffee", "sugar", "cream"]
+  }
+]
