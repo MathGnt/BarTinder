@@ -10,5 +10,4 @@ import Foundation
 @Observable
 final class HomeViewModel {
     
-    var selectedCategory: Category = .possibleCocktails
 }

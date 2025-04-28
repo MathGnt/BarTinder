@@ -1,122 +1,142 @@
 [
   {
     "name": "Old Fashioned",
-    "ingredients": ["whisky", "sucre", "angostura bitters", "sparkling water"]
+    "ingredients": ["whisky", "sugar cane syrup", "angostura bitters", "sparkling water"],
+    "style": "short"
   },
   {
     "name": "Negroni",
-    "ingredients": ["gin", "vermouth", "campari"]
+    "ingredients": ["gin", "vermouth", "campari"],
+    "style": "short"
   },
   {
     "name": "Daiquiri",
-    "ingredients": ["rum", "lime juice", "sugar cane syrup"]
+    "ingredients": ["rum", "lime juice", "sugar cane syrup"],
+    "style": "short"
   },
   {
     "name": "Dry Martini",
-    "ingredients": ["gin", "vermouth"]
+    "ingredients": ["gin", "vermouth"],
+    "style": "short"
   },
   {
     "name": "Margarita",
-    "ingredients": ["tequila", "triple sec", "lime juice"]
-  },
-  {
-    "name": "Espresso Martini",
-    "ingredients": ["vodka", "coffee liqueur", "espresso", "sugar cane syrup"]
-  },
-  {
-    "name": "Whiskey Sour",
-    "ingredients": ["whisky", "lemon juice", "sugar cane syrup", "egg white"]
+    "ingredients": ["tequila", "triple sec", "lime juice"],
+    "style": "short"
   },
   {
     "name": "Manhattan",
-    "ingredients": ["whisky", "vermouth", "angostura bitters"]
+    "ingredients": ["whisky", "vermouth", "angostura bitters"],
+    "style": "short"
   },
   {
     "name": "Mojito",
-    "ingredients": ["rum", "lime", "mint", "sugar cane syrup", "sparkling water"]
+    "ingredients": ["rum", "lime", "mint", "sugar cane syrup", "sparkling water"],
+    "style": "long"
   },
   {
     "name": "Bloody Mary",
-    "ingredients": ["vodka", "tomato juice", "lemon juice", "worcestershire sauce", "tabasco sauce", "celery salt", "pepper"]
+    "ingredients": ["vodka", "tomato juice", "lemon juice", "worcestershire sauce", "tabasco sauce", "celery salt", "pepper"],
+    "style": "long"
   },
   {
     "name": "Aperol Spritz",
-    "ingredients": ["prosecco", "aperol", "sparkling water"]
+    "ingredients": ["prosecco", "aperol", "sparkling water"],
+    "style": "long"
   },
   {
     "name": "Cosmopolitan",
-    "ingredients": ["vodka", "triple sec", "cranberry juice", "lime juice"]
+    "ingredients": ["vodka", "triple sec", "cranberry juice", "lime juice"],
+    "style": "short"
   },
   {
     "name": "Moscow Mule",
-    "ingredients": ["vodka", "ginger beer", "lime juice"]
+    "ingredients": ["vodka", "ginger beer", "lime juice"],
+    "style": "long"
   },
   {
     "name": "Mai Tai",
-    "ingredients": ["rum", "amber rum", "orange liqueur", "orgeat syrup", "lime juice", "sugar cane syrup"]
+    "ingredients": ["rum", "amber rum", "triple sec", "orgeat syrup", "lime juice", "sugar cane syrup"],
+    "style": "long"
   },
   {
-    "name": "Piña Colada",
-    "ingredients": ["rum", "pineapple juice", "coco cream", "sugar cane syrup"]
+    "name": "Pina Colada",
+    "ingredients": ["rum", "pineapple juice", "coco cream", "sugar cane syrup"],
+    "style": "long"
   },
   {
     "name": "Gin Tonic",
-    "ingredients": ["gin", "tonic water", "lime"]
+    "ingredients": ["gin", "tonic water", "lime"],
+    "style": "long"
   },
   {
     "name": "Long Island Iced Tea",
-    "ingredients": ["vodka", "gin", "rum", "tequila", "triple sec", "lemon juice", "sugar cane syrup", "coke"]
+    "ingredients": ["vodka", "gin", "rum", "tequila", "triple sec", "lemon juice", "sugar cane syrup", "coke"],
+    "style": "long"
   },
   {
     "name": "French 75",
-    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "champagne"]
+    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "champagne"],
+    "style": "long"
   },
   {
     "name": "Bellini",
-    "ingredients": ["white peach puree", "prosecco"]
+    "ingredients": ["white peach puree", "prosecco"],
+    "style": "long"
   },
   {
     "name": "Sidecar",
-    "ingredients": ["cognac", "orange liqueur", "lemon juice"]
+    "ingredients": ["cognac", "triple sec", "lemon juice"],
+    "style": "short"
   },
   {
     "name": "White Russian",
-    "ingredients": ["vodka", "coffee liqueur", "cream"]
+    "ingredients": ["vodka", "coffee liqueur", "cream"],
+    "style": "short"
   },
   {
     "name": "Caipirinha",
-    "ingredients": ["cachaça", "lime", "sugar cane syrup"]
+    "ingredients": ["cachaca", "lime", "sugar cane syrup"],
+    "style": "short"
   },
   {
     "name": "Sazerac",
-    "ingredients": ["rye whiskey", "absinthe", "sugar cane syrup", "peychaud’s bitters"]
+    "ingredients": ["rye whiskey", "absinthe", "sugar cane syrup", "peychauds bitters"],
+    "style": "short"
   },
   {
     "name": "Singapore Sling",
-    "ingredients": ["gin", "cherry liqueur", "orange liqueur", "Benedictine liqueur", "pineapple juice", "lime juice", "grenadine syrup", "angostura bitters"]
+    "ingredients": ["gin", "cherry liqueur", "triple sec", "benedictine liqueur", "pineapple juice", "lime juice", "grenadine syrup", "angostura bitters"],
+    "style": "long"
   },
   {
     "name": "Tequila Sunrise",
-    "ingredients": ["tequila", "orange juice", "grenadine syrup"]
+    "ingredients": ["tequila", "orange juice", "grenadine syrup"],
+    "style": "long"
   },
   {
     "name": "Tom Collins",
-    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "sparkling water"]
+    "ingredients": ["gin", "lemon juice", "sugar cane syrup", "sparkling water"],
+    "style": "long"
   },
   {
     "name": "Paloma",
-    "ingredients": ["tequila", "lime juice", "salt", "grapefruit soda"]
+    "ingredients": ["tequila", "lime juice", "salt", "grapefruit soda"],
+    "style": "long"
   },
   {
     "name": "Mimosa",
-    "ingredients": ["champagne", "orange juice"]
+    "ingredients": ["champagne", "orange juice"],
+    "style": "long"
   },
   {
     "name": "Sex on the Beach",
-    "ingredients": ["vodka", "peach liqueur", "cranberry juice", "orange juice"]
+    "ingredients": ["vodka", "peach liqueur", "cranberry juice", "orange juice"],
+    "style": "long"
   },
   {
     "name": "Irish Coffee",
-    "ingredients": ["irish whisky", "coffee", "sugar", "cream"]
+    "ingredients": ["irish whisky", "coffee", "sugar", "cream"],
+    "style": "short"
   }
 ]

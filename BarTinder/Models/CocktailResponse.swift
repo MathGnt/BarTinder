@@ -9,5 +9,7 @@ import Foundation
 
 struct CocktailResponse: Codable {
     let name: String
-    let ingredients: [String]}
+    let ingredients: [String]
+    let style: String
+}
 

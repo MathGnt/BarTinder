@@ -20,7 +20,8 @@ class CocktailRepo {
         do {
             let cocktailResponse = try networkManager.getCocktails()
             for cocktail in cocktailResponse {
-                let newCocktail = Cocktail(name: cocktail.name, ingredients: cocktail.ingredients, isInBar: false)
+                let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
+                let newCocktail = Cocktail(name: cocktail.name, ingredients: cocktail.ingredients, isInBar: false, image: cocktailImage, style: cocktail.style)
                 cocktails.append(newCocktail)
             }
         } catch {
