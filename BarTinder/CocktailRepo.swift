@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CocktailRepo {
+class CocktailRepo: Servable {
 
     let networkManager: NetworkManager
     
@@ -21,7 +21,7 @@ class CocktailRepo {
             let cocktailResponse = try networkManager.getCocktails()
             for cocktail in cocktailResponse {
                 let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
-                let newCocktail = Cocktail(name: cocktail.name, ingredients: cocktail.ingredients, isInBar: false, image: cocktailImage, style: cocktail.style)
+                let newCocktail = Cocktail(name: cocktail.name, ingredients: cocktail.ingredients, measures: cocktail.measures, isInBar: false, image: cocktailImage, style: cocktail.style, glass: cocktail.glass, preparation: cocktail.preparation, abv: cocktail.abv, flavor: cocktail.flavor, difficulty: cocktail.difficulty, cocktailDescription: cocktail.cocktailDescription)
                 cocktails.append(newCocktail)
             }
         } catch {

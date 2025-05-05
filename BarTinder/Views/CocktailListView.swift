@@ -23,5 +23,5 @@ struct CocktailListView: View {
 }
 
 #Preview {
-    CocktailListView(ingredientCard: IngredientCard(image: "gin", name: "Gin", AVB: "40", location: "UK", summer: true), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    CocktailListView(ingredientCard: IngredientCard(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "UK", summer: true), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
 }

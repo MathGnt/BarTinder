@@ -2,141 +2,337 @@
   {
     "name": "Old Fashioned",
     "ingredients": ["whisky", "sugar cane syrup", "angostura bitters", "sparkling water"],
-    "style": "short"
+    "measures": ["4.5 cl", "1.5 cl", "2 dashes", "1 cl"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "stirred",
+    "abv": "32",
+    "flavor": "bitter",
+    "difficulty": 2,
+    "cocktailDescription": "Born in early 19th-century New York, the Old Fashioned is a timeless blend of simplicity and strength. Best enjoyed on a chilly autumn evening with jazz in the background."
   },
   {
     "name": "Negroni",
     "ingredients": ["gin", "vermouth", "campari"],
-    "style": "short"
+    "measures": ["3 cl", "3 cl", "3 cl"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "stirred",
+    "abv": "28",
+    "flavor": "bitter",
+    "difficulty": 1,
+    "cocktailDescription": "Originating from early 20th-century Italy, the Negroni is a bold and balanced aperitif. Perfect for warm summer evenings on a terrace overlooking the city."
   },
   {
     "name": "Daiquiri",
     "ingredients": ["rum", "lime juice", "sugar cane syrup"],
-    "style": "short"
+    "measures": ["4.5 cl", "2.5 cl", "1.5 cl"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "shaken",
+    "abv": "25",
+    "flavor": "sour",
+    "difficulty": 1,
+    "cocktailDescription": "Hailing from Cuba in the early 1900s, the Daiquiri combines rum and citrus in a refreshing embrace. Ideal for sunny afternoons by the beach or poolside relaxation."
   },
   {
     "name": "Dry Martini",
     "ingredients": ["gin", "vermouth"],
-    "style": "short"
+    "measures": ["6 cl", "1 cl"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "stirred",
+    "abv": "30",
+    "flavor": "dry",
+    "difficulty": 2,
+    "cocktailDescription": "A symbol of sophistication from early 20th-century America, the Dry Martini is a crisp and elegant classic. Suited for stylish evenings and refined gatherings."
   },
   {
     "name": "Margarita",
     "ingredients": ["tequila", "triple sec", "lime juice"],
-    "style": "short"
+    "measures": ["4 cl", "2 cl", "2 cl"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "shaken",
+    "abv": "27",
+    "flavor": "sour",
+    "difficulty": 2,
+    "cocktailDescription": "Emerging from Mexico mid-20th century, the Margarita offers a vibrant mix of tequila and citrus. Best savored on warm summer nights with friends."
   },
   {
     "name": "Manhattan",
     "ingredients": ["whisky", "vermouth", "angostura bitters"],
-    "style": "short"
+    "measures": ["5 cl", "2 cl", "2 dashes"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "stirred",
+    "abv": "30",
+    "flavor": "bitter",
+    "difficulty": 2,
+    "cocktailDescription": "Crafted in 19th-century New York, the Manhattan is a rich and robust whiskey cocktail. Perfect for cozy winter evenings by the fireplace."
   },
   {
     "name": "Mojito",
     "ingredients": ["rum", "lime", "mint", "sugar cane syrup", "sparkling water"],
-    "style": "long"
+    "measures": ["4 cl", "1/2", "8 leaves", "2 cl", "top up"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "12",
+    "flavor": "fresh",
+    "difficulty": 2,
+    "cocktailDescription": "A refreshing Cuban classic dating back to the 16th century, the Mojito blends mint and lime for a crisp taste. Ideal for hot summer days and lively gatherings."
   },
   {
     "name": "Bloody Mary",
     "ingredients": ["vodka", "tomato juice", "lemon juice", "worcestershire sauce", "tabasco sauce", "celery salt", "pepper"],
-    "style": "long"
+    "measures": ["4.5 cl", "9 cl", "1.5 cl", "2 traits", "2 drops", "1 pinch", "1 pinch"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "15",
+    "flavor": "savory",
+    "difficulty": 3,
+    "cocktailDescription": "Originating in the 1920s in Paris, the Bloody Mary is a savory brunch staple. Enjoy it leisurely on a lazy weekend morning to revive the senses."
   },
   {
     "name": "Aperol Spritz",
     "ingredients": ["prosecco", "aperol", "sparkling water"],
-    "style": "long"
+    "measures": ["6 cl", "4 cl", "2 cl"],
+    "style": "longdrink",
+    "glass": "wine",
+    "preparation": "built",
+    "abv": "11",
+    "flavor": "bitter",
+    "difficulty": 1,
+    "cocktailDescription": "A beloved Italian aperitif from the mid-20th century, the Aperol Spritz is light and bittersweet. Perfect for warm afternoons and socializing al fresco."
   },
   {
     "name": "Cosmopolitan",
     "ingredients": ["vodka", "triple sec", "cranberry juice", "lime juice"],
-    "style": "short"
+    "measures": ["4 cl", "1.5 cl", "3 cl", "1 cl"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "shaken",
+    "abv": "25",
+    "flavor": "fruity",
+    "difficulty": 2,
+    "cocktailDescription": "Popularized in the 1990s, the Cosmopolitan is a chic and tangy cocktail. Best enjoyed during lively urban nights and festive occasions."
   },
   {
     "name": "Moscow Mule",
     "ingredients": ["vodka", "ginger beer", "lime juice"],
-    "style": "long"
+    "measures": ["4 cl", "10 cl", "1 cl"],
+    "style": "longdrink",
+    "glass": "coppermug",
+    "preparation": "built",
+    "abv": "14",
+    "flavor": "spicy",
+    "difficulty": 1,
+    "cocktailDescription": "Created in 1940s America, the Moscow Mule is a zesty and refreshing drink served in its iconic copper mug. Ideal for casual summer evenings."
   },
   {
     "name": "Mai Tai",
     "ingredients": ["rum", "amber rum", "triple sec", "orgeat syrup", "lime juice", "sugar cane syrup"],
-    "style": "long"
+    "measures": ["3 cl", "3 cl", "1.5 cl", "1.5 cl", "1.5 cl", "0.5 cl"],
+    "style": "longdrink",
+    "glass": "tumbler",
+    "preparation": "shaken",
+    "abv": "22",
+    "flavor": "fruity",
+    "difficulty": 3,
+    "cocktailDescription": "Born in post-war California, the Mai Tai is a tropical rum cocktail with exotic flavors. Best enjoyed poolside or during summer beach parties."
   },
   {
     "name": "Pina Colada",
     "ingredients": ["rum", "pineapple juice", "coco cream", "sugar cane syrup"],
-    "style": "long"
+    "measures": ["4 cl", "12 cl", "4 cl", "2 cl"],
+    "style": "longdrink",
+    "glass": "hurricane",
+    "preparation": "blended",
+    "abv": "13",
+    "flavor": "sweet",
+    "difficulty": 2,
+    "cocktailDescription": "Originating from Puerto Rico in the 1950s, the Pina Colada is a creamy tropical delight. Perfect for sunny beach days and festive summer celebrations."
   },
   {
     "name": "Gin Tonic",
     "ingredients": ["gin", "tonic water", "lime"],
-    "style": "long"
+    "measures": ["5 cl", "10 cl", "1 wedge"],
+    "style": "longdrink",
+    "glass": "balloon",
+    "preparation": "built",
+    "abv": "10",
+    "flavor": "bitter",
+    "difficulty": 1,
+    "cocktailDescription": "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings."
   },
   {
     "name": "Long Island Iced Tea",
     "ingredients": ["vodka", "gin", "rum", "tequila", "triple sec", "lemon juice", "sugar cane syrup", "coke"],
-    "style": "long"
+    "measures": ["1.5 cl", "1.5 cl", "1.5 cl", "1.5 cl", "1.5 cl", "2.5 cl", "1.5 cl", "top up"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "shaken",
+    "abv": "22",
+    "flavor": "sweet",
+    "difficulty": 3,
+    "cocktailDescription": "Created in the 1970s, this potent mix combines several spirits for a bold experience. Best reserved for lively nights and festive celebrations."
   },
   {
     "name": "French 75",
     "ingredients": ["gin", "lemon juice", "sugar cane syrup", "champagne"],
-    "style": "long"
+    "measures": ["3 cl", "1.5 cl", "1.5 cl", "6 cl"],
+    "style": "longdrink",
+    "glass": "flute",
+    "preparation": "shaken",
+    "abv": "18",
+    "flavor": "citrus",
+    "difficulty": 2,
+    "cocktailDescription": "Named after a WWI artillery gun, the French 75 is a sparkling and citrusy delight. Perfect for celebratory toasts and elegant occasions."
   },
   {
     "name": "Bellini",
     "ingredients": ["white peach puree", "prosecco"],
-    "style": "long"
+    "measures": ["5 cl", "10 cl"],
+    "style": "longdrink",
+    "glass": "flute",
+    "preparation": "built",
+    "abv": "10",
+    "flavor": "fruity",
+    "difficulty": 1,
+    "cocktailDescription": "Invented in Venice in the 1940s, the Bellini is a light and fruity sparkling cocktail. Ideal for spring brunches and sunny afternoons."
   },
   {
     "name": "Sidecar",
     "ingredients": ["cognac", "triple sec", "lemon juice"],
-    "style": "short"
+    "measures": ["5 cl", "2 cl", "2 cl"],
+    "style": "shortdrink",
+    "glass": "cocktail",
+    "preparation": "shaken",
+    "abv": "28",
+    "flavor": "sour",
+    "difficulty": 2,
+    "cocktailDescription": "Dating back to post-WWI Paris, the Sidecar is a sharp and elegant cognac cocktail. Best enjoyed during crisp evenings and refined social events."
   },
   {
     "name": "White Russian",
     "ingredients": ["vodka", "coffee liqueur", "cream"],
-    "style": "short"
+    "measures": ["5 cl", "2 cl", "2 cl"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "built",
+    "abv": "18",
+    "flavor": "sweet",
+    "difficulty": 1,
+    "cocktailDescription": "Popularized in the 1960s, the White Russian is a creamy and indulgent cocktail. Perfect for cozy winter nights and relaxed evenings."
   },
   {
     "name": "Caipirinha",
     "ingredients": ["cachaca", "lime", "sugar cane syrup"],
-    "style": "short"
+    "measures": ["5 cl", "1/2", "2 cl"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "built",
+    "abv": "22",
+    "flavor": "sour",
+    "difficulty": 1,
+    "cocktailDescription": "Brazil's national cocktail, the Caipirinha is a zesty and refreshing mix of cachaça and lime. Best enjoyed during summer festivities and outdoor gatherings."
   },
   {
     "name": "Sazerac",
     "ingredients": ["rye whiskey", "absinthe", "sugar cane syrup", "peychauds bitters"],
-    "style": "short"
+    "measures": ["5 cl", "to rinse", "1.5 cl", "3 dashes"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "stirred",
+    "abv": "35",
+    "flavor": "bitter",
+    "difficulty": 3,
+    "cocktailDescription": "Originating in 19th-century New Orleans, the Sazerac is a strong and aromatic cocktail. Ideal for contemplative evenings and classic cocktail enthusiasts."
   },
   {
     "name": "Singapore Sling",
     "ingredients": ["gin", "cherry liqueur", "triple sec", "benedictine liqueur", "pineapple juice", "lime juice", "grenadine syrup", "angostura bitters"],
-    "style": "long"
+    "measures": ["3 cl", "1.5 cl", "0.5 cl", "0.5 cl", "12 cl", "1.5 cl", "0.5 cl", "1 dash"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "shaken",
+    "abv": "15",
+    "flavor": "fruity",
+    "difficulty": 3,
+    "cocktailDescription": "Created in the early 20th century at Singapore's Raffles Hotel, this cocktail is a tropical and complex delight. Perfect for exotic evenings and resort relaxation."
   },
   {
     "name": "Tequila Sunrise",
     "ingredients": ["tequila", "orange juice", "grenadine syrup"],
-    "style": "long"
+    "measures": ["4.5 cl", "9 cl", "1.5 cl"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "14",
+    "flavor": "sweet",
+    "difficulty": 1,
+    "cocktailDescription": "Popularized in the 1970s, the Tequila Sunrise is a visually stunning and sweet cocktail. Ideal for bright mornings and festive gatherings."
   },
   {
     "name": "Tom Collins",
     "ingredients": ["gin", "lemon juice", "sugar cane syrup", "sparkling water"],
-    "style": "long"
+    "measures": ["4.5 cl", "3 cl", "1.5 cl", "top up"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "12",
+    "flavor": "sour",
+    "difficulty": 1,
+    "cocktailDescription": "Dating back to the 19th century, the Tom Collins is a refreshing and citrusy classic. Perfect for sunny afternoons and garden parties."
   },
   {
     "name": "Paloma",
     "ingredients": ["tequila", "lime juice", "salt", "grapefruit soda"],
-    "style": "long"
+    "measures": ["5 cl", "1.5 cl", "1 pinch", "top up"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "12",
+    "flavor": "citrus",
+    "difficulty": 1,
+    "cocktailDescription": "A popular Mexican cocktail, the Paloma combines tequila and grapefruit for a tangy refreshment. Best enjoyed on warm afternoons and casual gatherings."
   },
   {
     "name": "Mimosa",
     "ingredients": ["champagne", "orange juice"],
-    "style": "long"
+    "measures": ["7.5 cl", "7.5 cl"],
+    "style": "longdrink",
+    "glass": "flute",
+    "preparation": "built",
+    "abv": "10",
+    "flavor": "fruity",
+    "difficulty": 1,
+    "cocktailDescription": "Invented in the 1920s, the Mimosa is a light and bubbly brunch favorite. Perfect for celebratory mornings and springtime occasions."
   },
   {
     "name": "Sex on the Beach",
     "ingredients": ["vodka", "peach liqueur", "cranberry juice", "orange juice"],
-    "style": "long"
+    "measures": ["4 cl", "2 cl", "4 cl", "4 cl"],
+    "style": "longdrink",
+    "glass": "highball",
+    "preparation": "built",
+    "abv": "15",
+    "flavor": "fruity",
+    "difficulty": 1,
+    "cocktailDescription": "Emerging in the 1980s, this cocktail is a sweet and fruity crowd-pleaser. Ideal for beach parties and vibrant summer nights."
   },
   {
     "name": "Irish Coffee",
     "ingredients": ["irish whisky", "coffee", "sugar", "cream"],
-    "style": "short"
+    "measures": ["4 cl", "9 cl", "1.5 cl", "2 cl"],
+    "style": "shortdrink",
+    "glass": "tumbler",
+    "preparation": "built",
+    "abv": "12",
+    "flavor": "sweet",
+    "difficulty": 1,
+    "cocktailDescription": "Created in mid-20th-century Ireland, the Irish Coffee is a warming blend of whisky and coffee. Best savored on cold evenings or after a hearty meal."
   }
 ]
