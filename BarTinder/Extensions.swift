@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 extension String {
     var capitalizedWords: String {
@@ -17,4 +18,27 @@ extension String {
     func logolized() -> String {
         replacingOccurrences(of: " ", with: "") + "logo"
     }
+}
+
+
+extension Cocktail {
+    static func isInBarPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> {
+            $0.isInBar == true
+        }
+    }
+    
+    static func isPossiblePredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> {
+            $0.isPossible == true
+        }
+    }
+    
+    static func cocktailAboutIngredient(ingredient: IngredientCard) -> Predicate<Cocktail> {
+        let name = ingredient.name
+        return #Predicate<Cocktail> {
+            $0.ingredientsMeasures.contains { $0.ingredient == name }
+        }
+    }
+
 }

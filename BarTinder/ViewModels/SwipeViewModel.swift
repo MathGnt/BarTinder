@@ -8,38 +8,16 @@
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 
 @Observable
 class SwipeViewModel {
     
     let repo: CocktailRepo
-    var cocktails: [Cocktail] = []
     var ingredients: [IngredientCard] = []
-    var possibleCocktails: [Cocktail] = []
-    var selectedCategory: Category = .possibleCocktails
-    var finishSwiping = false
-    
+
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
-    
-    var sortedCocktails: [Cocktail] {
-        switch selectedCategory {
-        case .possibleCocktails:
-            return possibleCocktails
-        case .gin:
-            return possibleCocktails.filter { $0.ingredients.contains("gin") }
-        case .vodka:
-            return possibleCocktails.filter { $0.ingredients.contains("vodka") }
-        case .vermouth:
-            return possibleCocktails.filter { $0.ingredients.contains("vermouth") }
-        case .whisky:
-            return possibleCocktails.filter { $0.ingredients.contains("whisky") || $0.ingredients.contains("rye whiskey") }
-        case .shortDrink:
-            return possibleCocktails.filter { $0.style == "short" }
-        case .longDrink:
-            return possibleCocktails.filter { $0.style == "long" }
-        }
-    }
     
     var selectedIngredients: Set<String> = []
     
@@ -50,7 +28,6 @@ class SwipeViewModel {
     init(repo: CocktailRepo) {
         self.repo = repo
     }
-    
     
     func getOffset(for card: IngredientCard) -> CGFloat {
         return cardOffsets[card.id] ?? 0
@@ -73,12 +50,15 @@ class SwipeViewModel {
         setRotation(for: card, value: translation / 25)
     }
     
-    func getCocktails() {
+    func getCocktails(context: ModelContext) {
         addIngredients()
         do {
             let cocktails = try repo.getAllCocktails()
-            self.cocktails = cocktails
-            updatePossibleCocktails()
+            print("cocktails fetched are \(cocktails)")
+            for cocktail in cocktails {
+                context.insert(cocktail)
+            }
+            
         } catch {
             print(VMErrors.couldntFetchCocktails.localizedDescription as Any)
         }
@@ -88,29 +68,13 @@ class SwipeViewModel {
         self.ingredients = IngredientCard.ingredientCards
     }
     
-    func addIngredient(_ card: IngredientCard) {
+    func addIngredient(_ card: IngredientCard, context: ModelContext) {
         selectedIngredients.insert(card.name)
         if let otherName = card.otherName {
             selectedIngredients.insert(otherName)
         }
         print("added \(card.name) to the selection SET")
-        updatePossibleCocktails()
-    }
-    
-    func updatePossibleCocktails() {
-        possibleCocktails.removeAll()
-        
-        if selectedIngredients.isEmpty {
-            possibleCocktails = cocktails
-            return
-        }
-        
-        for cocktail in cocktails {
-            let ingredientsSet = Set(cocktail.ingredients)
-            if selectedIngredients.isSuperset(of: ingredientsSet) {
-                possibleCocktails.append(cocktail)
-            }
-        }
+        updatePossibleCocktails(context: context)
     }
     
     func removeIngredient(_ card: IngredientCard) {
@@ -123,7 +87,34 @@ class SwipeViewModel {
         print("removed \(card.name)")
     }
     
-    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: IngredientCard) {
+    func updatePossibleCocktails(context: ModelContext) {
+        print("Updating possible cocktails with \(selectedIngredients.count) ingredients")
+        let cocktails = getContextContent(context: context)
+        for cocktail in cocktails {
+            let ingredientNames = Set(cocktail.ingredientsMeasures.map { $0.ingredient })
+            if selectedIngredients.isSuperset(of: ingredientNames) {
+                print("found a cocktail!! \(cocktail)")
+                cocktail.isPossible = true
+            }
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving cocktails: \(error)")
+        }
+    }
+    
+    func getContextContent(context: ModelContext) -> [Cocktail] {
+        do {
+            return try context.fetch(FetchDescriptor<Cocktail>())
+        } catch {
+            print("Error fetching cocktails: \(error)")
+            return []
+        }
+    }
+    
+    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: IngredientCard, context: ModelContext) {
         let width = value.translation.width
         
         if abs(width) <= abs(threshold) {
@@ -132,7 +123,7 @@ class SwipeViewModel {
         }
         
         if width >= threshold {
-            swipeRight(card: card)
+            swipeRight(card: card, context: context)
         } else {
             swipeLeft(card: card)
         }
@@ -155,34 +146,25 @@ class SwipeViewModel {
         }
     }
     
-    func swipeRight(card: IngredientCard) {
+    func swipeRight(card: IngredientCard, context: ModelContext) {
         withAnimation {
             setOffset(for: card, value: 500)
             setRotation(for: card, value: 12)
         }
         
-        Task {
+        Task { @MainActor in
             try? await Task.sleep(nanoseconds: 300_000_000)
             removeIngredient(card)
-            addIngredient(card)
+            addIngredient(card, context: context)
         }
     }
     
-    // SwipeView Buttons (xmark + heart) - star will come later
     func triggerSwipeLeft(card: IngredientCard) {
         swipeLeft(card: card)
     }
     
-    func triggerSwipeRight(card: IngredientCard) {
-        swipeRight(card: card)
-    }
-    
-    func getIngredientsMeasures(cocktail: Cocktail) -> [(String, String)] {
-        let allIngredients = cocktail.ingredients
-        let measures = cocktail.measures
-        
-        let ingredientsMeasures = Array(zip(allIngredients, measures))
-        
-        return ingredientsMeasures.isEmpty ? [("Unknown", "Unknown")] : ingredientsMeasures
+    func triggerSwipeRight(card: IngredientCard, context: ModelContext) {
+        swipeRight(card: card, context: context)
     }
 }
+

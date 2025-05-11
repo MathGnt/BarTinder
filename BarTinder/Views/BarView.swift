@@ -6,14 +6,51 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BarView: View {
+    
+    @Environment(\.modelContext) private var context
+    @State private var selectedCocktail: Cocktail?
+    @Query(filter: Cocktail.isInBarPredicate()) private var barCocktails: [Cocktail]
     var body: some View {
-        NavigationStack {
-            List {
-                
+        
+        List {
+            ForEach(barCocktails) { cocktail in
+                HStack(spacing: 15) {
+                    Image(cocktail.image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 60, height: 60)
+                        .clipShape(.circle)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(cocktail.name)
+                            .fontWeight(.semibold)
+                        Text(cocktail.flavor.capitalized)
+                            .font(.callout)
+                            .textScale(.secondary)
+                            .foregroundStyle(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedCocktail = cocktail
+                }
             }
-            .navigationTitle("Bar")
+           
+            .onDelete { indexes in
+                for index in indexes {
+                    barCocktails[index].isInBar.toggle()
+                    try? context.save()
+                }
+            }
+        }
+        .navigationTitle("Bar")
+        .navigationDestination(item: $selectedCocktail) { selectedCocktail in
+            CocktailDetailView(cocktail: selectedCocktail)
         }
     }
 }

@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SwipeView: View {
     
+    @Environment(\.modelContext) private var context
     @State private var viewModel: SwipeViewModel
+    @AppStorage("finish-swiping") private var finishSwiping: Bool = false
     
     init(repo: CocktailRepo) {
         _viewModel = State(initialValue: SwipeViewModel(repo: repo))
     }
     
     var body: some View {
-        if viewModel.finishSwiping == false {
-           
+        if finishSwiping == false {
+            
             ZStack {
                 Color(.white)
                     .ignoresSafeArea()
@@ -28,77 +31,39 @@ struct SwipeView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 40, height: 40)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                       Spacer()
+                        Spacer()
                     }
                     .padding(.horizontal)
-        
+                    
                     ZStack {
                         ForEach(viewModel.ingredients.reversed()) { card in
                             CardView(card: card, viewModel: viewModel)
                         }
                     }
                     .onAppear {
-                        viewModel.getCocktails()
+                        viewModel.getCocktails(context: context)
                     }
                     .onChange(of: viewModel.ingredients) { oldValue, newValue in
                         if !newValue.isEmpty { return }
                         
-                        viewModel.updatePossibleCocktails()
+                        viewModel.updatePossibleCocktails(context: context)
                         withAnimation(.default) {
-                            viewModel.finishSwiping = true
+                            finishSwiping = true
                         }
                     }
-                
+                    
                     HStack(spacing: 50) {
-                        Button {
-                            if let topCard = viewModel.ingredients.first {
+                        if let topCard = viewModel.ingredients.first {
+                            bottomButtons(image: "xmark", color: .applered) {
                                 viewModel.triggerSwipeLeft(card: topCard)
                             }
-                          
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .frame(height: 60)
-                                    .foregroundStyle(.white)
-                                    .shadow(radius: 5)
-                                Image(systemName: "xmark")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundStyle(.applered)
+                            
+                            bottomButtons(image: "wineglass.fill", color: .blue) {
+                                //
                             }
-                        }
-                        
-                        Button {
-        
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .frame(height: 60)
-                                    .foregroundStyle(.white)
-                                    .shadow(radius: 5)
-                                Image(systemName: "wineglass.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 25, height: 25)
-                                    .foregroundStyle(.blue)
-                            }
-                        }
-                       
-                        Button {
-                            if let topCard = viewModel.ingredients.first {
-                                viewModel.triggerSwipeRight(card: topCard)
-                            }
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .frame(height: 60)
-                                    .foregroundStyle(.white)
-                                    .shadow(radius: 5)
-                                Image(systemName: "heart.fill")
-                                    .resizable()
-                                    .frame(width: 23, height: 20)
-                                    .foregroundStyle(.green)
-                                    .padding(.top, 3)
+                            
+                            bottomButtons(image: "heart.fill", color: .limegreen) {
+                                viewModel.triggerSwipeRight(card: topCard, context: context)
                             }
                         }
                     }
@@ -107,10 +72,31 @@ struct SwipeView: View {
             }
         } else {
             HomeView(swipeViewModel: viewModel)
-                .animation(.default, value: viewModel.finishSwiping)
+                .animation(.default, value: finishSwiping)
+        }
+    }
+    
+    
+    private func bottomButtons(image: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            ZStack {
+                Circle()
+                    .frame(height: 60)
+                    .foregroundStyle(.white)
+                    .shadow(radius: 5)
+                Image(systemName: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: image != "wineglass.fill" ? 20 : 15, height: 20)
+                    .foregroundStyle(color)
+            }
         }
     }
 }
+
+
 
 #Preview {
     SwipeView(repo: CocktailRepo(networkManager: NetworkManager()))

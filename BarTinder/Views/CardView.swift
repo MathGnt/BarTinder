@@ -7,8 +7,11 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct CardView: View {
+    
+    @Environment(\.modelContext) private var context
     
     let card: IngredientCard
     @Bindable var viewModel: SwipeViewModel
@@ -50,7 +53,7 @@ struct CardView: View {
                     viewModel.onChangedGesture(card: card, translation: value.translation.width)
                 }
                 .onEnded { value in
-                    viewModel.onEndedGesture(value, card)
+                    viewModel.onEndedGesture(value, card, context: context)
                 }
         )
     }

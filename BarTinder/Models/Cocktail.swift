@@ -10,10 +10,12 @@ import SwiftData
 
 @Model
 final class Cocktail: Identifiable {
+    @Attribute(.unique)
     var name: String
-    var ingredients: [String]
-    var measures: [String]
+    @Relationship(deleteRule: .cascade)
+    var ingredientsMeasures: [IngredientMeasure]
     var isInBar: Bool
+    var isPossible: Bool
     var image: String
     var style: String
     var glass: String
@@ -25,11 +27,11 @@ final class Cocktail: Identifiable {
     
     var id: String { self.name }
     
-    init(name: String, ingredients: [String], measures: [String], isInBar: Bool, image: String, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String) {
+    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, image: String, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String) {
         self.name = name
-        self.ingredients = ingredients
-        self.measures = measures
+        self.ingredientsMeasures = ingredientsMeasures
         self.isInBar = isInBar
+        self.isPossible = isPossible
         self.image = image
         self.style = style
         self.glass = glass
@@ -38,12 +40,22 @@ final class Cocktail: Identifiable {
         self.flavor = flavor
         self.difficulty = difficulty
         self.cocktailDescription = cocktailDescription
-        
-       
     }
+}
+
+@Model
+class IngredientMeasure: Identifiable {
+    var ingredient: String
+    var measure: String
     
-    static func getMock() -> Cocktail {
-        return Cocktail(name: "Gin Tonic", ingredients: ["gin", "tonic water"], measures: ["6 cl", "12 cl"], isInBar: true, image: "gintonic", style: "longdrink", glass: "balloon", preparation: "Built", abv: "10", flavor: "Bitter", difficulty: 1, cocktailDescription: "Created in the early 20th century at Singapore's Raffles Hotel, this cocktail is a tropical and complex delight. Perfect for exotic evenings and resort relaxation.")
+    @Relationship var cocktail: Cocktail?
+    
+    var id = UUID()
+    
+    init(ingredient: String, measure: String, id: UUID = UUID()) {
+        self.ingredient = ingredient
+        self.measure = measure
+        self.id = id
     }
 }
 

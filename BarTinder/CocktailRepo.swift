@@ -21,7 +21,21 @@ class CocktailRepo: Servable {
             let cocktailResponse = try networkManager.getCocktails()
             for cocktail in cocktailResponse {
                 let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
-                let newCocktail = Cocktail(name: cocktail.name, ingredients: cocktail.ingredients, measures: cocktail.measures, isInBar: false, image: cocktailImage, style: cocktail.style, glass: cocktail.glass, preparation: cocktail.preparation, abv: cocktail.abv, flavor: cocktail.flavor, difficulty: cocktail.difficulty, cocktailDescription: cocktail.cocktailDescription)
+                let ingredientMeasure = cocktail.ingredientsMeasures.map { IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure )}
+                let newCocktail = Cocktail(
+                    name: cocktail.name,
+                    ingredientsMeasures: ingredientMeasure,
+                    isInBar: false,
+                    isPossible: false,
+                    image: cocktailImage,
+                    style: cocktail.style,
+                    glass: cocktail.glass,
+                    preparation: cocktail.preparation,
+                    abv: cocktail.abv,
+                    flavor: cocktail.flavor,
+                    difficulty: cocktail.difficulty,
+                    cocktailDescription: cocktail.cocktailDescription
+                )
                 cocktails.append(newCocktail)
             }
         } catch {

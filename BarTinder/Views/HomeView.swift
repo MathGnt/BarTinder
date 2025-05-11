@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     
-    @State private var pushToBar = false
-    @State private var viewModel = HomeViewModel()
+    @Environment(\.modelContext) private var context
+    @Query(filter: Cocktail.isPossiblePredicate()) var possibleCocktails: [Cocktail]
     @State private var selectedIngredient: IngredientCard?
     @State private var selectedCocktail: Cocktail?
     @Bindable var swipeViewModel: SwipeViewModel
+    @State private var viewModel = HomeViewModel()
     
     var body: some View {
         NavigationStack {
@@ -45,9 +47,10 @@ struct HomeView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(swipeViewModel.sortedCocktails) { cocktail in
+                        ForEach(viewModel.sortQuery(from: possibleCocktails)) { cocktail in
                             Image(cocktail.image)
                                 .resizable()
+                                .scaledToFill()
                                 .frame(width: 150, height: 200)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                                 .onTapGesture {
@@ -58,6 +61,7 @@ struct HomeView: View {
                 }
                 .scrollIndicators(.hidden)
                 .contentMargins(18)
+                
                 HStack {
                     Text("Summer Ideas Ingredients")
                     Spacer()
@@ -86,23 +90,15 @@ struct HomeView: View {
                 Spacer()
             }
             .navigationDestination(item: $selectedCocktail) { cocktail in
-                CocktailDetailView(cocktail: cocktail, viewModel: swipeViewModel)
+                CocktailDetailView(cocktail: cocktail)
             }
             .navigationDestination(item: $selectedIngredient) { ingredient in
                 CocktailListView(ingredientCard: ingredient, viewModel: swipeViewModel)
             }
-            .navigationDestination(isPresented: $pushToBar) {
-                BarView()
-            }
-            .task {
-                swipeViewModel.getCocktails()
-            }
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItem {
-                    Button {
-                        pushToBar = true
-                    } label: {
+                    NavigationLink(destination: BarView()) {
                         Image(systemName: "wineglass")
                             .foregroundStyle(.limegreen)
                     }
@@ -115,15 +111,15 @@ struct HomeView: View {
     private func scrollBar(title: String, selectedCategory: Category, width: CGFloat, height: CGFloat) -> some View {
         Button(title) {
             withAnimation(.smooth) {
-                swipeViewModel.selectedCategory = selectedCategory
+                viewModel.selectedCategory = selectedCategory
             }
         }
         .foregroundStyle(.white)
         .frame(width: width, height: height)
-        .background(swipeViewModel.selectedCategory == selectedCategory ? .applered : .gray.opacity(0.6))
+        .background(viewModel.selectedCategory == selectedCategory ? .applered : .gray.opacity(0.6))
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .padding(.bottom, 5)
-        .scaleEffect(swipeViewModel.selectedCategory == selectedCategory ? 1.05 : 1)
+        .scaleEffect(viewModel.selectedCategory == selectedCategory ? 1.05 : 1)
     }
 }
 
