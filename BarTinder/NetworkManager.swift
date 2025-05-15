@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkManager { /// Doesn't need protocol because I control the json source
+final class NetworkManager { /// Doesn't need protocol because I control the json source
     
     func getCocktails() throws -> [CocktailResponse] {
         guard let url = Bundle.main.url(forResource: "cocktails", withExtension: "json") else {

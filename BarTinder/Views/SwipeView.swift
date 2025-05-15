@@ -61,6 +61,7 @@ struct SwipeView: View {
                             bottomButtons(image: "wineglass.fill", color: .blue) {
                                 //
                             }
+                            .opacity(0)
                             
                             bottomButtons(image: "heart.fill", color: .limegreen) {
                                 viewModel.triggerSwipeRight(card: topCard, context: context)
@@ -71,11 +72,12 @@ struct SwipeView: View {
                 }
             }
         } else {
-            HomeView(swipeViewModel: viewModel)
+            HomeView(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
                 .animation(.default, value: finishSwiping)
         }
     }
     
+    //MARK: - View Function
     
     private func bottomButtons(image: String, color: Color, action: @escaping () -> Void) -> some View {
         Button {

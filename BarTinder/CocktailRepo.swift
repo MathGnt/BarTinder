@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CocktailRepo: Servable {
+final class CocktailRepo: Servable {
 
     let networkManager: NetworkManager
     
@@ -27,7 +27,8 @@ class CocktailRepo: Servable {
                     ingredientsMeasures: ingredientMeasure,
                     isInBar: false,
                     isPossible: false,
-                    image: cocktailImage,
+                    imageName: cocktailImage,
+                    imageData: nil,
                     style: cocktail.style,
                     glass: cocktail.glass,
                     preparation: cocktail.preparation,

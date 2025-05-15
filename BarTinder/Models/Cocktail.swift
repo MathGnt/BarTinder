@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Model
 final class Cocktail: Identifiable {
@@ -16,7 +17,8 @@ final class Cocktail: Identifiable {
     var ingredientsMeasures: [IngredientMeasure]
     var isInBar: Bool
     var isPossible: Bool
-    var image: String
+    var imageName: String?
+    var imageData: Data?
     var style: String
     var glass: String
     var preparation: String
@@ -27,12 +29,23 @@ final class Cocktail: Identifiable {
     
     var id: String { self.name }
     
-    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, image: String, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String) {
+    var displayedImage: Image? {
+        if let name = imageName {
+            return Image(name)
+        }
+        if let data = imageData, let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
+        }
+        return Image("defaultpic")
+    }
+    
+    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, imageName: String?, imageData: Data?, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String) {
         self.name = name
         self.ingredientsMeasures = ingredientsMeasures
         self.isInBar = isInBar
         self.isPossible = isPossible
-        self.image = image
+        self.imageName = imageName
+        self.imageData = imageData
         self.style = style
         self.glass = glass
         self.preparation = preparation
@@ -44,7 +57,7 @@ final class Cocktail: Identifiable {
 }
 
 @Model
-class IngredientMeasure: Identifiable {
+final class IngredientMeasure: Identifiable {
     var ingredient: String
     var measure: String
     

@@ -12,7 +12,11 @@ import Observation
 @Observable
 final class HomeViewModel {
     
+    var selectedIngredient: Ingredient?
+    var selectedCocktail: Cocktail?
     var selectedCategory: Category = .possibleCocktails
+    var resetConfirmation = false
+    var showCreationSheet = false
     
     func sortQuery(from possibleCocktails: [Cocktail]) -> [Cocktail] {
         

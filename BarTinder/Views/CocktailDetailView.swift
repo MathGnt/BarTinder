@@ -10,15 +10,16 @@ import SwiftData
 
 struct CocktailDetailView: View {
     
+    @Environment(\.colorScheme) private var scheme
     @Environment(\.modelContext) private var context
     let cocktail: Cocktail
+    
     var body: some View {
         ZStack {
-            
             VStack {
                 ZStack(alignment: .bottom) {
                     
-                    topImage(cocktail: cocktail)
+                    topImage(cocktail: cocktail, scheme: scheme)
                     
                     VStack(spacing: 20) {
                         VStack(spacing: 10) {
@@ -56,7 +57,6 @@ struct CocktailDetailView: View {
                             cocktailDetail(title: "Glass", image: cocktail.glass)
                             
                         }
-                        
                     }
                 }
                 
@@ -76,20 +76,18 @@ struct CocktailDetailView: View {
                                 Text(ingredientMeasure.measure.capitalizedWords)
                             }
                         }
-                        
-                        
                     }
                     .padding()
                     .background(.thinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     Spacer()
                 }
-                
                 .padding(.top, 20)
                 .padding(.horizontal)
                 Spacer()
                 
             }
+            
             HStack {
                 Spacer()
                 VStack {
@@ -101,12 +99,10 @@ struct CocktailDetailView: View {
                             .foregroundStyle(.limegreen)
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 30)
-                           
-                        
                     }
                     Spacer()
                 }
-           
+                
             }
             .padding(.horizontal)
         }
@@ -115,20 +111,23 @@ struct CocktailDetailView: View {
     
 }
 
+
 private func isInBar(cocktail: Cocktail, context: ModelContext) {
     cocktail.isInBar.toggle()
     try? context.save()
 }
 
-private func topImage(cocktail: Cocktail) -> some View {
-    Image(cocktail.image)
+//MARK: - View Functions
+
+private func topImage(cocktail: Cocktail, scheme: ColorScheme) -> some View {
+    cocktail.displayedImage?
         .resizable()
         .aspectRatio(contentMode: .fill)
         .frame(height: 400)
         .frame(maxWidth: .infinity)
         .overlay(
             LinearGradient(
-                gradient: Gradient(colors: [Color.white.opacity(1.7), Color.white.opacity(0)]),
+                gradient: Gradient(colors: scheme == .light ? [Color.white.opacity(1.7), Color.white.opacity(0)] : [Color.black.opacity(1.7), Color.black.opacity(0)]),
                 startPoint: .bottom,
                 endPoint: .top
             )
@@ -155,5 +154,5 @@ private func cocktailDetail(title: String, image: String) -> some View {
 
 
 #Preview {
-    CocktailDetailView(cocktail: Cocktail(name: "Gin Tonic", ingredientsMeasures: [IngredientMeasure(ingredient: "gin", measure: "12 cl"), IngredientMeasure(ingredient: "tonic water", measure: "6 cl")], isInBar: true, isPossible: true, image: "gintonic", style: "longdrink", glass: "balloon", preparation: "Built", abv: "12", flavor: "Bitter", difficulty: 2, cocktailDescription: ""))
+    CocktailDetailView(cocktail: Cocktail(name: "Gin Tonic", ingredientsMeasures: [IngredientMeasure(ingredient: "gin", measure: "12 cl"), IngredientMeasure(ingredient: "tonic water", measure: "6 cl")], isInBar: true, isPossible: true, imageName: "gintonic", imageData: nil, style: "longdrink", glass: "balloon", preparation: "Built", abv: "12", flavor: "Bitter", difficulty: 2, cocktailDescription: ""))
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-class RepositoryMock: Servable {
+final class RepositoryMock: Servable {
     func getAllCocktails() throws -> [Cocktail] {
         let cocktails: [Cocktail] = [
-            .init(name: "Gin Tonic", ingredientsMeasures: [], isInBar: true, isPossible: true, image: "gintonic", style: "long drinks", glass: "highball", preparation: "Built", abv: "14", flavor: "Bitter", difficulty: 1, cocktailDescription: "Gin Tonic is the best cocktail in the world")
+            .init(name: "Gin Tonic", ingredientsMeasures: [], isInBar: true, isPossible: true, imageName: "gintonic", imageData: nil, style: "long drinks", glass: "highball", preparation: "Built", abv: "14", flavor: "Bitter", difficulty: 1, cocktailDescription: "Gin Tonic is the best cocktail in the world")
         ]
         
         return cocktails

@@ -13,12 +13,13 @@ struct BarView: View {
     @Environment(\.modelContext) private var context
     @State private var selectedCocktail: Cocktail?
     @Query(filter: Cocktail.isInBarPredicate()) private var barCocktails: [Cocktail]
+    
     var body: some View {
         
         List {
             ForEach(barCocktails) { cocktail in
                 HStack(spacing: 15) {
-                    Image(cocktail.image)
+                    cocktail.displayedImage?
                         .resizable()
                         .scaledToFill()
                         .frame(width: 60, height: 60)

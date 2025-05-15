@@ -10,11 +10,14 @@ import Foundation
 enum VMErrors: LocalizedError {
     
     case couldntFetchCocktails
+    case failedFetchDescriptor(any Error)
     
     var errorDescription: String? {
         switch self {
         case .couldntFetchCocktails:
             return "Couldn't fetch cocktails in the VM from the repo"
+        case .failedFetchDescriptor(let error):
+            return "Error fetching cocktails: \(error)"
         }
     }
 }

@@ -11,10 +11,10 @@ import SwiftUI
 import SwiftData
 
 @Observable
-class SwipeViewModel {
+final class SwipeViewModel {
     
     let repo: CocktailRepo
-    var ingredients: [IngredientCard] = []
+    var ingredients: [Ingredient] = []
 
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
@@ -29,23 +29,39 @@ class SwipeViewModel {
         self.repo = repo
     }
     
-    func getOffset(for card: IngredientCard) -> CGFloat {
-        return cardOffsets[card.id] ?? 0
-    }
-    
-    func setOffset(for card: IngredientCard, value: CGFloat) {
+    func setOffset(for card: Ingredient, value: CGFloat) {
         cardOffsets[card.id] = value
     }
     
-    func getRotation(for card: IngredientCard) -> Double {
-        return cardRotations[card.id] ?? 0
+    func getOffset(for card: Ingredient) -> CGFloat {
+        return cardOffsets[card.id] ?? 0
     }
     
-    func setRotation(for card: IngredientCard, value: Double) {
+    func setRotation(for card: Ingredient, value: Double) {
         cardRotations[card.id] = value
     }
     
-    func onChangedGesture(card: IngredientCard, translation: CGFloat) {
+    func getRotation(for card: Ingredient) -> Double {
+        return cardRotations[card.id] ?? 0
+    }
+    
+    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: Ingredient, context: ModelContext) {
+        let width = value.translation.width
+        
+        if abs(width) <= abs(threshold) {
+            recenter(card: card)
+            return
+        }
+        
+        if width >= threshold {
+            swipeRight(card: card, context: context)
+        } else {
+            swipeLeft(card: card)
+        }
+    }
+    
+    
+    func onChangedGesture(card: Ingredient, translation: CGFloat) {
         setOffset(for: card, value: translation)
         setRotation(for: card, value: translation / 25)
     }
@@ -65,10 +81,10 @@ class SwipeViewModel {
     }
     
     func addIngredients() {
-        self.ingredients = IngredientCard.ingredientCards
+        self.ingredients = Ingredient.ingredientCards
     }
     
-    func addIngredient(_ card: IngredientCard, context: ModelContext) {
+    func addIngredient(_ card: Ingredient, context: ModelContext) {
         selectedIngredients.insert(card.name)
         if let otherName = card.otherName {
             selectedIngredients.insert(otherName)
@@ -77,7 +93,7 @@ class SwipeViewModel {
         updatePossibleCocktails(context: context)
     }
     
-    func removeIngredient(_ card: IngredientCard) {
+    func removeIngredient(_ card: Ingredient) {
         guard let index = ingredients.firstIndex(where: { $0.id == card.id }) else { return }
         ingredients.remove(at: index)
         
@@ -109,32 +125,18 @@ class SwipeViewModel {
         do {
             return try context.fetch(FetchDescriptor<Cocktail>())
         } catch {
-            print("Error fetching cocktails: \(error)")
+            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
             return []
         }
     }
+ 
     
-    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: IngredientCard, context: ModelContext) {
-        let width = value.translation.width
-        
-        if abs(width) <= abs(threshold) {
-            recenter(card: card)
-            return
-        }
-        
-        if width >= threshold {
-            swipeRight(card: card, context: context)
-        } else {
-            swipeLeft(card: card)
-        }
-    }
-    
-    func recenter(card: IngredientCard) {
+    func recenter(card: Ingredient) {
         setOffset(for: card, value: 0)
         setRotation(for: card, value: 0)
     }
     
-    func swipeLeft(card: IngredientCard) {
+    func swipeLeft(card: Ingredient) {
         withAnimation {
             setOffset(for: card, value: -500)
             setRotation(for: card, value: -12)
@@ -146,7 +148,7 @@ class SwipeViewModel {
         }
     }
     
-    func swipeRight(card: IngredientCard, context: ModelContext) {
+    func swipeRight(card: Ingredient, context: ModelContext) {
         withAnimation {
             setOffset(for: card, value: 500)
             setRotation(for: card, value: 12)
@@ -159,11 +161,11 @@ class SwipeViewModel {
         }
     }
     
-    func triggerSwipeLeft(card: IngredientCard) {
+    func triggerSwipeLeft(card: Ingredient) {
         swipeLeft(card: card)
     }
     
-    func triggerSwipeRight(card: IngredientCard, context: ModelContext) {
+    func triggerSwipeRight(card: Ingredient, context: ModelContext) {
         swipeRight(card: card, context: context)
     }
 }

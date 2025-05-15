@@ -13,7 +13,7 @@ struct CardView: View {
     
     @Environment(\.modelContext) private var context
     
-    let card: IngredientCard
+    let card: Ingredient
     @Bindable var viewModel: SwipeViewModel
     
     var threshold: CGFloat {
@@ -58,6 +58,8 @@ struct CardView: View {
         )
     }
     
+    //MARK: - View Function
+    
     private func cardInfo(title: String, avb: String, location: String) -> some View {
         HStack {
             VStack(alignment: .leading) {
@@ -88,5 +90,5 @@ struct CardView: View {
 
 
 #Preview {
-    CardView(card: IngredientCard(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "Netherlands", summer: true), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    CardView(card: Ingredient(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "Netherlands", summer: true, unit: "Cl"), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
 }

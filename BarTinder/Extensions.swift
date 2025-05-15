@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 extension String {
     var capitalizedWords: String {
@@ -34,11 +35,30 @@ extension Cocktail {
         }
     }
     
-    static func cocktailAboutIngredient(ingredient: IngredientCard) -> Predicate<Cocktail> {
+    static func cocktailAboutIngredient(ingredient: Ingredient) -> Predicate<Cocktail> {
         let name = ingredient.name
         return #Predicate<Cocktail> {
             $0.ingredientsMeasures.contains { $0.ingredient == name }
         }
     }
+}
 
+extension View {
+    func characterLimit(_ limit: Int, text: Binding<String>) -> some View {
+        self
+            .onChange(of: text.wrappedValue) { oldValue, newValue in
+                if newValue.count > limit {
+                    text.wrappedValue = String(newValue.prefix(limit))
+                }
+            }
+    }
+}
+
+extension ModelContext {
+    func deleteAll<T: PersistentModel>(_ model: T.Type) throws {
+        let descriptor = FetchDescriptor<T>()
+        let results = try self.fetch(descriptor)
+        results.forEach { self.delete($0) }
+        try self.save()
+    }
 }

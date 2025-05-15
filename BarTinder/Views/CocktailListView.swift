@@ -9,11 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct CocktailListView: View {
-    let ingredientCard: IngredientCard
+    
+    let ingredientCard: Ingredient
     @Bindable var viewModel: SwipeViewModel
     @Query private var cocktails: [Cocktail]
     
-    init(ingredientCard: IngredientCard, viewModel: SwipeViewModel) {
+    init(ingredientCard: Ingredient, viewModel: SwipeViewModel) {
         self.ingredientCard = ingredientCard
         self.viewModel = viewModel
         
@@ -23,7 +24,7 @@ struct CocktailListView: View {
     var body: some View {
         List(cocktails) { cocktail in
             HStack(spacing: 15) {
-                Image(cocktail.image)
+                cocktail.displayedImage?
                     .resizable()
                     .scaledToFill()
                     .frame(width: 60, height: 60)
@@ -49,5 +50,5 @@ struct CocktailListView: View {
 }
 
 #Preview {
-    CocktailListView(ingredientCard: IngredientCard(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "UK", summer: true), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    CocktailListView(ingredientCard: Ingredient(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "UK", summer: true, unit: "Cl"), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
 }
