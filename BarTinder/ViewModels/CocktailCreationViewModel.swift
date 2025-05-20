@@ -89,12 +89,16 @@ final class CocktailCreationViewModel {
     }
     
     func isMeasureValid() -> Bool {
-        for (_, value) in cocktailMeasure {
-            if value == "" {
+        for ingredient in addedIngredients {
+            let value = cocktailMeasure[ingredient.id] ?? ""
+            if value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+               selectedUnit[ingredient.id] != .topUp,
+               selectedUnit[ingredient.id] != .toRinse {
                 isMeasureNotValid = true
                 return false
             }
         }
+        isMeasureNotValid = false
         return true
     }
     
