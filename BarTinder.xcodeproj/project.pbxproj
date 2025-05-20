@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		299C32E32DDC97360021FF93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2911C90A2DAF57BB005869CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2911C9112DAF57BB005869CB;
+			remoteInfo = BarTinder;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2911C9122DAF57BB005869CB /* BarTinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarTinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarTinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = BarTinder;
 			sourceTree = "<group>";
 		};
+		299C32E02DDC97360021FF93 /* BarTinderTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BarTinderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2911C90F2DAF57BB005869CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		299C32DC2DDC97360021FF93 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				2911C9142DAF57BB005869CB /* BarTinder */,
+				299C32E02DDC97360021FF93 /* BarTinderTests */,
 				2911C9132DAF57BB005869CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				2911C9122DAF57BB005869CB /* BarTinder.app */,
+				299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = 2911C9122DAF57BB005869CB /* BarTinder.app */;
 			productType = "com.apple.product-type.application";
 		};
+		299C32DE2DDC97360021FF93 /* BarTinderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinderTests" */;
+			buildPhases = (
+				299C32DB2DDC97360021FF93 /* Sources */,
+				299C32DC2DDC97360021FF93 /* Frameworks */,
+				299C32DD2DDC97360021FF93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				299C32E42DDC97360021FF93 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				299C32E02DDC97360021FF93 /* BarTinderTests */,
+			);
+			name = BarTinderTests;
+			packageProductDependencies = (
+			);
+			productName = BarTinderTests;
+			productReference = 299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					2911C9112DAF57BB005869CB = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					299C32DE2DDC97360021FF93 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 2911C9112DAF57BB005869CB;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				2911C9112DAF57BB005869CB /* BarTinder */,
+				299C32DE2DDC97360021FF93 /* BarTinderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2911C9102DAF57BB005869CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		299C32DD2DDC97360021FF93 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		299C32DB2DDC97360021FF93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		299C32E42DDC97360021FF93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2911C9112DAF57BB005869CB /* BarTinder */;
+			targetProxy = 299C32E32DDC97360021FF93 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2911C91C2DAF57BC005869CB /* Debug */ = {
@@ -323,6 +398,45 @@
 			};
 			name = Release;
 		};
+		299C32E62DDC97360021FF93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathisgaignet.BarTinderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder";
+			};
+			name = Debug;
+		};
+		299C32E72DDC97360021FF93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathisgaignet.BarTinderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -340,6 +454,15 @@
 			buildConfigurations = (
 				2911C91F2DAF57BC005869CB /* Debug */,
 				2911C9202DAF57BC005869CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				299C32E62DDC97360021FF93 /* Debug */,
+				299C32E72DDC97360021FF93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

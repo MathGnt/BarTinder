@@ -11,21 +11,21 @@ import SwiftUI
 import SwiftData
 
 @Observable
+@MainActor
 final class SwipeViewModel {
     
-    let repo: CocktailRepo
+    let repo: Servable
     var ingredients: [Ingredient] = []
 
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
-    
     var selectedIngredients: Set<String> = []
     
     var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
     
-    init(repo: CocktailRepo) {
+    init(repo: Servable) {
         self.repo = repo
     }
     

@@ -63,7 +63,7 @@ struct SwipeView: View {
                             }
                             .opacity(0)
                             
-                            bottomButtons(image: "heart.fill", color: .limegreen) {
+                            bottomButtons(image: "heart.fill", color: .turborider) {
                                 viewModel.triggerSwipeRight(card: topCard, context: context)
                             }
                         }
@@ -72,7 +72,7 @@ struct SwipeView: View {
                 }
             }
         } else {
-            HomeView(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
+            HomeView(finishSwiping: $finishSwiping, swipeViewModel: viewModel)
                 .animation(.default, value: finishSwiping)
         }
     }

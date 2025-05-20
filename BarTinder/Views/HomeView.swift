@@ -11,130 +11,126 @@ import SwiftData
 struct HomeView: View {
     
     @Environment(\.modelContext) private var context
-    @Query(filter: Cocktail.isPossiblePredicate()) var possibleCocktails: [Cocktail]
-    @Bindable var swipeViewModel: SwipeViewModel
     @State private var viewModel = HomeViewModel()
-    
+    @Namespace private var namespace
     @Binding var finishSwiping: Bool
+    
+    @Query(filter: Cocktail.isPossiblePredicate()) var possibleCocktails: [Cocktail]
+    let swipeViewModel: SwipeViewModel
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                ScrollView(.horizontal) {
-                    HStack {
-                        scrollBar
+            ScrollView {
+                VStack(spacing: 0) {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            scrollBar
+                        }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .padding(.horizontal)
+                        .padding(.top, 10)
                     }
-                    .buttonStyle(.plain)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .padding(.horizontal)
-                    .padding(.top, 10)
-                }
-                .scrollIndicators(.hidden)
-                
-                sectionTitle(title: "Your Cocktails")
-                
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(viewModel.sortQuery(from: possibleCocktails)) { cocktail in
-                            cocktail.displayedImage?
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 150, height: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .onTapGesture {
-                                    viewModel.selectedCocktail = cocktail
+                    .scrollIndicators(.hidden)
+                    
+                    sectionTitle(title: "Your Cocktails")
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(viewModel.sortQuery(from: possibleCocktails)) { cocktail in
+                                NavigationLink {
+                                    CocktailDetailView(cocktail: cocktail)
+                                        .navigationTransition(.zoom(sourceID: cocktail.id, in: namespace))
+                                } label: {
+                                    cocktailImageSource(cocktail: cocktail)
+                                        .matchedTransitionSource(id: cocktail.id, in: namespace)
                                 }
-                                .contentShape(
-                                    .contextMenuPreview,
-                                    RoundedRectangle(cornerRadius: 20)
-                                )
-                                .contextMenu {
-                                    Button("Delete", role: .destructive) {
-                                        context.delete(cocktail)
-                                        try? context.save()
+                            }
+                            
+                        }
+                    }
+                    .scrollIndicators(.hidden)
+                    .contentMargins(18)
+                    
+                    sectionTitle(title: "Summer Ideas Ingredients")
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(Ingredient.ingredientCards.filter { $0.summer == true }, id: \.self) { ingredient in
+                                Image(ingredient.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 150, height: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .onTapGesture {
+                                        viewModel.selectedIngredient = ingredient
                                     }
-                                }
-                        }
-                        .animation(.easeInOut, value: possibleCocktails)
-                        
-                    }
-                }
-                .scrollIndicators(.hidden)
-                .contentMargins(18)
-                
-                sectionTitle(title: "Summer Ideas Ingredients")
-                
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(Ingredient.ingredientCards.filter { $0.summer == true }, id: \.self) { ingredient in
-                            Image(ingredient.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 150, height: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .onTapGesture {
-                                    viewModel.selectedIngredient = ingredient
-                                }
-                        }
-                    }
-                }
-                .scrollIndicators(.hidden)
-                .contentMargins(18)
-                
-                Spacer()
-            }
-            .navigationDestination(item: $viewModel.selectedCocktail) { cocktail in
-                CocktailDetailView(cocktail: cocktail)
-            }
-            .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
-                CocktailListView(ingredientCard: ingredient, viewModel: swipeViewModel)
-            }
-            .navigationTitle("Home")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink(destination: BarView()) {
-                        Image(systemName: "wineglass")
-                            .foregroundStyle(.limegreen)
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        viewModel.resetConfirmation = true
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                    }
-                    .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
-                        Button("Reset") {
-                            do {
-                                try context.deleteAll(Cocktail.self)
-                                finishSwiping = false
-                            } catch {
-                                print(error.localizedDescription)
                             }
                         }
-                        Button("Canclel", role: .cancel) { }
                     }
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        viewModel.showCreationSheet = true
-                    } label: {
+                    .scrollIndicators(.hidden)
+                    .contentMargins(18)
+                    
+                    sectionTitle(title: "Winter Ideas Ingredients")
+                    
+                    ScrollView(.horizontal) {
                         HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(.limegreen)
-                         Text("Create Your Own")
-                                .foregroundStyle(.limegreen)
+                            ForEach(Ingredient.ingredientCards.filter { $0.summer == false }, id: \.self) { ingredient in
+                                Image(ingredient.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 150, height: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .onTapGesture {
+                                        viewModel.selectedIngredient = ingredient
+                                    }
+                            }
                         }
-                        .padding(2)
-                        .contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain)
-                    .sheet(isPresented: $viewModel.showCreationSheet) {
-                        NavigationStack {
-                            CocktailCreationView()
+                    .scrollIndicators(.hidden)
+                    .contentMargins(18)
+                    
+                    Spacer()
+                }
+                .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
+                    CocktailListView(ingredientCard: ingredient, viewModel: swipeViewModel)
+                }
+                .navigationTitle("Home")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink(destination: BarView()) {
+                            Image(systemName: "wineglass")
+                                .foregroundStyle(.turborider)
                         }
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            viewModel.resetConfirmation = true
+                        } label: {
+                            Image(systemName: "arrow.counterclockwise")
+                                .foregroundStyle(.turborider)
+                        }
+                        .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
+                            Button("Reset") {
+                                do {
+                                    try context.deleteAll(Cocktail.self)
+                                    finishSwiping = false
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
+                            Button("Canclel", role: .cancel) { }
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        createNewCocktailButton
+                            .sheet(isPresented: $viewModel.showCreationSheet) {
+                                NavigationStack {
+                                    CocktailCreationView()
+                                }
+                            }
                     }
                 }
             }
@@ -152,6 +148,40 @@ struct HomeView: View {
         scrollBarItem(title: "Whisky", selectedCategory: .whisky, width: 80, height: 30)
         scrollBarItem(title: "Short Drinks", selectedCategory: .shortDrink, width: 110, height: 30)
         scrollBarItem(title: "Long Drinks", selectedCategory: .longDrink, width: 110, height: 30)
+    }
+    
+    private func cocktailImageSource(cocktail: Cocktail) -> some View {
+        cocktail.displayedImage?
+            .resizable()
+            .scaledToFill()
+            .frame(width: 150, height: 200)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .contentShape(
+                .contextMenuPreview,
+                RoundedRectangle(cornerRadius: 20)
+            )
+            .contextMenu {
+                Button("Delete", role: .destructive) {
+                    context.delete(cocktail)
+                    try? context.save()
+                }
+            }
+    }
+    
+    private var createNewCocktailButton: some View {
+        Button {
+            viewModel.showCreationSheet = true
+        } label: {
+            HStack {
+                Image(systemName: "plus.circle.fill")
+                    .foregroundStyle(.turborider)
+             Text("Create Your Own")
+                    .foregroundStyle(.turborider)
+            }
+            .padding(2)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
     
     private func scrollBarItem(title: String, selectedCategory: Category, width: CGFloat, height: CGFloat) -> some View {
@@ -180,5 +210,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(swipeViewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())), finishSwiping: .constant(true))
+    HomeView(finishSwiping: .constant(true), swipeViewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
 }

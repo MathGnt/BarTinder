@@ -10,10 +10,10 @@ import SwiftData
 import Observation
 
 @Observable
+@MainActor
 final class HomeViewModel {
     
     var selectedIngredient: Ingredient?
-    var selectedCocktail: Cocktail?
     var selectedCategory: Category = .possibleCocktails
     var resetConfirmation = false
     var showCreationSheet = false

@@ -20,20 +20,11 @@ struct CocktailCreationView: View {
             Section {
                 HStack(spacing: 15) {
                     PhotosPicker(selection: $viewModel.selectedPic, matching: .images) {
-                        if let data = viewModel.selectedImage, let uiImage = UIImage(data: data) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 75, height: 75)
-                                .clipShape(Circle())
-                                .clipped()
-                        } else {
-                            placeHolderPicture
-                        }
+                        photoPreview
                     }
                     .onChange(of: viewModel.selectedPic) { oldValue, newValue in
                         Task {
-                           await viewModel.loadSelectedImage()
+                            await viewModel.loadSelectedImage()
                         }
                     }
                     
@@ -80,7 +71,7 @@ struct CocktailCreationView: View {
                 HStack(spacing: 15) {
                     pickerImageSys(title: "wineglass", color: .applered)
                     Toggle("Add To Bar", isOn: $viewModel.addToBar)
-                        .tint(.limegreen)
+                        .tint(.turborider)
                 }
             }
            
@@ -113,7 +104,7 @@ struct CocktailCreationView: View {
     
     //MARK: - View Properties and Functions
     
-   private var placeHolderPicture: some View {
+    private var placeHolderPicture: some View {
         ZStack {
             Circle()
                 .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
@@ -134,8 +125,22 @@ struct CocktailCreationView: View {
             Text("Edit")
                 .offset(y: 27)
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
                 
+        }
+    }
+    
+    @ViewBuilder
+    private var photoPreview: some View {
+        if let data = viewModel.selectedImage, let uiImage = UIImage(data: data) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 75, height: 75)
+                .clipShape(Circle())
+                .clipped()
+        } else {
+            placeHolderPicture
         }
     }
     
@@ -158,7 +163,7 @@ struct CocktailCreationView: View {
     private var cocktailGlassPicker: some View {
         HStack(spacing: 15) {
             ZStack {
-                pickerImage(title: viewModel.cocktailGlass.rawValue, color: .white)
+                pickerImage(title: viewModel.cocktailGlass.rawValue, color: .blue.opacity(0.6))
                
             }
             Picker("Cocktail Glass", selection: $viewModel.cocktailGlass) {
@@ -201,7 +206,9 @@ struct CocktailCreationView: View {
                 .frame(width: 29, height: 27)
                 .foregroundStyle(color)
             Image(systemName: title)
-                .frame(width: 23, height: 23)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 18)
                 .foregroundStyle(.black)
         }
     }
@@ -222,3 +229,5 @@ struct CocktailCreationView: View {
 #Preview {
     CocktailCreationView()
 }
+    
+

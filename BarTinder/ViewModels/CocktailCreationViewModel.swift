@@ -11,6 +11,7 @@ import SwiftUI
 import PhotosUI
 
 @Observable
+@MainActor
 final class CocktailCreationViewModel {
     
     var ingredients: [Ingredient] = []

@@ -89,7 +89,7 @@ struct IngredientsListCreationElmt: View {
             Image(systemName: "plus.circle.fill")
                 .resizable()
                 .frame(width: 20, height: 20)
-                .foregroundStyle(viewModel.addedIngredients.contains(ingredient) ? .gray : .limegreen)
+                .foregroundStyle(viewModel.addedIngredients.contains(ingredient) ? .gray : .turborider)
         }
         .buttonStyle(BorderlessButtonStyle())
     }

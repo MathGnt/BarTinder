@@ -11,8 +11,9 @@ import SwiftData
 struct CocktailListView: View {
     
     let ingredientCard: Ingredient
-    @Bindable var viewModel: SwipeViewModel
+    let viewModel: SwipeViewModel
     @Query private var cocktails: [Cocktail]
+    @State private var selectedCocktail: Cocktail?
     
     init(ingredientCard: Ingredient, viewModel: SwipeViewModel) {
         self.ingredientCard = ingredientCard
@@ -45,6 +46,13 @@ struct CocktailListView: View {
                     .scaledToFill()
                     .frame(width: 25, height: 25)
             }
+            .onTapGesture {
+                selectedCocktail = cocktail
+            }
+        }
+        .navigationTitle(ingredientCard.name.capitalizedWords)
+        .navigationDestination(item: $selectedCocktail) { cocktail in
+            CocktailDetailView(cocktail: cocktail)
         }
     }
 }

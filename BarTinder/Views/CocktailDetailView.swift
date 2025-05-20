@@ -61,7 +61,7 @@ struct CocktailDetailView: View {
                 }
                 
                 HStack {
-                    VStack(alignment: .center, spacing: 5) {
+                    VStack(alignment: .center, spacing: 4) {
                         Text("Ingredients")
                             .font(.system(size: 17, design: .serif))
                         
@@ -82,7 +82,7 @@ struct CocktailDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top, 15)
                 .padding(.horizontal)
                 Spacer()
                 
@@ -96,7 +96,7 @@ struct CocktailDetailView: View {
                     } label: {
                         Image(systemName: cocktail.isInBar ? "wineglass.fill" : "wineglass")
                             .resizable()
-                            .foregroundStyle(.limegreen)
+                            .foregroundStyle(.turborider)
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 30)
                     }
@@ -106,6 +106,7 @@ struct CocktailDetailView: View {
             }
             .padding(.horizontal)
         }
+        .toolbarRole(.editor)
         
     }
     
