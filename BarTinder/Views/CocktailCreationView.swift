@@ -11,22 +11,14 @@ import PhotosUI
 
 struct CocktailCreationView: View {
     
-    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel = CocktailCreationViewModel()
+    @State private var viewModel = PatchBay.patch.makeCocktailCreationViewModel()
     
     var body: some View {
         List {
             Section {
                 HStack(spacing: 15) {
-                    PhotosPicker(selection: $viewModel.selectedPic, matching: .images) {
-                        photoPreview
-                    }
-                    .onChange(of: viewModel.selectedPic) { oldValue, newValue in
-                        Task {
-                            await viewModel.loadSelectedImage()
-                        }
-                    }
+                    photosPickerSection(viewModel: viewModel, selectedImage: $viewModel.selectedPic)
                     
                     Text(viewModel.cocktailName)
                         .font(.system(size: 23, weight: .semibold, design: .rounded))
@@ -74,31 +66,13 @@ struct CocktailCreationView: View {
                         .tint(.turborider)
                 }
             }
-           
+            
         }
         .navigationTitle("New Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button {
-                    viewModel.createCocktail(context: context)
-                    if !viewModel.isNotValid {
-                        dismiss()
-                    }
-                } label: {
-                    Text("Done")
-                }
-                .alert("Please complete all the fields", isPresented: $viewModel.isNotValid) {
-                    Button("Ok", role: .cancel) { }
-                }
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Cancel")
-                }
-            }
+            createCocktailButton
+            cancelButton
         }
     }
     
@@ -126,7 +100,7 @@ struct CocktailCreationView: View {
                 .offset(y: 27)
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundStyle(.white)
-                
+            
         }
     }
     
@@ -144,14 +118,14 @@ struct CocktailCreationView: View {
         }
     }
     
-   private var cocktailStylePicker: some View {
+    private var cocktailStylePicker: some View {
         HStack(spacing: 15) {
             ZStack {
                 RoundedRectangle(cornerRadius: 5)
                     .frame(width: 29, height: 27)
                     .foregroundStyle(.yellow)
                 pickerImage(title: viewModel.cocktailStyle.rawValue, color: .yellow)
-               
+                
             }
             Picker("Cocktail Style", selection: $viewModel.cocktailStyle) {
                 Text("Long Drink").tag(CocktailCreationViewModel.CocktailStyle.longDrink)
@@ -164,7 +138,7 @@ struct CocktailCreationView: View {
         HStack(spacing: 15) {
             ZStack {
                 pickerImage(title: viewModel.cocktailGlass.rawValue, color: .blue.opacity(0.6))
-               
+                
             }
             Picker("Cocktail Glass", selection: $viewModel.cocktailGlass) {
                 ForEach(CocktailCreationViewModel.CocktailGlass.allCases) { glass in
@@ -224,10 +198,85 @@ struct CocktailCreationView: View {
                 .foregroundStyle(.black)
         }
     }
+    
+    
+    private var createCocktailButton: some ToolbarContent {
+        ToolbarItem(placement: .confirmationAction) {
+            Button {
+                viewModel.createCocktail()
+                dismiss()
+            } label: {
+                Text("Done")
+            }
+        }
+    }
+    
+    private var cancelButton: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button {
+                dismiss()
+            } label: {
+                Text("Cancel")
+            }
+        }
+    }
 }
+
+
+@MainActor @ViewBuilder
+func photosPickerSection(viewModel: CocktailCreationViewModel, selectedImage: Binding<PhotosPickerItem?>) -> some View {
+    let selectedImageData = viewModel.selectedImage
+    
+    PhotosPicker(selection: selectedImage, matching: .images) {
+        photoPreviewContent(imageData: selectedImageData)
+    }
+    .onChange(of: viewModel.selectedPic) { oldValue, newValue in
+        Task {
+            await viewModel.loadSelectedImage()
+        }
+    }
+}
+
+@ViewBuilder
+private func photoPreviewContent(imageData: Data?) -> some View {
+    if let data = imageData, let uiImage = UIImage(data: data) {
+        Image(uiImage: uiImage)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 75, height: 75)
+            .clipShape(Circle())
+            .clipped()
+    } else {
+        placeHolderPicture
+    }
+}
+
+private var placeHolderPicture: some View {
+    ZStack {
+        Circle()
+            .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
+            .frame(width: 75, height: 75)
+        
+        Image(systemName: "photo.circle.fill")
+            .resizable()
+            .foregroundStyle(.gray)
+            .scaledToFill()
+            .frame(width: 80, height: 80)
+            .clipShape(Circle())
+            .clipped()
+        Circle()
+            .trim(from: 0.67, to: 1)
+            .rotationEffect(.degrees(149.5))
+            .frame(height: 75)
+            .foregroundStyle(.black.opacity(0.5))
+        Text("Edit")
+            .offset(y: 27)
+            .font(.system(size: 13, weight: .semibold, design: .rounded))
+            .foregroundStyle(.white)
+    }
+}
+
 
 #Preview {
     CocktailCreationView()
 }
-    
-

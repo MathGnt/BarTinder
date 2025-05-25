@@ -10,17 +10,11 @@ import SwiftData
 
 struct SwipeView: View {
     
-    @Environment(\.modelContext) private var context
-    @State private var viewModel: SwipeViewModel
+    @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
     @AppStorage("finish-swiping") private var finishSwiping: Bool = false
-    
-    init(repo: CocktailRepo) {
-        _viewModel = State(initialValue: SwipeViewModel(repo: repo))
-    }
     
     var body: some View {
         if finishSwiping == false {
-            
             ZStack {
                 Color(.white)
                     .ignoresSafeArea()
@@ -40,13 +34,11 @@ struct SwipeView: View {
                             CardView(card: card, viewModel: viewModel)
                         }
                     }
-                    .onAppear {
-                        viewModel.getCocktails(context: context)
-                    }
+                    
                     .onChange(of: viewModel.ingredients) { oldValue, newValue in
                         if !newValue.isEmpty { return }
                         
-                        viewModel.updatePossibleCocktails(context: context)
+                        viewModel.updatePossibleCocktails()
                         withAnimation(.default) {
                             finishSwiping = true
                         }
@@ -64,12 +56,15 @@ struct SwipeView: View {
                             .opacity(0)
                             
                             bottomButtons(image: "heart.fill", color: .turborider) {
-                                viewModel.triggerSwipeRight(card: topCard, context: context)
+                                viewModel.triggerSwipeRight(card: topCard)
                             }
                         }
                     }
                     .frame(height: 100)
                 }
+            }
+            .onAppear {
+                viewModel.getCocktails()
             }
         } else {
             HomeView(finishSwiping: $finishSwiping, swipeViewModel: viewModel)
@@ -99,7 +94,6 @@ struct SwipeView: View {
 }
 
 
-
 #Preview {
-    SwipeView(repo: CocktailRepo(networkManager: NetworkManager()))
+    SwipeView()
 }

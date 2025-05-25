@@ -6,13 +6,37 @@
 //
 
 import Foundation
+import SwiftData
 
 final class CocktailRepo: Servable {
 
     let networkManager: NetworkManager
+    private let context: ModelContext
     
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager    
+    init(networkManager: NetworkManager, context: ModelContext) {
+        self.networkManager = networkManager
+        self.context = context
+    }
+    
+    func contextInsert(_ cocktail: Cocktail) {
+        context.insert(cocktail)
+    }
+    
+    func contextSave() {
+        do {
+            try context.save()
+        } catch {
+            print("Save failed: \(error)")
+        }
+    }
+    
+    func getContextContent() -> [Cocktail] {
+        do {
+            return try context.fetch(FetchDescriptor<Cocktail>())
+        } catch {
+            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
+            return []
+        }
     }
 
     func getAllCocktails() throws -> [Cocktail] {

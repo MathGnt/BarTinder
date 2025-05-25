@@ -11,12 +11,30 @@ import SwiftData
 @main
 struct BarTinderApp: App {
     
-    let cocktailRepo = CocktailRepo(networkManager: NetworkManager())
+    let container: ModelContainer
+    
+    init() {
+         do {
+             container = try ModelContainer(for: Cocktail.self)
+             PatchBay.patch.setContext(ModelContext(container))
+         } catch {
+             do {
+                 container = try ModelContainer(
+                     for: Cocktail.self,
+                     configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+                 )
+                 PatchBay.patch.setContext(ModelContext(container))
+                 print("Using in-memory container as fallback")
+             } catch {
+                 fatalError("Failed to create even in-memory container: \(error)")
+             }
+         }
+     }
     
     var body: some Scene {
         WindowGroup {
-            SwipeView(repo: cocktailRepo)
+            SwipeView()
         }
-        .modelContainer(for: Cocktail.self)
+        .modelContainer(container)
     }
 }

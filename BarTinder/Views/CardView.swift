@@ -14,7 +14,7 @@ struct CardView: View {
     @Environment(\.modelContext) private var context
     
     let card: Ingredient
-    @Bindable var viewModel: SwipeViewModel
+    let viewModel: SwipeViewModel
     
     var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
@@ -53,7 +53,7 @@ struct CardView: View {
                     viewModel.onChangedGesture(card: card, translation: value.translation.width)
                 }
                 .onEnded { value in
-                    viewModel.onEndedGesture(value, card, context: context)
+                    viewModel.onEndedGesture(value, card)
                 }
         )
     }
@@ -90,5 +90,5 @@ struct CardView: View {
 
 
 #Preview {
-    CardView(card: Ingredient(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "Netherlands", summer: true, unit: "Cl"), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    CardView(card: Ingredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
 }

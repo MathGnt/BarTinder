@@ -155,5 +155,5 @@ private func cocktailDetail(title: String, image: String) -> some View {
 
 
 #Preview {
-    CocktailDetailView(cocktail: Cocktail(name: "Gin Tonic", ingredientsMeasures: [IngredientMeasure(ingredient: "gin", measure: "12 cl"), IngredientMeasure(ingredient: "tonic water", measure: "6 cl")], isInBar: true, isPossible: true, imageName: "gintonic", imageData: nil, style: "longdrink", glass: "balloon", preparation: "Built", abv: "12", flavor: "Bitter", difficulty: 2, cocktailDescription: ""))
+    CocktailDetailView(cocktail: Cocktail.mocks)
 }

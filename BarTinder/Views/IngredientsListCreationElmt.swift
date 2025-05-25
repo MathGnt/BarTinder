@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct IngredientsListCreationElmt: View {
     
@@ -54,16 +55,16 @@ struct IngredientsListCreationElmt: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
-                    if viewModel.isMeasureValid() {
+//                    if viewModel.isMeasureValid() {
                         viewModel.createIngredientsMeasures()
                         dismiss()
-                    }
+//                    }
                 } label: {
                     Text("Done")
                 }
-                .alert("Please complete all the measure fields", isPresented: $viewModel.isMeasureNotValid) {
-                    Button("Cancel", role: .cancel) { }
-                }
+//                .alert("Please complete all the measure fields", isPresented: $viewModel.isMeasureNotValid) {
+//                    Button("Cancel", role: .cancel) { }
+//                }
             }
         }
     }
@@ -111,5 +112,5 @@ struct IngredientsListCreationElmt: View {
 }
 
 #Preview {
-    IngredientsListCreationElmt(viewModel: CocktailCreationViewModel())
+    IngredientsListCreationElmt(viewModel: PatchBay.patch.makeCocktailCreationViewModel())
 }

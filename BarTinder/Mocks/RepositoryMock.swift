@@ -6,10 +6,47 @@
 //
 
 import Foundation
+import SwiftData
+
 
 final class RepositoryMock: Servable {
+    
+    let context: ModelContext
+    
+    init(context: ModelContext) {
+        self.context = context
+    }
+    
+    func contextInsert(_ cocktail: Cocktail) {
+        context.insert(cocktail)
+    }
+    
+    func contextSave() {
+        do {
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func getContextContent() -> [Cocktail] {
+        do {
+            return try context.fetch(FetchDescriptor<Cocktail>())
+        } catch {
+            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
+            return []
+        }
+    }
+    
     func getAllCocktails() throws -> [Cocktail] {
-        let cocktails: [Cocktail] = [
+        return getMockCocktails()
+    }
+    
+
+ 
+    
+    private func getMockCocktails() -> [Cocktail] {
+        return [
             .init(
                 name: "Old Fashioned",
                 ingredientsMeasures: [
@@ -91,9 +128,6 @@ final class RepositoryMock: Servable {
                 cocktailDescription: "Popularized in the 1990s, the Cosmopolitan is a chic and tangy cocktail. Best enjoyed during lively urban nights and festive occasions."
             )
         ]
-        
-        return cocktails
     }
-    
-    
 }
+

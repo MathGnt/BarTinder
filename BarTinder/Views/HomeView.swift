@@ -162,8 +162,14 @@ struct HomeView: View {
             )
             .contextMenu {
                 Button("Delete", role: .destructive) {
-                    context.delete(cocktail)
-                    try? context.save()
+                    withAnimation {
+                        cocktail.isPossible = false
+                        do {
+                            try context.save()
+                        } catch {
+                            print("Failed to delete: \(error)")
+                        }
+                    }
                 }
             }
     }
@@ -210,5 +216,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(finishSwiping: .constant(true), swipeViewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    HomeView(finishSwiping: .constant(true), swipeViewModel: PatchBay.patch.makeSwipeViewModel())
 }

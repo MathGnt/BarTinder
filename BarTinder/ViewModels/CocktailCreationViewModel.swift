@@ -14,6 +14,8 @@ import PhotosUI
 @MainActor
 final class CocktailCreationViewModel {
     
+    let useCase: Buildable
+    
     var ingredients: [Ingredient] = []
     var addedIngredients: [Ingredient] = []
     var ingredientsMeasures: [IngredientMeasure] = []
@@ -41,11 +43,9 @@ final class CocktailCreationViewModel {
         }
     }
     
-    var isNotValid = false
-    var isMeasureNotValid = false
-    
-    init() {
+    init(useCase: Buildable) {
         self.ingredients = Ingredient.ingredientCards
+        self.useCase = useCase
     }
     
     func textFieldPlaceholder(for id: String) -> String {
@@ -78,47 +78,12 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func isValid() -> Bool {
-        guard cocktailName != "" else { return false }
-        guard cocktailDescription != "" else { return false }
-        guard cocktailAbv != "" else { return false }
-        guard cocktailFlavor != "" else { return false }
-        guard !addedIngredients.isEmpty else { return false }
-        
-        return true
-    }
-    
-    func isMeasureValid() -> Bool {
-        for ingredient in addedIngredients {
-            let value = cocktailMeasure[ingredient.id] ?? ""
-            if value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-               selectedUnit[ingredient.id] != .topUp,
-               selectedUnit[ingredient.id] != .toRinse {
-                isMeasureNotValid = true
-                return false
-            }
-        }
-        isMeasureNotValid = false
-        return true
-    }
-    
     func createIngredientsMeasures() {
-        
-        var ingredientsMeasures: [IngredientMeasure] = []
-        
-        for ingredient in addedIngredients {
-            let measure = cocktailMeasure[ingredient.id]
-            let unit = selectedUnit[ingredient.id] ?? .cl
-            print("measure is \(String(describing: measure)) and unit is \(String(describing: unit))")
-            
-            if let measure {
-                print("final name is \(measure + " " + unit.rawValue)")
-                let newIngredientMeasure = IngredientMeasure(ingredient: ingredient.name, measure: measure + " " + unit.rawValue)
-                print("new ingredient measure is \(newIngredientMeasure)")
-                ingredientsMeasures.append(newIngredientMeasure)
-            }
-        }
-        self.ingredientsMeasures = ingredientsMeasures
+        self.ingredientsMeasures = useCase.makeIngredientMeasures(
+            ingredients: addedIngredients,
+            cocktailMeasure: cocktailMeasure,
+            selectedUnit: selectedUnit
+        )
     }
     
     func loadSelectedImage() async {
@@ -132,11 +97,7 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func createCocktail(context: ModelContext) {
-        guard isValid() else {
-            isNotValid = true
-            return
-        }
+    func createCocktail() {
         
         let newCocktail = Cocktail(
             name: cocktailName,
@@ -154,8 +115,7 @@ final class CocktailCreationViewModel {
             cocktailDescription: cocktailDescription
         )
         
-        context.insert(newCocktail)
-        try? context.save()
+        useCase.createNewCocktail(newCocktail)
     }
     
     enum CocktailStyle: String, Identifiable, CaseIterable {

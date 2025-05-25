@@ -58,5 +58,5 @@ struct CocktailListView: View {
 }
 
 #Preview {
-    CocktailListView(ingredientCard: Ingredient(image: "gin", name: "Gin", otherName: nil, AVB: "40", location: "UK", summer: true, unit: "Cl"), viewModel: SwipeViewModel(repo: CocktailRepo(networkManager: NetworkManager())))
+    CocktailListView(ingredientCard: Ingredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
 }

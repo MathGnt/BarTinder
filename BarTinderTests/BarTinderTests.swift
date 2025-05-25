@@ -14,13 +14,18 @@ class BarTinderTests {
     
     @Test("Should return correct cocktails after swiping cards")
     func correctCocktails() async throws {
-        let viewModel = SwipeViewModel(repo: RepositoryMock())
         
         /// Swift Data setup
         let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let context = ModelContext(container)
         
-        viewModel.getCocktails(context: context)
+        let repo = RepositoryMock(context: context)
+        let useCase = SwipeViewUseCase(repo: repo)
+        let viewModel = SwipeViewModel(useCase: useCase)
+        
+ 
+        
+        viewModel.getCocktails()
         
         let ingredients: [Ingredient] = [
             .init(image: "mint", name: "mint", otherName: nil, AVB: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
@@ -37,7 +42,7 @@ class BarTinderTests {
         ]
         
         for selectedIngredient in ingredients {
-            viewModel.addIngredient(selectedIngredient, context: context)
+            viewModel.addIngredient(selectedIngredient)
         }
         
         let descriptor = FetchDescriptor<Cocktail>()

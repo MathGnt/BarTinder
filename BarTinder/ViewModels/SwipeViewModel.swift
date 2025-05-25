@@ -14,7 +14,7 @@ import SwiftData
 @MainActor
 final class SwipeViewModel {
     
-    let repo: Servable
+    let useCase: Swipable
     var ingredients: [Ingredient] = []
 
     private var cardOffsets: [String: CGFloat] = [:]
@@ -25,8 +25,8 @@ final class SwipeViewModel {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
     
-    init(repo: Servable) {
-        self.repo = repo
+    init(useCase: Swipable) {
+        self.useCase = useCase
     }
     
     func setOffset(for card: Ingredient, value: CGFloat) {
@@ -45,7 +45,7 @@ final class SwipeViewModel {
         return cardRotations[card.id] ?? 0
     }
     
-    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: Ingredient, context: ModelContext) {
+    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: Ingredient) {
         let width = value.translation.width
         
         if abs(width) <= abs(threshold) {
@@ -54,7 +54,7 @@ final class SwipeViewModel {
         }
         
         if width >= threshold {
-            swipeRight(card: card, context: context)
+            swipeRight(card: card)
         } else {
             swipeLeft(card: card)
         }
@@ -66,31 +66,26 @@ final class SwipeViewModel {
         setRotation(for: card, value: translation / 25)
     }
     
-    func getCocktails(context: ModelContext) {
+    func getCocktails() {
         addIngredients()
-        do {
-            let cocktails = try repo.getAllCocktails()
-            print("cocktails fetched are \(cocktails)")
-            for cocktail in cocktails {
-                context.insert(cocktail)
-            }
-            
-        } catch {
-            print(VMErrors.couldntFetchCocktails.localizedDescription as Any)
-        }
+        useCase.getCocktails()
     }
     
     func addIngredients() {
         self.ingredients = Ingredient.ingredientCards
     }
     
-    func addIngredient(_ card: Ingredient, context: ModelContext) {
+    func addIngredient(_ card: Ingredient) {
         selectedIngredients.insert(card.name)
         if let otherName = card.otherName {
             selectedIngredients.insert(otherName)
         }
         print("added \(card.name) to the selection SET")
-        updatePossibleCocktails(context: context)
+        updatePossibleCocktails()
+    }
+    
+    func updatePossibleCocktails() {
+        useCase.updatePossibleCocktails(selectedIngredients: selectedIngredients)
     }
     
     func removeIngredient(_ card: Ingredient) {
@@ -102,34 +97,6 @@ final class SwipeViewModel {
         
         print("removed \(card.name)")
     }
-    
-    func updatePossibleCocktails(context: ModelContext) {
-        print("Updating possible cocktails with \(selectedIngredients.count) ingredients")
-        let cocktails = getContextContent(context: context)
-        for cocktail in cocktails {
-            let ingredientNames = Set(cocktail.ingredientsMeasures.map { $0.ingredient })
-            if selectedIngredients.isSuperset(of: ingredientNames) {
-                print("found a cocktail!! \(cocktail)")
-                cocktail.isPossible = true
-            }
-        }
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving cocktails: \(error)")
-        }
-    }
-    
-    func getContextContent(context: ModelContext) -> [Cocktail] {
-        do {
-            return try context.fetch(FetchDescriptor<Cocktail>())
-        } catch {
-            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
-            return []
-        }
-    }
- 
     
     func recenter(card: Ingredient) {
         setOffset(for: card, value: 0)
@@ -143,21 +110,21 @@ final class SwipeViewModel {
         }
         
         Task {
-            try? await Task.sleep(nanoseconds: 300_000_000)
+            try? await Task.sleep(for: .seconds(0.3))
             removeIngredient(card)
         }
     }
     
-    func swipeRight(card: Ingredient, context: ModelContext) {
+    func swipeRight(card: Ingredient) {
         withAnimation {
             setOffset(for: card, value: 500)
             setRotation(for: card, value: 12)
         }
         
         Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 300_000_000)
+            try? await Task.sleep(for: .seconds(0.3))
             removeIngredient(card)
-            addIngredient(card, context: context)
+            addIngredient(card)
         }
     }
     
@@ -165,8 +132,8 @@ final class SwipeViewModel {
         swipeLeft(card: card)
     }
     
-    func triggerSwipeRight(card: Ingredient, context: ModelContext) {
-        swipeRight(card: card, context: context)
+    func triggerSwipeRight(card: Ingredient) {
+        swipeRight(card: card)
     }
 }
 
