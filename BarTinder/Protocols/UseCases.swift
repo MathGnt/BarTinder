@@ -13,11 +13,12 @@ protocol Buildable {
         ingredients: [Ingredient],
         cocktailMeasure: [String: String],
         selectedUnit: [String: CocktailCreationViewModel.Units]
-    ) -> [IngredientMeasure]
+    ) throws -> [IngredientMeasure]
     func createNewCocktail(_ cocktail: Cocktail)
+    func textValid(_ strings: String...) -> Bool
 }
 
 protocol Swipable {
-    func getCocktails()
-    func updatePossibleCocktails(selectedIngredients: Set<String>)
+    func executeGetCocktails()
+    func executeUpdatePossibleCocktails(selectedIngredients: Set<String>)
 }

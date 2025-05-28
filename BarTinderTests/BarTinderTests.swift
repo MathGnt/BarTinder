@@ -20,7 +20,7 @@ class BarTinderTests {
         let context = ModelContext(container)
         
         let repo = RepositoryMock(context: context)
-        let useCase = SwipeViewUseCase(repo: repo)
+        let useCase = SwipeUseCase(repo: repo)
         let viewModel = SwipeViewModel(useCase: useCase)
         
  

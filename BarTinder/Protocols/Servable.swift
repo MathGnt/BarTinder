@@ -9,6 +9,7 @@ import Foundation
 
 protocol Servable {
     func contextInsert(_ cocktail: Cocktail)
+    func contextDelete(_ cocktail: Cocktail)
     func contextSave()
     func getContextContent() -> [Cocktail]
     func getAllCocktails() throws -> [Cocktail]

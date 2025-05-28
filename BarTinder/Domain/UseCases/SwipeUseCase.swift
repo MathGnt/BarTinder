@@ -1,5 +1,5 @@
 //
-//  SwipeViewUseCase.swift
+//  SwipeUseCase.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 24/05/2025.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class SwipeViewUseCase: Swipable {
+class SwipeUseCase: Swipable {
     
     let repo: Servable
     
@@ -16,7 +16,7 @@ class SwipeViewUseCase: Swipable {
         self.repo = repo
     }
     
-    func getCocktails() {
+    func executeGetCocktails() {
         do {
             let cocktails = try repo.getAllCocktails()
             for cocktail in cocktails {
@@ -28,7 +28,7 @@ class SwipeViewUseCase: Swipable {
         }
     }
     
-    func updatePossibleCocktails(selectedIngredients: Set<String>) {
+    func executeUpdatePossibleCocktails(selectedIngredients: Set<String>) {
         let cocktails = repo.getContextContent()
         for cocktail in cocktails {
             let ingredientNames = Set(cocktail.ingredientsMeasures.map { $0.ingredient })

@@ -15,13 +15,12 @@ import SwiftData
 final class SwipeViewModel {
     
     let useCase: Swipable
-    var ingredients: [Ingredient] = []
+    private(set) var ingredients: [Ingredient] = []
 
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
-    var selectedIngredients: Set<String> = []
-    
-    var threshold: CGFloat {
+    private var selectedIngredients: Set<String> = []
+    private var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
     
@@ -68,7 +67,7 @@ final class SwipeViewModel {
     
     func getCocktails() {
         addIngredients()
-        useCase.getCocktails()
+        useCase.executeGetCocktails()
     }
     
     func addIngredients() {
@@ -85,7 +84,7 @@ final class SwipeViewModel {
     }
     
     func updatePossibleCocktails() {
-        useCase.updatePossibleCocktails(selectedIngredients: selectedIngredients)
+        useCase.executeUpdatePossibleCocktails(selectedIngredients: selectedIngredients)
     }
     
     func removeIngredient(_ card: Ingredient) {

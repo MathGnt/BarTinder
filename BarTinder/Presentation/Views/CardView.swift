@@ -16,10 +16,6 @@ struct CardView: View {
     let card: Ingredient
     let viewModel: SwipeViewModel
     
-    var threshold: CGFloat {
-        (UIScreen.main.bounds.width / 2) * 0.8
-    }
-    
     private var cardWidth: CGFloat {
         UIScreen.main.bounds.width - 20
     }

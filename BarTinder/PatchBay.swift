@@ -33,11 +33,15 @@ final class PatchBay {
     
     // Use cases
     func makeSwipeUseCase() -> Swipable {
-        SwipeViewUseCase(repo: makeCocktailRepo())
+        SwipeUseCase(repo: makeCocktailRepo())
     }
     
     func makeCreationUseCase() -> Buildable {
         CreationUseCase(repo: makeCocktailRepo())
+    }
+    
+    func makeHomeUseCase() -> HomeUseCase {
+        HomeUseCase(repo: makeCocktailRepo())
     }
     
     // ViewModels
@@ -47,5 +51,9 @@ final class PatchBay {
     
     func makeCocktailCreationViewModel() -> CocktailCreationViewModel {
         CocktailCreationViewModel(useCase: makeCreationUseCase())
+    }
+    
+    func makeHomeViewModel() -> HomeViewModel {
+        HomeViewModel(useCase: makeHomeUseCase())
     }
 }

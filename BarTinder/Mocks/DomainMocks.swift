@@ -34,6 +34,7 @@ extension Cocktail {
         abv: "8",
         flavor: "bitter",
         difficulty: 1,
-        cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings."
+        cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
+        stock: false
     )
 }

@@ -26,6 +26,7 @@ final class Cocktail: Identifiable {
     var flavor: String
     var difficulty: Int
     var cocktailDescription: String
+    var stock: Bool
     
     var id: String { self.name }
     
@@ -39,7 +40,7 @@ final class Cocktail: Identifiable {
         return Image("defaultpic")
     }
     
-    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, imageName: String?, imageData: Data?, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String) {
+    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, imageName: String?, imageData: Data?, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String, stock: Bool) {
         self.name = name
         self.ingredientsMeasures = ingredientsMeasures
         self.isInBar = isInBar
@@ -53,6 +54,7 @@ final class Cocktail: Identifiable {
         self.flavor = flavor
         self.difficulty = difficulty
         self.cocktailDescription = cocktailDescription
+        self.stock = stock
     }
 }
 

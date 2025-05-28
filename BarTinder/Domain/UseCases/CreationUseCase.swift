@@ -19,12 +19,21 @@ class CreationUseCase: Buildable {
         ingredients: [Ingredient],
         cocktailMeasure: [String: String],
         selectedUnit: [String: CocktailCreationViewModel.Units]
-    ) -> [IngredientMeasure] {
-        ingredients.compactMap { ingredient in
-            guard let measure = cocktailMeasure[ingredient.id] else { return nil }
+    ) throws -> [IngredientMeasure] {
+        var result: [IngredientMeasure] = []
+        
+        for ingredient in ingredients {
+            let measure = cocktailMeasure[ingredient.id] ?? ""
+            
+            guard !measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                throw CUCErrors.emptyFields
+            }
+            
             let unit = selectedUnit[ingredient.id] ?? .cl
-            return IngredientMeasure(ingredient: ingredient.name, measure: "\(measure) \(unit.rawValue)")
+            result.append(IngredientMeasure(ingredient: ingredient.name, measure: "\(measure) \(unit.rawValue)"))
         }
+        
+        return result
     }
     
     func createNewCocktail(_ cocktail: Cocktail) {
@@ -32,4 +41,8 @@ class CreationUseCase: Buildable {
         repo.contextSave()
     }
     
+    func textValid(_ strings: String...) -> Bool {
+        return strings.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    }
 }
+

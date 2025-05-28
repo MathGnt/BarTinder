@@ -22,6 +22,10 @@ final class CocktailRepo: Servable {
         context.insert(cocktail)
     }
     
+    func contextDelete(_ cocktail: Cocktail) {
+        context.delete(cocktail)
+    }
+    
     func contextSave() {
         do {
             try context.save()
@@ -59,7 +63,8 @@ final class CocktailRepo: Servable {
                     abv: cocktail.abv,
                     flavor: cocktail.flavor,
                     difficulty: cocktail.difficulty,
-                    cocktailDescription: cocktail.cocktailDescription
+                    cocktailDescription: cocktail.cocktailDescription,
+                    stock: cocktail.stock
                 )
                 cocktails.append(newCocktail)
             }

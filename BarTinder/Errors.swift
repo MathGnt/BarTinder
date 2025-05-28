@@ -1,11 +1,27 @@
 //
-//  VMErrors.swift
+//  Errors.swift
 //  BarTinder
 //
-//  Created by Mathis Gaignet on 24/04/2025.
+//  Created by Mathis Gaignet on 29/05/2025.
 //
 
 import Foundation
+
+
+enum NetworkErrors: LocalizedError {
+    case couldntFetchCocktails
+    
+    var errorDescription: String? {
+        switch self {
+        case .couldntFetchCocktails:
+            return "Couldn't fetch cocktails list"
+        }
+    }
+}
+
+enum CUCErrors: Error {
+    case emptyFields
+}
 
 enum VMErrors: LocalizedError {
     

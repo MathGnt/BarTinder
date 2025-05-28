@@ -13,6 +13,7 @@ struct CocktailCreationView: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = PatchBay.patch.makeCocktailCreationViewModel()
+    @FocusState private var focus: Focus?
     
     var body: some View {
         List {
@@ -28,8 +29,20 @@ struct CocktailCreationView: View {
             Section {
                 TextField("Name", text: $viewModel.cocktailName)
                     .characterLimit(30, text: $viewModel.cocktailName)
-                TextField("Description", text: $viewModel.cocktailDescription)
+                    .focused($focus, equals: .name)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focus = .description
+                    }
+                
+                
+                TextField("Description", text: $viewModel.cocktailDescription, axis: .vertical)
                     .lineLimit(5, reservesSpace: true)
+                    .focused($focus, equals: .description)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        focus = .ABV
+                    }
             }
             
             Section {
@@ -44,9 +57,21 @@ struct CocktailCreationView: View {
             }
             
             Section {
+                
                 TextField("ABV", text: $viewModel.cocktailAbv)
+                    .focused($focus, equals: .ABV)
                     .keyboardType(.numberPad)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focus = .flavor
+                    }
+                
                 TextField("Flavor", text: $viewModel.cocktailFlavor)
+                    .focused($focus, equals: .flavor)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focus = nil
+                    }
             }
             
             Section {
@@ -73,50 +98,11 @@ struct CocktailCreationView: View {
         .toolbar {
             createCocktailButton
             cancelButton
+            keyboardReturnButton
         }
     }
     
     //MARK: - View Properties and Functions
-    
-    private var placeHolderPicture: some View {
-        ZStack {
-            Circle()
-                .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
-                .frame(width: 75, height: 75)
-            
-            Image(systemName: "photo.circle.fill")
-                .resizable()
-                .foregroundStyle(.gray)
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-                .clipShape(Circle())
-                .clipped()
-            Circle()
-                .trim(from: 0.67, to: 1)
-                .rotationEffect(.degrees(149.5))
-                .frame(height: 75)
-                .foregroundStyle(.black.opacity(0.5))
-            Text("Edit")
-                .offset(y: 27)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
-            
-        }
-    }
-    
-    @ViewBuilder
-    private var photoPreview: some View {
-        if let data = viewModel.selectedImage, let uiImage = UIImage(data: data) {
-            Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 75, height: 75)
-                .clipShape(Circle())
-                .clipped()
-        } else {
-            placeHolderPicture
-        }
-    }
     
     private var cocktailStylePicker: some View {
         HStack(spacing: 15) {
@@ -204,9 +190,16 @@ struct CocktailCreationView: View {
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 viewModel.createCocktail()
-                dismiss()
+                if !viewModel.notValid {
+                    dismiss()
+                }
             } label: {
                 Text("Done")
+            }
+            .alert("Missing fields", isPresented: $viewModel.notValid) {
+                
+            } message: {
+                Text("You didn't complete all the fields!")
             }
         }
     }
@@ -220,60 +213,75 @@ struct CocktailCreationView: View {
             }
         }
     }
-}
-
-
-@MainActor @ViewBuilder
-func photosPickerSection(viewModel: CocktailCreationViewModel, selectedImage: Binding<PhotosPickerItem?>) -> some View {
-    let selectedImageData = viewModel.selectedImage
     
-    PhotosPicker(selection: selectedImage, matching: .images) {
-        photoPreviewContent(imageData: selectedImageData)
-    }
-    .onChange(of: viewModel.selectedPic) { oldValue, newValue in
-        Task {
-            await viewModel.loadSelectedImage()
+    private var keyboardReturnButton: some ToolbarContent {
+        ToolbarItem(placement: .keyboard) {
+            HStack {
+                Spacer()
+                Button("Return") {
+                    focus = nil
+                }
+            }
         }
     }
-}
-
-@ViewBuilder
-private func photoPreviewContent(imageData: Data?) -> some View {
-    if let data = imageData, let uiImage = UIImage(data: data) {
-        Image(uiImage: uiImage)
-            .resizable()
-            .scaledToFill()
-            .frame(width: 75, height: 75)
-            .clipShape(Circle())
-            .clipped()
-    } else {
-        placeHolderPicture
-    }
-}
-
-private var placeHolderPicture: some View {
-    ZStack {
-        Circle()
-            .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
-            .frame(width: 75, height: 75)
+    
+    @ViewBuilder
+    func photosPickerSection(viewModel: CocktailCreationViewModel, selectedImage: Binding<PhotosPickerItem?>) -> some View {
+        let selectedImageData = viewModel.selectedImage
         
-        Image(systemName: "photo.circle.fill")
-            .resizable()
-            .foregroundStyle(.gray)
-            .scaledToFill()
-            .frame(width: 80, height: 80)
-            .clipShape(Circle())
-            .clipped()
-        Circle()
-            .trim(from: 0.67, to: 1)
-            .rotationEffect(.degrees(149.5))
-            .frame(height: 75)
-            .foregroundStyle(.black.opacity(0.5))
-        Text("Edit")
-            .offset(y: 27)
-            .font(.system(size: 13, weight: .semibold, design: .rounded))
-            .foregroundStyle(.white)
+        PhotosPicker(selection: selectedImage, matching: .images) {
+            if let data = selectedImageData, let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 75, height: 75)
+                    .clipShape(Circle())
+                    .clipped()
+            } else {
+                placeHolderPicture()
+            }
+        }
+        .onChange(of: viewModel.selectedPic) { oldValue, newValue in
+            Task { @MainActor in
+                await viewModel.loadSelectedImage()
+            }
+        }
     }
+    
+    @Sendable
+    nonisolated private func placeHolderPicture() -> some View {
+        ZStack {
+            Circle()
+                .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
+                .frame(width: 75, height: 75)
+            
+            Image(systemName: "photo.circle.fill")
+                .resizable()
+                .foregroundStyle(.gray)
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+                .clipped()
+            Circle()
+                .trim(from: 0.67, to: 1)
+                .rotationEffect(.degrees(149.5))
+                .frame(height: 75)
+                .foregroundStyle(.black.opacity(0.5))
+            Text("Edit")
+                .offset(y: 27)
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .foregroundStyle(.white)
+        }
+    }
+    
+    enum Focus {
+        case name
+        case description
+        case ABV
+        case flavor
+    }
+    
+    
 }
 
 

@@ -16,16 +16,16 @@ final class CocktailCreationViewModel {
     
     let useCase: Buildable
     
-    var ingredients: [Ingredient] = []
-    var addedIngredients: [Ingredient] = []
-    var ingredientsMeasures: [IngredientMeasure] = []
+    private(set) var ingredients: [Ingredient] = []
+    private(set) var addedIngredients: [Ingredient] = []
+    private var ingredientsMeasures: [IngredientMeasure] = []
     
-    /// State properties
+    /// Picker / TF
     var cocktailName = ""
     var cocktailDescription = ""
     var addToBar = false
     var selectedPic: PhotosPickerItem?
-    var selectedImage: Data?
+    private(set) var selectedImage: Data?
     var cocktailAbv = ""
     var cocktailFlavor = ""
     var cocktailStyle: CocktailStyle = .shortDrink
@@ -35,6 +35,8 @@ final class CocktailCreationViewModel {
     var selectedUnit: [String : Units] = [:]
     var cocktailMeasure: [String : String] = [:]
     var searchableField = ""
+    var notValid = false
+    var ingredientsNotValid = false
     var searchableIngredients: [Ingredient] {
         if searchableField == "" {
             return ingredients
@@ -79,11 +81,17 @@ final class CocktailCreationViewModel {
     }
     
     func createIngredientsMeasures() {
-        self.ingredientsMeasures = useCase.makeIngredientMeasures(
-            ingredients: addedIngredients,
-            cocktailMeasure: cocktailMeasure,
-            selectedUnit: selectedUnit
-        )
+        do {
+            self.ingredientsMeasures = try useCase.makeIngredientMeasures(
+                ingredients: addedIngredients,
+                cocktailMeasure: cocktailMeasure,
+                selectedUnit: selectedUnit
+            )
+        } catch CUCErrors.emptyFields {
+            ingredientsNotValid = true
+        } catch {
+            print(error)
+        }
     }
     
     func loadSelectedImage() async {
@@ -99,6 +107,12 @@ final class CocktailCreationViewModel {
     
     func createCocktail() {
         
+        guard useCase.textValid(cocktailName, cocktailDescription, cocktailAbv, cocktailFlavor),
+        !ingredientsMeasures.isEmpty else {
+            notValid = true
+            return
+        }
+        
         let newCocktail = Cocktail(
             name: cocktailName,
             ingredientsMeasures: ingredientsMeasures,
@@ -112,7 +126,8 @@ final class CocktailCreationViewModel {
             abv: cocktailAbv,
             flavor: cocktailFlavor,
             difficulty: cocktailDifficulty.rawValue,
-            cocktailDescription: cocktailDescription
+            cocktailDescription: cocktailDescription,
+            stock: false
         )
         
         useCase.createNewCocktail(newCocktail)

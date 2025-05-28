@@ -10,11 +10,17 @@ import SwiftData
 
 
 final class RepositoryMock: Servable {
+  
+    
     
     let context: ModelContext
     
     init(context: ModelContext) {
         self.context = context
+    }
+    
+    func contextDelete(_ cocktail: Cocktail) {
+        context.delete(cocktail)
     }
     
     func contextInsert(_ cocktail: Cocktail) {
@@ -42,8 +48,6 @@ final class RepositoryMock: Servable {
         return getMockCocktails()
     }
     
-
- 
     
     private func getMockCocktails() -> [Cocktail] {
         return [
@@ -65,7 +69,8 @@ final class RepositoryMock: Servable {
                 abv: "32",
                 flavor: "bitter",
                 difficulty: 2,
-                cocktailDescription: "Born in early 19th-century New York, the Old Fashioned is a timeless blend of simplicity and strength. Best enjoyed on a chilly autumn evening with jazz in the background."
+                cocktailDescription: "Born in early 19th-century New York, the Old Fashioned is a timeless blend of simplicity and strength. Best enjoyed on a chilly autumn evening with jazz in the background.",
+                stock: true
             ),
             .init(
                 name: "Margarita",
@@ -84,7 +89,8 @@ final class RepositoryMock: Servable {
                 abv: "27",
                 flavor: "sour",
                 difficulty: 2,
-                cocktailDescription: "Emerging from Mexico mid-20th century, the Margarita offers a vibrant mix of tequila and citrus. Best savored on warm summer nights with friends."
+                cocktailDescription: "Emerging from Mexico mid-20th century, the Margarita offers a vibrant mix of tequila and citrus. Best savored on warm summer nights with friends.",
+                stock: true
             ),
             .init(
                 name: "Mojito",
@@ -105,7 +111,8 @@ final class RepositoryMock: Servable {
                 abv: "12",
                 flavor: "fresh",
                 difficulty: 2,
-                cocktailDescription: "A refreshing Cuban classic dating back to the 16th century, the Mojito blends mint and lime for a crisp taste. Ideal for hot summer days and lively gatherings."
+                cocktailDescription: "A refreshing Cuban classic dating back to the 16th century, the Mojito blends mint and lime for a crisp taste. Ideal for hot summer days and lively gatherings.",
+                stock: true
             ),
             .init(
                 name: "Cosmopolitan",
@@ -125,7 +132,8 @@ final class RepositoryMock: Servable {
                 abv: "25",
                 flavor: "fruity",
                 difficulty: 2,
-                cocktailDescription: "Popularized in the 1990s, the Cosmopolitan is a chic and tangy cocktail. Best enjoyed during lively urban nights and festive occasions."
+                cocktailDescription: "Popularized in the 1990s, the Cosmopolitan is a chic and tangy cocktail. Best enjoyed during lively urban nights and festive occasions.",
+                stock: true
             )
         ]
     }

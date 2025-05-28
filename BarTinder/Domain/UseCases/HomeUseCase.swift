@@ -1,24 +1,21 @@
 //
-//  HomeViewModel.swift
+//  HomeUseCase.swift
 //  BarTinder
 //
-//  Created by Mathis Gaignet on 09/05/2025.
+//  Created by Mathis Gaignet on 28/05/2025.
 //
 
 import Foundation
-import SwiftData
-import Observation
 
-@Observable
-@MainActor
-final class HomeViewModel {
+class HomeUseCase {
     
-    var selectedIngredient: Ingredient?
-    var selectedCategory: Category = .possibleCocktails
-    var resetConfirmation = false
-    var showCreationSheet = false
+    let repo: Servable
     
-    func sortQuery(from possibleCocktails: [Cocktail]) -> [Cocktail] {
+    init(repo: Servable) {
+        self.repo = repo
+    }
+    
+    func executeSortQuery(selectedCategory: Category, from possibleCocktails: [Cocktail]) -> [Cocktail] {
         
         switch selectedCategory {
         case .possibleCocktails:
@@ -47,6 +44,15 @@ final class HomeViewModel {
         case .longDrink:
             return possibleCocktails.filter { $0.style == "long" }
         }
-        
+    }
+    
+    
+    func executeDeleteCocktail(_ cocktail: Cocktail) {
+        if cocktail.stock {
+            cocktail.isPossible = false
+        } else {
+            repo.contextDelete(cocktail)
+        }
+        repo.contextSave()
     }
 }

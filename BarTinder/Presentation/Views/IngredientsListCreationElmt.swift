@@ -19,7 +19,7 @@ struct IngredientsListCreationElmt: View {
                 ForEach(viewModel.addedIngredients) { ingredient in
                     HStack(spacing: 15) {
                         addedIngredientDisplayer(ingredient: ingredient)
-                       
+                        
                     }
                     
                     if viewModel.selectedUnit[ingredient.id] != .topUp && viewModel.selectedUnit[ingredient.id] != .toRinse {
@@ -27,7 +27,7 @@ struct IngredientsListCreationElmt: View {
                             get: { viewModel.cocktailMeasure[ingredient.id] ?? "" },
                             set: { viewModel.cocktailMeasure[ingredient.id] = $0 }
                         ))
-                            .keyboardType(.decimalPad)
+                        .keyboardType(.decimalPad)
                     }
                     Picker("Unit", selection: Binding<CocktailCreationViewModel.Units>(
                         get: { viewModel.selectedUnit[ingredient.id] ?? .cl },
@@ -53,31 +53,24 @@ struct IngredientsListCreationElmt: View {
         }
         .searchable(text: $viewModel.searchableField, prompt: "Search for an ingredient")
         .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button {
-//                    if viewModel.isMeasureValid() {
-                        viewModel.createIngredientsMeasures()
-                        dismiss()
-//                    }
-                } label: {
-                    Text("Done")
-                }
-//                .alert("Please complete all the measure fields", isPresented: $viewModel.isMeasureNotValid) {
-//                    Button("Cancel", role: .cancel) { }
-//                }
-            }
+            doneButton(viewModel: viewModel)
         }
     }
+}
+
+#Preview {
+    IngredientsListCreationElmt(viewModel: PatchBay.patch.makeCocktailCreationViewModel())
+}
     
-    //MARK: - View Functions
-    
+    //MARK: - VIEW FUNCTIONS
+
+extension IngredientsListCreationElmt {
+
     @ViewBuilder
     private func addedIngredientDisplayer(ingredient: Ingredient) -> some View {
         HStack(spacing: 15) {
             baseDesign(ingredient: ingredient)
-                .allowsHitTesting(false)
         }
-        
     }
     
     @ViewBuilder
@@ -87,10 +80,10 @@ struct IngredientsListCreationElmt: View {
         Button {
             viewModel.addIngredient(ingredient: ingredient)
         } label: {
-            Image(systemName: "plus.circle.fill")
+            Image(systemName: viewModel.addedIngredients.contains(ingredient) ? "checkmark.circle.fill" : "plus.circle.fill")
                 .resizable()
                 .frame(width: 20, height: 20)
-                .foregroundStyle(viewModel.addedIngredients.contains(ingredient) ? .gray : .turborider)
+                .foregroundStyle(viewModel.addedIngredients.contains(ingredient) ? .green : .turborider)
         }
         .buttonStyle(BorderlessButtonStyle())
     }
@@ -109,8 +102,24 @@ struct IngredientsListCreationElmt: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+    
+    private func doneButton(viewModel: CocktailCreationViewModel) -> some ToolbarContent {
+        ToolbarItem(placement: .confirmationAction) {
+            Button {
+                viewModel.createIngredientsMeasures()
+                if !viewModel.ingredientsNotValid {
+                    dismiss()
+                }
+            } label: {
+                Text("Done")
+            }
+            .alert("Missing fields", isPresented: $viewModel.ingredientsNotValid) {
+                Button("Ok", role: .cancel) { }
+            } message: {
+                Text("Please enter measures for each ingredients")
+            }
+        }
+    }
 }
 
-#Preview {
-    IngredientsListCreationElmt(viewModel: PatchBay.patch.makeCocktailCreationViewModel())
-}
+

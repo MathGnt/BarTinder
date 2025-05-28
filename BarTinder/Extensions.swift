@@ -43,14 +43,23 @@ extension Cocktail {
     }
 }
 
-extension View {
-    func characterLimit(_ limit: Int, text: Binding<String>) -> some View {
-        self
-            .onChange(of: text.wrappedValue) { oldValue, newValue in
+struct CharacterLimitModifier: ViewModifier {
+    let limit: Int
+    @Binding var text: String
+    
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: text) { oldValue, newValue in
                 if newValue.count > limit {
-                    text.wrappedValue = String(newValue.prefix(limit))
+                    text = String(newValue.prefix(limit))
                 }
             }
+    }
+}
+
+extension View {
+    func characterLimit(_ limit: Int, text: Binding<String>) -> some View {
+        modifier(CharacterLimitModifier(limit: limit, text: text))
     }
 }
 

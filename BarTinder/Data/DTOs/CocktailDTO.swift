@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct CocktailResponse: Decodable {
+struct CocktailDTO: Decodable {
     let name: String
-    let ingredientsMeasures: [IngredientMeasureResponse]
+    let ingredientsMeasures: [IngredientMeasureDTO]
     let style: String
     let glass: String
     let preparation: String
@@ -17,10 +17,11 @@ struct CocktailResponse: Decodable {
     let flavor: String
     let difficulty: Int
     let cocktailDescription: String
+    let stock: Bool
   
 }
 
-struct IngredientMeasureResponse: Decodable {
+struct IngredientMeasureDTO: Decodable {
     let ingredient: String
     let measure: String
 }
