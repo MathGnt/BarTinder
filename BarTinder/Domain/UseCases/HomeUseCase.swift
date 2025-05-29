@@ -45,14 +45,4 @@ class HomeUseCase {
             return possibleCocktails.filter { $0.style == "long" }
         }
     }
-    
-    
-    func executeDeleteCocktail(_ cocktail: Cocktail) {
-        if cocktail.stock {
-            cocktail.isPossible = false
-        } else {
-            repo.contextDelete(cocktail)
-        }
-        repo.contextSave()
-    }
 }

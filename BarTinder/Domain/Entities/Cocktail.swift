@@ -27,7 +27,7 @@ final class Cocktail: Identifiable {
     var difficulty: Int
     var cocktailDescription: String
     var stock: Bool
-    
+
     var id: String { self.name }
     
     var displayedImage: Image? {
@@ -62,8 +62,6 @@ final class Cocktail: Identifiable {
 final class IngredientMeasure: Identifiable {
     var ingredient: String
     var measure: String
-    
-    @Relationship var cocktail: Cocktail?
     
     var id = UUID()
     

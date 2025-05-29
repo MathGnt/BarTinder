@@ -28,7 +28,14 @@ final class HomeViewModel {
         useCase.executeSortQuery(selectedCategory: selectedCategory, from: possibleCocktails)
     }
     
-    func deleteCocktail(_ cocktail: Cocktail) {
-        useCase.executeDeleteCocktail(cocktail)
+    
+    // Can't use clean arch with this - swift data bugs
+    func deleteCocktail(_ cocktail: Cocktail, _ context: ModelContext) {
+        if cocktail.stock {
+            cocktail.isPossible = false
+        } else {
+            context.delete(cocktail)
+        }
+        try? context.save()
     }
 }

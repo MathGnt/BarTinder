@@ -98,7 +98,7 @@ extension HomeView {
             .contextMenu {
                 Button("Delete", role: .destructive) {
                     withAnimation {
-                        viewModel.deleteCocktail(cocktail)
+                        viewModel.deleteCocktail(cocktail, context)
                     }
                 }
             }
