@@ -10,13 +10,12 @@ import SwiftData
 
 struct HomeView: View {
     
-    @Environment(\.modelContext) private var context
-    @State private var viewModel = PatchBay.patch.makeHomeViewModel()
+    let swipeViewModel: SwipeViewModel
+    @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @Namespace private var namespace
     @Binding var finishSwiping: Bool
     
-    @Query(filter: Cocktail.isPossiblePredicate()) var possibleCocktails: [Cocktail]
-    let swipeViewModel: SwipeViewModel
+    @Query(filter: Cocktail.isPossiblePredicate(), sort: \.name) private var cocktails: [Cocktail]
     
     var body: some View {
         NavigationStack {
@@ -37,7 +36,7 @@ struct HomeView: View {
                     
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(viewModel.sortQuery(from: possibleCocktails)) { cocktail in
+                            ForEach(viewModel.sortQuery(cocktails)) { cocktail in
                                 NavigationLink {
                                     CocktailDetailView(cocktail: cocktail)
                                         .navigationTransition(.zoom(sourceID: cocktail.id, in: namespace))
@@ -63,7 +62,7 @@ struct HomeView: View {
                     Spacer()
                 }
                 .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
-                    CocktailListView(ingredientCard: ingredient, swipeViewModel: swipeViewModel)
+                    CocktailListView(ingredientCard: ingredient, viewModel: viewModel)
                 }
                 .navigationTitle("Home")
                 .toolbar {
@@ -75,7 +74,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(finishSwiping: .constant(true), swipeViewModel: PatchBay.patch.makeSwipeViewModel())
+    HomeView(swipeViewModel: PatchBay.patch.makeSwipeViewModel(), finishSwiping: .constant(true))
 }
 
 
@@ -97,10 +96,10 @@ extension HomeView {
             )
             .contextMenu {
                 Button("Delete", role: .destructive) {
-                    withAnimation {
-                        viewModel.deleteCocktail(cocktail, context)
-                    }
+                    viewModel.deleteCocktail(cocktail)
+                    swipeViewModel.removeSelectedIngredients()
                 }
+                .animation(.easeInOut, value: cocktail)
             }
     }
     
@@ -130,7 +129,7 @@ extension HomeView {
         ScrollBarItemCpn(viewModel: viewModel, title: "Long Drinks", selectedCategory: .longDrink, width: 110, height: 30)
     }
     
-    func horizontalScrollBar(viewModel: HomeViewModel, _ summer: Bool) -> some View {
+    func horizontalScrollBar(viewModel: CocktailViewModel, _ summer: Bool) -> some View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(Ingredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in

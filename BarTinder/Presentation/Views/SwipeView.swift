@@ -10,7 +10,11 @@ import SwiftData
 
 struct SwipeView: View {
     
+    /// Swift Data Setup
+    @Environment(\.swiftData) private var dataBase
     @Environment(\.modelContext) private var context
+    
+    
     @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
     @AppStorage("finish-swiping") private var finishSwiping: Bool = false
     
@@ -44,7 +48,6 @@ struct SwipeView: View {
                             withAnimation(.easeIn) {
                                 finishSwiping = true
                             }
-                            try? context.save()
                         }
                         .animation(.easeInOut, value: finishSwiping)
                         
@@ -75,12 +78,13 @@ struct SwipeView: View {
             
             
             if finishSwiping {
-                HomeView(finishSwiping: $finishSwiping, swipeViewModel: viewModel)
+                HomeView(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
             }
             
         }
         .animation(.easeInOut(duration: 0.6), value: finishSwiping)
+        .environment(\.swiftData, SwiftDataSource(context: context))
     }
 }
 

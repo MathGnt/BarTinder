@@ -10,24 +10,28 @@ import SwiftData
 
 
 final class RepositoryMock: Servable {
-  
-    
-    
+
     let context: ModelContext
     
     init(context: ModelContext) {
         self.context = context
     }
     
-    func contextDelete(_ cocktail: Cocktail) {
+    
+    func predicateFetch(_ predicate: Predicate<Cocktail>) -> [Cocktail] {
+        return []
+    }
+
+    
+    func callContextDelete(_ cocktail: Cocktail) {
         context.delete(cocktail)
     }
     
-    func contextInsert(_ cocktail: Cocktail) {
+    func callContextInsert(_ cocktail: Cocktail) {
         context.insert(cocktail)
     }
     
-    func contextSave() {
+    func callContextSave() {
         do {
             try context.save()
         } catch {
@@ -35,7 +39,7 @@ final class RepositoryMock: Servable {
         }
     }
     
-    func getContextContent() -> [Cocktail] {
+    func callGetContextContent() -> [Cocktail] {
         do {
             return try context.fetch(FetchDescriptor<Cocktail>())
         } catch {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CreationUseCase: Buildable {
+class CreationUseCase {
     
     let repo: Servable
     
@@ -37,12 +37,11 @@ class CreationUseCase: Buildable {
     }
     
     func createNewCocktail(_ cocktail: Cocktail) {
-        repo.contextInsert(cocktail)
-        repo.contextSave()
+        repo.callContextInsert(cocktail)
+        repo.callContextSave()
     }
     
     func textValid(_ strings: String...) -> Bool {
         return strings.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     }
 }
-

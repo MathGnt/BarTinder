@@ -14,7 +14,7 @@ import SwiftData
 @MainActor
 final class SwipeViewModel {
     
-    let useCase: Swipable
+    let useCase: SwipeUseCase
     private(set) var ingredients: [Ingredient] = []
 
     private var cardOffsets: [String: CGFloat] = [:]
@@ -24,7 +24,7 @@ final class SwipeViewModel {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
     
-    init(useCase: Swipable) {
+    init(useCase: SwipeUseCase) {
         self.useCase = useCase
     }
     
@@ -95,6 +95,10 @@ final class SwipeViewModel {
         cardRotations.removeValue(forKey: card.id)
         
         print("removed \(card.name)")
+    }
+    
+    func removeSelectedIngredients() {
+        selectedIngredients.removeAll()
     }
     
     func recenter(card: Ingredient) {

@@ -11,10 +11,10 @@ import SwiftData
 
 struct CardView: View {
     
-    @Environment(\.modelContext) private var context
-    
     let card: Ingredient
     let viewModel: SwipeViewModel
+    
+    @Environment(\.swiftData) private var dataBase
     
     private var cardWidth: CGFloat {
         UIScreen.main.bounds.width - 20
@@ -71,7 +71,7 @@ struct CardView: View {
                 }
                 Text("From \(location)")
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.writings)
+                    .foregroundStyle(.white)
                     .padding(.leading, 7)
                     .padding(.trailing, 7)
                     .background(.thinMaterial)

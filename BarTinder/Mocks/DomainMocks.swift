@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftData
 
 class DomainMocks {
     
@@ -37,4 +39,22 @@ extension Cocktail {
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
         stock: false
     )
+}
+
+
+struct SampleData: PreviewModifier {
+    
+    static func makeSharedContext() throws -> ModelContainer {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Cocktail.self, configurations: config)
+        return container
+    }
+    
+    func body(content: Content, context: ModelContainer) -> some View {
+        content.modelContainer(context)
+    }
+}
+
+extension PreviewTrait where T == Preview.ViewTraits {
+    @MainActor static var sampleData: Self = .modifier(SampleData())
 }

@@ -11,6 +11,8 @@ import SwiftUI
 
 @Model
 final class Cocktail: Identifiable {
+    #Index<Cocktail>([\.isInBar, \.isPossible])
+    
     @Attribute(.unique)
     var name: String
     @Relationship(deleteRule: .cascade)
@@ -62,6 +64,8 @@ final class Cocktail: Identifiable {
 final class IngredientMeasure: Identifiable {
     var ingredient: String
     var measure: String
+    
+    @Relationship var cocktail: Cocktail?
     
     var id = UUID()
     

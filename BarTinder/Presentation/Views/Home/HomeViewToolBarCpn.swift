@@ -9,8 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct HomeViewToolBarCpn: ToolbarContent {
-    @Binding var viewModel: HomeViewModel
-    @Environment(\.modelContext) private var context
+    
+    @Environment(\.swiftData) private var dataBase
+    @Binding var viewModel: CocktailViewModel
     @Binding var finishSwiping: Bool
     
     var body: some ToolbarContent {
@@ -24,14 +25,14 @@ extension HomeViewToolBarCpn {
     
     private var barButton: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            NavigationLink(destination: BarView()) {
+            NavigationLink(destination: BarView(viewModel: viewModel)) {
                 Image(systemName: "wineglass")
                     .foregroundStyle(.turborider)
             }
         }
     }
     
-    private func resetButton(viewModel: HomeViewModel) -> some ToolbarContent {
+    private func resetButton(viewModel: CocktailViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.resetConfirmation = true
@@ -41,20 +42,15 @@ extension HomeViewToolBarCpn {
             }
             .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
                 Button("Reset") {
-                    do {
-                        try context.deleteAll(Cocktail.self)
-                        finishSwiping = false
-                        try context.save()
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                    dataBase.contextDeleteAll(Cocktail.self)
+                    finishSwiping = false
                 }
                 Button("Cancel", role: .cancel) { }
             }
         }
     }
     
-    private func createNewCocktailButton(viewModel: HomeViewModel) -> some ToolbarContent {
+    private func createNewCocktailButton(viewModel: CocktailViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             createNewCocktailButton
                 .sheet(isPresented: $viewModel.showCreationSheet) {

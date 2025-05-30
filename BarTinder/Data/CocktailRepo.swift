@@ -7,42 +7,22 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 final class CocktailRepo: Servable {
 
-    let networkManager: NetworkManager
-    private let context: ModelContext
+    let cocktailDataSource: CocktailDataSource
+    let swiftDataSource: SwiftDataSource
     
-    init(networkManager: NetworkManager, context: ModelContext) {
-        self.networkManager = networkManager
-        self.context = context
-    }
-    
-    func contextInsert(_ cocktail: Cocktail) {
-        context.insert(cocktail)
-    }
-    
-    func contextSave() {
-        do {
-            try context.save()
-        } catch {
-            print("Save failed: \(error)")
-        }
-    }
-    
-    func getContextContent() -> [Cocktail] {
-        do {
-            return try context.fetch(FetchDescriptor<Cocktail>())
-        } catch {
-            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
-            return []
-        }
+    init(cocktailDataSource: CocktailDataSource, swiftDataSource: SwiftDataSource) {
+        self.cocktailDataSource = cocktailDataSource
+        self.swiftDataSource = swiftDataSource
     }
 
     func getAllCocktails() throws -> [Cocktail] {
         var cocktails: [Cocktail] = []
         do {
-            let cocktailResponse = try networkManager.getCocktails()
+            let cocktailResponse = try cocktailDataSource.getCocktails()
             for cocktail in cocktailResponse {
                 let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
                 let ingredientMeasure = cocktail.ingredientsMeasures.map { IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure )}
@@ -69,5 +49,21 @@ final class CocktailRepo: Servable {
             throw NetworkErrors.couldntFetchCocktails
         }
         return cocktails
+    }
+    
+    func callContextInsert(_ cocktail: Cocktail) {
+        swiftDataSource.contextInsert(cocktail)
+    }
+    
+    func callContextDelete(_ cocktail: Cocktail) {
+        swiftDataSource.contextDelete(cocktail)
+    }
+    
+    func callContextSave() {
+        swiftDataSource.contextSave()
+    }
+    
+    func callGetContextContent() -> [Cocktail] {
+        swiftDataSource.getContextContent(Cocktail.self)
     }
 }

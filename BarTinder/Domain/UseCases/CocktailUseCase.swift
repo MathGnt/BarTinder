@@ -1,5 +1,5 @@
 //
-//  HomeUseCase.swift
+//  CocktailUseCase.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 28/05/2025.
@@ -7,12 +7,16 @@
 
 import Foundation
 
-class HomeUseCase {
+class CocktailUseCase {
     
     let repo: Servable
     
     init(repo: Servable) {
         self.repo = repo
+    }
+    
+    func executeDeleteCocktail(_ cocktail: Cocktail) {
+        repo.callContextDelete(cocktail)
     }
     
     func executeSortQuery(selectedCategory: Category, from possibleCocktails: [Cocktail]) -> [Cocktail] {
@@ -40,9 +44,9 @@ class HomeUseCase {
                 }
             }
         case .shortDrink:
-            return possibleCocktails.filter { $0.style == "short" }
+            return possibleCocktails.filter { $0.style == "shortdrink" }
         case .longDrink:
-            return possibleCocktails.filter { $0.style == "long" }
+            return possibleCocktails.filter { $0.style == "longdrink" }
         }
     }
 }

@@ -11,17 +11,17 @@ import SwiftData
 struct CocktailListView: View {
     
     let ingredientCard: Ingredient
-    let swipeViewModel: SwipeViewModel
-    @Query private var cocktails: [Cocktail]
+    let viewModel: CocktailViewModel
     @State private var selectedCocktail: Cocktail?
     
-    init(ingredientCard: Ingredient, swipeViewModel: SwipeViewModel) {
-        self.ingredientCard = ingredientCard
-        self.swipeViewModel = swipeViewModel
-        
-        _cocktails = Query(filter: Cocktail.cocktailAboutIngredient(ingredient: ingredientCard))
-    }
+    @Query private var cocktails: [Cocktail]
     
+    init(ingredientCard: Ingredient, viewModel: CocktailViewModel) {
+        self.ingredientCard = ingredientCard
+        self.viewModel = viewModel
+        _cocktails = Query(filter: Cocktail.ingredientPredicate(ingredient: ingredientCard))
+    }
+
     var body: some View {
         List(cocktails) { cocktail in
             HStack(spacing: 15) {
@@ -46,6 +46,7 @@ struct CocktailListView: View {
                     .scaledToFill()
                     .frame(width: 25, height: 25)
             }
+            .contentShape(Rectangle())
             .onTapGesture {
                 selectedCocktail = cocktail
             }
@@ -58,5 +59,5 @@ struct CocktailListView: View {
 }
 
 #Preview {
-    CocktailListView(ingredientCard: Ingredient.mocks, swipeViewModel: PatchBay.patch.makeSwipeViewModel())
+    CocktailListView(ingredientCard: Ingredient.mocks, viewModel: PatchBay.patch.makeCocktailViewModel())
 }

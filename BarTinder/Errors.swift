@@ -19,8 +19,16 @@ enum NetworkErrors: LocalizedError {
     }
 }
 
+enum SwiftDataErrors: Error {
+    case failedToDeleteDataBase
+}
+
 enum CUCErrors: Error {
     case emptyFields
+}
+
+enum RepoErrors: Error {
+    case failedToFetchSorted
 }
 
 enum VMErrors: LocalizedError {

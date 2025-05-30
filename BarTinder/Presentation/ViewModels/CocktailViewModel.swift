@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  CocktailViewModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 09/05/2025.
@@ -11,11 +11,11 @@ import Observation
 
 @Observable
 @MainActor
-final class HomeViewModel {
+final class CocktailViewModel {
     
-    let useCase: HomeUseCase
+    let useCase: CocktailUseCase
     
-    init(useCase: HomeUseCase) {
+    init(useCase: CocktailUseCase) {
         self.useCase = useCase
     }
     
@@ -24,18 +24,16 @@ final class HomeViewModel {
     var resetConfirmation = false
     var showCreationSheet = false
     
-    func sortQuery(from possibleCocktails: [Cocktail]) -> [Cocktail] {
-        useCase.executeSortQuery(selectedCategory: selectedCategory, from: possibleCocktails)
-    }
+    func sortQuery(_ possibleCocktails: [Cocktail]) -> [Cocktail] {
+          useCase.executeSortQuery(selectedCategory: selectedCategory, from: possibleCocktails)
+      }
     
     
-    // Can't use clean arch with this - swift data bugs
-    func deleteCocktail(_ cocktail: Cocktail, _ context: ModelContext) {
+    func deleteCocktail(_ cocktail: Cocktail) {
         if cocktail.stock {
             cocktail.isPossible = false
         } else {
-            context.delete(cocktail)
+            useCase.executeDeleteCocktail(cocktail)
         }
-        try? context.save()
     }
 }

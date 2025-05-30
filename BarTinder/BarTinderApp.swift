@@ -14,27 +14,18 @@ struct BarTinderApp: App {
     let container: ModelContainer
     
     init() {
-         do {
-             container = try ModelContainer(for: Cocktail.self)
-             PatchBay.patch.setContext(ModelContext(container))
-         } catch {
-             do {
-                 container = try ModelContainer(
-                     for: Cocktail.self,
-                     configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-                 )
-                 PatchBay.patch.setContext(ModelContext(container))
-                 print("Using in-memory container as fallback")
-             } catch {
-                 fatalError("Failed to create even in-memory container: \(error)")
-             }
-         }
-     }
+        do {
+            container = try ModelContainer(for: Cocktail.self)
+            PatchBay.patch.setContext(container.mainContext)
+        } catch {
+            fatalError("Failed to Create Context")
+        }
+    }
     
     var body: some Scene {
         WindowGroup {
             SwipeView()
+                .modelContainer(container)
         }
-        .modelContainer(container)
     }
 }

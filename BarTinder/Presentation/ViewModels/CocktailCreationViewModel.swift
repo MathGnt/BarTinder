@@ -14,7 +14,7 @@ import PhotosUI
 @MainActor
 final class CocktailCreationViewModel {
     
-    let useCase: Buildable
+    let useCase: CreationUseCase
     
     private(set) var ingredients: [Ingredient] = []
     private(set) var addedIngredients: [Ingredient] = []
@@ -45,7 +45,7 @@ final class CocktailCreationViewModel {
         }
     }
     
-    init(useCase: Buildable) {
+    init(useCase: CreationUseCase) {
         self.ingredients = Ingredient.ingredientCards
         self.useCase = useCase
     }

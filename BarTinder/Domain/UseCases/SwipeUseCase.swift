@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class SwipeUseCase: Swipable {
+class SwipeUseCase {
     
     let repo: Servable
     
@@ -20,22 +20,22 @@ class SwipeUseCase: Swipable {
         do {
             let cocktails = try repo.getAllCocktails()
             for cocktail in cocktails {
-                repo.contextInsert(cocktail)
+                repo.callContextInsert(cocktail)
             }
-            repo.contextSave()
+            repo.callContextSave()
         } catch {
             print(VMErrors.couldntFetchCocktails.localizedDescription)
         }
     }
     
     func executeUpdatePossibleCocktails(selectedIngredients: Set<String>) {
-        let cocktails = repo.getContextContent()
+        let cocktails = repo.callGetContextContent()
         for cocktail in cocktails {
             let ingredientNames = Set(cocktail.ingredientsMeasures.map { $0.ingredient })
             if selectedIngredients.isSuperset(of: ingredientNames) {
                 cocktail.isPossible = true
             }
         }
-        repo.contextSave()
+        repo.callContextSave()
     }
 }

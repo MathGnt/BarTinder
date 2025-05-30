@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScrollBarItemCpn: View {
-    let viewModel: HomeViewModel
+    let viewModel: CocktailViewModel
     
     let title: String
     let selectedCategory: Category

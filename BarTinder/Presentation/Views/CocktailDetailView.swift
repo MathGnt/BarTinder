@@ -11,7 +11,6 @@ import SwiftData
 struct CocktailDetailView: View {
     
     @Environment(\.colorScheme) private var scheme
-    @Environment(\.modelContext) private var context
     let cocktail: Cocktail
     
     var body: some View {
@@ -43,7 +42,7 @@ struct CocktailDetailView: View {
                 Spacer()
                 VStack {
                     Button {
-                        isInBar(cocktail: cocktail, context: context)
+                        cocktail.isInBar.toggle()
                     } label: {
                         Image(systemName: cocktail.isInBar ? "wineglass.fill" : "wineglass")
                             .resizable()
@@ -57,11 +56,6 @@ struct CocktailDetailView: View {
             .padding(.horizontal)
         }
         .toolbarRole(.editor)
-    }
-    
-    private func isInBar(cocktail: Cocktail, context: ModelContext) {
-        cocktail.isInBar.toggle()
-        try? context.save()
     }
 }
 

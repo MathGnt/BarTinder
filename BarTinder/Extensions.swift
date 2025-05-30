@@ -23,6 +23,50 @@ extension String {
 
 
 extension Cocktail {
+    
+    static let whiskyExpression = #Expression<Cocktail, Bool> { cocktail in
+        cocktail.ingredientsMeasures.contains {
+            $0.ingredient == "whisky" || $0.ingredient == "rye whiskey"
+        }
+    }
+    
+    static func ginPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible && cocktail.ingredientsMeasures.contains { $0.ingredient == "gin" }
+        }
+    }
+    
+    static func vodkaPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible && cocktail.ingredientsMeasures.contains { $0.ingredient == "vodka" }
+        }
+    }
+    
+    static func vermouthPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible && cocktail.ingredientsMeasures.contains { $0.ingredient == "vermouth" }
+        }
+    }
+    
+    static func whiskyPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible && whiskyExpression.evaluate(cocktail)
+        }
+    }
+    
+    
+    static func shortDrinkPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible == true && cocktail.style == "shortdrink"
+        }
+    }
+    
+    static func longDrinkPredicate() -> Predicate<Cocktail> {
+        return #Predicate<Cocktail> { cocktail in
+            cocktail.isPossible == true && cocktail.style == "longdrink"
+        }
+    }
+    
     static func isInBarPredicate() -> Predicate<Cocktail> {
         return #Predicate<Cocktail> {
             $0.isInBar == true
@@ -35,7 +79,7 @@ extension Cocktail {
         }
     }
     
-    static func cocktailAboutIngredient(ingredient: Ingredient) -> Predicate<Cocktail> {
+    static func ingredientPredicate(ingredient: Ingredient) -> Predicate<Cocktail> {
         let name = ingredient.name
         return #Predicate<Cocktail> {
             $0.ingredientsMeasures.contains { $0.ingredient == name }
@@ -63,11 +107,6 @@ extension View {
     }
 }
 
-extension ModelContext {
-    func deleteAll<T: PersistentModel>(_ model: T.Type) throws {
-        let descriptor = FetchDescriptor<T>()
-        let results = try self.fetch(descriptor)
-        results.forEach { self.delete($0) }
-        try self.save()
-    }
+extension EnvironmentValues {
+    @Entry var swiftData = SwiftDataSource()
 }

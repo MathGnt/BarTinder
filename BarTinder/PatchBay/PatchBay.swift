@@ -20,28 +20,32 @@ final class PatchBay {
         self.modelContext = context
     }
     
-    func makeNetworkManager() -> NetworkManager {
-        NetworkManager()
+    func makeCocktailDataSource() -> CocktailDataSource {
+        CocktailDataSource()
     }
     
-    func makeCocktailRepo() -> Servable {
+    func makeSwiftDataSource() -> SwiftDataSource {
         guard let context = modelContext else {
             fatalError("ModelContext not set. Call PatchBay.shared.setContext() first.")
         }
-        return CocktailRepo(networkManager: makeNetworkManager(), context: context)
+        return SwiftDataSource(context: context)
+    }
+    
+    func makeCocktailRepo() -> Servable {
+        return CocktailRepo(cocktailDataSource: makeCocktailDataSource(), swiftDataSource: makeSwiftDataSource())
     }
     
     // Use cases
-    func makeSwipeUseCase() -> Swipable {
+    func makeSwipeUseCase() -> SwipeUseCase {
         SwipeUseCase(repo: makeCocktailRepo())
     }
     
-    func makeCreationUseCase() -> Buildable {
+    func makeCreationUseCase() -> CreationUseCase {
         CreationUseCase(repo: makeCocktailRepo())
     }
     
-    func makeHomeUseCase() -> HomeUseCase {
-        HomeUseCase(repo: makeCocktailRepo())
+    func makeCocktailUseCase() -> CocktailUseCase {
+        CocktailUseCase(repo: makeCocktailRepo())
     }
     
     // ViewModels
@@ -53,7 +57,7 @@ final class PatchBay {
         CocktailCreationViewModel(useCase: makeCreationUseCase())
     }
     
-    func makeHomeViewModel() -> HomeViewModel {
-        HomeViewModel(useCase: makeHomeUseCase())
+    func makeCocktailViewModel() -> CocktailViewModel {
+        CocktailViewModel(useCase: makeCocktailUseCase())
     }
 }

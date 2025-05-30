@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  CocktailDataSource.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 19/04/2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NetworkManager { /// Doesn't need protocol because I control the json source
+final class CocktailDataSource { /// Controlling the JSON entry
     
     func getCocktails() throws -> [CocktailDTO] {
         guard let url = Bundle.main.url(forResource: "cocktails", withExtension: "json") else {
