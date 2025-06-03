@@ -124,7 +124,7 @@ open BarTinder.xcodeproj
 
 ### **Data Flow**
 ```
-SwiftUI Views → ViewModels → UseCases → Repository → SwiftDataSource → SwiftData
+SwiftUI Views → ViewModels → UseCases → Repository → SwiftDataSource OR DataSource (API)
 ```
 
 ### **Layer Separation**
