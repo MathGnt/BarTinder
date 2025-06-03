@@ -1,5 +1,5 @@
 //
-//  CocktailDetailView.swift
+//  CocktailDetail.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 24/04/2025.
@@ -8,67 +8,80 @@
 import SwiftUI
 import SwiftData
 
-struct CocktailDetailView: View {
+struct CocktailDetail: View {
     
     @Environment(\.colorScheme) private var scheme
     let cocktail: Cocktail
     
     var body: some View {
-        ZStack {
-            VStack {
-                ZStack(alignment: .bottom) {
+        ScrollView {
+            ZStack {
+                VStack {
                     topImage(cocktail: cocktail, scheme: scheme)
-                    VStack(spacing: 20) {
-                        header(cocktail)
-                        CocktailLogosDetailsCpn(cocktail: cocktail)
-                    }
-                }
-                
-                HStack {
-                    ingredientsList(cocktail)
-                        .padding()
-                        .background(.thinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     
-                    Spacer()
+                    VStack(spacing: 25) {
+                        header(cocktail)
+                        CocktailHeaderInfos(cocktail: cocktail)
+                        
+                        HStack {
+                            ingredientsList(cocktail)
+                                .padding()
+                                .background(.thinMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 15)
+                        .padding(.horizontal)
+                        Spacer()
+                    }
+                    .padding(.top, -65) /* <---- c'est horrible mais je trouve pas de soluce */
                 }
-                .padding(.top, 15)
-                .padding(.horizontal)
-                Spacer()
-                
+            }
+            .toolbarRole(.editor)
+        }
+        .ignoresSafeArea()
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    cocktail.isInBar.toggle()
+                } label: {
+                    Circle()
+                        .shadow(radius: 2)
+                        .background(.thinMaterial)
+                        .frame(height: 32)
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .foregroundStyle(.clear)
+                        .overlay {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 15)
+                                .foregroundStyle(.turborider)
+                                .fontWeight(.bold)
+                        }
+                }
+               
             }
             
-            HStack {
-                Spacer()
-                VStack {
-                    Button {
-                        cocktail.isInBar.toggle()
-                    } label: {
-                        Image(systemName: cocktail.isInBar ? "wineglass.fill" : "wineglass")
-                            .resizable()
-                            .foregroundStyle(.turborider)
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 30)
-                    }
-                    Spacer()
-                }
-            }
-            .padding(.horizontal)
         }
-        .toolbarRole(.editor)
+        .toolbarBackground(.thinMaterial, for: .navigationBar)
     }
 }
 
 #Preview {
-    CocktailDetailView(cocktail: Cocktail.mocks)
+    NavigationStack {
+        CocktailDetail(cocktail: Cocktail.mocks)
+    }
 }
 
 //MARK: - View Functions
 
-extension CocktailDetailView {
+private extension CocktailDetail {
     
     private func topImage(cocktail: Cocktail, scheme: ColorScheme) -> some View {
-        cocktail.displayedImage?
+        cocktail.displayedImage
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: 400)

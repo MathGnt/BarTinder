@@ -1,5 +1,5 @@
 //
-//  CarView.swift
+//  IngredientCard.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 16/04/2025.
@@ -9,12 +9,10 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct CardView: View {
+struct IngredientCard: View {
     
     let card: Ingredient
     let viewModel: SwipeViewModel
-    
-    @Environment(\.swiftData) private var dataBase
     
     private var cardWidth: CGFloat {
         UIScreen.main.bounds.width - 20
@@ -31,12 +29,12 @@ struct CardView: View {
                 .scaledToFill()
                 .frame(width: cardWidth, height: cardHeight)
                 .clipShape(RoundedRectangle(cornerRadius: 30))
-               
+            
             LinearGradient(colors: [.clear, .black],
-                            startPoint: .center,
-                            endPoint: .bottom)
-                 .frame(width: cardWidth, height: cardHeight - 200)
-                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                           startPoint: .center,
+                           endPoint: .bottom)
+            .frame(width: cardWidth, height: cardHeight - 200)
+            .clipShape(RoundedRectangle(cornerRadius: 30))
             
             cardInfo(title: card.name, avb: card.AVB ?? "", location: card.location)
         }
@@ -53,8 +51,15 @@ struct CardView: View {
                 }
         )
     }
+}
+
+#Preview {
+    IngredientCard(card: Ingredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
+}
+
+//MARK: - View Function
     
-    //MARK: - View Function
+private extension IngredientCard {
     
     private func cardInfo(title: String, avb: String, location: String) -> some View {
         HStack {
@@ -85,6 +90,4 @@ struct CardView: View {
 }
 
 
-#Preview {
-    CardView(card: Ingredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
-}
+

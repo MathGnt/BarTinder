@@ -11,41 +11,10 @@ import SwiftData
 
 final class RepositoryMock: Servable {
 
-    let context: ModelContext
+    let swiftDataSource: SwiftDataSource
     
-    init(context: ModelContext) {
-        self.context = context
-    }
-    
-    
-    func predicateFetch(_ predicate: Predicate<Cocktail>) -> [Cocktail] {
-        return []
-    }
-
-    
-    func callContextDelete(_ cocktail: Cocktail) {
-        context.delete(cocktail)
-    }
-    
-    func callContextInsert(_ cocktail: Cocktail) {
-        context.insert(cocktail)
-    }
-    
-    func callContextSave() {
-        do {
-            try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func callGetContextContent() -> [Cocktail] {
-        do {
-            return try context.fetch(FetchDescriptor<Cocktail>())
-        } catch {
-            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
-            return []
-        }
+    init(swiftDataSource: SwiftDataSource) {
+        self.swiftDataSource = swiftDataSource
     }
     
     func getAllCocktails() throws -> [Cocktail] {

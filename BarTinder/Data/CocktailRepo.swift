@@ -19,7 +19,7 @@ final class CocktailRepo: Servable {
         self.swiftDataSource = swiftDataSource
     }
 
-    func getAllCocktails() throws -> [Cocktail] {
+    func getAllCocktails() throws(NetworkErrors) -> [Cocktail] {
         var cocktails: [Cocktail] = []
         do {
             let cocktailResponse = try cocktailDataSource.getCocktails()
@@ -45,25 +45,9 @@ final class CocktailRepo: Servable {
                 cocktails.append(newCocktail)
             }
         } catch {
-            print(NetworkErrors.couldntFetchCocktails.localizedDescription)
-            throw NetworkErrors.couldntFetchCocktails
+            print("error mapping cocktail data: \(error)")
+            throw .couldntMapCocktails
         }
         return cocktails
-    }
-    
-    func callContextInsert(_ cocktail: Cocktail) {
-        swiftDataSource.contextInsert(cocktail)
-    }
-    
-    func callContextDelete(_ cocktail: Cocktail) {
-        swiftDataSource.contextDelete(cocktail)
-    }
-    
-    func callContextSave() {
-        swiftDataSource.contextSave()
-    }
-    
-    func callGetContextContent() -> [Cocktail] {
-        swiftDataSource.getContextContent(Cocktail.self)
     }
 }

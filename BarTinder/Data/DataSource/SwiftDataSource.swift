@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-final class SwiftDataSource: DataBase {
+final class SwiftDataSource {
     
     let context: ModelContext?
     
@@ -28,7 +28,7 @@ final class SwiftDataSource: DataBase {
         do {
             try context?.save()
         } catch {
-            print("Save failed: \(error)")
+            print("Save context failed: \(error)")
         }
     }
     
@@ -38,18 +38,16 @@ final class SwiftDataSource: DataBase {
             guard let fetch else { return [] }
             return fetch
         } catch {
-            print(VMErrors.failedFetchDescriptor(error).errorDescription as Any)
+            print("Failed to getContextContent from type \(type)")
             return []
         }
     }
     
     func contextDeleteAll<T: PersistentModel>(_ model: T.Type) {
         do {
-            try context?.delete(model: Cocktail.self)
-            let all = getContextContent(Cocktail.self)
-            print("all cocktails are \(all) and ingredients are \(all.map { $0.ingredientsMeasures})")
+            try context?.delete(model: model)
         } catch {
-            print(SwiftDataErrors.failedToDeleteDataBase.localizedDescription)
+            print("Failed to deleteAll from context: \(error)")
         }
         contextSave()
     }

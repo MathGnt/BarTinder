@@ -15,7 +15,7 @@ final class Cocktail: Identifiable {
     
     @Attribute(.unique)
     var name: String
-    @Relationship(deleteRule: .cascade)
+    @Relationship(deleteRule: .cascade, inverse: \IngredientMeasure.cocktail)
     var ingredientsMeasures: [IngredientMeasure]
     var isInBar: Bool
     var isPossible: Bool
@@ -29,18 +29,6 @@ final class Cocktail: Identifiable {
     var difficulty: Int
     var cocktailDescription: String
     var stock: Bool
-
-    var id: String { self.name }
-    
-    var displayedImage: Image? {
-        if let name = imageName {
-            return Image(name)
-        }
-        if let data = imageData, let uiImage = UIImage(data: data) {
-            return Image(uiImage: uiImage)
-        }
-        return Image("defaultpic")
-    }
     
     init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, imageName: String?, imageData: Data?, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String, stock: Bool) {
         self.name = name
@@ -60,28 +48,33 @@ final class Cocktail: Identifiable {
     }
 }
 
+extension Cocktail {
+    
+    @Transient
+    var displayedImage: Image {
+        if let name = imageName {
+            return Image(name)
+        }
+        if let data = imageData, let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
+        }
+        return Image("defaultpic")
+    }
+}
+
+//MARK: Ingredients Relationship
+
 @Model
 final class IngredientMeasure: Identifiable {
     var ingredient: String
     var measure: String
     
-    @Relationship var cocktail: Cocktail?
+    var cocktail: Cocktail?
     
-    var id = UUID()
+    var id: String { self.ingredient}
     
-    init(ingredient: String, measure: String, id: UUID = UUID()) {
+    init(ingredient: String, measure: String) {
         self.ingredient = ingredient
         self.measure = measure
-        self.id = id
     }
-}
-
-enum Category {
-    case possibleCocktails
-    case gin
-    case vodka
-    case vermouth
-    case whisky
-    case shortDrink
-    case longDrink
 }

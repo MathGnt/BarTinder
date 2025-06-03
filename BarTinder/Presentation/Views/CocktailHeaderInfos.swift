@@ -1,5 +1,5 @@
 //
-//  CocktailLogosDetailsCpn.swift
+//  CocktailLogosDetails.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 29/05/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CocktailLogosDetailsCpn: View {
+struct CocktailHeaderInfos: View {
     
     let cocktail: Cocktail
     
@@ -40,7 +40,7 @@ struct CocktailLogosDetailsCpn: View {
 }
 
 
-extension CocktailLogosDetailsCpn {
+private extension CocktailHeaderInfos {
     
     private func cocktailDetail(title: String, image: String) -> some View {
         VStack(spacing: 4) {

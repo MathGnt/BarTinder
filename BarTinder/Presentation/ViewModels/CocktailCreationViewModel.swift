@@ -44,7 +44,7 @@ final class CocktailCreationViewModel {
             return ingredients.filter { $0.name.localizedStandardContains(searchableField)}
         }
     }
-    
+
     init(useCase: CreationUseCase) {
         self.ingredients = Ingredient.ingredientCards
         self.useCase = useCase
@@ -67,7 +67,10 @@ final class CocktailCreationViewModel {
         }
     }
     
-    
+    func imageDataToUI() -> UIImage? {
+        guard let data = selectedImage else { return nil }
+        return UIImage(data: data)
+    }
     
     func addIngredient(ingredient: Ingredient) {
         guard !addedIngredients.contains(ingredient) else { return }
@@ -78,6 +81,10 @@ final class CocktailCreationViewModel {
         for index in indices {
             addedIngredients.remove(at: index)
         }
+    }
+    
+    func haveToEnterMeasure(for ingredient: Ingredient) -> Bool {
+        selectedUnit[ingredient.id] != .topUp && selectedUnit[ingredient.id] != .toRinse
     }
     
     func createIngredientsMeasures() {
@@ -108,7 +115,7 @@ final class CocktailCreationViewModel {
     func createCocktail() {
         
         guard useCase.textValid(cocktailName, cocktailDescription, cocktailAbv, cocktailFlavor),
-        !ingredientsMeasures.isEmpty else {
+              !ingredientsMeasures.isEmpty else {
             notValid = true
             return
         }
@@ -133,52 +140,5 @@ final class CocktailCreationViewModel {
         useCase.createNewCocktail(newCocktail)
     }
     
-    enum CocktailStyle: String, Identifiable, CaseIterable {
-        case longDrink = "longdrink"
-        case shortDrink = "shortdrink"
-        
-        var id: String { self.rawValue }
-    }
-    
-    enum CocktailGlass: String, Identifiable, CaseIterable {
-        case balloon = "balloon"
-        case cocktail = "cocktail"
-        case coppermug = "coppermug"
-        case highball = "highball"
-        case tumbler = "tumbler"
-        case flute = "flute"
-        case hurricane = "hurricane"
-        case wine = "wine"
-        
-        var id: String { self.rawValue }
-    }
-    
-    enum CocktailPreparation: String, Identifiable, CaseIterable {
-        case built = "built"
-        case stirred = "stirred"
-        case shaken = "shaken"
-        case blended = "blended"
-        case thrown = "thrown"
-        case layered = "layered"
-        
-        var id: String { self.rawValue }
-    }
-    
-    enum CocktailDifficulty: Int {
-        case easy = 1
-        case medium = 2
-        case hard = 3
-    }
-    
-    enum Units: String, CaseIterable, Identifiable {
-        case cl = "cl"
-        case dash = "Dash"
-        case drop = "Drop"
-        case pinch = "Pinch"
-        case wedge = "Wedge"
-        case topUp = "Top Up"
-        case toRinse = "To Rinse"
-        
-        var id: String { self.rawValue }
-    }
 }
+

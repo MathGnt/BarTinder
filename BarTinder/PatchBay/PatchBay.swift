@@ -8,6 +8,8 @@
 import Foundation
 import SwiftData
 
+// Factory for the app
+
 @MainActor
 final class PatchBay {
     static let patch = PatchBay()
@@ -26,7 +28,7 @@ final class PatchBay {
     
     func makeSwiftDataSource() -> SwiftDataSource {
         guard let context = modelContext else {
-            fatalError("ModelContext not set. Call PatchBay.shared.setContext() first.")
+            fatalError("ModelContext not set. Call PatchBay.shared.setContext() first!")
         }
         return SwiftDataSource(context: context)
     }

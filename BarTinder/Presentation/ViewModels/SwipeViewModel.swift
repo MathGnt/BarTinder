@@ -23,6 +23,7 @@ final class SwipeViewModel {
     private var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
+    var fetchingError = false
     
     init(useCase: SwipeUseCase) {
         self.useCase = useCase
@@ -66,8 +67,14 @@ final class SwipeViewModel {
     }
     
     func getCocktails() {
-        addIngredients()
-        useCase.executeGetCocktails()
+        do {
+            addIngredients()
+            try useCase.executeGetCocktails()
+        } catch .failedToGetCocktails {
+            fetchingError = true
+        } catch {
+            print("unknown error: \(error)")
+        }
     }
     
     func addIngredients() {

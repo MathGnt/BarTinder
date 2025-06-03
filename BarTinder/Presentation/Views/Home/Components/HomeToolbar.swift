@@ -1,5 +1,5 @@
 //
-//  HomeViewToolBarCpn.swift
+//  HomeViewToolBar.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 29/05/2025.
@@ -8,31 +8,33 @@
 import SwiftUI
 import SwiftData
 
-struct HomeViewToolBarCpn: ToolbarContent {
+struct HomeToolbar: ToolbarContent {
     
     @Environment(\.swiftData) private var dataBase
     @Binding var viewModel: CocktailViewModel
     @Binding var finishSwiping: Bool
+    @Binding var sortOption: CocktailSortOption
     
     var body: some ToolbarContent {
         barButton
-        resetButton(viewModel: viewModel)
-        createNewCocktailButton(viewModel: viewModel)
+        resetButton(viewModel)
+        createNewCocktailButton(viewModel)
+        sortingButton
     }
 }
 
-extension HomeViewToolBarCpn {
+private extension HomeToolbar {
     
     private var barButton: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
-            NavigationLink(destination: BarView(viewModel: viewModel)) {
+            NavigationLink(destination: Bar(viewModel: viewModel)) {
                 Image(systemName: "wineglass")
                     .foregroundStyle(.turborider)
             }
         }
     }
     
-    private func resetButton(viewModel: CocktailViewModel) -> some ToolbarContent {
+    private func resetButton(_ viewModel: CocktailViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.resetConfirmation = true
@@ -50,15 +52,32 @@ extension HomeViewToolBarCpn {
         }
     }
     
-    private func createNewCocktailButton(viewModel: CocktailViewModel) -> some ToolbarContent {
+    private func createNewCocktailButton(_ viewModel: CocktailViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             createNewCocktailButton
                 .sheet(isPresented: $viewModel.showCreationSheet) {
                     NavigationStack {
-                        CocktailCreationView()
+                        CreateCocktail()
                     }
                 }
         }
+    }
+    
+    private var sortingButton: some ToolbarContent {
+        ToolbarItem {
+            Menu("Sort By", systemImage: "arrow.up.arrow.down") {
+                Picker("Sort By", selection: $sortOption) {
+                    ForEach(CocktailSortOption.allCases, id: \.self) { option in
+                        Text(option.rawValue)
+                            .tag(option)
+                    }
+                }
+                .pickerStyle(.menu)
+                .buttonStyle(.plain)
+            }
+            .tint(.turborider)
+        }
+        
     }
     
     private var createNewCocktailButton: some View {
@@ -68,7 +87,7 @@ extension HomeViewToolBarCpn {
             HStack {
                 Image(systemName: "plus.circle.fill")
                     .foregroundStyle(.turborider)
-                Text("Create Your Own")
+                Text("Create yours")
                     .foregroundStyle(.turborider)
             }
             .padding(2)

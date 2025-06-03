@@ -20,14 +20,10 @@ final class CocktailViewModel {
     }
     
     var selectedIngredient: Ingredient?
-    var selectedCategory: Category = .possibleCocktails
+    var filterOption: CocktailFilterCategory = .possibleCocktails
+    var sortOption: CocktailSortOption = .name
     var resetConfirmation = false
     var showCreationSheet = false
-    
-    func sortQuery(_ possibleCocktails: [Cocktail]) -> [Cocktail] {
-          useCase.executeSortQuery(selectedCategory: selectedCategory, from: possibleCocktails)
-      }
-    
     
     func deleteCocktail(_ cocktail: Cocktail) {
         if cocktail.stock {

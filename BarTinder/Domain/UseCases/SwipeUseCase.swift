@@ -16,7 +16,7 @@ class SwipeUseCase {
         self.repo = repo
     }
     
-    func executeGetCocktails() {
+    func executeGetCocktails() throws(NetworkErrors) {
         do {
             let cocktails = try repo.getAllCocktails()
             for cocktail in cocktails {
@@ -24,7 +24,8 @@ class SwipeUseCase {
             }
             repo.callContextSave()
         } catch {
-            print(VMErrors.couldntFetchCocktails.localizedDescription)
+            print("Failed to get all cocktails from API")
+            throw .failedToGetCocktails
         }
     }
     

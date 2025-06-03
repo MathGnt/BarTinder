@@ -15,25 +15,62 @@ class CreationUseCase {
         self.repo = repo
     }
     
+    
     func makeIngredientMeasures(
         ingredients: [Ingredient],
-        cocktailMeasure: [String: String],
-        selectedUnit: [String: CocktailCreationViewModel.Units]
+        cocktailMeasure: [String : String],
+        selectedUnit: [String : Units]
     ) throws -> [IngredientMeasure] {
         var result: [IngredientMeasure] = []
         
         for ingredient in ingredients {
-            let measure = cocktailMeasure[ingredient.id] ?? ""
-            
-            guard !measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                throw CUCErrors.emptyFields
-            }
-            
+          
             let unit = selectedUnit[ingredient.id] ?? .cl
-            result.append(IngredientMeasure(ingredient: ingredient.name, measure: "\(measure) \(unit.rawValue)"))
+            
+            switch unit {
+            case .topUp, .toRinse:
+                let argIng = makeArgumentIngredient(selectedUnit, ingredient, unit)
+                result.append(argIng)
+            default:
+                let regIng = try makeRegularIngredient(cocktailMeasure, selectedUnit, ingredient, unit)
+                result.append(regIng)
+            }
+        }
+        return result
+    }
+    
+    func makeArgumentIngredient(
+        _ selectedUnit: [String : Units],
+        _ ingredient: Ingredient,
+        _ unit: Units
+    ) -> IngredientMeasure {
+        
+        let newIngredient: IngredientMeasure = IngredientMeasure(
+            ingredient: ingredient.name,
+            measure: unit.rawValue
+        )
+        
+        return newIngredient
+    }
+    
+    func makeRegularIngredient(
+        _ cocktailMeasure: [String : String],
+        _ selectedUnit: [String : Units],
+        _ ingredient: Ingredient,
+        _ unit: Units
+    ) throws -> IngredientMeasure {
+        
+        let measure = cocktailMeasure[ingredient.id] ?? ""
+        guard !measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            throw CUCErrors.emptyFields
         }
         
-        return result
+        let newIngredient: IngredientMeasure = IngredientMeasure(
+            ingredient: ingredient.name,
+            measure: "\(measure) \(unit.rawValue)"
+        )
+        
+        return newIngredient
     }
     
     func createNewCocktail(_ cocktail: Cocktail) {

@@ -1,5 +1,5 @@
 //
-//  SwipeView.swift
+//  Swipe.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 16/04/2025.
@@ -8,10 +8,9 @@
 import SwiftUI
 import SwiftData
 
-struct SwipeView: View {
+struct Swipe: View {
     
-    /// Swift Data Setup
-    @Environment(\.swiftData) private var dataBase
+    /// Only for Swift Data setup
     @Environment(\.modelContext) private var context
     
     
@@ -37,7 +36,7 @@ struct SwipeView: View {
                         
                         ZStack {
                             ForEach(viewModel.ingredients.reversed()) { card in
-                                CardView(card: card, viewModel: viewModel)
+                                IngredientCard(card: card, viewModel: viewModel)
                             }
                         }
                         
@@ -76,25 +75,29 @@ struct SwipeView: View {
                 .transition(.opacity.combined(with: .scale))
             }
             
-            
             if finishSwiping {
-                HomeView(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
+                Home(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
             }
             
         }
         .animation(.easeInOut(duration: 0.6), value: finishSwiping)
-        .environment(\.swiftData, SwiftDataSource(context: context))
+        .environment(\.swiftData, SwiftDataSource(context: context)) // Implementation
+        .alert("Server Error", isPresented: $viewModel.fetchingError) {
+            Button("Cancel") {}
+        } message: {
+            Text("Couldnt fetch cocktails for your selection")
+        }
     }
 }
 
 #Preview {
-    SwipeView()
+    Swipe()
 }
     
-    //MARK: - View Function
+//MARK: - View Function
 
-extension SwipeView {
+private extension Swipe {
     
     private func bottomButtons(image: String, color: Color, action: @escaping () -> Void) -> some View {
         Button {

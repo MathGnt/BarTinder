@@ -19,7 +19,8 @@ class BarTinderTests {
         let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let context = ModelContext(container)
         
-        let repo = RepositoryMock(context: context)
+        let swiftData = SwiftDataSource(context: context)
+        let repo = RepositoryMock(swiftDataSource: swiftData)
         let useCase = SwipeUseCase(repo: repo)
         let viewModel = SwipeViewModel(useCase: useCase)
         
