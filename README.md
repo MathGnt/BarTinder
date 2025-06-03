@@ -87,7 +87,7 @@ cocktailUseCase.createCocktail(with: ingredients)
 // For simple UI actions: Direct environment access
 @Environment(\.swiftData) private var dataBase
 
-Button("Reset) {
+Button("Reset") {
     dataBase.contextDeleteAll(Cocktail.self)
     finishSwiping = false
 }
