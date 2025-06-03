@@ -20,7 +20,7 @@
 ### **The Magic Flow**
 
 1. **Swipe Ingredients** → Browse ingredient cards with satisfying swipe gestures
-2. **❤Like or Pass** → Express your taste preferences 
+2. **Like or Pass** → Express your taste preferences 
 3. **Discover Cocktails** → Get personalized recommendations based on your choices
 4. **Create Your Own** → Build custom cocktails with unlimited creativity
 
