@@ -30,13 +30,12 @@
 
 ### **Core Experience**
 - **Tinder-like Swiping**: Intuitive card-based ingredient selection
-- **Smart Matching**: AI-powered cocktail suggestions based on your preferences  
 - **Recipe Discovery**: Explore cocktails you can make with liked ingredients
-- **Custom Creation**: Build your own signature cocktails
+- **Custom Creation**: Build your own signature cocktails!
 
 ### **Creation Tools**
 - **Recipe Builder**: Add ingredients with precise measurements
-- **Visual Customization**: Upload cocktail photos and select glassware among many other options
+- **Visual Customization**: Upload cocktail photos and select your cocktails options among glassware, flavor, ABV..
 - **Personal Library**: Save and organize your creations
 
 ---
@@ -50,7 +49,7 @@ Built with a robust **Clean Architecture** approach, ensuring:
 - **Maintainability**: Scalable and readable codebase
 - **SOLID Principles**: Following best practices for iOS development
 
-### 🗄 **SwiftData Integration**
+### **SwiftData Integration**
 
 The app leverages **SwiftData** with a custom abstraction layer to keep data logic out of views:
 
@@ -76,6 +75,27 @@ extension EnvironmentValues {
 - **Reusable Logic**: Consistent data operations across the app
 - **Easy Testing**: Mock-friendly architecture
 - **Clean Views**: SwiftUI views remain declarative and simple
+
+### **Hybrid Approach: Best of Both Worlds**
+While most data operations flow through Use Cases via dependency injection, 
+the Environment pattern provides flexibility for simple, direct operations:
+
+```swift
+// For complex business logic: Use Cases handle the flow
+cocktailUseCase.createCocktail(with: ingredients)
+
+// For simple UI actions: Direct environment access
+@Environment(\.swiftData) private var dataBase
+
+Button("Reset) {
+    dataBase.contextDeleteAll(Cocktail.self)
+    finishSwiping = false
+}
+```
+
+**Why this dual approach?:**
+- **Efficiency**: Avoid unnecessary pipelines for simple operations
+- **Pragmatism**: All of your Swift Data operations stay in the same place!
 
 ---
 
