@@ -13,6 +13,6 @@ enum NetworkErrors: Error {
     case failedToGetCocktails
 }
 
-enum CUCErrors: Error {
+enum CreationErrors: Error {
     case emptyFields
 }

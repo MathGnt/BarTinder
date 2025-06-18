@@ -49,48 +49,45 @@ enum CocktailFilterCategory: String, CaseIterable {
          }
      }
     
-    static func byInBar() -> Predicate<Cocktail> {
-        return #Predicate<Cocktail> {
+    static var byInBar: Predicate<Cocktail> {
+         #Predicate<Cocktail> {
             $0.isInBar == true
         }
     }
     
     // Dynamic filtering
     var filterCategory: Predicate<Cocktail> {
-         let predicate: Predicate<Cocktail>
          
          switch self {
          case .possibleCocktails:
-             predicate = #Predicate<Cocktail> { $0.isPossible == true }
+             return #Predicate<Cocktail> { $0.isPossible == true }
          case .gin:
-             predicate = #Predicate<Cocktail> { cocktail in
+             return #Predicate<Cocktail> { cocktail in
                  cocktail.isPossible == true &&
                  cocktail.ingredientsMeasures.contains { $0.ingredient == "gin" }
              }
          case .vodka:
-             predicate = #Predicate<Cocktail> { cocktail in
+             return #Predicate<Cocktail> { cocktail in
                  cocktail.isPossible == true &&
                  cocktail.ingredientsMeasures.contains { $0.ingredient == "vodka" }
              }
          case .vermouth:
-             predicate = #Predicate<Cocktail> { cocktail in
+             return #Predicate<Cocktail> { cocktail in
                  cocktail.isPossible == true &&
                  cocktail.ingredientsMeasures.contains { $0.ingredient == "vermouth" }
              }
          case .whisky:
-             predicate = #Predicate<Cocktail> { cocktail in
+             return #Predicate<Cocktail> { cocktail in
                  cocktail.isPossible == true &&
                  cocktail.ingredientsMeasures.contains {
                      return $0.ingredient == "whisky" || $0.ingredient == "rye whiskey"
                  }
              }
          case .shortDrink:
-             predicate = #Predicate<Cocktail> { $0.isPossible == true && $0.style == "shortdrink" }
+             return #Predicate<Cocktail> { $0.isPossible == true && $0.style == "shortdrink" }
          case .longDrink:
-             predicate = #Predicate<Cocktail> { $0.isPossible == true && $0.style == "longdrink" }
+             return #Predicate<Cocktail> { $0.isPossible == true && $0.style == "longdrink" }
          }
-         
-         return predicate
      }
 }
 

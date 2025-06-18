@@ -16,43 +16,8 @@ struct HomeToolbar: ToolbarContent {
     @Binding var sortOption: CocktailSortOption
     
     var body: some ToolbarContent {
-        barButton
-        resetButton(viewModel)
-        createNewCocktailButton(viewModel)
-        sortingButton
-    }
-}
-
-private extension HomeToolbar {
-    
-    private var barButton: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            NavigationLink(destination: Bar(viewModel: viewModel)) {
-                Image(systemName: "wineglass")
-                    .foregroundStyle(.turborider)
-            }
-        }
-    }
-    
-    private func resetButton(_ viewModel: CocktailViewModel) -> some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                viewModel.resetConfirmation = true
-            } label: {
-                Image(systemName: "arrow.counterclockwise")
-                    .foregroundStyle(.turborider)
-            }
-            .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
-                Button("Reset") {
-                    dataBase.contextDeleteAll(Cocktail.self)
-                    finishSwiping = false
-                }
-                Button("Cancel", role: .cancel) { }
-            }
-        }
-    }
-    
-    private func createNewCocktailButton(_ viewModel: CocktailViewModel) -> some ToolbarContent {
+        
+        
         ToolbarItem(placement: .topBarLeading) {
             createNewCocktailButton
                 .sheet(isPresented: $viewModel.showCreationSheet) {
@@ -61,9 +26,14 @@ private extension HomeToolbar {
                     }
                 }
         }
-    }
-    
-    private var sortingButton: some ToolbarContent {
+        
+        ToolbarItem {
+            NavigationLink(destination: Bar()) {
+                Image(systemName: "wineglass")
+                    .foregroundStyle(.primary)
+            }
+        }
+        
         ToolbarItem {
             Menu("Sort By", systemImage: "arrow.up.arrow.down") {
                 Picker("Sort By", selection: $sortOption) {
@@ -75,23 +45,37 @@ private extension HomeToolbar {
                 .pickerStyle(.menu)
                 .buttonStyle(.plain)
             }
-            .tint(.turborider)
+            .tint(.primary)
+        }
+        
+        ToolbarSpacer(.fixed)
+        
+        ToolbarItem {
+            Button {
+                viewModel.resetConfirmation = true
+            } label: {
+                Image(systemName: "arrow.counterclockwise")
+                    .foregroundStyle(.applered)
+            }
+            .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
+                Button("Reset", role: .destructive) {
+                    dataBase.contextDeleteAll(Cocktail.self)
+                    finishSwiping = false
+                }
+            }
         }
         
     }
+}
+
+private extension HomeToolbar {
     
     private var createNewCocktailButton: some View {
         Button {
             viewModel.showCreationSheet = true
         } label: {
-            HStack {
-                Image(systemName: "plus.circle.fill")
-                    .foregroundStyle(.turborider)
-                Text("Create yours")
-                    .foregroundStyle(.turborider)
-            }
-            .padding(2)
-            .contentShape(Rectangle())
+            Image(systemName: "plus")
+                .foregroundStyle(.primary)
         }
         .buttonStyle(.plain)
     }

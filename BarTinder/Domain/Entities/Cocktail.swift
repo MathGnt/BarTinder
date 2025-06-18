@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 @Model
-final class Cocktail: Identifiable {
+nonisolated final class Cocktail: Identifiable {
     #Index<Cocktail>([\.isInBar, \.isPossible])
     
     @Attribute(.unique)
@@ -65,7 +65,7 @@ extension Cocktail {
 //MARK: Ingredients Relationship
 
 @Model
-final class IngredientMeasure: Identifiable {
+nonisolated final class IngredientMeasure: Identifiable {
     var ingredient: String
     var measure: String
     

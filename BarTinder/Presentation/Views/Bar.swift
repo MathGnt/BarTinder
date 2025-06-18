@@ -11,9 +11,8 @@ import SwiftData
 struct Bar: View {
     
     @State private var selectedCocktail: Cocktail?
-    let viewModel: CocktailViewModel
     
-    @Query(filter: CocktailFilterCategory.byInBar()) private var cocktails: [Cocktail]
+    @Query(filter: CocktailFilterCategory.byInBar) private var cocktails: [Cocktail]
     
     var body: some View {
         
@@ -64,5 +63,5 @@ struct Bar: View {
 
 
 #Preview {
-    Bar(viewModel: PatchBay.patch.makeCocktailViewModel())
+    Bar()
 }

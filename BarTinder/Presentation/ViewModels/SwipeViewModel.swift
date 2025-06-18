@@ -11,19 +11,20 @@ import SwiftUI
 import SwiftData
 
 @Observable
-@MainActor
 final class SwipeViewModel {
     
     let useCase: SwipeUseCase
     private(set) var ingredients: [Ingredient] = []
-
+    private var selectedIngredients: Set<String> = []
+    
+    var fetchingError = false
+    
+    // Animation
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
-    private var selectedIngredients: Set<String> = []
     private var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
-    var fetchingError = false
     
     init(useCase: SwipeUseCase) {
         self.useCase = useCase
@@ -86,7 +87,6 @@ final class SwipeViewModel {
         if let otherName = card.otherName {
             selectedIngredients.insert(otherName)
         }
-        print("added \(card.name) to the selection SET")
         updatePossibleCocktails()
     }
     
@@ -131,7 +131,7 @@ final class SwipeViewModel {
             setRotation(for: card, value: 12)
         }
         
-        Task { @MainActor in
+        Task {
             try? await Task.sleep(for: .seconds(0.3))
             removeIngredient(card)
             addIngredient(card)

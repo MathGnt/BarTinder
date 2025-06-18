@@ -32,6 +32,7 @@ private extension CreationToolbar {
                 }
             } label: {
                 Text("Done")
+                    .foregroundStyle(.validate)
             }
             .alert("Missing fields", isPresented: $notValid) {
                 
@@ -47,6 +48,7 @@ private extension CreationToolbar {
                 dismiss()
             } label: {
                 Text("Cancel")
+                    .foregroundStyle(.applered)
             }
         }
     }
@@ -59,6 +61,7 @@ private extension CreationToolbar {
                     focus = nil
                 }
             }
+            .contentShape(.rect)
         }
     }
 }

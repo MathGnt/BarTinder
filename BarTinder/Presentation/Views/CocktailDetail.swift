@@ -47,26 +47,16 @@ struct CocktailDetail: View {
                 Button {
                     cocktail.isInBar.toggle()
                 } label: {
-                    Circle()
-                        .shadow(radius: 2)
-                        .background(.thinMaterial)
-                        .frame(height: 32)
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
-                        .foregroundStyle(.clear)
-                        .overlay {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 15)
-                                .foregroundStyle(.turborider)
-                                .fontWeight(.bold)
-                        }
+                    Image(systemName: cocktail.isInBar ? "checkmark" : "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 15)
+                        .foregroundStyle(.turborider)
+                        .fontWeight(.bold)
                 }
-               
+                .disabled(cocktail.isInBar)
             }
-            
         }
-        .toolbarBackground(.thinMaterial, for: .navigationBar)
     }
 }
 
@@ -112,7 +102,6 @@ private extension CocktailDetail {
         }
     }
     
-    @MainActor
     private func ingredientsList(_ cocktail: Cocktail) -> some View {
         VStack(alignment: .center, spacing: 4) {
             Text("Ingredients")

@@ -10,7 +10,6 @@ import SwiftData
 
 // Factory for the app
 
-@MainActor
 final class PatchBay {
     static let patch = PatchBay()
     
@@ -46,10 +45,6 @@ final class PatchBay {
         CreationUseCase(repo: makeCocktailRepo())
     }
     
-    func makeCocktailUseCase() -> CocktailUseCase {
-        CocktailUseCase(repo: makeCocktailRepo())
-    }
-    
     // ViewModels
     func makeSwipeViewModel() -> SwipeViewModel {
         SwipeViewModel(useCase: makeSwipeUseCase())
@@ -60,6 +55,6 @@ final class PatchBay {
     }
     
     func makeCocktailViewModel() -> CocktailViewModel {
-        CocktailViewModel(useCase: makeCocktailUseCase())
+        CocktailViewModel()
     }
 }

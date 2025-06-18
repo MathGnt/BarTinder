@@ -13,8 +13,6 @@ extension Ingredient {
 
 extension Cocktail {
     
-    // MainActor bcs can't conform to Sendable ptc
-    
     @MainActor static let mocks: Cocktail = Cocktail(
         name: "Gin Tonic",
         ingredientsMeasures: [

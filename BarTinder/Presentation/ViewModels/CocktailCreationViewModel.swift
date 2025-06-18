@@ -11,7 +11,6 @@ import SwiftUI
 import PhotosUI
 
 @Observable
-@MainActor
 final class CocktailCreationViewModel {
     
     let useCase: CreationUseCase
@@ -94,7 +93,7 @@ final class CocktailCreationViewModel {
                 cocktailMeasure: cocktailMeasure,
                 selectedUnit: selectedUnit
             )
-        } catch CUCErrors.emptyFields {
+        } catch CreationErrors.emptyFields {
             ingredientsNotValid = true
         } catch {
             print(error)

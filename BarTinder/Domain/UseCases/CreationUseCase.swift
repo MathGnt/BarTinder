@@ -62,7 +62,7 @@ class CreationUseCase {
         
         let measure = cocktailMeasure[ingredient.id] ?? ""
         guard !measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw CUCErrors.emptyFields
+            throw CreationErrors.emptyFields
         }
         
         let newIngredient: IngredientMeasure = IngredientMeasure(

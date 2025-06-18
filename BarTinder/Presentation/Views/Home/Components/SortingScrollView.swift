@@ -1,5 +1,5 @@
 //
-//  ScrollBarItem.swift
+//  SortingScrollView.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 29/05/2025.

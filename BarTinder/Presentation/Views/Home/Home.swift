@@ -31,7 +31,7 @@ struct Home: View {
                     
                     sectionTitle(title: "Your Cocktails")
                     
-                    YourCocktailsScrollView(viewModel: viewModel, swipeViewModel: swipeViewModel, sortOption: viewModel.sortOption, filterOption: viewModel.filterOption)
+                    YourCocktailsScrollView(viewModel: viewModel, swipeViewModel: swipeViewModel)
                         .scrollIndicators(.hidden)
                         .contentMargins(18)
                     
@@ -56,9 +56,9 @@ struct Home: View {
                         sortOption: $viewModel.sortOption
                     )
                 }
+              
             }
         }
-        .tint(.turborider)
     }
 }
 
@@ -88,6 +88,7 @@ extension Home {
     
     @ViewBuilder
     private var menuScrollBar: some View {
+        
         SortingScrollView(viewModel: viewModel, title: "Your Cocktails", filterOption: .possibleCocktails, width: 130, height: 30)
         SortingScrollView(viewModel: viewModel, title: "Gin", filterOption: .gin, width: 50, height: 30)
         SortingScrollView(viewModel: viewModel, title: "Vodka", filterOption: .vodka, width: 70, height: 30)
@@ -114,5 +115,6 @@ extension Home {
         }
         .scrollIndicators(.hidden)
         .contentMargins(18)
+      
     }
 }

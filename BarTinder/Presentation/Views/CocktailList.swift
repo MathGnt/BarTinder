@@ -19,6 +19,7 @@ struct CocktailList: View {
     init(ingredientCard: Ingredient, viewModel: CocktailViewModel) {
         self.ingredientCard = ingredientCard
         self.viewModel = viewModel
+        
         _cocktails = Query(filter: CocktailFilterCategory.byIngredient(ingredientCard))
     }
 

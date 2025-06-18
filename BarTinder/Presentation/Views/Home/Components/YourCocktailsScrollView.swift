@@ -1,5 +1,5 @@
 //
-//  CocktailScrollView.swift
+//  YourCocktailsScrollView.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 02/06/2025.
@@ -13,26 +13,24 @@ struct YourCocktailsScrollView: View {
     let viewModel: CocktailViewModel
     let swipeViewModel: SwipeViewModel
     @Namespace private var namespace
+    @Environment(\.swiftData) private var dataBase
     
     @Query private var cocktails: [Cocktail]
     
     init(
         viewModel: CocktailViewModel,
         swipeViewModel: SwipeViewModel,
-        sortOption: CocktailSortOption,
-        filterOption: CocktailFilterCategory
     ) {
         self.viewModel = viewModel
         self.swipeViewModel = swipeViewModel
         
         // Dynamic filtering & sorting
-        _cocktails = Query(filter: filterOption.filterCategory,
-                           sort: sortOption.sortDescriptors)
+        _cocktails = Query(viewModel.yourCocktailsDescriptor)
     }
     
     var body: some View {
         ScrollView(.horizontal) {
-            HStack {
+            LazyHStack {
                 ForEach(cocktails) { cocktail in
                     NavigationLink {
                         CocktailDetail(cocktail: cocktail)
@@ -62,9 +60,23 @@ private extension YourCocktailsScrollView {
                 RoundedRectangle(cornerRadius: 20)
             )
             .contextMenu {
-                Button("Delete", role: .destructive) {
-                    viewModel.deleteCocktail(cocktail)
+                Button {
+                    
+                } label: {
+                    Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
+                }
+                
+                Button(role: .destructive) {
+                    withAnimation {
+                        if cocktail.stock {
+                            cocktail.isPossible = false
+                        } else {
+                            dataBase.contextDelete(cocktail)
+                        }
+                    }
                     swipeViewModel.removeSelectedIngredients()
+                } label: {
+                    Label("Delete", systemImage: "trash")
                 }
                 .animation(.easeInOut, value: cocktail)
             }
