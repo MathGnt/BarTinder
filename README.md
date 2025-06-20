@@ -13,7 +13,7 @@
 
 ---
 
-## 🎯 **What is BarTinder?**
+## **What is BarTinder?**
 
 **BarTinder** is the ultimate cocktail discovery app that revolutionizes how you explore and create drinks. Think Tinder, but for cocktail ingredients! 
 
@@ -99,7 +99,7 @@ Button("Reset") {
 
 ---
 
-## 🛠 **Tech Stack**
+## **Tech Stack**
 
 | Technology | Purpose |
 |------------|---------|
@@ -113,11 +113,11 @@ Button("Reset") {
 
 ## 📱 **Screenshots**
 
-*Coming soon! 📸*
+*Coming soon!*
 
 ---
 
-## 🚀 **Getting Started**
+## **Getting Started**
 
 ### Prerequisites
 - iOS 17.0+
@@ -136,7 +136,7 @@ cd BarTinder
 open BarTinder.xcodeproj
 ```
 
-3. Build and run! 🎉
+3. Build and run!
 
 ---
 
@@ -176,9 +176,9 @@ Contributions are welcome! Feel free to:
 ## **Author**
 
 **Mathis Gaignet**
-- 🌍 iOS Developer from France
-- 🎵 Audio Engineering background
-- 🍎 Passionate about SwiftUI & Apple ecosystem
+- iOS Developer from France
+- Audio Engineering background
+- Passionate about SwiftUI & Apple ecosystem
 
 ---
 
