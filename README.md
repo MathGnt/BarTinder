@@ -4,8 +4,8 @@
   
   ### *Swipe your way to the perfect cocktail* 🥂
   
-  ![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)
-  ![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS%2017+-blue.svg)
+  ![Swift](https://img.shields.io/badge/Swift-6.2-orange.svg)
+  ![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS%2026+-blue.svg)
   ![SwiftData](https://img.shields.io/badge/SwiftData-Enabled-green.svg)
   ![Architecture](https://img.shields.io/badge/Architecture-Clean-purple.svg)
 
