@@ -17,25 +17,15 @@ final class CocktailCreationViewModel {
     
     private(set) var ingredients: [Ingredient] = []
     private(set) var addedIngredients: [Ingredient] = []
-    private var ingredientsMeasures: [IngredientMeasure] = []
     
     /// Picker / TF
-    var cocktailName = ""
-    var cocktailDescription = ""
-    var addToBar = false
     var selectedPic: PhotosPickerItem?
-    private(set) var selectedImage: Data?
-    var cocktailAbv = ""
-    var cocktailFlavor = ""
-    var cocktailStyle: CocktailStyle = .shortDrink
-    var cocktailPreparation: CocktailPreparation = .built
-    var cocktailGlass: CocktailGlass = .highball
-    var cocktailDifficulty: CocktailDifficulty = .easy
     var selectedUnit: [String : Units] = [:]
     var cocktailMeasure: [String : String] = [:]
-    var searchableField = ""
     var notValid = false
     var ingredientsNotValid = false
+    
+    var searchableField = ""
     var searchableIngredients: [Ingredient] {
         if searchableField == "" {
             return ingredients
@@ -66,8 +56,8 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func imageDataToUI() -> UIImage? {
-        guard let data = selectedImage else { return nil }
+    func imageDataToUI(_ cocktail: Cocktail) -> UIImage? {
+        guard let data = cocktail.imageData else { return nil }
         return UIImage(data: data)
     }
     
@@ -86,9 +76,9 @@ final class CocktailCreationViewModel {
         selectedUnit[ingredient.id] != .topUp && selectedUnit[ingredient.id] != .toRinse
     }
     
-    func createIngredientsMeasures() {
+    func createIngredientsMeasures(_ cocktail: Cocktail) {
         do {
-            self.ingredientsMeasures = try useCase.makeIngredientMeasures(
+            cocktail.ingredientsMeasures = try useCase.makeIngredientMeasures(
                 ingredients: addedIngredients,
                 cocktailMeasure: cocktailMeasure,
                 selectedUnit: selectedUnit
@@ -100,44 +90,27 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func loadSelectedImage() async {
+    func loadSelectedImage(_ cocktail: Cocktail) async {
         guard let selectedPic else { return }
         do {
             if let data = try await selectedPic.loadTransferable(type: Data.self) {
-                selectedImage = data
+                cocktail.imageData = data
             }
         } catch {
             print("Erreur de chargement de l'image: \(error.localizedDescription)")
         }
     }
     
-    func createCocktail() {
-        
-        guard useCase.textValid(cocktailName, cocktailDescription, cocktailAbv, cocktailFlavor),
-              !ingredientsMeasures.isEmpty else {
+    func validateFields(_ cocktail: Cocktail) -> Bool {
+        guard !addedIngredients.isEmpty else {
             notValid = true
-            return
+            return false
         }
-        
-        let newCocktail = Cocktail(
-            name: cocktailName,
-            ingredientsMeasures: ingredientsMeasures,
-            isInBar: addToBar,
-            isPossible: true,
-            imageName: nil,
-            imageData: selectedImage,
-            style: cocktailStyle.rawValue,
-            glass: cocktailGlass.rawValue,
-            preparation: cocktailPreparation.rawValue,
-            abv: cocktailAbv,
-            flavor: cocktailFlavor,
-            difficulty: cocktailDifficulty.rawValue,
-            cocktailDescription: cocktailDescription,
-            stock: false
-        )
-        
-        useCase.createNewCocktail(newCocktail)
+        if !useCase.textValid(cocktail.abv, cocktail.cocktailDescription, cocktail.name, cocktail.flavor) {
+            notValid = true
+            return false
+        }
+        return true
     }
-    
 }
 

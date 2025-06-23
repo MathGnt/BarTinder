@@ -12,7 +12,7 @@ struct CocktailDTO: Decodable {
     let ingredientsMeasures: [IngredientMeasureDTO]
     let style: String
     let glass: String
-    let preparation: String
+    let technique: String
     let abv: String
     let flavor: String
     let difficulty: Int

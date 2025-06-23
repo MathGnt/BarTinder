@@ -13,16 +13,16 @@ struct HomeToolbar: ToolbarContent {
     @Environment(\.swiftData) private var dataBase
     @Binding var viewModel: CocktailViewModel
     @Binding var finishSwiping: Bool
-    @Binding var sortOption: CocktailSortOption
+    @Binding var sortOption: CocktailSortDescriptor
+    
+    @State private var cocktail = Cocktail(isPossible: true)
     
     var body: some ToolbarContent {
-        
-        
         ToolbarItem(placement: .topBarLeading) {
             createNewCocktailButton
                 .sheet(isPresented: $viewModel.showCreationSheet) {
                     NavigationStack {
-                        CreateCocktail()
+                        CreateEditCocktail(cocktail: cocktail)
                     }
                 }
         }
@@ -36,14 +36,19 @@ struct HomeToolbar: ToolbarContent {
         
         ToolbarItem {
             Menu("Sort By", systemImage: "arrow.up.arrow.down") {
-                Picker("Sort By", selection: $sortOption) {
-                    ForEach(CocktailSortOption.allCases, id: \.self) { option in
-                        Text(option.rawValue)
-                            .tag(option)
-                    }
+                Section {
+                    Toggle("Reverse order", isOn: $viewModel.isReversed)
                 }
-                .pickerStyle(.menu)
-                .buttonStyle(.plain)
+                Section {
+                    Picker("Sort By", selection: $sortOption) {
+                        ForEach(CocktailSortDescriptor.allCases, id: \.self) { option in
+                            Text(option.rawValue)
+                                .tag(option)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .buttonStyle(.plain)
+                }
             }
             .tint(.primary)
         }
@@ -72,6 +77,7 @@ private extension HomeToolbar {
     
     private var createNewCocktailButton: some View {
         Button {
+            cocktail = Cocktail(isPossible: true)
             viewModel.showCreationSheet = true
         } label: {
             Image(systemName: "plus")

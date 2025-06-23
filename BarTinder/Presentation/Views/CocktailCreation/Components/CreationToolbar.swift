@@ -11,8 +11,11 @@ struct CreationToolbar: ToolbarContent {
     
     let viewModel: CocktailCreationViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.swiftData) private var dataBase
     @Binding var notValid: Bool
     @FocusState.Binding var focus: Focus?
+    
+    let cocktail: Cocktail
     
     var body: some ToolbarContent {
         createCocktailButton
@@ -26,8 +29,8 @@ private extension CreationToolbar {
     private var createCocktailButton: some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                viewModel.createCocktail()
-                if !viewModel.notValid {
+                if viewModel.validateFields(cocktail) {
+                    dataBase.contextInsert(cocktail)
                     dismiss()
                 }
             } label: {

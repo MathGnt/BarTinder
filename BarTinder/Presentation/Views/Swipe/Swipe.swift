@@ -12,7 +12,7 @@ struct Swipe: View {
     
     /// Only for Swift Data setup
     @Environment(\.modelContext) private var context
-    
+    @AppStorage("fetched-cocktails") private var hasFetchedCocktails = false
     
     @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
     @AppStorage("finish-swiping") private var finishSwiping: Bool = false
@@ -70,7 +70,10 @@ struct Swipe: View {
                     }
                 }
                 .onAppear {
-                    viewModel.getCocktails()
+                    if !hasFetchedCocktails {
+                        viewModel.getCocktails()
+                        hasFetchedCocktails = true
+                    }
                 }
                 .transition(.opacity.combined(with: .scale))
             }

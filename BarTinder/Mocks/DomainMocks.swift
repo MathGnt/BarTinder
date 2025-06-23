@@ -24,12 +24,12 @@ extension Cocktail {
         isPossible: true,
         imageName: "gintonic",
         imageData: nil,
-        style: "longdrink",
-        glass: "balloon",
-        preparation: "built",
+        style: .longDrink,
+        glass: .balloon,
+        preparation: .built,
+        difficulty: .easy,
         abv: "8",
         flavor: "bitter",
-        difficulty: 1,
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
         stock: false
     )
@@ -45,12 +45,12 @@ extension Cocktail {
         isPossible: true,
         imageName: "moscowmule",
         imageData: nil,
-        style: "longdrink",
-        glass: "cup",
-        preparation: "built",
+        style: .longDrink,
+        glass: .coppermug,
+        preparation: .built,
+        difficulty: .medium,
         abv: "8",
         flavor: "bitter",
-        difficulty: 3,
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
         stock: false
     )
@@ -66,12 +66,12 @@ extension Cocktail {
         isPossible: true,
         imageName: "aperolspritz",
         imageData: nil,
-        style: "longdrink",
-        glass: "wine glass",
-        preparation: "built",
+        style: .longDrink,
+        glass: .wine,
+        preparation: .built,
+        difficulty: .easy,
         abv: "11",
         flavor: "bitter-sweet",
-        difficulty: 1,
         cocktailDescription: "Aperol Spritz is a refreshing Italian cocktail known for its vibrant color and slightly bitter, citrusy taste. Perfect for sunny evenings.",
         stock: false
     )
@@ -87,12 +87,12 @@ extension Cocktail {
         isPossible: true,
         imageName: "negroni",
         imageData: nil,
-        style: "shortdrink",
-        glass: "old fashioned",
-        preparation: "stirred",
+        style: .shortDrink,
+        glass: .highball,
+        preparation: .stirred,
+        difficulty: .medium,
         abv: "24",
         flavor: "bitter",
-        difficulty: 2,
         cocktailDescription: "Bold and complex, the Negroni blends gin, vermouth, and Campari into a timeless Italian classic.",
         stock: false
     )
@@ -110,12 +110,12 @@ extension Cocktail {
         isPossible: true,
         imageName: "mojito",
         imageData: nil,
-        style: "longdrink",
-        glass: "highball",
-        preparation: "muddled",
+        style: .longDrink,
+        glass: .highball,
+        preparation: .built,
+        difficulty: .medium,
         abv: "10",
         flavor: "fresh",
-        difficulty: 3,
         cocktailDescription: "A Cuban classic combining rum, mint, and lime. Mojito is the ultimate refreshment for hot summer days.",
         stock: false
     )
@@ -130,17 +130,13 @@ extension Cocktail {
         isPossible: true,
         imageName: "drymartini",
         imageData: nil,
-        style: "shortdrink",
-        glass: "cocktail",
-        preparation: "built",
+        style: .shortDrink,
+        glass: .cocktail,
+        preparation: .built,
+        difficulty: .medium,
         abv: "10",
         flavor: "strong",
-        difficulty: 3,
         cocktailDescription: "A classic served with gin and a slight amount of vermouth on the ice",
         stock: false
     )
-    
 }
-
-
-

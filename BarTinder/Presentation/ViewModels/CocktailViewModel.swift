@@ -13,13 +13,14 @@ import Observation
 final class CocktailViewModel {
     
     var selectedIngredient: Ingredient?
-    var filterOption: CocktailFilterCategory = .possibleCocktails
-    var sortOption: CocktailSortOption = .name
+    var filterOption: CocktailFilterPredicate = .possibleCocktails
+    var isReversed: Bool = false
+    var sortOption: CocktailSortDescriptor = .name
     var resetConfirmation = false
     var showCreationSheet = false
 
     
     var yourCocktailsDescriptor: FetchDescriptor<Cocktail> {
-        FetchDescriptor(predicate: filterOption.filterCategory, sortBy: sortOption.sortDescriptors)
+        FetchDescriptor(predicate: filterOption.filterPredicate, sortBy: sortOption.sortDescriptor(reversed: isReversed))
     }
 }

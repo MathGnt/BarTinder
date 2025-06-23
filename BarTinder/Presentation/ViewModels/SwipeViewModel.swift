@@ -14,7 +14,7 @@ import SwiftData
 final class SwipeViewModel {
     
     let useCase: SwipeUseCase
-    private(set) var ingredients: [Ingredient] = []
+    private(set) var ingredients: [Ingredient] = Ingredient.ingredientCards
     private var selectedIngredients: Set<String> = []
     
     var fetchingError = false
@@ -69,17 +69,12 @@ final class SwipeViewModel {
     
     func getCocktails() {
         do {
-            addIngredients()
             try useCase.executeGetCocktails()
         } catch .failedToGetCocktails {
             fetchingError = true
         } catch {
             print("unknown error: \(error)")
         }
-    }
-    
-    func addIngredients() {
-        self.ingredients = Ingredient.ingredientCards
     }
     
     func addIngredient(_ card: Ingredient) {

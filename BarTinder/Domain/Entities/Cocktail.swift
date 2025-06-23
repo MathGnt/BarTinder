@@ -21,16 +21,23 @@ nonisolated final class Cocktail: Identifiable {
     var isPossible: Bool
     var imageName: String?
     var imageData: Data?
-    var style: String
-    var glass: String
-    var preparation: String
+    var style: CocktailStyle
+    var glass: CocktailGlass
+    var mixingTechnique: CocktailMixingTechnique
+    var difficulty: CocktailDifficulty
+    // Enum rawValues for sorting
+    var glassValue: String
+    var mixingTechniqueValue: String
+    var difficultyValue: Int
+    
     var abv: String
     var flavor: String
-    var difficulty: Int
+
     var cocktailDescription: String
-    var stock: Bool
+    var stock = false
     
-    init(name: String, ingredientsMeasures: [IngredientMeasure], isInBar: Bool, isPossible: Bool, imageName: String?, imageData: Data?, style: String, glass: String, preparation: String, abv: String, flavor: String, difficulty: Int, cocktailDescription: String, stock: Bool) {
+    
+    init(name: String = "", ingredientsMeasures: [IngredientMeasure] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, preparation: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, glassValue: String = "highball", preparationValue: String = "built", difficultyValue: Int = 1, abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
         self.name = name
         self.ingredientsMeasures = ingredientsMeasures
         self.isInBar = isInBar
@@ -39,14 +46,18 @@ nonisolated final class Cocktail: Identifiable {
         self.imageData = imageData
         self.style = style
         self.glass = glass
-        self.preparation = preparation
+        self.mixingTechnique = preparation
+        self.difficulty = difficulty
+        self.glassValue = glassValue
+        self.mixingTechniqueValue = preparationValue
+        self.difficultyValue = difficultyValue
         self.abv = abv
         self.flavor = flavor
-        self.difficulty = difficulty
         self.cocktailDescription = cocktailDescription
         self.stock = stock
     }
 }
+
 
 extension Cocktail {
     
@@ -71,10 +82,11 @@ nonisolated final class IngredientMeasure: Identifiable {
     
     var cocktail: Cocktail?
     
-    var id: String { self.ingredient}
+    var id = UUID()
     
-    init(ingredient: String, measure: String) {
+    init(ingredient: String = "", measure: String = "", cocktail: Cocktail? = nil) {
         self.ingredient = ingredient
         self.measure = measure
+        self.cocktail = cocktail
     }
 }

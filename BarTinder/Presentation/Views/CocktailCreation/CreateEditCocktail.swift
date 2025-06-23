@@ -9,19 +9,21 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct CreateCocktail: View {
+struct CreateEditCocktail: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = PatchBay.patch.makeCocktailCreationViewModel()
     @FocusState private var focus: Focus?
     
+    @Bindable var cocktail: Cocktail
+    
     var body: some View {
         List {
             Section {
                 HStack(spacing: 15) {
-                    CocktailImagePicker(viewModel: viewModel, selectedImage: $viewModel.selectedPic)
+                    CocktailImagePicker(viewModel: viewModel, selectedImage: $viewModel.selectedPic, cocktail: cocktail)
                     
-                    Text(viewModel.cocktailName)
+                    Text(cocktail.name)
                         .font(.system(size: 23, weight: .semibold, design: .rounded))
                 }
             }
@@ -32,7 +34,7 @@ struct CreateCocktail: View {
             
             Section {
                 NavigationLink {
-                    IngredientsListCreation(viewModel: viewModel)
+                    IngredientsListCreation(viewModel: viewModel, cocktail: cocktail)
                 } label: {
                     Text("Ingredients")
                 }
@@ -47,36 +49,36 @@ struct CreateCocktail: View {
             }
             
             Section {
-                PickersOptions(viewModel: viewModel)
+                PickersOptions(viewModel: viewModel, cocktail: cocktail)
             }
             
         }
         .navigationTitle("New Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            CreationToolbar(viewModel: viewModel, notValid: $viewModel.notValid, focus: $focus)
+            CreationToolbar(viewModel: viewModel, notValid: $viewModel.notValid, focus: $focus, cocktail: cocktail)
         }
     }
     
 }
 
 #Preview {
-    CreateCocktail()
+    CreateEditCocktail(cocktail: Cocktail.mocks)
 }
 
-private extension CreateCocktail {
+private extension CreateEditCocktail {
     
     @ViewBuilder
     private func nameDescriptionFields() -> some View {
-        TextField("Name", text: $viewModel.cocktailName)
-            .characterLimit(30, text: $viewModel.cocktailName)
+        TextField("Name", text: $cocktail.name)
+            .characterLimit(30, text: $cocktail.name)
             .focused($focus, equals: .name)
             .submitLabel(.next)
             .onSubmit {
                 focus = .description
             }
         
-        TextField("Description", text: $viewModel.cocktailDescription, axis: .vertical)
+        TextField("Description", text: $cocktail.cocktailDescription, axis: .vertical)
             .lineLimit(5, reservesSpace: true)
             .focused($focus, equals: .description)
             .submitLabel(.done)
@@ -87,7 +89,7 @@ private extension CreateCocktail {
     
     @ViewBuilder
     private func abvFlavorFields() -> some View {
-        TextField("ABV", text: $viewModel.cocktailAbv)
+        TextField("ABV", text: $cocktail.abv)
             .focused($focus, equals: .ABV)
             .keyboardType(.numberPad)
             .submitLabel(.next)
@@ -95,8 +97,8 @@ private extension CreateCocktail {
                 focus = .flavor
             }
         
-        TextField("Flavor", text: $viewModel.cocktailFlavor)
-            .characterLimit(15, text: $viewModel.cocktailFlavor)
+        TextField("Flavor", text: $cocktail.flavor)
+            .characterLimit(15, text: $cocktail.flavor)
             .focused($focus, equals: .flavor)
             .submitLabel(.next)
             .onSubmit {

@@ -11,9 +11,10 @@ import PhotosUI
 struct CocktailImagePicker: View {
     let viewModel: CocktailCreationViewModel
     let selectedImage: Binding<PhotosPickerItem?>
+    let cocktail: Cocktail
     
     var body: some View {
-        let image = viewModel.imageDataToUI() /* Swift 6 scoped */
+        let image = viewModel.imageDataToUI(cocktail) /* Swift 6 scoped */
         
         PhotosPicker(selection: selectedImage, matching: .images) {
             if let image {
@@ -50,7 +51,7 @@ struct CocktailImagePicker: View {
         }
         .onChange(of: viewModel.selectedPic) { oldValue, newValue in
             Task {
-                await viewModel.loadSelectedImage()
+                await viewModel.loadSelectedImage(cocktail)
             }
         }
     }

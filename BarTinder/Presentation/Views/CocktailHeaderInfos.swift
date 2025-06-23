@@ -18,7 +18,7 @@ struct CocktailHeaderInfos: View {
                     .font(.system(size: 15, design: .serif))
                 HStack {
                     ForEach(1...3, id: \.self) { index in
-                        Image(systemName: index <= cocktail.difficulty ? "wineglass.fill" : "wineglass")
+                        Image(systemName: index <= cocktail.difficulty.rawValue ? "wineglass.fill" : "wineglass")
                     }
                     .frame(height: 24)
                 }
@@ -28,12 +28,24 @@ struct CocktailHeaderInfos: View {
             Rectangle()
                 .frame(width: 1, height: 50)
             
-            cocktailDetail(title: "Style", image: cocktail.style)
+            cocktailDetail(title: "Style", image: cocktail.style.rawValue)
             
             Rectangle()
                 .frame(width: 1, height: 50)
             
-            cocktailDetail(title: "Glass", image: cocktail.glass)
+            cocktailDetail(title: "Glass", image: cocktail.glass.rawValue)
+            
+            
+            Rectangle()
+                .frame(width: 1, height: 50)
+            
+            VStack(spacing: 9) {
+                Text("Technique")
+                    .font(.system(size: 15, design: .serif))
+                Text(cocktail.mixingTechniqueValue.capitalizedWords)
+                    .font(.system(size: 16, design: .rounded))
+                    
+            }
             
         }
     }

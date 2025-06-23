@@ -11,7 +11,7 @@ struct SortingScrollView: View {
     let viewModel: CocktailViewModel
     
     let title: String
-    let filterOption: CocktailFilterCategory
+    let filterOption: CocktailFilterPredicate
     let width: CGFloat
     let height: CGFloat
     

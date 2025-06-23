@@ -13,6 +13,8 @@ struct IngredientsListCreation: View {
     @Environment(\.dismiss) private var dismiss
     @Bindable var viewModel: CocktailCreationViewModel
     
+    let cocktail: Cocktail
+    
     var body: some View {
         List {
             Section("Added") {
@@ -40,7 +42,7 @@ struct IngredientsListCreation: View {
 }
 
 #Preview {
-    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel())
+    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks)
 }
     
 //MARK: - VIEW FUNCTIONS
@@ -98,7 +100,7 @@ private extension IngredientsListCreation {
     private func doneButton(viewModel: CocktailCreationViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                viewModel.createIngredientsMeasures()
+                viewModel.createIngredientsMeasures(cocktail)
                 if !viewModel.ingredientsNotValid {
                     dismiss()
                 }

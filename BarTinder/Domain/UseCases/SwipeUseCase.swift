@@ -19,10 +19,15 @@ class SwipeUseCase {
     func executeGetCocktails() throws(NetworkErrors) {
         do {
             let cocktails = try repo.getAllCocktails()
+            dump("first is \(cocktails.first?.ingredientsMeasures.count)")
             for cocktail in cocktails {
                 repo.callContextInsert(cocktail)
+                dump("cocktails are \(cocktail.ingredientsMeasures)")
+                for ingredientMeasures in cocktail.ingredientsMeasures {
+                    dump("ingredients are \(ingredientMeasures.ingredient)")
+                }
             }
-            repo.callContextSave()
+        
         } catch {
             print("Failed to get all cocktails from API")
             throw .failedToGetCocktails

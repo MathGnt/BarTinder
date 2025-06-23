@@ -11,6 +11,7 @@ import SwiftData
 struct CocktailDetail: View {
     
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.dismiss) private var dismiss
     let cocktail: Cocktail
     
     var body: some View {
@@ -18,9 +19,14 @@ struct CocktailDetail: View {
             ZStack {
                 VStack {
                     topImage(cocktail: cocktail, scheme: scheme)
+                        .overlay(alignment: .bottom) {
+                            header(cocktail)
+                                .offset(y: -30)
+                        }
+                    
                     
                     VStack(spacing: 25) {
-                        header(cocktail)
+                      
                         CocktailHeaderInfos(cocktail: cocktail)
                         
                         HStack {
@@ -35,7 +41,9 @@ struct CocktailDetail: View {
                         .padding(.horizontal)
                         Spacer()
                     }
-                    .padding(.top, -65) /* <---- c'est horrible mais je trouve pas de soluce */
+                }
+                .onAppear {
+                    print("rawvalue is \(cocktail.glass.rawValue)")
                 }
             }
             .toolbarRole(.editor)
@@ -43,18 +51,39 @@ struct CocktailDetail: View {
         .ignoresSafeArea()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    cocktail.isInBar.toggle()
+            ToolbarItem {
+                Menu {
+                    Section {
+                        ControlGroup {
+                            NavigationLink {
+                                CreateEditCocktail(cocktail: cocktail)
+                            } label: {
+                                Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
+                            }
+                            .disabled(cocktail.stock)
+                            
+                            Button {
+                                cocktail.isPossible = false
+                                dismiss()
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                    }
+                    
+                    Section {
+                        Button {
+                            cocktail.isInBar.toggle()
+                        } label: {
+                            Label(cocktail.isInBar ? "Remove from bar" : "Add in bar", systemImage: cocktail.isInBar ? "wineglass.fill" : "wineglass")
+                                .foregroundStyle(cocktail.isInBar ? .primary : Color(.green))
+                        }
+                    }
+                    
                 } label: {
-                    Image(systemName: cocktail.isInBar ? "checkmark" : "plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 15)
-                        .foregroundStyle(.turborider)
-                        .fontWeight(.bold)
+                    Image(systemName: "ellipsis")
                 }
-                .disabled(cocktail.isInBar)
+                
             }
         }
     }
@@ -71,23 +100,44 @@ struct CocktailDetail: View {
 private extension CocktailDetail {
     
     private func topImage(cocktail: Cocktail, scheme: ColorScheme) -> some View {
-        cocktail.displayedImage
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(height: 400)
-            .frame(maxWidth: .infinity)
-            .overlay(
-                LinearGradient(
-                    gradient: Gradient(colors: scheme == .light ? [Color.white.opacity(1.7), Color.white.opacity(0)] : [Color.black.opacity(1.7), Color.black.opacity(0)]),
-                    startPoint: .bottom,
-                    endPoint: .top
+        ZStack(alignment: .topLeading) {
+            cocktail.displayedImage
+                .resizable()
+                .scaledToFill()
+                .clipped()
+            
+            cocktail.displayedImage
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .clipped()
+                .blur(radius: 16, opaque: true)
+                .saturation(1.3)
+                .brightness(0.15)
+                .mask {
+                    Rectangle()
+                        .fill(
+                            Gradient(stops: [
+                                .init(color: .clear, location: 0.5),
+                                .init(color: .white, location: 0.65)
+                            ])
+                            .colorSpace(.perceptual)
+                        )
+                }
+        }
+        .frame(height: 400)
+        .frame(maxWidth: .infinity)
+        .compositingGroup()
+        .mask {
+            Rectangle()
+                .fill(
+                    Gradient(stops: [
+                        .init(color: .white, location: 0.3),
+                        .init(color: .clear, location: 1.0)
+                    ])
+                    .colorSpace(.perceptual)
                 )
-                .frame(height: 150)
-                .alignmentGuide(.top) { _ in 0 }
-                    .padding(.top, 250)
-            )
-            .clipped()
-            .ignoresSafeArea()
+        }
+        .ignoresSafeArea()
     }
     
     private func header(_ cocktail: Cocktail) -> some View {
@@ -106,7 +156,7 @@ private extension CocktailDetail {
         VStack(alignment: .center, spacing: 4) {
             Text("Ingredients")
                 .font(.system(size: 17, design: .serif))
-            
+            Spacer(minLength: 15)
             ForEach(cocktail.ingredientsMeasures) { ingredientMeasure in
                 HStack {
                     Image(ingredientMeasure.ingredient.logolized())

@@ -20,7 +20,7 @@ struct CocktailList: View {
         self.ingredientCard = ingredientCard
         self.viewModel = viewModel
         
-        _cocktails = Query(filter: CocktailFilterCategory.byIngredient(ingredientCard))
+        _cocktails = Query(filter: CocktailFilterPredicate.byIngredient(ingredientCard))
     }
 
     var body: some View {
@@ -42,7 +42,7 @@ struct CocktailList: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Image(cocktail.glass)
+                Image(cocktail.glass.rawValue)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 25, height: 25)

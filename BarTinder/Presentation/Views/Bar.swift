@@ -12,7 +12,7 @@ struct Bar: View {
     
     @State private var selectedCocktail: Cocktail?
     
-    @Query(filter: CocktailFilterCategory.byInBar) private var cocktails: [Cocktail]
+    @Query(filter: CocktailFilterPredicate.byInBar) private var cocktails: [Cocktail]
     
     var body: some View {
         
@@ -22,7 +22,7 @@ struct Bar: View {
                 ContentUnavailableView(
                     "No cocktails in bar",
                     systemImage: "wineglass",
-                    description: Text("Add cocktail to your bar by clicking on the wine bottle inside them!")
+                    description: Text("Add cocktails to your bar by navigating through their details!")
                 )
                 Spacer()
             }

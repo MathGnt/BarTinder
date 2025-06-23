@@ -49,6 +49,7 @@ struct Ingredient: Hashable, Identifiable {
         .init(image: "pineapplejuice", name: "pineapple juice", otherName: nil, AVB: nil, location: "Philippines", summer: true, unit: "Cl"),
         .init(image: "prosecco", name: "prosecco", otherName: nil, AVB: "11", location: "Italy", summer: true, unit: "Cl"),
         .init(image: "rum", name: "rum", otherName: nil, AVB: "40", location: "Caribbean", summer: true, unit: "Cl"),
+        .init(image: "salt", name: "salt", otherName: nil, AVB: nil, location: "Earth", summer: true, unit: "Pinch"),
         .init(image: "sparkling", name: "sparkling water", otherName: nil, AVB: nil, location: "Switzerland", summer: true, unit: "Cl"),
         .init(image: "syrup", name: "sugar cane syrup", otherName: nil, AVB: nil, location: "Caribbean", summer: false, unit: "Cl"),
         .init(image: "tabasco", name: "tabasco sauce", otherName: nil, AVB: nil, location: "United States", summer: false, unit: "Drop"),

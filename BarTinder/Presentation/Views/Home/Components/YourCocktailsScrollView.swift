@@ -60,12 +60,13 @@ private extension YourCocktailsScrollView {
                 RoundedRectangle(cornerRadius: 20)
             )
             .contextMenu {
-                Button {
-                    
-                } label: {
-                    Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
+                if !cocktail.stock {
+                    NavigationLink {
+                        CreateEditCocktail(cocktail: cocktail)
+                    } label: {
+                        Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
+                    }
                 }
-                
                 Button(role: .destructive) {
                     withAnimation {
                         if cocktail.stock {

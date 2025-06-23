@@ -20,34 +20,42 @@ final class CocktailRepo: Servable {
     }
 
     func getAllCocktails() throws(NetworkErrors) -> [Cocktail] {
-        var cocktails: [Cocktail] = []
         do {
             let cocktailResponse = try cocktailDataSource.getCocktails()
-            for cocktail in cocktailResponse {
+            return cocktailResponse.map { cocktail in
                 let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
-                let ingredientMeasure = cocktail.ingredientsMeasures.map { IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure )}
+                
                 let newCocktail = Cocktail(
                     name: cocktail.name,
-                    ingredientsMeasures: ingredientMeasure,
+                    ingredientsMeasures: [],
                     isInBar: false,
                     isPossible: false,
                     imageName: cocktailImage,
                     imageData: nil,
-                    style: cocktail.style,
-                    glass: cocktail.glass,
-                    preparation: cocktail.preparation,
+                    style: CocktailStyle(rawValue: cocktail.style)!,
+                    glass: CocktailGlass(rawValue: cocktail.glass)!,
+                    preparation: CocktailMixingTechnique(rawValue: cocktail.preparation)!,
+                    difficulty: CocktailDifficulty(rawValue: cocktail.difficulty)!,
+                    glassValue: cocktail.glass,
+                    preparationValue: cocktail.preparation,
+                    difficultyValue: cocktail.difficulty,
                     abv: cocktail.abv,
                     flavor: cocktail.flavor,
-                    difficulty: cocktail.difficulty,
                     cocktailDescription: cocktail.cocktailDescription,
-                    stock: cocktail.stock
+                    stock: true
                 )
-                cocktails.append(newCocktail)
+                
+                let ingredientMeasures = cocktail.ingredientsMeasures.map {
+                    IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure, cocktail: newCocktail)
+                }
+                
+                newCocktail.ingredientsMeasures = ingredientMeasures
+                
+                return newCocktail
             }
         } catch {
             print("error mapping cocktail data: \(error)")
             throw .couldntMapCocktails
         }
-        return cocktails
     }
 }

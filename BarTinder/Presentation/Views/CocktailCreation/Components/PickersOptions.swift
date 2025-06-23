@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PickersOptions: View {
     @Bindable var viewModel: CocktailCreationViewModel
+    
+    @Bindable var cocktail: Cocktail
+    
     var body: some View {
         cocktailStylePicker
         cocktailGlassPicker
@@ -26,10 +29,10 @@ private extension PickersOptions {
                 RoundedRectangle(cornerRadius: 5)
                     .frame(width: 29, height: 27)
                     .foregroundStyle(.yellow)
-                pickerImage(title: viewModel.cocktailStyle.rawValue, color: .yellow)
+                pickerImage(title: cocktail.style.rawValue, color: .yellow)
                 
             }
-            Picker("Cocktail Style", selection: $viewModel.cocktailStyle) {
+            Picker("Cocktail Style", selection: $cocktail.style) {
                 Text("Long Drink").tag(CocktailStyle.longDrink)
                 Text("Short Drink").tag(CocktailStyle.shortDrink)
             }
@@ -39,13 +42,16 @@ private extension PickersOptions {
     private var cocktailGlassPicker: some View {
         HStack(spacing: 15) {
             ZStack {
-                pickerImage(title: viewModel.cocktailGlass.rawValue, color: .blue.opacity(0.6))
+                pickerImage(title: cocktail.glass.rawValue, color: .blue.opacity(0.6))
                 
             }
-            Picker("Cocktail Glass", selection: $viewModel.cocktailGlass) {
+            Picker("Cocktail Glass", selection: $cocktail.glass) {
                 ForEach(CocktailGlass.allCases) { glass in
                     Text(glass.rawValue.capitalized).tag(glass)
                 }
+            }
+            .onChange(of: cocktail.glass) { _, newValue in
+                cocktail.glassValue = newValue.rawValue
             }
         }
     }
@@ -55,10 +61,13 @@ private extension PickersOptions {
             ZStack {
                 pickerImageSys(title: "wand.and.rays", color: .green)
             }
-            Picker("Preparation Method", selection: $viewModel.cocktailPreparation) {
-                ForEach(CocktailPreparation.allCases) { method in
+            Picker("Preparation Method", selection: $cocktail.mixingTechnique) {
+                ForEach(CocktailMixingTechnique.allCases) { method in
                     Text(method.rawValue.capitalized).tag(method)
                 }
+            }
+            .onChange(of: cocktail.mixingTechnique) { _, newValue in
+                cocktail.mixingTechniqueValue = newValue.rawValue
             }
         }
     }
@@ -67,11 +76,13 @@ private extension PickersOptions {
         HStack(spacing: 15) {
             pickerImageSys(title: "gauge", color: .brown)
             
-            Picker("Difficulty", selection: $viewModel.cocktailDifficulty) {
+            Picker("Difficulty", selection: $cocktail.difficulty) {
                 Text("Easy").tag(CocktailDifficulty.easy)
                 Text("Medium").tag(CocktailDifficulty.medium)
                 Text("Hard").tag(CocktailDifficulty.hard)
-                
+            }
+            .onChange(of: cocktail.difficulty) { _, newValue in
+                cocktail.difficultyValue = newValue.rawValue
             }
         }
     }
@@ -79,7 +90,7 @@ private extension PickersOptions {
     private var addToBarPicker: some View {
         HStack(spacing: 15) {
             pickerImageSys(title: "wineglass", color: .applered)
-            Toggle("Add To Bar", isOn: $viewModel.addToBar)
+            Toggle("Add To Bar", isOn: $cocktail.isInBar)
                 .tint(.turborider)
         }
     }
