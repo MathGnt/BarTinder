@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct CocktailImagePicker: View {
-    let viewModel: CocktailCreationViewModel
+    @Bindable var viewModel: CocktailCreationViewModel
     let selectedImage: Binding<PhotosPickerItem?>
     let cocktail: Cocktail
     
@@ -25,34 +25,50 @@ struct CocktailImagePicker: View {
                     .clipShape(Circle())
                     .clipped()
             } else {
-                ZStack {
-                    Circle()
-                        .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
-                        .frame(width: 75, height: 75)
-                    
-                    Image(systemName: "photo.circle.fill")
-                        .resizable()
-                        .foregroundStyle(.gray)
-                        .scaledToFill()
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-                        .clipped()
-                    Circle()
-                        .trim(from: 0.67, to: 1)
-                        .rotationEffect(.degrees(149.5))
-                        .frame(height: 75)
-                        .foregroundStyle(.black.opacity(0.5))
-                    Text("Edit")
-                        .offset(y: 27)
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
-                }
+                PhotoPlaceHolder()
             }
         }
-        .onChange(of: viewModel.selectedPic) { oldValue, newValue in
-            Task {
-                await viewModel.loadSelectedImage(cocktail)
+        .task(id: viewModel.selectedPic) {
+            await viewModel.loadSelectedImage(cocktail)
+        }
+        .alert("Loading error", isPresented: $viewModel.photosError) {
+            Button("Cancel", role: .cancel) {}
+            Button("Retry") {
+                Task {
+                    await viewModel.loadSelectedImage(cocktail)
+                }
             }
+        } message: {
+            Text("Error while loading this picture")
         }
     }
 }
+
+
+struct PhotoPlaceHolder: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
+                .frame(width: 75, height: 75)
+            
+            Image(systemName: "photo.circle.fill")
+                .resizable()
+                .foregroundStyle(.gray)
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+                .clipped()
+            Circle()
+                .trim(from: 0.67, to: 1)
+                .rotationEffect(.degrees(149.5))
+                .frame(height: 75)
+                .foregroundStyle(.black.opacity(0.5))
+            Text("Edit")
+                .offset(y: 27)
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .foregroundStyle(.white)
+        }
+    }
+}
+

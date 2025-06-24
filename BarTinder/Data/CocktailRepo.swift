@@ -34,10 +34,10 @@ final class CocktailRepo: Servable {
                     imageData: nil,
                     style: CocktailStyle(rawValue: cocktail.style)!,
                     glass: CocktailGlass(rawValue: cocktail.glass)!,
-                    preparation: CocktailMixingTechnique(rawValue: cocktail.preparation)!,
+                    mixingTechnique: CocktailMixingTechnique(rawValue: cocktail.technique)!,
                     difficulty: CocktailDifficulty(rawValue: cocktail.difficulty)!,
                     glassValue: cocktail.glass,
-                    preparationValue: cocktail.preparation,
+                    mixingTechniqueValue: cocktail .technique,
                     difficultyValue: cocktail.difficulty,
                     abv: cocktail.abv,
                     flavor: cocktail.flavor,
@@ -45,6 +45,7 @@ final class CocktailRepo: Servable {
                     stock: true
                 )
                 
+            
                 let ingredientMeasures = cocktail.ingredientsMeasures.map {
                     IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure, cocktail: newCocktail)
                 }

@@ -56,7 +56,7 @@ struct CreateEditCocktail: View {
         .navigationTitle("New Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            CreationToolbar(viewModel: viewModel, notValid: $viewModel.notValid, focus: $focus, cocktail: cocktail)
+            CreationToolbar(viewModel: viewModel, notValid: $viewModel.textNotValid, focus: $focus, cocktail: cocktail)
         }
     }
     

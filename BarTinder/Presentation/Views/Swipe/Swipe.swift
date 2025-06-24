@@ -79,8 +79,9 @@ struct Swipe: View {
             }
             
             if finishSwiping {
-                Home(swipeViewModel: viewModel, finishSwiping: $finishSwiping)
+                Home(finishSwiping: $finishSwiping)
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
+                    .environment(viewModel)
             }
             
         }

@@ -11,18 +11,12 @@ import SwiftData
 struct YourCocktailsScrollView: View {
     
     let viewModel: CocktailViewModel
-    let swipeViewModel: SwipeViewModel
     @Namespace private var namespace
-    @Environment(\.swiftData) private var dataBase
     
     @Query private var cocktails: [Cocktail]
     
-    init(
-        viewModel: CocktailViewModel,
-        swipeViewModel: SwipeViewModel,
-    ) {
+    init(viewModel: CocktailViewModel) {
         self.viewModel = viewModel
-        self.swipeViewModel = swipeViewModel
         
         // Dynamic filtering & sorting
         _cocktails = Query(viewModel.yourCocktailsDescriptor)
@@ -36,7 +30,7 @@ struct YourCocktailsScrollView: View {
                         CocktailDetail(cocktail: cocktail)
                             .navigationTransition(.zoom(sourceID: cocktail.id, in: namespace))
                     } label: {
-                        cocktailImageSource(cocktail)
+                        CocktailImageSource(cocktail: cocktail)
                             .matchedTransitionSource(id: cocktail.id, in: namespace)
                     }
                 }
@@ -47,39 +41,47 @@ struct YourCocktailsScrollView: View {
 }
 
 
+
 private extension YourCocktailsScrollView {
     
-    private func cocktailImageSource(_ cocktail: Cocktail) -> some View {
-        cocktail.displayedImage
-            .resizable()
-            .scaledToFill()
-            .frame(width: 150, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .contentShape(
-                .contextMenuPreview,
-                RoundedRectangle(cornerRadius: 20)
-            )
-            .contextMenu {
-                if !cocktail.stock {
-                    NavigationLink {
-                        CreateEditCocktail(cocktail: cocktail)
-                    } label: {
-                        Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
-                    }
-                }
-                Button(role: .destructive) {
-                    withAnimation {
-                        if cocktail.stock {
-                            cocktail.isPossible = false
-                        } else {
-                            dataBase.contextDelete(cocktail)
+    private struct CocktailImageSource: View {
+        
+        @Environment(SwipeViewModel.self) private var swipeViewModel
+        @Environment(\.swiftData) private var dataBase
+        let cocktail: Cocktail
+        
+        var body: some View {
+            cocktail.displayedImage
+                .resizable()
+                .scaledToFill()
+                .frame(width: 150, height: 200)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .contentShape(
+                    .contextMenuPreview,
+                    RoundedRectangle(cornerRadius: 20)
+                )
+                .contextMenu {
+                    if !cocktail.stock {
+                        NavigationLink {
+                            CreateEditCocktail(cocktail: cocktail)
+                        } label: {
+                            Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
                         }
                     }
-                    swipeViewModel.removeSelectedIngredients()
-                } label: {
-                    Label("Delete", systemImage: "trash")
+                    Button(role: .destructive) {
+                        withAnimation {
+                            if cocktail.stock {
+                                cocktail.isPossible = false
+                            } else {
+                                dataBase.contextDelete(cocktail)
+                            }
+                        }
+                        swipeViewModel.removeSelectedIngredients()
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    .animation(.easeInOut, value: cocktail)
                 }
-                .animation(.easeInOut, value: cocktail)
-            }
+        }
     }
 }

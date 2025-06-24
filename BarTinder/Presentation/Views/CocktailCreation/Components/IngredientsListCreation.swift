@@ -19,7 +19,7 @@ struct IngredientsListCreation: View {
         List {
             Section("Added") {
                 ForEach(viewModel.addedIngredients) { ingredient in
-                    addedIngredientDisplayer(ingredient)
+                    cocktailIngredientsDisplayer(ingredient)
                 }
                 .onDelete { indices in
                     viewModel.removeIngredient(indices: indices)
@@ -50,7 +50,7 @@ struct IngredientsListCreation: View {
 private extension IngredientsListCreation {
     
     @ViewBuilder
-    func addedIngredientDisplayer(_ ingredient: Ingredient) -> some View {
+    func cocktailIngredientsDisplayer(_ ingredient: Ingredient) -> some View {
         HStack(spacing: 15) {
             ingredientRow(ingredient: ingredient)
         }
@@ -116,19 +116,6 @@ private extension IngredientsListCreation {
     }
 }
 
-/// Extension for bindings - no need to deal with 'transaction' bug
-extension Dictionary where Key == String, Value == String {
-    subscript(ingredientMeasure id: String) -> String {
-        get { self[id] ?? "" }
-        set { self[id] = newValue }
-    }
-}
 
-extension Dictionary where Key == String, Value == Units {
-    subscript(ingredientUnit id: String) -> Units {
-        get { self[id] ?? .cl }
-        set { self[id] = newValue }
-    }
-}
 
 

@@ -10,7 +10,7 @@ import SwiftData
 
 struct Home: View {
     
-    let swipeViewModel: SwipeViewModel
+    @Environment(SwipeViewModel.self) private var swipeViewModel
     @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @Binding var finishSwiping: Bool
     
@@ -31,7 +31,7 @@ struct Home: View {
                     
                     sectionTitle(title: "Your Cocktails")
                     
-                    YourCocktailsScrollView(viewModel: viewModel, swipeViewModel: swipeViewModel)
+                    YourCocktailsScrollView(viewModel: viewModel)
                         .scrollIndicators(.hidden)
                         .contentMargins(18)
                     
@@ -63,7 +63,7 @@ struct Home: View {
 }
 
 #Preview(traits: .queryMocks) {
-    Home(swipeViewModel: PatchBay.patch.makeSwipeViewModel(), finishSwiping: .constant(true))
+    Home(finishSwiping: .constant(true))
 }
 
 

@@ -22,8 +22,11 @@ final class CocktailCreationViewModel {
     var selectedPic: PhotosPickerItem?
     var selectedUnit: [String : Units] = [:]
     var cocktailMeasure: [String : String] = [:]
-    var notValid = false
+    
+    /// Alerts
+    var textNotValid = false
     var ingredientsNotValid = false
+    var photosError = false
     
     var searchableField = ""
     var searchableIngredients: [Ingredient] {
@@ -97,17 +100,17 @@ final class CocktailCreationViewModel {
                 cocktail.imageData = data
             }
         } catch {
-            print("Erreur de chargement de l'image: \(error.localizedDescription)")
+            print("Image loading error: \(error.localizedDescription)")
         }
     }
     
     func validateFields(_ cocktail: Cocktail) -> Bool {
         guard !addedIngredients.isEmpty else {
-            notValid = true
+            textNotValid = true
             return false
         }
         if !useCase.textValid(cocktail.abv, cocktail.cocktailDescription, cocktail.name, cocktail.flavor) {
-            notValid = true
+            textNotValid = true
             return false
         }
         return true

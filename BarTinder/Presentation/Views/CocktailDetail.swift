@@ -9,28 +9,22 @@ import SwiftUI
 import SwiftData
 
 struct CocktailDetail: View {
-    
-    @Environment(\.colorScheme) private var scheme
-    @Environment(\.dismiss) private var dismiss
     let cocktail: Cocktail
     
     var body: some View {
         ScrollView {
             ZStack {
                 VStack {
-                    topImage(cocktail: cocktail, scheme: scheme)
+                    CocktailHeaderPicture(cocktail: cocktail)
                         .overlay(alignment: .bottom) {
                             header(cocktail)
                                 .offset(y: -30)
                         }
                     
-                    
                     VStack(spacing: 25) {
-                      
                         CocktailHeaderInfos(cocktail: cocktail)
-                        
                         HStack {
-                            ingredientsList(cocktail)
+                            IngredientsList(cocktail: cocktail)
                                 .padding()
                                 .background(.thinMaterial)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -51,6 +45,109 @@ struct CocktailDetail: View {
         .ignoresSafeArea()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            DetailToolbar(cocktail: cocktail)
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        CocktailDetail(cocktail: Cocktail.mocks)
+    }
+}
+
+//MARK: - View Functions & Structs
+
+private extension CocktailDetail {
+    
+    private func header(_ cocktail: Cocktail) -> some View {
+        VStack(spacing: 10) {
+            Text(cocktail.name)
+                .font(.system(size: 35, weight: .regular, design: .serif))
+            Text(cocktail.cocktailDescription)
+                .font(.system(size: 14, design: .rounded))
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+        }
+    }
+    
+    private struct CocktailHeaderPicture: View {
+        
+        @Environment(\.colorScheme) private var scheme
+        let cocktail: Cocktail
+        
+        var body: some View {
+            ZStack(alignment: .topLeading) {
+                cocktail.displayedImage
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+                
+                cocktail.displayedImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .blur(radius: 16, opaque: true)
+                    .saturation(1.3)
+                    .brightness(0.15)
+                    .mask {
+                        Rectangle()
+                            .fill(
+                                Gradient(stops: [
+                                    .init(color: .clear, location: 0.5),
+                                    .init(color: .white, location: 0.65)
+                                ])
+                                .colorSpace(.perceptual)
+                            )
+                    }
+            }
+            .frame(height: 400)
+            .frame(maxWidth: .infinity)
+            .compositingGroup()
+            .mask {
+                Rectangle()
+                    .fill(
+                        Gradient(stops: [
+                            .init(color: .white, location: 0.3),
+                            .init(color: .clear, location: 1.0)
+                        ])
+                        .colorSpace(.perceptual)
+                    )
+            }
+            .ignoresSafeArea()
+        }
+    }
+    
+    
+    private struct IngredientsList: View {
+        let cocktail: Cocktail
+        
+        var body: some View {
+            VStack(alignment: .center, spacing: 4) {
+                Text("Ingredients")
+                    .font(.system(size: 17, design: .serif))
+                Spacer(minLength: 15)
+                ForEach(cocktail.ingredientsMeasures) { ingredientMeasure in
+                    HStack {
+                        Image(ingredientMeasure.ingredient.logolized())
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                        Text(ingredientMeasure.ingredient.capitalizedWords)
+                        Spacer()
+                        Text(ingredientMeasure.measure.capitalizedWords)
+                    }
+                }
+            }
+        }
+    }
+    
+    private struct DetailToolbar: ToolbarContent {
+        @Environment(\.dismiss) private var dismiss
+        let cocktail: Cocktail
+        
+        var body: some ToolbarContent {
             ToolbarItem {
                 Menu {
                     Section {
@@ -82,90 +179,6 @@ struct CocktailDetail: View {
                     
                 } label: {
                     Image(systemName: "ellipsis")
-                }
-                
-            }
-        }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        CocktailDetail(cocktail: Cocktail.mocks)
-    }
-}
-
-//MARK: - View Functions
-
-private extension CocktailDetail {
-    
-    private func topImage(cocktail: Cocktail, scheme: ColorScheme) -> some View {
-        ZStack(alignment: .topLeading) {
-            cocktail.displayedImage
-                .resizable()
-                .scaledToFill()
-                .clipped()
-            
-            cocktail.displayedImage
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .clipped()
-                .blur(radius: 16, opaque: true)
-                .saturation(1.3)
-                .brightness(0.15)
-                .mask {
-                    Rectangle()
-                        .fill(
-                            Gradient(stops: [
-                                .init(color: .clear, location: 0.5),
-                                .init(color: .white, location: 0.65)
-                            ])
-                            .colorSpace(.perceptual)
-                        )
-                }
-        }
-        .frame(height: 400)
-        .frame(maxWidth: .infinity)
-        .compositingGroup()
-        .mask {
-            Rectangle()
-                .fill(
-                    Gradient(stops: [
-                        .init(color: .white, location: 0.3),
-                        .init(color: .clear, location: 1.0)
-                    ])
-                    .colorSpace(.perceptual)
-                )
-        }
-        .ignoresSafeArea()
-    }
-    
-    private func header(_ cocktail: Cocktail) -> some View {
-        VStack(spacing: 10) {
-            Text(cocktail.name)
-                .font(.system(size: 35, weight: .regular, design: .serif))
-            Text(cocktail.cocktailDescription)
-                .font(.system(size: 14, design: .rounded))
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-        }
-    }
-    
-    private func ingredientsList(_ cocktail: Cocktail) -> some View {
-        VStack(alignment: .center, spacing: 4) {
-            Text("Ingredients")
-                .font(.system(size: 17, design: .serif))
-            Spacer(minLength: 15)
-            ForEach(cocktail.ingredientsMeasures) { ingredientMeasure in
-                HStack {
-                    Image(ingredientMeasure.ingredient.logolized())
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                    Text(ingredientMeasure.ingredient.capitalizedWords)
-                    Spacer()
-                    Text(ingredientMeasure.measure.capitalizedWords)
                 }
             }
         }
