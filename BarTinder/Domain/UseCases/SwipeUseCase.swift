@@ -12,32 +12,38 @@ class SwipeUseCase {
     
     let repo: Servable
     
+    private var selectedIngredients: Set<String> = []
+    
     init(repo: Servable) {
         self.repo = repo
     }
     
     func executeGetCocktails() throws(NetworkErrors) {
         do {
-            let cocktails = try repo.getAllCocktails()
-            dump("first is \(cocktails.first?.ingredientsMeasures.count)")
-            for cocktail in cocktails {
-                repo.callContextInsert(cocktail)
-                dump("cocktails are \(cocktail.ingredientsMeasures)")
-                for ingredientMeasures in cocktail.ingredientsMeasures {
-                    dump("ingredients are \(ingredientMeasures.ingredient)")
-                }
-            }
-        
+            try repo.getAllCocktails()
+            repo.callContextSave()
         } catch {
             print("Failed to get all cocktails from API")
             throw .failedToGetCocktails
         }
     }
     
-    func executeUpdatePossibleCocktails(selectedIngredients: Set<String>) {
+    func executeAddIngredient(_ card: CardIngredient) {
+        selectedIngredients.insert(card.name)
+        if let otherName = card.otherName {
+            selectedIngredients.insert(otherName)
+        }
+        executeUpdatePossibleCocktails()
+    }
+    
+    func executeRemoveAllIngredients() {
+        selectedIngredients.removeAll()
+    }
+    
+    func executeUpdatePossibleCocktails() {
         let cocktails = repo.callGetContextContent()
         for cocktail in cocktails {
-            let ingredientNames = Set(cocktail.ingredientsMeasures.map { $0.ingredient })
+            let ingredientNames = Set(cocktail.ingredients.map { $0.name })
             if selectedIngredients.isSuperset(of: ingredientNames) {
                 cocktail.isPossible = true
             }

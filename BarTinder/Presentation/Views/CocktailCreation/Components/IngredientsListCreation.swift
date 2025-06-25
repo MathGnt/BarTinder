@@ -13,24 +13,25 @@ struct IngredientsListCreation: View {
     @Environment(\.dismiss) private var dismiss
     @Bindable var viewModel: CocktailCreationViewModel
     
-    let cocktail: Cocktail
+    @Bindable var cocktail: Cocktail
     
     var body: some View {
         List {
             Section("Added") {
-                ForEach(viewModel.addedIngredients) { ingredient in
-                    cocktailIngredientsDisplayer(ingredient)
+                ForEach(cocktail.ingredients) { ingredient in
+                    HStack(spacing: 15) {
+                        IngredientRow(ingredient: ingredient, viewModel: viewModel)
+                    }
                 }
-                .onDelete { indices in
-                    viewModel.removeIngredient(indices: indices)
+                .onDelete { IndexSet in
+                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
                 }
             }
             Section("All Ingredients") {
                 ForEach(viewModel.searchableIngredients) { ingredient in
                     HStack(spacing: 15) {
-                        allIngredientDisplayer(ingredient)
+                        AllIngredients(cocktail: cocktail, ingredient: ingredient, viewModel: viewModel)
                     }
-                    
                 }
             }
         }
@@ -44,64 +45,83 @@ struct IngredientsListCreation: View {
 #Preview {
     IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks)
 }
-    
+
 //MARK: - VIEW FUNCTIONS
 
 private extension IngredientsListCreation {
     
-    @ViewBuilder
-    func cocktailIngredientsDisplayer(_ ingredient: Ingredient) -> some View {
-        HStack(spacing: 15) {
-            ingredientRow(ingredient: ingredient)
-        }
+    struct AllIngredients: View {
+        let cocktail: Cocktail
+        let ingredient: CardIngredient
+        let viewModel: CocktailCreationViewModel
         
-        if viewModel.haveToEnterMeasure(for: ingredient) {
-            TextField(viewModel.textFieldPlaceholder(for: ingredient.id), text: $viewModel.cocktailMeasure[ingredientMeasure: ingredient.id])
-            .keyboardType(.decimalPad)
-        }
-        Picker("Unit", selection: $viewModel.selectedUnit[ingredientUnit: ingredient.id]) {
-            ForEach(Units.allCases) { unit in
-                Text(unit.rawValue).tag(unit)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func allIngredientDisplayer(_ ingredient: Ingredient) -> some View {
-        ingredientRow(ingredient: ingredient)
-        
-        Button {
-            viewModel.addIngredient(ingredient: ingredient)
-        } label: {
-            Image(systemName: viewModel.addedIngredients.contains(ingredient) ? "checkmark.circle.fill" : "plus.circle.fill")
-                .resizable()
-                .frame(width: 20, height: 20)
-                .foregroundStyle(viewModel.addedIngredients.contains(ingredient) ? .green : .turborider)
-        }
-        .buttonStyle(BorderlessButtonStyle())
-    }
-    
-    private func ingredientRow(ingredient: Ingredient) -> some View {
-        HStack(spacing: 15) {
-            Image(ingredient.name.logolized())
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height: 40)
-                .clipShape(.circle)
-            
-            VStack(alignment: .leading, spacing: 2) {
+        var body: some View {
+            HStack {
+                Image(ingredient.name.logolized())
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
                 Text(ingredient.name.capitalizedWords)
-                    .fontWeight(.semibold)
+                    .fontWeight(.medium)
+                
+                Spacer()
+                
+                Button {
+                    viewModel.addIngredient(cocktail, ingredient)
+                } label: {
+                    Image(systemName: cocktail.ingredients.contains(where: { $0.name == ingredient.name }) ? "checkmark.circle.fill" : "plus.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(cocktail.ingredients.contains(where: { $0.name == ingredient.name }) ? .green : .turborider)
+                }
+                .buttonStyle(.borderless)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
+    struct IngredientRow: View {
+        @Bindable var ingredient: Ingredient
+        let viewModel: CocktailCreationViewModel
+        var body: some View {
+            VStack(spacing: 15) {
+                HStack {
+                    Image(ingredient.name.logolized())
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(ingredient.name.capitalizedWords)
+                            .fontWeight(.medium)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                if ingredient.unit != .topUp && ingredient.unit != .toRinse {
+                    HStack {
+                        Text("Measure:")
+                        Spacer()
+                        
+                        TextField(viewModel.textFieldPlaceholder(ingredient.unit), text: $ingredient.measure)
+                            .multilineTextAlignment(.trailing)
+                    }
+                }
+                
+                Picker("Unit", selection: $ingredient.unit) {
+                    ForEach(Units.allCases) { unit in
+                        Text(unit.rawValue).tag(unit)
+                    }
+                }
+                .onChange(of: ingredient.unit) { _, newValue in
+                    viewModel.removeMeasure(ingredient, newValue)
+                }
+            }
         }
     }
     
     private func doneButton(viewModel: CocktailCreationViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                viewModel.createIngredientsMeasures(cocktail)
-                if !viewModel.ingredientsNotValid {
+                if viewModel.checkAndInsertIngredients(cocktail, cocktail.ingredients) {
                     dismiss()
                 }
             } label: {

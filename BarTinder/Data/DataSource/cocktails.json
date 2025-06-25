@@ -9,11 +9,27 @@
     "difficulty": 2,
     "cocktailDescription": "Born in early 19th-century New York, the Old Fashioned is a timeless blend of simplicity and strength. Best enjoyed on a chilly autumn evening with jazz in the background.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "whisky", "measure": "4.5 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" },
-      { "ingredient": "angostura bitters", "measure": "2 dashes" },
-      { "ingredient": "sparkling water", "measure": "1 cl" }
+    "ingredients": [
+      {
+        "name": "whisky",
+        "measure": "4.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "angostura bitters",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "sparkling water",
+        "measure": "1",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -26,10 +42,22 @@
     "difficulty": 1,
     "cocktailDescription": "Originating from early 20th-century Italy, the Negroni is a bold and balanced aperitif. Perfect for warm summer evenings on a terrace overlooking the city.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "3 cl" },
-      { "ingredient": "vermouth", "measure": "3 cl" },
-      { "ingredient": "campari", "measure": "3 cl" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "vermouth",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "campari",
+        "measure": "3",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -42,10 +70,22 @@
     "difficulty": 1,
     "cocktailDescription": "Hailing from Cuba in the early 1900s, the Daiquiri combines rum and citrus in a refreshing embrace. Ideal for sunny afternoons by the beach or poolside relaxation.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "rum", "measure": "4.5 cl" },
-      { "ingredient": "lime juice", "measure": "2.5 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" }
+    "ingredients": [
+      {
+        "name": "rum",
+        "measure": "4.5",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "2.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -58,9 +98,17 @@
     "difficulty": 2,
     "cocktailDescription": "A symbol of sophistication from early 20th-century America, the Dry Martini is a crisp and elegant classic. Suited for stylish evenings and refined gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "6 cl" },
-      { "ingredient": "vermouth", "measure": "1 cl" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "6",
+        "unit": "cl"
+      },
+      {
+        "name": "vermouth",
+        "measure": "1",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -73,10 +121,22 @@
     "difficulty": 2,
     "cocktailDescription": "Emerging from Mexico mid-20th century, the Margarita offers a vibrant mix of tequila and citrus. Best savored on warm summer nights with friends.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "tequila", "measure": "4 cl" },
-      { "ingredient": "triple sec", "measure": "2 cl" },
-      { "ingredient": "lime juice", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "tequila",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -89,10 +149,22 @@
     "difficulty": 2,
     "cocktailDescription": "Crafted in 19th-century New York, the Manhattan is a rich and robust whiskey cocktail. Perfect for cozy winter evenings by the fireplace.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "whisky", "measure": "5 cl" },
-      { "ingredient": "vermouth", "measure": "2 cl" },
-      { "ingredient": "angostura bitters", "measure": "2 dashes" }
+    "ingredients": [
+      {
+        "name": "whisky",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "vermouth",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "angostura bitters",
+        "measure": "2",
+        "unit": "Dash"
+      }
     ]
   },
   {
@@ -105,12 +177,32 @@
     "difficulty": 2,
     "cocktailDescription": "A refreshing Cuban classic dating back to the 16th century, the Mojito blends mint and lime for a crisp taste. Ideal for hot summer days and lively gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "rum", "measure": "4 cl" },
-      { "ingredient": "lime", "measure": "1/2" },
-      { "ingredient": "mint", "measure": "8 leaves" },
-      { "ingredient": "sugar cane syrup", "measure": "2 cl" },
-      { "ingredient": "sparkling water", "measure": "top up" }
+    "ingredients": [
+      {
+        "name": "rum",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "lime",
+        "measure": "1/2",
+        "unit": "cl"
+      },
+      {
+        "name": "mint",
+        "measure": "8",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "sparkling water",
+        "measure": "",
+        "unit": "Top Up"
+      }
     ]
   },
   {
@@ -123,14 +215,42 @@
     "difficulty": 3,
     "cocktailDescription": "Originating in the 1920s in Paris, the Bloody Mary is a savory brunch staple. Enjoy it leisurely on a lazy weekend morning to revive the senses.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "4.5 cl" },
-      { "ingredient": "tomato juice", "measure": "9 cl" },
-      { "ingredient": "lemon juice", "measure": "1.5 cl" },
-      { "ingredient": "worcestershire sauce", "measure": "2 traits" },
-      { "ingredient": "tabasco sauce", "measure": "2 drops" },
-      { "ingredient": "celery salt", "measure": "1 pinch" },
-      { "ingredient": "pepper", "measure": "1 pinch" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "4.5",
+        "unit": "cl"
+      },
+      {
+        "name": "tomato juice",
+        "measure": "9",
+        "unit": "cl"
+      },
+      {
+        "name": "lemon juice",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "worcestershire sauce",
+        "measure": "2",
+        "unit": "Dash"
+      },
+      {
+        "name": "tabasco sauce",
+        "measure": "2",
+        "unit": "Drop"
+      },
+      {
+        "name": "celery salt",
+        "measure": "1",
+        "unit": "Pinch"
+      },
+      {
+        "name": "pepper",
+        "measure": "1",
+        "unit": "Pinch"
+      }
     ]
   },
   {
@@ -143,10 +263,22 @@
     "difficulty": 1,
     "cocktailDescription": "A beloved Italian aperitif from the mid-20th century, the Aperol Spritz is light and bittersweet. Perfect for warm afternoons and socializing al fresco.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "prosecco", "measure": "6 cl" },
-      { "ingredient": "aperol", "measure": "4 cl" },
-      { "ingredient": "sparkling water", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "prosecco",
+        "measure": "6",
+        "unit": "cl"
+      },
+      {
+        "name": "aperol",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "sparkling water",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -159,11 +291,27 @@
     "difficulty": 2,
     "cocktailDescription": "Popularized in the 1990s, the Cosmopolitan is a chic and tangy cocktail. Best enjoyed during lively urban nights and festive occasions.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "4 cl" },
-      { "ingredient": "triple sec", "measure": "1.5 cl" },
-      { "ingredient": "cranberry juice", "measure": "3 cl" },
-      { "ingredient": "lime juice", "measure": "1 cl" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "cranberry juice",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "1",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -176,10 +324,22 @@
     "difficulty": 1,
     "cocktailDescription": "Created in 1940s America, the Moscow Mule is a zesty and refreshing drink served in its iconic copper mug. Ideal for casual summer evenings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "4 cl" },
-      { "ingredient": "ginger beer", "measure": "10 cl" },
-      { "ingredient": "lime juice", "measure": "1 cl" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "ginger beer",
+        "measure": "10",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "1",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -192,13 +352,37 @@
     "difficulty": 3,
     "cocktailDescription": "Born in post-war California, the Mai Tai is a tropical rum cocktail with exotic flavors. Best enjoyed poolside or during summer beach parties.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "rum", "measure": "3 cl" },
-      { "ingredient": "amber rum", "measure": "3 cl" },
-      { "ingredient": "triple sec", "measure": "1.5 cl" },
-      { "ingredient": "orgeat syrup", "measure": "1.5 cl" },
-      { "ingredient": "lime juice", "measure": "1.5 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "0.5 cl" }
+    "ingredients": [
+      {
+        "name": "rum",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "amber rum",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "orgeat syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "0.5",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -211,11 +395,27 @@
     "difficulty": 2,
     "cocktailDescription": "Originating from Puerto Rico in the 1950s, the Pina Colada is a creamy tropical delight. Perfect for sunny beach days and festive summer celebrations.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "rum", "measure": "4 cl" },
-      { "ingredient": "pineapple juice", "measure": "12 cl" },
-      { "ingredient": "coco cream", "measure": "4 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "rum",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "pineapple juice",
+        "measure": "12",
+        "unit": "cl"
+      },
+      {
+        "name": "coco cream",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -228,10 +428,22 @@
     "difficulty": 1,
     "cocktailDescription": "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "5 cl" },
-      { "ingredient": "tonic water", "measure": "10 cl" },
-      { "ingredient": "lime", "measure": "1 wedge" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "tonic water",
+        "measure": "10",
+        "unit": "cl"
+      },
+      {
+        "name": "lime",
+        "measure": "1",
+        "unit": "Wedge"
+      }
     ]
   },
   {
@@ -244,15 +456,47 @@
     "difficulty": 3,
     "cocktailDescription": "Created in the 1970s, this potent mix combines several spirits for a bold experience. Best reserved for lively nights and festive celebrations.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "1.5 cl" },
-      { "ingredient": "gin", "measure": "1.5 cl" },
-      { "ingredient": "rum", "measure": "1.5 cl" },
-      { "ingredient": "tequila", "measure": "1.5 cl" },
-      { "ingredient": "triple sec", "measure": "1.5 cl" },
-      { "ingredient": "lemon juice", "measure": "2.5 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" },
-      { "ingredient": "coke", "measure": "top up" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "gin",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "rum",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "tequila",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "lemon juice",
+        "measure": "2.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "coke",
+        "measure": "",
+        "unit": "Top Up"
+      }
     ]
   },
   {
@@ -265,11 +509,27 @@
     "difficulty": 2,
     "cocktailDescription": "Named after a WWI artillery gun, the French 75 is a sparkling and citrusy delight. Perfect for celebratory toasts and elegant occasions.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "3 cl" },
-      { "ingredient": "lemon juice", "measure": "1.5 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" },
-      { "ingredient": "champagne", "measure": "6 cl" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "lemon juice",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "champagne",
+        "measure": "6",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -282,9 +542,17 @@
     "difficulty": 1,
     "cocktailDescription": "Invented in Venice in the 1940s, the Bellini is a light and fruity sparkling cocktail. Ideal for spring brunches and sunny afternoons.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "white peach puree", "measure": "5 cl" },
-      { "ingredient": "prosecco", "measure": "10 cl" }
+    "ingredients": [
+      {
+        "name": "white peach puree",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "prosecco",
+        "measure": "10",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -297,10 +565,22 @@
     "difficulty": 2,
     "cocktailDescription": "Dating back to post-WWI Paris, the Sidecar is a sharp and elegant cognac cocktail. Best enjoyed during crisp evenings and refined social events.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "cognac", "measure": "5 cl" },
-      { "ingredient": "triple sec", "measure": "2 cl" },
-      { "ingredient": "lemon juice", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "cognac",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "lemon juice",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -313,10 +593,22 @@
     "difficulty": 1,
     "cocktailDescription": "Popularized in the 1960s, the White Russian is a creamy and indulgent cocktail. Perfect for cozy winter nights and relaxed evenings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "5 cl" },
-      { "ingredient": "coffee liqueur", "measure": "2 cl" },
-      { "ingredient": "cream", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "coffee liqueur",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "cream",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -327,12 +619,24 @@
     "abv": "22",
     "flavor": "sour",
     "difficulty": 1,
-    "cocktailDescription": "Brazil's national cocktail, the Caipirinha is a zesty and refreshing mix of cachaça and lime. Best enjoyed during summer festivities and outdoor gatherings.",
+    "cocktailDescription": "Brazil's national cocktail, the Caipirinha is a zesty and refreshing mix of cacha\u00e7a and lime. Best enjoyed during summer festivities and outdoor gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "cachaca", "measure": "5 cl" },
-      { "ingredient": "lime", "measure": "1/2" },
-      { "ingredient": "sugar cane syrup", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "cachaca",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "lime",
+        "measure": "1/2",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -345,11 +649,27 @@
     "difficulty": 3,
     "cocktailDescription": "Originating in 19th-century New Orleans, the Sazerac is a strong and aromatic cocktail. Ideal for contemplative evenings and classic cocktail enthusiasts.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "rye whiskey", "measure": "5 cl" },
-      { "ingredient": "absinthe", "measure": "to rinse" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" },
-      { "ingredient": "peychauds bitters", "measure": "3 dashes" }
+    "ingredients": [
+      {
+        "name": "rye whiskey",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "absinthe",
+        "measure": "",
+        "unit": "To Rinse"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "peychauds bitters",
+        "measure": "3",
+        "unit": "Dash"
+      }
     ]
   },
   {
@@ -362,15 +682,47 @@
     "difficulty": 3,
     "cocktailDescription": "Created in the early 20th century at Singapore's Raffles Hotel, this cocktail is a tropical and complex delight. Perfect for exotic evenings and resort relaxation.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "3 cl" },
-      { "ingredient": "cherry liqueur", "measure": "1.5 cl" },
-      { "ingredient": "triple sec", "measure": "0.5 cl" },
-      { "ingredient": "benedictine liqueur", "measure": "0.5 cl" },
-      { "ingredient": "pineapple juice", "measure": "12 cl" },
-      { "ingredient": "lime juice", "measure": "1.5 cl" },
-      { "ingredient": "grenadine syrup", "measure": "0.5 cl" },
-      { "ingredient": "angostura bitters", "measure": "1 dash" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "cherry liqueur",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "triple sec",
+        "measure": "0.5",
+        "unit": "cl"
+      },
+      {
+        "name": "benedictine liqueur",
+        "measure": "0.5",
+        "unit": "cl"
+      },
+      {
+        "name": "pineapple juice",
+        "measure": "12",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "grenadine syrup",
+        "measure": "0.5",
+        "unit": "cl"
+      },
+      {
+        "name": "angostura bitters",
+        "measure": "1",
+        "unit": "Dash"
+      }
     ]
   },
   {
@@ -383,10 +735,22 @@
     "difficulty": 1,
     "cocktailDescription": "Popularized in the 1970s, the Tequila Sunrise is a visually stunning and sweet cocktail. Ideal for bright mornings and festive gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "tequila", "measure": "4.5 cl" },
-      { "ingredient": "orange juice", "measure": "9 cl" },
-      { "ingredient": "grenadine syrup", "measure": "1.5 cl" }
+    "ingredients": [
+      {
+        "name": "tequila",
+        "measure": "4.5",
+        "unit": "cl"
+      },
+      {
+        "name": "orange juice",
+        "measure": "9",
+        "unit": "cl"
+      },
+      {
+        "name": "grenadine syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -399,11 +763,27 @@
     "difficulty": 1,
     "cocktailDescription": "Dating back to the 19th century, the Tom Collins is a refreshing and citrusy classic. Perfect for sunny afternoons and garden parties.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "gin", "measure": "4.5 cl" },
-      { "ingredient": "lemon juice", "measure": "3 cl" },
-      { "ingredient": "sugar cane syrup", "measure": "1.5 cl" },
-      { "ingredient": "sparkling water", "measure": "top up" }
+    "ingredients": [
+      {
+        "name": "gin",
+        "measure": "4.5",
+        "unit": "cl"
+      },
+      {
+        "name": "lemon juice",
+        "measure": "3",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar cane syrup",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "sparkling water",
+        "measure": "",
+        "unit": "Top Up"
+      }
     ]
   },
   {
@@ -416,11 +796,27 @@
     "difficulty": 1,
     "cocktailDescription": "A popular Mexican cocktail, the Paloma combines tequila and grapefruit for a tangy refreshment. Best enjoyed on warm afternoons and casual gatherings.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "tequila", "measure": "5 cl" },
-      { "ingredient": "lime juice", "measure": "1.5 cl" },
-      { "ingredient": "salt", "measure": "1 pinch" },
-      { "ingredient": "grapefruit soda", "measure": "top up" }
+    "ingredients": [
+      {
+        "name": "tequila",
+        "measure": "5",
+        "unit": "cl"
+      },
+      {
+        "name": "lime juice",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "salt",
+        "measure": "1",
+        "unit": "Pinch"
+      },
+      {
+        "name": "grapefruit soda",
+        "measure": "",
+        "unit": "Top Up"
+      }
     ]
   },
   {
@@ -433,9 +829,17 @@
     "difficulty": 1,
     "cocktailDescription": "Invented in the 1920s, the Mimosa is a light and bubbly brunch favorite. Perfect for celebratory mornings and springtime occasions.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "champagne", "measure": "7.5 cl" },
-      { "ingredient": "orange juice", "measure": "7.5 cl" }
+    "ingredients": [
+      {
+        "name": "champagne",
+        "measure": "7.5",
+        "unit": "cl"
+      },
+      {
+        "name": "orange juice",
+        "measure": "7.5",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -448,11 +852,27 @@
     "difficulty": 1,
     "cocktailDescription": "Emerging in the 1980s, this cocktail is a sweet and fruity crowd-pleaser. Ideal for beach parties and vibrant summer nights.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "vodka", "measure": "4 cl" },
-      { "ingredient": "peach liqueur", "measure": "2 cl" },
-      { "ingredient": "cranberry juice", "measure": "4 cl" },
-      { "ingredient": "orange juice", "measure": "4 cl" }
+    "ingredients": [
+      {
+        "name": "vodka",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "peach liqueur",
+        "measure": "2",
+        "unit": "cl"
+      },
+      {
+        "name": "cranberry juice",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "orange juice",
+        "measure": "4",
+        "unit": "cl"
+      }
     ]
   },
   {
@@ -465,11 +885,27 @@
     "difficulty": 1,
     "cocktailDescription": "Created in mid-20th-century Ireland, the Irish Coffee is a warming blend of whisky and coffee. Best savored on cold evenings or after a hearty meal.",
     "stock": true,
-    "ingredientsMeasures": [
-      { "ingredient": "irish whisky", "measure": "4 cl" },
-      { "ingredient": "coffee", "measure": "9 cl" },
-      { "ingredient": "sugar", "measure": "1.5 cl" },
-      { "ingredient": "cream", "measure": "2 cl" }
+    "ingredients": [
+      {
+        "name": "irish whisky",
+        "measure": "4",
+        "unit": "cl"
+      },
+      {
+        "name": "coffee",
+        "measure": "9",
+        "unit": "cl"
+      },
+      {
+        "name": "sugar",
+        "measure": "1.5",
+        "unit": "cl"
+      },
+      {
+        "name": "cream",
+        "measure": "2",
+        "unit": "cl"
+      }
     ]
   }
 ]

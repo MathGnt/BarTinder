@@ -9,10 +9,10 @@ import Testing
 import SwiftData
 @testable import BarTinder
 
-class BarTinderTests {
+struct BarTinderTests {
     
     @Test("Should return correct cocktails after swiping cards")
-    func correctCocktails() async throws {
+    func correctCocktailsAfterSwipe() async throws {
         
         /// Swift Data setup
         let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
@@ -25,7 +25,7 @@ class BarTinderTests {
         
         viewModel.getCocktails()
         
-        let ingredients: [Ingredient] = [
+        let ingredients: [CardIngredient] = [
             .init(image: "mint", name: "mint", otherName: nil, AVB: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
             .init(image: "tequila", name: "tequila", otherName: nil, AVB: "38", location: "Mexico", summer: false, unit: "Cl"),
             .init(image: "sparkling", name: "sparkling water", otherName: nil, AVB: nil, location: "Switzerland", summer: true, unit: "Cl"),
@@ -34,7 +34,6 @@ class BarTinderTests {
             .init(image: "cointreau", name: "triple sec", otherName: nil, AVB: "40", location: "France", summer: false, unit: "Cl"),
             .init(image: "whiskey", name: "whisky", otherName: nil, AVB: "40", location: "Scotland", summer: false, unit: "Cl"),
             .init(image: "vodka", name: "vodka", otherName: nil, AVB: "40", location: "Russia", summer: true, unit: "Cl"),
-            .init(image: "cointreau", name: "triple sec", otherName: nil, AVB: "40", location: "France", summer: false, unit: "Cl"),
             .init(image: "cranberryjuice", name: "cranberry juice", otherName: nil, AVB: nil, location: "United States", summer: false, unit: "Cl"),
             .init(image: "syrup", name: "sugar cane syrup", otherName: nil, AVB: nil, location: "Caribbean", summer: false, unit: "Cl"),
         ]
@@ -51,4 +50,28 @@ class BarTinderTests {
         
     }
     
+    @Suite("CreationUseCase")
+    struct CocktailCreationTests {
+        
+        @Test("Should insert cocktail with valid fields")
+        func cocktailValidationFields() async throws {
+            
+            let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+            let context = ModelContext(container)
+            
+            let swiftData = SwiftDataSource(context: context)
+            let repo = RepositoryMock(swiftDataSource: swiftData)
+            let useCase = CreationUseCase(repo: repo)
+            let viewModel = CocktailCreationViewModel(useCase: useCase)
+            
+            let newCocktail = Cocktail(ingredients: [
+                Ingredient(name: "tonic water", measure: "   ", unit: .cl), /* <-- fail test */
+                Ingredient(name: "gin", measure: "12", unit: .cl),
+                Ingredient(name: "lime juice", measure: "", unit: .topUp)
+            ]
+            )
+            
+            #expect(viewModel.checkAndInsertIngredients(newCocktail, newCocktail.ingredients))
+        }
+    }
 }

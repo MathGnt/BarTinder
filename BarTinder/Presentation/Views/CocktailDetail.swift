@@ -128,15 +128,15 @@ private extension CocktailDetail {
                 Text("Ingredients")
                     .font(.system(size: 17, design: .serif))
                 Spacer(minLength: 15)
-                ForEach(cocktail.ingredientsMeasures) { ingredientMeasure in
+                ForEach(cocktail.ingredients) { ingredient in
                     HStack {
-                        Image(ingredientMeasure.ingredient.logolized())
+                        Image(ingredient.name.logolized())
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30)
-                        Text(ingredientMeasure.ingredient.capitalizedWords)
+                        Text(ingredient.name.capitalizedWords)
                         Spacer()
-                        Text(ingredientMeasure.measure.capitalizedWords)
+                        Text("\(ingredient.measure) \(ingredient.unit.rawValue)")
                     }
                 }
             }

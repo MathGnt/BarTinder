@@ -14,8 +14,7 @@ import SwiftData
 final class SwipeViewModel {
     
     let useCase: SwipeUseCase
-    private(set) var ingredients: [Ingredient] = Ingredient.ingredientCards
-    private var selectedIngredients: Set<String> = []
+    private(set) var ingredients: [CardIngredient] = CardIngredient.ingredientCards
     
     var fetchingError = false
     
@@ -30,23 +29,23 @@ final class SwipeViewModel {
         self.useCase = useCase
     }
     
-    func setOffset(for card: Ingredient, value: CGFloat) {
+    func setOffset(for card: CardIngredient, value: CGFloat) {
         cardOffsets[card.id] = value
     }
     
-    func getOffset(for card: Ingredient) -> CGFloat {
+    func getOffset(for card: CardIngredient) -> CGFloat {
         return cardOffsets[card.id] ?? 0
     }
     
-    func setRotation(for card: Ingredient, value: Double) {
+    func setRotation(for card: CardIngredient, value: Double) {
         cardRotations[card.id] = value
     }
     
-    func getRotation(for card: Ingredient) -> Double {
+    func getRotation(for card: CardIngredient) -> Double {
         return cardRotations[card.id] ?? 0
     }
     
-    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: Ingredient) {
+    func onEndedGesture(_ value: _ChangedGesture<DragGesture>.Value, _ card: CardIngredient) {
         let width = value.translation.width
         
         if abs(width) <= abs(threshold) {
@@ -62,7 +61,7 @@ final class SwipeViewModel {
     }
     
     
-    func onChangedGesture(card: Ingredient, translation: CGFloat) {
+    func onChangedGesture(card: CardIngredient, translation: CGFloat) {
         setOffset(for: card, value: translation)
         setRotation(for: card, value: translation / 25)
     }
@@ -77,19 +76,11 @@ final class SwipeViewModel {
         }
     }
     
-    func addIngredient(_ card: Ingredient) {
-        selectedIngredients.insert(card.name)
-        if let otherName = card.otherName {
-            selectedIngredients.insert(otherName)
-        }
-        updatePossibleCocktails()
+    func addIngredient(_ card: CardIngredient) {
+        useCase.executeAddIngredient(card)
     }
     
-    func updatePossibleCocktails() {
-        useCase.executeUpdatePossibleCocktails(selectedIngredients: selectedIngredients)
-    }
-    
-    func removeIngredient(_ card: Ingredient) {
+    func removeIngredient(_ card: CardIngredient) {
         guard let index = ingredients.firstIndex(where: { $0.id == card.id }) else { return }
         ingredients.remove(at: index)
         
@@ -100,15 +91,19 @@ final class SwipeViewModel {
     }
     
     func removeSelectedIngredients() {
-        selectedIngredients.removeAll()
+        useCase.executeRemoveAllIngredients()
     }
     
-    func recenter(card: Ingredient) {
+    func updatePossibleCocktails() {
+        useCase.executeUpdatePossibleCocktails()
+    }
+    
+    func recenter(card: CardIngredient) {
         setOffset(for: card, value: 0)
         setRotation(for: card, value: 0)
     }
     
-    func swipeLeft(card: Ingredient) {
+    func swipeLeft(card: CardIngredient) {
         withAnimation {
             setOffset(for: card, value: -500)
             setRotation(for: card, value: -12)
@@ -120,7 +115,7 @@ final class SwipeViewModel {
         }
     }
     
-    func swipeRight(card: Ingredient) {
+    func swipeRight(card: CardIngredient) {
         withAnimation {
             setOffset(for: card, value: 500)
             setRotation(for: card, value: 12)
@@ -133,11 +128,11 @@ final class SwipeViewModel {
         }
     }
     
-    func triggerSwipeLeft(card: Ingredient) {
+    func triggerSwipeLeft(card: CardIngredient) {
         swipeLeft(card: card)
     }
     
-    func triggerSwipeRight(card: Ingredient) {
+    func triggerSwipeRight(card: CardIngredient) {
         swipeRight(card: card)
     }
 }

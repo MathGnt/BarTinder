@@ -11,7 +11,7 @@ import SwiftData
 
 struct IngredientCard: View {
     
-    let card: Ingredient
+    let cardIngredient: CardIngredient
     let viewModel: SwipeViewModel
     
     private var cardWidth: CGFloat {
@@ -24,7 +24,7 @@ struct IngredientCard: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(card.image)
+            Image(cardIngredient.image)
                 .resizable()
                 .scaledToFill()
                 .frame(width: cardWidth, height: cardHeight)
@@ -36,25 +36,25 @@ struct IngredientCard: View {
             .frame(width: cardWidth, height: cardHeight - 200)
             .clipShape(RoundedRectangle(cornerRadius: 30))
             
-            cardInfo(title: card.name, avb: card.AVB ?? "", location: card.location)
+            cardInfo(title: cardIngredient.name, avb: cardIngredient.AVB ?? "", location: cardIngredient.location)
         }
-        .offset(x: viewModel.getOffset(for: card))
-        .rotationEffect(.degrees(viewModel.getRotation(for: card)))
-        .animation(.snappy, value: viewModel.getOffset(for: card))
+        .offset(x: viewModel.getOffset(for: cardIngredient))
+        .rotationEffect(.degrees(viewModel.getRotation(for: cardIngredient)))
+        .animation(.snappy, value: viewModel.getOffset(for: cardIngredient))
         .gesture(
             DragGesture()
                 .onChanged { value in
-                    viewModel.onChangedGesture(card: card, translation: value.translation.width)
+                    viewModel.onChangedGesture(card: cardIngredient, translation: value.translation.width)
                 }
                 .onEnded { value in
-                    viewModel.onEndedGesture(value, card)
+                    viewModel.onEndedGesture(value, cardIngredient)
                 }
         )
     }
 }
 
 #Preview {
-    IngredientCard(card: Ingredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
+    IngredientCard(cardIngredient: CardIngredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
 }
 
 //MARK: - View Function

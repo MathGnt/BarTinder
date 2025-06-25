@@ -10,13 +10,13 @@ import SwiftData
 import SwiftUI
 
 @Model
-nonisolated final class Cocktail: Identifiable {
+nonisolated final class Cocktail {
     #Index<Cocktail>([\.isInBar, \.isPossible])
     
     @Attribute(.unique)
     var name: String
-    @Relationship(deleteRule: .cascade, inverse: \IngredientMeasure.cocktail)
-    var ingredientsMeasures: [IngredientMeasure]
+    @Relationship(deleteRule: .cascade, inverse: \Ingredient.cocktail)
+    var ingredients: [Ingredient]
     var isInBar: Bool
     var isPossible: Bool
     var imageName: String?
@@ -36,14 +36,9 @@ nonisolated final class Cocktail: Identifiable {
     var cocktailDescription: String
     var stock = false
     
-    
-    @Transient
-    private var _cachedUIImage: UIImage?
-    
-    
-    init(name: String = "", ingredientsMeasures: [IngredientMeasure] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: Int = 1, abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
+    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: Int = 1, abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
         self.name = name
-        self.ingredientsMeasures = ingredientsMeasures
+        self.ingredients = ingredients
         self.isInBar = isInBar
         self.isPossible = isPossible
         self.imageName = imageName
@@ -64,39 +59,35 @@ nonisolated final class Cocktail: Identifiable {
 
 
 extension Cocktail {
-
     
     @Transient
-    var displayedImage: Image {
-        if let name = imageName {
-            return Image(name)
-        }
-        if let data = imageData {
-            if _cachedUIImage == nil {
-                _cachedUIImage = UIImage(data: data)
-            }
-            if let cachedImage = _cachedUIImage {
-                return Image(uiImage: cachedImage)
-            }
-        }
-        return Image("defaultpic")
-    }
+       var displayedImage: Image {
+           if let name = imageName {
+               return Image(name)
+           }
+           if let data = imageData, let uiImage = UIImage(data: data) {
+               return Image(uiImage: uiImage)
+           }
+           return Image("defaultpic")
+       }
 }
 
 //MARK: Ingredients Relationship
 
 @Model
-nonisolated final class IngredientMeasure: Identifiable {
-    var ingredient: String
+nonisolated final class Ingredient: Identifiable {
+    var name: String
     var measure: String
+    var unit: Units
     
     var cocktail: Cocktail?
     
     var id = UUID()
     
-    init(ingredient: String = "", measure: String = "", cocktail: Cocktail? = nil) {
-        self.ingredient = ingredient
+    init(name: String = "", measure: String = "", unit: Units = Units.cl, cocktail: Cocktail? = nil) {
+        self.name = name
         self.measure = measure
+        self.unit = unit
         self.cocktail = cocktail
     }
 }

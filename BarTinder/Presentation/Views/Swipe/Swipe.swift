@@ -27,7 +27,7 @@ struct Swipe: View {
                         VStack(spacing: 5) {
                             Image("centeredlogo")
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
+                                .scaledToFill()
                                 .frame(width: 40, height: 40)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                             Spacer()
@@ -36,7 +36,7 @@ struct Swipe: View {
                         
                         ZStack {
                             ForEach(viewModel.ingredients.reversed()) { card in
-                                IngredientCard(card: card, viewModel: viewModel)
+                                IngredientCard(cardIngredient: card, viewModel: viewModel)
                             }
                         }
                         

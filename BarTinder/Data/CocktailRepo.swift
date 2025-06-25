@@ -19,15 +19,15 @@ final class CocktailRepo: Servable {
         self.swiftDataSource = swiftDataSource
     }
 
-    func getAllCocktails() throws(NetworkErrors) -> [Cocktail] {
+    func getAllCocktails() throws(NetworkErrors) {
         do {
             let cocktailResponse = try cocktailDataSource.getCocktails()
-            return cocktailResponse.map { cocktail in
+            cocktailResponse.forEach { cocktail in
                 let cocktailImage = cocktail.name.lowercased().replacingOccurrences(of: " ", with: "")
                 
                 let newCocktail = Cocktail(
                     name: cocktail.name,
-                    ingredientsMeasures: [],
+                    ingredients: [],
                     isInBar: false,
                     isPossible: false,
                     imageName: cocktailImage,
@@ -46,13 +46,13 @@ final class CocktailRepo: Servable {
                 )
                 
             
-                let ingredientMeasures = cocktail.ingredientsMeasures.map {
-                    IngredientMeasure(ingredient: $0.ingredient, measure: $0.measure, cocktail: newCocktail)
+                let ingredients = cocktail.ingredients.map {
+                    Ingredient(name: $0.name, measure: $0.measure, unit: Units.init(rawValue: $0.unit) ?? .cl)
                 }
                 
-                newCocktail.ingredientsMeasures = ingredientMeasures
+                newCocktail.ingredients = ingredients
                 
-                return newCocktail
+                swiftDataSource.contextInsert(newCocktail)
             }
         } catch {
             print("error mapping cocktail data: \(error)")

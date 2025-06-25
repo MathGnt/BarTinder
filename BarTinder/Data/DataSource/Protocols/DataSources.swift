@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 protocol CocktailProvider {
-    func getAllCocktails() throws -> [Cocktail]
+    func getAllCocktails() throws(NetworkErrors)
 }
 
 protocol SwiftDataOperations {

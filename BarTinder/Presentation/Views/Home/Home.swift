@@ -101,7 +101,7 @@ extension Home {
     func horizontalScrollBar(viewModel: CocktailViewModel, _ summer: Bool) -> some View {
         ScrollView(.horizontal) {
             HStack {
-                ForEach(Ingredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
+                ForEach(CardIngredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
                     Image(ingredient.image)
                         .resizable()
                         .scaledToFill()

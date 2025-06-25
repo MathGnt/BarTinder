@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Ingredient: Hashable, Identifiable {
+struct CardIngredient: Hashable, Identifiable {
     let image: String
     let name: String
     let otherName: String?
@@ -18,7 +18,7 @@ struct Ingredient: Hashable, Identifiable {
     
     var id: String { self.name }
     
-    static let ingredientCards: [Ingredient] = [
+    static let ingredientCards: [CardIngredient] = [
         .init(image: "absinthe", name: "absinthe", otherName: nil, AVB: "56", location: "France", summer: false, unit: "Cl"),
         .init(image: "angostura", name: "angostura bitters", otherName: nil, AVB: "44.7", location: "Trinidad and Tobago", summer: false, unit: "Dash"),
         .init(image: "aperol", name: "aperol", otherName: nil, AVB: "11", location: "Italy", summer: false, unit: "Cl"),

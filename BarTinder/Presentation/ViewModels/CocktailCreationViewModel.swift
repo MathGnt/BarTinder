@@ -15,45 +15,40 @@ final class CocktailCreationViewModel {
     
     let useCase: CreationUseCase
     
-    private(set) var ingredients: [Ingredient] = []
-    private(set) var addedIngredients: [Ingredient] = []
+    private(set) var ingredients: [CardIngredient] = []
     
     /// Picker / TF
     var selectedPic: PhotosPickerItem?
-    var selectedUnit: [String : Units] = [:]
-    var cocktailMeasure: [String : String] = [:]
+    var searchableField = ""
+    var searchableIngredients: [CardIngredient] {
+        guard !searchableField.isEmpty else { return ingredients }
+        return ingredients.filter {
+            $0.name.localizedStandardContains(searchableField)
+        }
+    }
     
     /// Alerts
     var textNotValid = false
     var ingredientsNotValid = false
     var photosError = false
     
-    var searchableField = ""
-    var searchableIngredients: [Ingredient] {
-        if searchableField == "" {
-            return ingredients
-        } else {
-            return ingredients.filter { $0.name.localizedStandardContains(searchableField)}
-        }
-    }
-
     init(useCase: CreationUseCase) {
-        self.ingredients = Ingredient.ingredientCards
+        self.ingredients = CardIngredient.ingredientCards
         self.useCase = useCase
     }
     
-    func textFieldPlaceholder(for id: String) -> String {
-        switch selectedUnit[id] ?? .cl {
+    func textFieldPlaceholder(_ selectedUnit: Units) -> String {
+        switch selectedUnit {
         case .cl:
-            return "Measure (in cl)"
+            return "(in cl)"
         case .dash:
-            return "Measure (in dashes)"
+            return "(in dashes)"
         case .drop:
-            return "Measure (in drops)"
+            return "(in drops)"
         case .pinch:
-            return "Measure (in pinches)"
+            return "(in pinches)"
         case .wedge:
-            return "Measure (in wedges)"
+            return "(in wedges)"
         case .topUp, .toRinse:
             return ""
         }
@@ -64,34 +59,6 @@ final class CocktailCreationViewModel {
         return UIImage(data: data)
     }
     
-    func addIngredient(ingredient: Ingredient) {
-        guard !addedIngredients.contains(ingredient) else { return }
-        addedIngredients.append(ingredient)
-    }
-    
-    func removeIngredient(indices: IndexSet) {
-        for index in indices {
-            addedIngredients.remove(at: index)
-        }
-    }
-    
-    func haveToEnterMeasure(for ingredient: Ingredient) -> Bool {
-        selectedUnit[ingredient.id] != .topUp && selectedUnit[ingredient.id] != .toRinse
-    }
-    
-    func createIngredientsMeasures(_ cocktail: Cocktail) {
-        do {
-            cocktail.ingredientsMeasures = try useCase.makeIngredientMeasures(
-                ingredients: addedIngredients,
-                cocktailMeasure: cocktailMeasure,
-                selectedUnit: selectedUnit
-            )
-        } catch CreationErrors.emptyFields {
-            ingredientsNotValid = true
-        } catch {
-            print(error)
-        }
-    }
     
     func loadSelectedImage(_ cocktail: Cocktail) async {
         guard let selectedPic else { return }
@@ -100,20 +67,45 @@ final class CocktailCreationViewModel {
                 cocktail.imageData = data
             }
         } catch {
+            photosError = true
             print("Image loading error: \(error.localizedDescription)")
         }
     }
     
-    func validateFields(_ cocktail: Cocktail) -> Bool {
-        guard !addedIngredients.isEmpty else {
-            textNotValid = true
-            return false
+    func addIngredient(_ cocktail: Cocktail, _ ingredient: CardIngredient) {
+        let newIngredient: Ingredient = Ingredient(name: ingredient.name, measure: "", unit: .cl)
+        cocktail.ingredients.append(newIngredient)
+    }
+    
+    
+    func removeIngredient(indexSet: IndexSet, _ cocktail: Cocktail) {
+        for index in indexSet {
+            cocktail.ingredients.remove(at: index)
         }
-        if !useCase.textValid(cocktail.abv, cocktail.cocktailDescription, cocktail.name, cocktail.flavor) {
-            textNotValid = true
+    }
+    
+    func removeMeasure(_ ingredient: Ingredient, _ newValue: Units) {
+        if newValue == .topUp || newValue == .toRinse {
+            ingredient.measure = ""
+        }
+    }
+    
+    func checkAndInsertIngredients(_ cocktail: Cocktail, _ ingredients: [Ingredient]) -> Bool {
+        if !useCase.executeIngredientsChecking(ingredients) {
+            ingredientsNotValid = true
             return false
         }
         return true
+    }
+    
+    func checkAndInsertCocktail(_ cocktail: Cocktail) -> Bool {
+        if !useCase.executeCocktailChecking(cocktail) {
+            textNotValid = true
+            return false
+        } else {
+            useCase.createNewCocktail(cocktail)
+            return true
+        }
     }
 }
 

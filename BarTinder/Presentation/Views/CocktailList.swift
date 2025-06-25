@@ -10,13 +10,13 @@ import SwiftData
 
 struct CocktailList: View {
     
-    let ingredientCard: Ingredient
+    let ingredientCard: CardIngredient
     let viewModel: CocktailViewModel
     @State private var selectedCocktail: Cocktail?
     
     @Query private var cocktails: [Cocktail]
     
-    init(ingredientCard: Ingredient, viewModel: CocktailViewModel) {
+    init(ingredientCard: CardIngredient, viewModel: CocktailViewModel) {
         self.ingredientCard = ingredientCard
         self.viewModel = viewModel
         
@@ -60,5 +60,5 @@ struct CocktailList: View {
 }
 
 #Preview {
-    CocktailList(ingredientCard: Ingredient.mocks, viewModel: PatchBay.patch.makeCocktailViewModel())
+    CocktailList(ingredientCard: CardIngredient.mocks, viewModel: PatchBay.patch.makeCocktailViewModel())
 }

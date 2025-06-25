@@ -12,10 +12,10 @@ import Observation
 @Observable
 final class CocktailViewModel {
     
-    var selectedIngredient: Ingredient?
+    var selectedIngredient: CardIngredient?
     var filterOption: CocktailFilterPredicate = .possibleCocktails
-    var isReversed: Bool = false
     var sortOption: CocktailSortDescriptor = .name
+    var isReversed: Bool = false
     var resetConfirmation = false
     var showCreationSheet = false
 

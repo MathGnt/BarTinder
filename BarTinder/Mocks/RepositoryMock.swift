@@ -17,20 +17,20 @@ final class RepositoryMock: Servable {
         self.swiftDataSource = swiftDataSource
     }
     
-    func getAllCocktails() throws -> [Cocktail] {
-        return getMockCocktails()
+    func getAllCocktails() throws(NetworkErrors) {
+        getMockCocktails()
     }
     
     
-    private func getMockCocktails() -> [Cocktail] {
-        return [
+    private func getMockCocktails() {
+        let cocktails: [Cocktail] =  [
             .init(
                 name: "Old Fashioned",
-                ingredientsMeasures: [
-                    .init(ingredient: "whisky", measure: "4.5 cl"),
-                    .init(ingredient: "sugar cane syrup", measure: "1.5 cl"),
-                    .init(ingredient: "angostura bitters", measure: "2 dashes"),
-                    .init(ingredient: "sparkling water", measure: "1 cl")
+                ingredients: [
+                    .init(name: "whisky", measure: "4.5", unit: Units.cl),
+                    .init(name: "sugar cane syrup", measure: "1.5", unit: Units.cl),
+                    .init(name: "angostura bitters", measure: "2", unit: Units.dash),
+                    .init(name: "sparkling water", measure: "1", unit: Units.cl)
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -47,10 +47,10 @@ final class RepositoryMock: Servable {
             ),
             .init(
                 name: "Margarita",
-                ingredientsMeasures: [
-                    .init(ingredient: "tequila", measure: "4 cl"),
-                    .init(ingredient: "triple sec", measure: "2 cl"),
-                    .init(ingredient: "lime juice", measure: "2 cl")
+                ingredients: [
+                    .init(name: "tequila", measure: "4", unit: Units.cl),
+                    .init(name: "triple sec", measure: "2", unit: Units.cl),
+                    .init(name: "lime juice", measure: "2", unit: Units.cl)
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -67,12 +67,12 @@ final class RepositoryMock: Servable {
             ),
             .init(
                 name: "Mojito",
-                ingredientsMeasures: [
-                    .init(ingredient: "rum", measure: "4 cl"),
-                    .init(ingredient: "lime", measure: "1/2"),
-                    .init(ingredient: "mint", measure: "8 leaves"),
-                    .init(ingredient: "sugar cane syrup", measure: "2 cl"),
-                    .init(ingredient: "sparkling water", measure: "top up")
+                ingredients: [
+                    .init(name: "rum", measure: "4", unit: Units.cl),
+                    .init(name: "lime", measure: "1/2", unit: Units.wedge),
+                    .init(name: "mint", measure: "8", unit: Units.topUp),
+                    .init(name: "sugar cane syrup", measure: "2", unit: Units.cl),
+                    .init(name: "sparkling water", measure: "top up", unit: Units.topUp)
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -89,11 +89,11 @@ final class RepositoryMock: Servable {
             ),
             .init(
                 name: "Cosmopolitan",
-                ingredientsMeasures: [
-                    .init(ingredient: "vodka", measure: "4 cl"),
-                    .init(ingredient: "triple sec", measure: "1.5 cl"),
-                    .init(ingredient: "cranberry juice", measure: "3 cl"),
-                    .init(ingredient: "lime juice", measure: "1 cl")
+                ingredients: [
+                    .init(name: "vodka", measure: "4", unit: Units.cl),
+                    .init(name: "triple sec", measure: "1.5", unit: Units.cl),
+                    .init(name: "cranberry juice", measure: "3", unit: Units.cl),
+                    .init(name: "lime juice", measure: "1", unit: Units.cl)
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -109,5 +109,9 @@ final class RepositoryMock: Servable {
                 stock: true
             )
         ]
+        
+        for cocktail in cocktails {
+            swiftDataSource.contextInsert(cocktail)
+        }
     }
 }

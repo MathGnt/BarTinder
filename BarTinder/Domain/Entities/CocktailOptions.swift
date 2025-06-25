@@ -47,10 +47,10 @@ enum CocktailFilterPredicate: String, CaseIterable {
     case longDrink = "Long Drinks"
     
     // Static filtering
-    static func byIngredient(_ ingredient: Ingredient) -> Predicate<Cocktail> {
+    static func byIngredient(_ ingredient: CardIngredient) -> Predicate<Cocktail> {
         let name = ingredient.name
         return #Predicate<Cocktail> {
-            $0.ingredientsMeasures.contains { $0.ingredient == name }
+            $0.ingredients.contains { $0.name == name }
         }
     }
     
@@ -69,23 +69,23 @@ enum CocktailFilterPredicate: String, CaseIterable {
         case .gin:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible == true &&
-                cocktail.ingredientsMeasures.contains { $0.ingredient == "gin" }
+                cocktail.ingredients.contains { $0.name == "gin" }
             }
         case .vodka:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible == true &&
-                cocktail.ingredientsMeasures.contains { $0.ingredient == "vodka" }
+                cocktail.ingredients.contains { $0.name == "vodka" }
             }
         case .vermouth:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible == true &&
-                cocktail.ingredientsMeasures.contains { $0.ingredient == "vermouth" }
+                cocktail.ingredients.contains { $0.name == "vermouth" }
             }
         case .whisky:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible == true &&
-                cocktail.ingredientsMeasures.contains {
-                    return $0.ingredient == "whisky" || $0.ingredient == "rye whiskey"
+                cocktail.ingredients.contains {
+                    return $0.name == "whisky" || $0.name == "rye whiskey"
                 }
             }
         case .shortDrink:
@@ -136,7 +136,7 @@ enum CocktailDifficulty: Int, Codable {
     case hard = 3
 }
 
-enum Units: String, CaseIterable, Identifiable {
+enum Units: String, CaseIterable, Identifiable, Codable {
     case cl = "cl"
     case dash = "Dash"
     case drop = "Drop"

@@ -7,18 +7,17 @@
 
 import Foundation
 
-extension Ingredient {
-    static let mocks: Ingredient = Ingredient(image: "gin", name: "gin", otherName: nil, AVB: "40", location: "United Kingdom", summer: true, unit: "Cl")
+extension CardIngredient {
+    @MainActor static let mocks: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, AVB: "40", location: "United Kingdom", summer: true, unit: "Cl")
 }
 
 extension Cocktail {
     
     @MainActor static let mocks: Cocktail = Cocktail(
         name: "Gin Tonic",
-        ingredientsMeasures: [
-            .init(ingredient: "cachaca", measure: "6 cl"),
-            .init(ingredient: "lime juice", measure: "12 cl"),
-            .init(ingredient: "vodka", measure: "3 cl")
+        ingredients: [
+            .init(name: "gin", measure: "6", unit: Units.cl),
+            .init(name: "tonic water", measure: "12", unit: Units.cl)
         ],
         isInBar: false,
         isPossible: true,
@@ -36,10 +35,10 @@ extension Cocktail {
     
     @MainActor static let mule: Cocktail = Cocktail(
         name: "Moscow Mule",
-        ingredientsMeasures: [
-            .init(ingredient: "gingerbeer", measure: "6 cl"),
-            .init(ingredient: "lime juice", measure: "12 cl"),
-            .init(ingredient: "vodka", measure: "3 cl")
+        ingredients: [
+            .init(name: "ginger beer", measure: "12", unit: Units.cl),
+            .init(name: "lime juice", measure: "2", unit: Units.cl),
+            .init(name: "vodka", measure: "5", unit: Units.cl)
         ],
         isInBar: false,
         isPossible: true,
@@ -57,10 +56,10 @@ extension Cocktail {
     
     @MainActor static let spritz: Cocktail = Cocktail(
         name: "Aperol Spritz",
-        ingredientsMeasures: [
-            .init(ingredient: "aperol", measure: "6 cl"),
-            .init(ingredient: "prosecco", measure: "9 cl"),
-            .init(ingredient: "sparkling water", measure: "3 cl")
+        ingredients: [
+            .init(name: "aperol", measure: "6", unit: Units.cl),
+            .init(name: "prosecco", measure: "9", unit: Units.cl),
+            .init(name: "sparkling water", measure: "3", unit: Units.cl)
         ],
         isInBar: false,
         isPossible: true,
@@ -78,10 +77,10 @@ extension Cocktail {
 
     @MainActor static let negroni: Cocktail = Cocktail(
         name: "Negroni",
-        ingredientsMeasures: [
-            .init(ingredient: "gin", measure: "3 cl"),
-            .init(ingredient: "campari", measure: "3 cl"),
-            .init(ingredient: "vermouth", measure: "3 cl")
+        ingredients: [
+            .init(name: "gin", measure: "3", unit: Units.cl),
+            .init(name: "campari", measure: "3", unit: Units.cl),
+            .init(name: "vermouth", measure: "3", unit: Units.cl)
         ],
         isInBar: false,
         isPossible: true,
@@ -99,12 +98,12 @@ extension Cocktail {
 
     @MainActor static let mojito: Cocktail = Cocktail(
         name: "Mojito",
-        ingredientsMeasures: [
-            .init(ingredient: "white rum", measure: "5 cl"),
-            .init(ingredient: "lime juice", measure: "2 cl"),
-            .init(ingredient: "sugar syrup", measure: "2 cl"),
-            .init(ingredient: "sparkling water", measure: "top up"),
-            .init(ingredient: "mint", measure: "8 leaves")
+        ingredients: [
+            .init(name: "white rum", measure: "5", unit: Units.cl),
+            .init(name: "lime juice", measure: "2", unit: Units.cl),
+            .init(name: "sugar syrup", measure: "2", unit: Units.cl),
+            .init(name: "sparkling water", measure: "top up", unit: Units.cl),
+            .init(name: "mint", measure: "8", unit: Units.topUp)
         ],
         isInBar: false,
         isPossible: true,
@@ -122,9 +121,9 @@ extension Cocktail {
     
     @MainActor static let martini: Cocktail = Cocktail(
         name: "Martini",
-        ingredientsMeasures: [
-            .init(ingredient: "gin", measure: "5 cl"),
-            .init(ingredient: "vermouth", measure: "1 cl"),
+        ingredients: [
+            .init(name: "gin", measure: "5", unit: Units.cl),
+            .init(name: "vermouth", measure: "1", unit: Units.cl)
         ],
         isInBar: false,
         isPossible: true,

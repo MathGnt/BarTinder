@@ -38,7 +38,7 @@ struct CreateEditCocktail: View {
                 } label: {
                     Text("Ingredients")
                 }
-                ForEach(viewModel.addedIngredients) { ingredient in
+                ForEach(cocktail.ingredients) { ingredient in
                     Text(ingredient.name.capitalizedWords)
                 }
             }
