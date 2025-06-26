@@ -62,7 +62,7 @@ enum CocktailFilterPredicate: String, CaseIterable {
     
     // Dynamic filtering
     var filterPredicate: Predicate<Cocktail> {
-        
+    
         switch self {
         case .possibleCocktails:
             return #Predicate<Cocktail> { $0.isPossible == true }
@@ -89,9 +89,9 @@ enum CocktailFilterPredicate: String, CaseIterable {
                 }
             }
         case .shortDrink:
-            return #Predicate<Cocktail> { $0.isPossible == true && $0.style.rawValue == "shortdrink" }
+            return #Predicate<Cocktail> { $0.isPossible == true && $0.styleValue == "shortdrink" }
         case .longDrink:
-            return #Predicate<Cocktail> { $0.isPossible == true && $0.style.rawValue == "longdrink" }
+            return #Predicate<Cocktail> { $0.isPossible == true && $0.styleValue == "longdrink" }
         }
     }
 }
@@ -104,6 +104,7 @@ enum CocktailStyle: String, Identifiable, CaseIterable, Codable {
     
     var id: String { self.rawValue }
 }
+
 
 enum CocktailGlass: String, Identifiable, CaseIterable, Codable {
     

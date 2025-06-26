@@ -13,6 +13,17 @@ enum NetworkErrors: Error {
     case failedToGetCocktails
 }
 
-enum CreationErrors: Error {
-    case emptyFields
+nonisolated enum CreationErrors: LocalizedError {
+    case emptyCocktailFields
+    case emptyMeasuresFields
+    
+    var errorDescription: String? {
+        switch self {
+        case .emptyCocktailFields:
+            "Some fields are missing!"
+        case .emptyMeasuresFields:
+            "Some ingredients doesn't have measures"
+        }
+    }
 }
+

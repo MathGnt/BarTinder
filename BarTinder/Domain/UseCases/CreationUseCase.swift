@@ -20,31 +20,29 @@ class CreationUseCase {
         repo.callContextSave()
     }
     
-    func executeCocktailChecking(_ cocktail: Cocktail) -> Bool {
+    func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
         guard !cocktail.ingredients.isEmpty else {
-            return false
+            throw .emptyCocktailFields
         }
         if !textValid(cocktail.abv, cocktail.cocktailDescription, cocktail.name, cocktail.flavor) {
-            return false
+            throw .emptyCocktailFields
         }
-        return true
     }
     
     private func textValid(_ strings: String...) -> Bool {
         return strings.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     }
     
-    func executeIngredientsChecking(_ ingredients: [Ingredient]) -> Bool {
+    func executeIngredientsChecking(_ ingredients: [Ingredient]) throws(CreationErrors) {
          for ingredient in ingredients {
              guard !ingredient.measure.trimmingCharacters(in:
      .whitespacesAndNewlines).isEmpty else {
                  guard ingredient.unit == .topUp || ingredient.unit ==
      .toRinse else {
-                     return false
+                     throw .emptyMeasuresFields
                  }
                  continue
              }
          }
-         return true
      }
 }

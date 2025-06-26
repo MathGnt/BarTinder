@@ -28,8 +28,8 @@ final class CocktailCreationViewModel {
     }
     
     /// Alerts
-    var textNotValid = false
-    var ingredientsNotValid = false
+    var generalCocktailFieldsMissing = false
+    var measuresFieldMissing = false
     var photosError = false
     
     init(useCase: CreationUseCase) {
@@ -90,22 +90,13 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func checkAndInsertIngredients(_ cocktail: Cocktail, _ ingredients: [Ingredient]) -> Bool {
-        if !useCase.executeIngredientsChecking(ingredients) {
-            ingredientsNotValid = true
-            return false
-        }
-        return true
+    func checkAndInsertIngredients(_ ingredients: [Ingredient]) throws(CreationErrors) {
+        try useCase.executeIngredientsChecking(ingredients)
     }
     
-    func checkAndInsertCocktail(_ cocktail: Cocktail) -> Bool {
-        if !useCase.executeCocktailChecking(cocktail) {
-            textNotValid = true
-            return false
-        } else {
-            useCase.createNewCocktail(cocktail)
-            return true
-        }
+    func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) {
+        try useCase.executeCocktailChecking(cocktail)
+        useCase.createNewCocktail(cocktail)
     }
 }
 

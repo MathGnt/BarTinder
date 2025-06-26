@@ -12,10 +12,11 @@ struct Swipe: View {
     
     /// Only for Swift Data setup
     @Environment(\.modelContext) private var context
-    @AppStorage("fetched-cocktails") private var hasFetchedCocktails = false
     
-    @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
+    @AppStorage("fetched-cocktails") private var hasFetchedCocktails = false
     @AppStorage("finish-swiping") private var finishSwiping: Bool = false
+    @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
+  
     
     var body: some View {
         ZStack {
@@ -28,7 +29,7 @@ struct Swipe: View {
                             Image("centeredlogo")
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 40, height: 40)
+                                .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
                                 .clipShape(RoundedRectangle(cornerRadius: 20))
                             Spacer()
                         }
@@ -79,7 +80,7 @@ struct Swipe: View {
             }
             
             if finishSwiping {
-                Home(finishSwiping: $finishSwiping)
+                Home(finishSwiping: $finishSwiping, hasFetched: $hasFetchedCocktails)
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
                     .environment(viewModel)
             }

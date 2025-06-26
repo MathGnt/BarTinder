@@ -86,7 +86,7 @@ private extension CocktailDetail {
                 
                 cocktail.displayedImage
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .scaledToFill()
                     .clipped()
                     .blur(radius: 16, opaque: true)
                     .saturation(1.3)
@@ -132,7 +132,7 @@ private extension CocktailDetail {
                     HStack {
                         Image(ingredient.name.logolized())
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
                             .frame(width: 30, height: 30)
                         Text(ingredient.name.capitalizedWords)
                         Spacer()

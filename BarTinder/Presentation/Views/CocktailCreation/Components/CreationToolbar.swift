@@ -11,7 +11,7 @@ struct CreationToolbar: ToolbarContent {
     
     let viewModel: CocktailCreationViewModel
     @Environment(\.dismiss) private var dismiss
-    @Binding var notValid: Bool
+    @Binding var generalCocktailFieldsMissing: Bool
     @FocusState.Binding var focus: Focus?
     
     let cocktail: Cocktail
@@ -19,7 +19,7 @@ struct CreationToolbar: ToolbarContent {
     var body: some ToolbarContent {
         createCocktailButton
         cancelButton
-        keyboardReturnButton
+        KeyboardReturnButton(focus: $focus)
     }
 }
 
@@ -28,18 +28,23 @@ private extension CreationToolbar {
     private var createCocktailButton: some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                if viewModel.checkAndInsertCocktail(cocktail) {
+                do {
+                    try viewModel.checkAndInsertCocktail(cocktail)
                     dismiss()
+                } catch {
+                    viewModel.generalCocktailFieldsMissing = true
                 }
+                
             } label: {
                 Text("Done")
                     .foregroundStyle(.validate)
             }
-            .alert("Missing fields", isPresented: $notValid) {
+            .alert("Missing fields", isPresented: $generalCocktailFieldsMissing) {
                 
             } message: {
-                Text("You didn't complete all the fields!")
+                Text(CreationErrors.emptyCocktailFields.localizedDescription)
             }
+
         }
     }
     
@@ -53,16 +58,9 @@ private extension CreationToolbar {
             }
         }
     }
-    
-    private var keyboardReturnButton: some ToolbarContent {
-        ToolbarItem(placement: .keyboard) {
-            HStack {
-                Spacer()
-                Button("Return") {
-                    focus = nil
-                }
-            }
-            .contentShape(.rect)
-        }
-    }
 }
+
+
+
+
+

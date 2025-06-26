@@ -8,7 +8,7 @@
 import Foundation
 
 extension CardIngredient {
-    @MainActor static let mocks: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, AVB: "40", location: "United Kingdom", summer: true, unit: "Cl")
+    @MainActor static let mocks: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, abv: "40", location: "United Kingdom", summer: true, unit: "Cl")
 }
 
 extension Cocktail {

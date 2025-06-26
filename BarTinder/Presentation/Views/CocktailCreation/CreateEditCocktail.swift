@@ -34,7 +34,7 @@ struct CreateEditCocktail: View {
             
             Section {
                 NavigationLink {
-                    IngredientsListCreation(viewModel: viewModel, cocktail: cocktail)
+                    IngredientsListCreation(viewModel: viewModel, cocktail: cocktail, focus: $focus)
                 } label: {
                     Text("Ingredients")
                 }
@@ -56,7 +56,7 @@ struct CreateEditCocktail: View {
         .navigationTitle("New Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            CreationToolbar(viewModel: viewModel, notValid: $viewModel.textNotValid, focus: $focus, cocktail: cocktail)
+            CreationToolbar(viewModel: viewModel, generalCocktailFieldsMissing: $viewModel.generalCocktailFieldsMissing, focus: $focus, cocktail: cocktail)
         }
     }
     
@@ -106,11 +106,3 @@ private extension CreateEditCocktail {
             }
     }
 }
-
-enum Focus {
-    case name
-    case description
-    case ABV
-    case flavor
-}
-

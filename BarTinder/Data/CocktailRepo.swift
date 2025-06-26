@@ -36,6 +36,7 @@ final class CocktailRepo: Servable {
                     glass: CocktailGlass(rawValue: cocktail.glass)!,
                     mixingTechnique: CocktailMixingTechnique(rawValue: cocktail.technique)!,
                     difficulty: CocktailDifficulty(rawValue: cocktail.difficulty)!,
+                    styleValue: cocktail.style,
                     glassValue: cocktail.glass,
                     mixingTechniqueValue: cocktail .technique,
                     difficultyValue: cocktail.difficulty,

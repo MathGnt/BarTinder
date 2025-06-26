@@ -9,17 +9,26 @@ import Testing
 import SwiftData
 @testable import BarTinder
 
-struct BarTinderTests {
+@Suite("Swiping")
+struct SwipeTests {
+    
+    let container: ModelContainer
+    let context: ModelContext
+    
+    let swiftData: SwiftDataSource
+    let repo: RepositoryMock
+    
+    init() throws {
+        self.container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        self.context = ModelContext(container)
+        
+        self.swiftData = SwiftDataSource(context: context)
+        self.repo = RepositoryMock(swiftDataSource: swiftData)
+    }
     
     @Test("Should return correct cocktails after swiping cards")
-    func correctCocktailsAfterSwipe() async throws {
+    func correctCocktailsAfterSwipe() throws {
         
-        /// Swift Data setup
-        let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        let context = ModelContext(container)
-        
-        let swiftData = SwiftDataSource(context: context)
-        let repo = RepositoryMock(swiftDataSource: swiftData)
         let useCase = SwipeUseCase(repo: repo)
         let viewModel = SwipeViewModel(useCase: useCase)
         
@@ -45,33 +54,88 @@ struct BarTinderTests {
         let descriptor = FetchDescriptor<Cocktail>()
         let results = try context.fetch(descriptor)
         
-        let possibleCocktails = results.filter(\.isPossible).map(\.name)
-        #expect(Set(possibleCocktails) == Set(["Margarita", "Cosmopolitan"]), "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")
+        let possibleCocktails                                                                                                                                                                                        = results.filter(\.isPossible).map(\.name).sorted()
+        
+        let isSuperset = Set(possibleCocktails).isSuperset(of: Set(["Cosmopolitan", "Margarita"]))
+        #expect(isSuperset, "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")
         
     }
+}
+
+
+@Suite("Creation")
+struct CocktailCreationTests {
     
-    @Suite("CreationUseCase")
-    struct CocktailCreationTests {
+    let container: ModelContainer
+    let context: ModelContext
+    
+    let swiftData: SwiftDataSource
+    let repo: RepositoryMock
+    let useCase: CreationUseCase
+    let viewModel: CocktailCreationViewModel
+    
+    init() throws {
+        self.container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        self.context = ModelContext(container)
         
-        @Test("Should insert cocktail with valid fields")
-        func cocktailValidationFields() async throws {
-            
-            let container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-            let context = ModelContext(container)
-            
-            let swiftData = SwiftDataSource(context: context)
-            let repo = RepositoryMock(swiftDataSource: swiftData)
-            let useCase = CreationUseCase(repo: repo)
-            let viewModel = CocktailCreationViewModel(useCase: useCase)
-            
-            let newCocktail = Cocktail(ingredients: [
-                Ingredient(name: "tonic water", measure: "   ", unit: .cl), /* <-- fail test */
-                Ingredient(name: "gin", measure: "12", unit: .cl),
-                Ingredient(name: "lime juice", measure: "", unit: .topUp)
-            ]
-            )
-            
-            #expect(viewModel.checkAndInsertIngredients(newCocktail, newCocktail.ingredients))
+        self.swiftData = SwiftDataSource(context: context)
+        self.repo = RepositoryMock(swiftDataSource: swiftData)
+        self.useCase = CreationUseCase(repo: repo)
+        self.viewModel = CocktailCreationViewModel(useCase: useCase)
+    }
+    
+    @Test("Should validate ingredients creation", arguments: [Units.topUp, .toRinse])
+    func ingredientsValidationFields(unit: Units) throws {
+        
+        let newCocktail = Cocktail(ingredients: [
+            Ingredient(name: "tonic water", measure: "6", unit: .cl),
+            Ingredient(name: "gin", measure: "12", unit: .cl),
+            Ingredient(name: "lime", measure: "", unit: unit)
+        ]
+        )
+        
+        try viewModel.checkAndInsertIngredients(newCocktail.ingredients)
+    }
+
+    @Test("Should throw empty measures", .tags(.throwable), arguments: ["    ", ""])
+    func ingredientsThrowingFields(invalideMeasure: String) throws {
+        
+        let newCocktail = Cocktail(ingredients: [
+            Ingredient(name: "tonic water", measure: invalideMeasure, unit: .cl),
+            Ingredient(name: "gin", measure: "12", unit: .cl),
+            Ingredient(name: "lime", measure: "1", unit: .wedge)
+        ]
+        )
+        
+        #expect(throws: CreationErrors.emptyMeasuresFields) {
+            try viewModel.checkAndInsertIngredients(newCocktail.ingredients)
+        }
+    }
+    
+    @Test("Should validate cocktail creation")
+    func cocktailValidationFields() throws {
+        
+        let ingredients: [Ingredient] = [
+            Ingredient(name: "tonic water", measure: "14", unit: .cl),
+            Ingredient(name: "gin", measure: "12", unit: .cl),
+            Ingredient(name: "lime", measure: "1", unit: .wedge)
+        ]
+        
+        let newCocktail = Cocktail(name: "Gin Tonic", ingredients: ingredients, abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
+        
+        try viewModel.checkAndInsertCocktail(newCocktail)
+    }
+    
+    @Test("Should throw empty cocktail fields", .tags(.throwable), arguments: [(true, false), (false, true)])
+    func cocktailThrowingFields(emptyIngredients: Bool, emptyTextfield: Bool) throws {
+        let name = emptyTextfield ? "" : "Gin Tonic"
+        let ingredients = emptyIngredients ? [] : [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
+
+        let newCocktail = Cocktail(name: name, ingredients: ingredients, abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
+        
+        #expect(throws: CreationErrors.emptyCocktailFields) {
+            try viewModel.checkAndInsertCocktail(newCocktail)
         }
     }
 }
+

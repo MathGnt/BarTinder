@@ -36,7 +36,7 @@ struct IngredientCard: View {
             .frame(width: cardWidth, height: cardHeight - 200)
             .clipShape(RoundedRectangle(cornerRadius: 30))
             
-            cardInfo(title: cardIngredient.name, avb: cardIngredient.AVB ?? "", location: cardIngredient.location)
+            cardInfo(title: cardIngredient.name, abv: cardIngredient.abv ?? "", location: cardIngredient.location)
         }
         .offset(x: viewModel.getOffset(for: cardIngredient))
         .rotationEffect(.degrees(viewModel.getRotation(for: cardIngredient)))
@@ -61,26 +61,17 @@ struct IngredientCard: View {
     
 private extension IngredientCard {
     
-    private func cardInfo(title: String, avb: String, location: String) -> some View {
+    private func cardInfo(title: String, abv: String, location: String) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(title.prefix(1).uppercased() + title.dropFirst())
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                        .font(.system(size: 30, weight: .semibold, design: .rounded))
-                        .foregroundColor(.white)
-                    Text(avb)
-                        .font(.system(size: 25, weight: .regular, design: .rounded))
-                        .foregroundColor(.white)
+                        .cardTitle()
+                    Text(abv)
+                        .cardABV()
                 }
                 Text("From \(location)")
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
-                    .padding(.leading, 7)
-                    .padding(.trailing, 7)
-                    .background(.thinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .cardLocation()
             }
             .padding(.horizontal, 50)
             .padding(.bottom, 15)

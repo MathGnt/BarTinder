@@ -14,6 +14,7 @@ struct HomeToolbar: ToolbarContent {
     @Binding var viewModel: CocktailViewModel
     @Binding var finishSwiping: Bool
     @Binding var sortOption: CocktailSortDescriptor
+    @Binding var hasFetched: Bool
     
     @State private var cocktail = Cocktail(isPossible: true)
     
@@ -64,6 +65,7 @@ struct HomeToolbar: ToolbarContent {
             }
             .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
                 Button("Reset", role: .destructive) {
+                    hasFetched = false
                     dataBase.contextDeleteAll(Cocktail.self)
                     finishSwiping = false
                 }

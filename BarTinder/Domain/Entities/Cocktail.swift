@@ -26,6 +26,7 @@ nonisolated final class Cocktail {
     var mixingTechnique: CocktailMixingTechnique
     var difficulty: CocktailDifficulty
     // Enum rawValues for sorting
+    var styleValue: String
     var glassValue: String
     var mixingTechniqueValue: String
     var difficultyValue: Int
@@ -36,7 +37,7 @@ nonisolated final class Cocktail {
     var cocktailDescription: String
     var stock = false
     
-    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: Int = 1, abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
+    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, styleValue: String = "shortdrink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: Int = 1, abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
         self.name = name
         self.ingredients = ingredients
         self.isInBar = isInBar
@@ -47,6 +48,7 @@ nonisolated final class Cocktail {
         self.glass = glass
         self.mixingTechnique = mixingTechnique
         self.difficulty = difficulty
+        self.styleValue = styleValue
         self.glassValue = glassValue
         self.mixingTechniqueValue = mixingTechniqueValue
         self.difficultyValue = difficultyValue

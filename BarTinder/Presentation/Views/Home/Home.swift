@@ -13,6 +13,7 @@ struct Home: View {
     @Environment(SwipeViewModel.self) private var swipeViewModel
     @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @Binding var finishSwiping: Bool
+    @Binding var hasFetched: Bool
     
     var body: some View {
         NavigationStack {
@@ -53,7 +54,8 @@ struct Home: View {
                     HomeToolbar(
                         viewModel: $viewModel,
                         finishSwiping: $finishSwiping,
-                        sortOption: $viewModel.sortOption
+                        sortOption: $viewModel.sortOption,
+                        hasFetched: $hasFetched
                     )
                 }
               
@@ -63,7 +65,8 @@ struct Home: View {
 }
 
 #Preview(traits: .queryMocks) {
-    Home(finishSwiping: .constant(true))
+    Home(finishSwiping: .constant(true), hasFetched: .constant(true))
+        .environment(PatchBay.patch.makeSwipeViewModel())
 }
 
 

@@ -12,15 +12,15 @@ struct IngredientsListCreation: View {
     
     @Environment(\.dismiss) private var dismiss
     @Bindable var viewModel: CocktailCreationViewModel
-    
     @Bindable var cocktail: Cocktail
+    @FocusState.Binding var focus: Focus?
     
     var body: some View {
         List {
             Section("Added") {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(spacing: 15) {
-                        IngredientRow(ingredient: ingredient, viewModel: viewModel)
+                        IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
                     }
                 }
                 .onDelete { IndexSet in
@@ -38,12 +38,14 @@ struct IngredientsListCreation: View {
         .searchable(text: $viewModel.searchableField, prompt: "Search for an ingredient")
         .toolbar {
             doneButton(viewModel: viewModel)
+            KeyboardReturnButton(focus: $focus)
         }
     }
 }
 
 #Preview {
-    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks)
+    @Previewable @FocusState var focus: Focus?
+    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks, focus: $focus)
 }
 
 //MARK: - VIEW FUNCTIONS
@@ -60,7 +62,7 @@ private extension IngredientsListCreation {
                 Image(ingredient.name.logolized())
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 40, height: 40)
+                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
                 Text(ingredient.name.capitalizedWords)
                     .fontWeight(.medium)
                 
@@ -80,6 +82,8 @@ private extension IngredientsListCreation {
     }
     
     struct IngredientRow: View {
+        
+        @FocusState.Binding var focus: Focus?
         @Bindable var ingredient: Ingredient
         let viewModel: CocktailCreationViewModel
         var body: some View {
@@ -88,7 +92,7 @@ private extension IngredientsListCreation {
                     Image(ingredient.name.logolized())
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
                     
                     VStack(alignment: .leading, spacing: 2) {
                         Text(ingredient.name.capitalizedWords)
@@ -102,7 +106,9 @@ private extension IngredientsListCreation {
                         Spacer()
                         
                         TextField(viewModel.textFieldPlaceholder(ingredient.unit), text: $ingredient.measure)
+                            .focused($focus, equals: .measure)
                             .multilineTextAlignment(.trailing)
+                            .keyboardType(.numberPad)
                     }
                 }
                 
@@ -121,21 +127,20 @@ private extension IngredientsListCreation {
     private func doneButton(viewModel: CocktailCreationViewModel) -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                if viewModel.checkAndInsertIngredients(cocktail, cocktail.ingredients) {
+                do {
+                    try viewModel.checkAndInsertIngredients(cocktail.ingredients)
                     dismiss()
+                } catch {
+                    viewModel.measuresFieldMissing = true
                 }
             } label: {
                 Text("Done")
             }
-            .alert("Missing fields", isPresented: $viewModel.ingredientsNotValid) {
-                Button("Ok", role: .cancel) { }
+            .alert("Missing fields", isPresented: $viewModel.measuresFieldMissing) {
+
             } message: {
-                Text("Please enter measures for each ingredients")
+                Text(CreationErrors.emptyMeasuresFields.localizedDescription)
             }
         }
     }
 }
-
-
-
-

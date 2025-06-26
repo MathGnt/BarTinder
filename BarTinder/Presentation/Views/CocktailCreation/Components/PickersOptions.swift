@@ -36,6 +36,9 @@ private extension PickersOptions {
                 Text("Long Drink").tag(CocktailStyle.longDrink)
                 Text("Short Drink").tag(CocktailStyle.shortDrink)
             }
+            .onChange(of: cocktail.style) { _, newValue in
+                cocktail.styleValue = newValue.rawValue
+            }
         }
     }
     
