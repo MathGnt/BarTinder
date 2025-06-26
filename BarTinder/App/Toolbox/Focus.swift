@@ -12,9 +12,10 @@ import SwiftUI
 nonisolated enum Focus {
     case name
     case description
-    case ABV
+    case abv
     case flavor
     case measure
+
 }
 
 

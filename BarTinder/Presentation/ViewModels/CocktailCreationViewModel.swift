@@ -16,7 +16,7 @@ final class CocktailCreationViewModel {
     let useCase: CreationUseCase
     
     private(set) var ingredients: [CardIngredient] = []
-    
+  
     /// Picker / TF
     var selectedPic: PhotosPickerItem?
     var searchableField = ""
@@ -26,6 +26,7 @@ final class CocktailCreationViewModel {
             $0.name.localizedStandardContains(searchableField)
         }
     }
+    var showIngredientsSheet = false
     
     /// Alerts
     var generalCocktailFieldsMissing = false

@@ -38,11 +38,11 @@ struct Home: View {
                     
                     sectionTitle(title: "Summer Ideas Ingredients")
                     
-                    horizontalScrollBar(viewModel: viewModel, true)
+                    HorizontalScrollBar(viewModel: viewModel, summer: true)
                     
                     sectionTitle(title: "Winter Ideas Ingredients")
                     
-                    horizontalScrollBar(viewModel: viewModel, false)
+                    HorizontalScrollBar(viewModel: viewModel, summer: false)
                     
                     Spacer()
                 }
@@ -99,25 +99,5 @@ extension Home {
         SortingScrollView(viewModel: viewModel, title: "Whisky", filterOption: .whisky, width: 80, height: 30)
         SortingScrollView(viewModel: viewModel, title: "Short Drinks", filterOption: .shortDrink, width: 110, height: 30)
         SortingScrollView(viewModel: viewModel, title: "Long Drinks", filterOption: .longDrink, width: 110, height: 30)
-    }
-    
-    func horizontalScrollBar(viewModel: CocktailViewModel, _ summer: Bool) -> some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(CardIngredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
-                    Image(ingredient.image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 150, height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .onTapGesture {
-                            viewModel.selectedIngredient = ingredient
-                        }
-                }
-            }
-        }
-        .scrollIndicators(.hidden)
-        .contentMargins(18)
-      
     }
 }

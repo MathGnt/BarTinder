@@ -8,38 +8,42 @@
 import SwiftUI
 import PhotosUI
 
-struct CocktailImagePicker: View {
+struct CocktailPreviewHeader: View {
     @Bindable var viewModel: CocktailCreationViewModel
     let selectedImage: Binding<PhotosPickerItem?>
     let cocktail: Cocktail
     
     var body: some View {
         let image = viewModel.imageDataToUI(cocktail) /* Swift 6 scoped */
-        
-        PhotosPicker(selection: selectedImage, matching: .images) {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 75, height: 75)
-                    .clipShape(Circle())
-                    .clipped()
-            } else {
-                PhotoPlaceHolder()
-            }
-        }
-        .task(id: viewModel.selectedPic) {
-            await viewModel.loadSelectedImage(cocktail)
-        }
-        .alert("Loading error", isPresented: $viewModel.photosError) {
-            Button("Cancel", role: .cancel) {}
-            Button("Retry") {
-                Task {
-                    await viewModel.loadSelectedImage(cocktail)
+        HStack(spacing: 15) {
+            PhotosPicker(selection: selectedImage, matching: .images) {
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 75, height: 75)
+                        .clipShape(Circle())
+                        .clipped()
+                } else {
+                    PhotoPlaceHolder()
                 }
             }
-        } message: {
-            Text("Error while loading this picture")
+            .task(id: viewModel.selectedPic) {
+                await viewModel.loadSelectedImage(cocktail)
+            }
+            .alert("Loading error", isPresented: $viewModel.photosError) {
+                Button("Cancel", role: .cancel) {}
+                Button("Retry") {
+                    Task {
+                        await viewModel.loadSelectedImage(cocktail)
+                    }
+                }
+            } message: {
+                Text("Error while loading this picture")
+            }
+            
+            Text(cocktail.name)
+                .font(.system(size: 23, weight: .semibold, design: .rounded))
         }
     }
 }

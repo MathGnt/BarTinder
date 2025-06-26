@@ -1,56 +1,13 @@
 //
-//  IngredientsListCreation.swift
+//  Rows.swift
 //  BarTinder
 //
-//  Created by Mathis Gaignet on 12/05/2025.
+//  Created by Mathis Gaignet on 27/06/2025.
 //
-
+import Foundation
 import SwiftUI
-import SwiftData
 
-struct IngredientsListCreation: View {
-    
-    @Environment(\.dismiss) private var dismiss
-    @Bindable var viewModel: CocktailCreationViewModel
-    @Bindable var cocktail: Cocktail
-    @FocusState.Binding var focus: Focus?
-    
-    var body: some View {
-        List {
-            Section("Added") {
-                ForEach(cocktail.ingredients) { ingredient in
-                    HStack(spacing: 15) {
-                        IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
-                    }
-                }
-                .onDelete { IndexSet in
-                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
-                }
-            }
-            Section("All Ingredients") {
-                ForEach(viewModel.searchableIngredients) { ingredient in
-                    HStack(spacing: 15) {
-                        AllIngredients(cocktail: cocktail, ingredient: ingredient, viewModel: viewModel)
-                    }
-                }
-            }
-        }
-        .searchable(text: $viewModel.searchableField, prompt: "Search for an ingredient")
-        .toolbar {
-            doneButton(viewModel: viewModel)
-            KeyboardReturnButton(focus: $focus)
-        }
-    }
-}
-
-#Preview {
-    @Previewable @FocusState var focus: Focus?
-    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks, focus: $focus)
-}
-
-//MARK: - VIEW FUNCTIONS
-
-private extension IngredientsListCreation {
+extension IngredientsListCreation {
     
     struct AllIngredients: View {
         let cocktail: Cocktail
@@ -123,24 +80,6 @@ private extension IngredientsListCreation {
             }
         }
     }
-    
-    private func doneButton(viewModel: CocktailCreationViewModel) -> some ToolbarContent {
-        ToolbarItem(placement: .confirmationAction) {
-            Button {
-                do {
-                    try viewModel.checkAndInsertIngredients(cocktail.ingredients)
-                    dismiss()
-                } catch {
-                    viewModel.measuresFieldMissing = true
-                }
-            } label: {
-                Text("Done")
-            }
-            .alert("Missing fields", isPresented: $viewModel.measuresFieldMissing) {
-
-            } message: {
-                Text(CreationErrors.emptyMeasuresFields.localizedDescription)
-            }
-        }
-    }
 }
+
+

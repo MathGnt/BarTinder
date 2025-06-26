@@ -1,0 +1,47 @@
+//
+//  IngredientsListCreation.swift
+//  BarTinder
+//
+//  Created by Mathis Gaignet on 12/05/2025.
+//
+
+import SwiftUI
+import SwiftData
+
+struct IngredientsListCreation: View {
+
+    @Bindable var viewModel: CocktailCreationViewModel
+    @Bindable var cocktail: Cocktail
+    @FocusState.Binding var focus: Focus?
+    
+    var body: some View {
+        List {
+            Section("Added") {
+                ForEach(cocktail.ingredients) { ingredient in
+                    HStack(spacing: 15) {
+                        IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
+                    }
+                }
+                .onDelete { IndexSet in
+                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
+                }
+            }
+            Section("All Ingredients") {
+                ForEach(viewModel.searchableIngredients) { ingredient in
+                    HStack(spacing: 15) {
+                        AllIngredients(cocktail: cocktail, ingredient: ingredient, viewModel: viewModel)
+                    }
+                }
+            }
+        }
+        .searchable(text: $viewModel.searchableField, prompt: "Search for an ingredient")
+        .toolbar {
+            IngredientsToolbar(viewModel: viewModel, focus: $focus, cocktail: cocktail)
+        }
+    }
+}
+
+#Preview {
+    @Previewable @FocusState var focus: Focus?
+    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks, focus: $focus)
+}

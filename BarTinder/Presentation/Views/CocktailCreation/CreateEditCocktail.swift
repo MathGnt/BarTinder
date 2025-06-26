@@ -20,32 +20,40 @@ struct CreateEditCocktail: View {
     var body: some View {
         List {
             Section {
-                HStack(spacing: 15) {
-                    CocktailImagePicker(viewModel: viewModel, selectedImage: $viewModel.selectedPic, cocktail: cocktail)
-                    
-                    Text(cocktail.name)
-                        .font(.system(size: 23, weight: .semibold, design: .rounded))
-                }
+                CocktailPreviewHeader(viewModel: viewModel, selectedImage: $viewModel.selectedPic, cocktail: cocktail)
             }
             
             Section {
-                nameDescriptionFields()
+                CocktailTextField(title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name, focus: $focus)
+                CocktailTextField(title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description, focus: $focus)
+                    .lineLimit(5, reservesSpace: true)
             }
             
             Section {
-                NavigationLink {
-                    IngredientsListCreation(viewModel: viewModel, cocktail: cocktail, focus: $focus)
+                Button {
+                    viewModel.showIngredientsSheet = true
                 } label: {
-                    Text("Ingredients")
+                    selectYourIngredientsLabel(cocktail)
                 }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $viewModel.showIngredientsSheet) {
+                    NavigationStack {
+                        IngredientsListCreation(viewModel: viewModel, cocktail: cocktail, focus: $focus)
+                            .interactiveDismissDisabled()
+                    }
+                }
+                
                 ForEach(cocktail.ingredients) { ingredient in
-                    Text(ingredient.name.capitalizedWords)
+                    ingredientPreviewer(ingredient)
+                }
+                .onDelete { IndexSet in
+                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
                 }
             }
             
             Section {
-                
-                abvFlavorFields()
+                CocktailTextField(title: "Abv", binding: $cocktail.abv, axis: .horizontal, config: CreationTextFieldConfig.abv, focus: $focus)
+                CocktailTextField(title: "Flavor", binding: $cocktail.flavor, axis: .horizontal, config: CreationTextFieldConfig.flavor, focus: $focus)
             }
             
             Section {
@@ -66,43 +74,41 @@ struct CreateEditCocktail: View {
     CreateEditCocktail(cocktail: Cocktail.mocks)
 }
 
+
 private extension CreateEditCocktail {
     
-    @ViewBuilder
-    private func nameDescriptionFields() -> some View {
-        TextField("Name", text: $cocktail.name)
-            .characterLimit(30, text: $cocktail.name)
-            .focused($focus, equals: .name)
-            .submitLabel(.next)
-            .onSubmit {
-                focus = .description
-            }
-        
-        TextField("Description", text: $cocktail.cocktailDescription, axis: .vertical)
-            .lineLimit(5, reservesSpace: true)
-            .focused($focus, equals: .description)
-            .submitLabel(.done)
-            .onSubmit {
-                focus = .ABV
-            }
+    private func ingredientPreviewer(_ ingredient: Ingredient) -> some View {
+        HStack(spacing: 0) {
+            Image(ingredient.name.logolized())
+                .resizable()
+                .scaledToFill()
+                .padding(.trailing, 15)
+                .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
+               
+            Text(ingredient.name.capitalizedWords)
+            Spacer()
+            Text(ingredient.measure + " " + ingredient.unit.rawValue)
+        }
     }
     
-    @ViewBuilder
-    private func abvFlavorFields() -> some View {
-        TextField("ABV", text: $cocktail.abv)
-            .focused($focus, equals: .ABV)
-            .keyboardType(.numberPad)
-            .submitLabel(.next)
-            .onSubmit {
-                focus = .flavor
-            }
-        
-        TextField("Flavor", text: $cocktail.flavor)
-            .characterLimit(15, text: $cocktail.flavor)
-            .focused($focus, equals: .flavor)
-            .submitLabel(.next)
-            .onSubmit {
-                focus = nil
-            }
+    private func selectYourIngredientsLabel(_ cocktail: Cocktail) -> some View {
+        HStack(spacing: 15) {
+            let isEmpty = cocktail.ingredients.isEmpty
+            Image(systemName: "flask.fill")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 24, height: 24)
+           
+                .foregroundStyle(.bartinderclr)
+                .overlay {
+                    Image(systemName: isEmpty ? "plus.circle.fill" : "minus.circle.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 14, height: 14)
+                        .foregroundStyle(isEmpty ? .validate : .applered)
+                        .offset(x: 10, y: -5)
+                }
+            Text(isEmpty ? "Select your ingredients" : "Modify your ingredients")
+        }
     }
 }
