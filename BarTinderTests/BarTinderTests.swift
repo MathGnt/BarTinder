@@ -52,7 +52,7 @@ struct SwipeTests {
 
         let possibleCocktails = swiftData.getContextContent(Cocktail.self).filter(\.isPossible).map(\.name).sorted()
         
-        let isSuperset = Set(possibleCocktails).isSuperset(of: Set(["Cosmopolitan", "Margarita"]))
+        let isSuperset = Set(possibleCocktails) == Set(["Cosmopolitan", "Margarita"])
         
         #expect(isSuperset, "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")
         

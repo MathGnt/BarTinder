@@ -15,7 +15,7 @@ extension IngredientsListCreation {
         @Bindable var ingredient: Ingredient
         let viewModel: CocktailCreationViewModel
         var body: some View {
-            VStack(spacing: 15) {
+            VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 HStack {
                     Image(ingredient.name.logolized())
                         .resizable()

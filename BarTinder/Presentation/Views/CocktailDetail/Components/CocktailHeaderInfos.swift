@@ -35,20 +35,12 @@ extension CocktailDetail {
                     .font(.system(size: 15))
                 }
                 
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                
+                separator
                 cocktailDetail(title: "Style", image: cocktail.style.rawValue)
-                
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                
+                separator
                 cocktailDetail(title: "Glass", image: cocktail.glass.rawValue)
-                
-                
-                Rectangle()
-                    .frame(width: 1, height: 50)
-                
+                separator
+        
                 VStack(spacing: 9) {
                     Text("Technique")
                         .font(.system(size: 15, design: .serif))
@@ -71,6 +63,11 @@ extension CocktailDetail {
                     .frame(width: 25, height: 25)
                 
             }
+        }
+        
+        private var separator: some View {
+            Rectangle()
+                .frame(width: 1, height: 50)
         }
     }
 }

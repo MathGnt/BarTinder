@@ -59,7 +59,7 @@ extension CreateEditCocktail {
         }
         
         private var addToBarToggle: some View {
-            HStack(spacing: 15) {
+            HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 pickerImage(title: "wineglass", color: .applered, system: true)
                 Toggle("Add To Bar", isOn: $cocktail.isInBar)
                     .tint(.turborider)
@@ -78,7 +78,7 @@ private struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: Vi
     let onChange: (T) -> Void
 
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
             pickerImage(title: imageTitle, color: color, system: system)
             Picker(pickerTitle, selection: $selection) {
                 ForEach(Array(T.allCases), id: \.self) { option in

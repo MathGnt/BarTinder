@@ -16,7 +16,7 @@ struct QueryMocks: PreviewModifier {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: Cocktail.self, configurations: config)
         
-        container.mainContext.insert(Cocktail.mocks)
+        container.mainContext.insert(Cocktail.ginto)
         container.mainContext.insert(Cocktail.mule)
         container.mainContext.insert(Cocktail.spritz)
         container.mainContext.insert(Cocktail.negroni)

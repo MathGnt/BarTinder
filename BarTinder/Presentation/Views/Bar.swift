@@ -17,46 +17,14 @@ struct Bar: View {
     var body: some View {
         
         if cocktails.isEmpty {
-            VStack {
-                Spacer()
                 ContentUnavailableView(
                     "No cocktails in bar",
                     systemImage: "wineglass",
                     description: Text("Add cocktails to your bar by navigating through their details!")
                 )
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
-            List {
-                ForEach(cocktails) { cocktail in
-                    HStack(spacing: 15) {
-                        cocktail.displayedImage
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 60, height: 60)
-                            .clipShape(.circle)
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(cocktail.name)
-                                .fontWeight(.semibold)
-                            Text(cocktail.flavor.capitalized)
-                                .font(.callout)
-                                .textScale(.secondary)
-                                .foregroundStyle(.gray)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selectedCocktail = cocktail
-                    }
-                }
-            }
-            .navigationTitle("Bar")
-            .navigationDestination(item: $selectedCocktail) { selectedCocktail in
-                CocktailDetail(cocktail: selectedCocktail)
-            }
+            CocktailList(cocktails: cocktails)
+                .navigationTitle("Bar")
         }
     }
 }

@@ -19,7 +19,7 @@ extension CreateEditCocktail {
             @Bindable var viewModel = viewModel
             
             let image = viewModel.imageDataToUI(cocktail) /* Swift 6 scoped */
-            HStack(spacing: 15) {
+            HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 PhotosPicker(selection: selectedImage, matching: .images) {
                     if let image {
                         Image(uiImage: image)
@@ -51,33 +51,33 @@ extension CreateEditCocktail {
             }
         }
     }
-    
-    
-    private struct PhotoPlaceHolder: View {
-        var body: some View {
-            ZStack {
-                Circle()
-                    .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
-                    .frame(width: 75, height: 75)
-                
-                Image(systemName: "photo.circle.fill")
-                    .resizable()
-                    .foregroundStyle(.gray)
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(Circle())
-                    .clipped()
-                Circle()
-                    .trim(from: 0.67, to: 1)
-                    .rotationEffect(.degrees(149.5))
-                    .frame(height: 75)
-                    .foregroundStyle(.black.opacity(0.5))
-                Text("Edit")
-                    .offset(y: 27)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
-            }
+}
+
+private struct PhotoPlaceHolder: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .strokeBorder(Color.gray.opacity(0.5), lineWidth: 2)
+                .frame(width: 75, height: 75)
+            
+            Image(systemName: "photo.circle.fill")
+                .resizable()
+                .foregroundStyle(.gray)
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(Circle())
+                .clipped()
+            Circle()
+                .trim(from: 0.67, to: 1)
+                .rotationEffect(.degrees(149.5))
+                .frame(height: 75)
+                .foregroundStyle(.black.opacity(0.5))
+            Text("Edit")
+                .offset(y: 27)
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .foregroundStyle(.white)
         }
     }
-    
 }
+
+

@@ -49,7 +49,7 @@ struct CocktailDetail: View {
 
 #Preview {
     NavigationStack {
-        CocktailDetail(cocktail: Cocktail.mocks)
+        CocktailDetail(cocktail: Cocktail.ginto)
     }
 }
 
@@ -58,7 +58,7 @@ struct CocktailDetail: View {
 private extension CocktailDetail {
     
     private func header(_ cocktail: Cocktail) -> some View {
-        VStack(spacing: 10) {
+        VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
             Text(cocktail.name)
                 .font(.system(size: 35, weight: .regular, design: .serif))
             Text(cocktail.cocktailDescription)

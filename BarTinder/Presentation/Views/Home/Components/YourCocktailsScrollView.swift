@@ -41,40 +41,41 @@ extension Home {
             }
         }
     }
+}
+
+private struct CocktailImageSource: View {
     
-    private struct CocktailImageSource: View {
-        
-        @Environment(\.swiftData) private var swiftData
-        let cocktail: Cocktail
-        
-        var body: some View {
-            cocktail.displayedImage
-                .resizable()
-                .scaledToFill()
-                .frame(width: 150, height: 200)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .contentShape(
-                    .contextMenuPreview,
-                    RoundedRectangle(cornerRadius: 20)
-                )
-                .contextMenu {
-                    if !cocktail.stock {
-                        NavigationLink {
-                            CreateEditCocktail(cocktail: cocktail)
-                        } label: {
-                            Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
-                        }
-                    }
-                    Button(role: .destructive) {
-                        withAnimation {
-                            swiftData.contextDelete(cocktail)
-                        }
-                        
+    @Environment(\.swiftData) private var swiftData
+    let cocktail: Cocktail
+    
+    var body: some View {
+        cocktail.displayedImage
+            .resizable()
+            .scaledToFill()
+            .frame(width: 150, height: 200)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .contentShape(
+                .contextMenuPreview,
+                RoundedRectangle(cornerRadius: 20)
+            )
+            .contextMenu {
+                if !cocktail.stock {
+                    NavigationLink {
+                        CreateEditCocktail(cocktail: cocktail)
                     } label: {
-                        Label("Delete", systemImage: "trash")
+                        Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
                     }
-                    .animation(.easeInOut, value: cocktail)
                 }
-        }
+                Button(role: .destructive) {
+                    withAnimation {
+                        swiftData.contextDelete(cocktail)
+                    }
+                    
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+                .animation(.easeInOut, value: cocktail)
+            }
     }
 }
+

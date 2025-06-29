@@ -11,6 +11,7 @@ import SwiftUI
 extension BarTinderApp {
     struct Padding {
         static let image: CGFloat = 40
+        static let ingredientSpacing: CGFloat = 15
     }
 }
 

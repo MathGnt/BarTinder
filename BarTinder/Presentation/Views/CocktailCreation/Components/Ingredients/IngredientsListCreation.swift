@@ -19,7 +19,7 @@ struct IngredientsListCreation: View {
         List {
             Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
-                    HStack(spacing: 15) {
+                    HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                         IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
                     }
                 }
@@ -29,7 +29,7 @@ struct IngredientsListCreation: View {
             }
             Section("All Ingredients") {
                 ForEach(viewModel.searchableIngredients) { ingredient in
-                    HStack(spacing: 15) {
+                    HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                         AllIngredients(cocktail: cocktail, ingredient: ingredient, viewModel: viewModel)
                     }
                 }
@@ -44,5 +44,5 @@ struct IngredientsListCreation: View {
 
 #Preview {
     @Previewable @FocusState var focus: Focus?
-    IngredientsListCreation(cocktail: Cocktail.mocks, focus: $focus)
+    IngredientsListCreation(cocktail: Cocktail.ginto, focus: $focus)
 }

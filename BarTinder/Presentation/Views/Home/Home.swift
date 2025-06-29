@@ -18,7 +18,6 @@ struct Home: View {
     @Namespace private var namespace
     
     var body: some View {
-        
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
@@ -52,7 +51,7 @@ struct Home: View {
                     Spacer()
                 }
                 .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
-                    CocktailList(ingredientCard: ingredient, viewModel: viewModel)
+                    IngredientMatches(ingredientCard: ingredient)
                 }
                 .navigationTitle("Home")
                 .toolbar {

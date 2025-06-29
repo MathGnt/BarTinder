@@ -13,7 +13,11 @@ extension CardIngredient {
 
 extension Cocktail {
     
-    @MainActor static let mocks: Cocktail = Cocktail(
+    @MainActor static let mocksArray: [Cocktail] = [
+        .ginto, .mule, .spritz, .negroni, .mojito, .martini
+    ]
+    
+    @MainActor static let ginto: Cocktail = Cocktail(
         name: "Gin Tonic",
         ingredients: [
             .init(name: "gin", measure: "6", unit: Units.cl),

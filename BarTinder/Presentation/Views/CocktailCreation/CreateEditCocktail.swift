@@ -88,5 +88,5 @@ struct CreateEditCocktail: View {
 }
 
 #Preview {
-    CreateEditCocktail(cocktail: Cocktail.mocks)
+    CreateEditCocktail(cocktail: Cocktail.ginto)
 }

@@ -13,7 +13,7 @@ extension CreateEditCocktail {
         let cocktail: Cocktail
         
         var body: some View {
-            HStack(spacing: 15) {
+            HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 let isEmpty = cocktail.ingredients.isEmpty
                 Image(systemName: "flask.fill")
                     .resizable()

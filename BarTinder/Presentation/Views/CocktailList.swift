@@ -2,27 +2,15 @@
 //  CocktailList.swift
 //  BarTinder
 //
-//  Created by Mathis Gaignet on 28/04/2025.
+//  Created by Mathis Gaignet on 29/06/2025.
 //
 
 import SwiftUI
-import SwiftData
 
 struct CocktailList: View {
-    
-    let ingredientCard: CardIngredient
-    let viewModel: CocktailViewModel
     @State private var selectedCocktail: Cocktail?
+    let cocktails: [Cocktail]
     
-    @Query private var cocktails: [Cocktail]
-    
-    init(ingredientCard: CardIngredient, viewModel: CocktailViewModel) {
-        self.ingredientCard = ingredientCard
-        self.viewModel = viewModel
-        
-        _cocktails = Query(filter: CocktailFilterPredicate.byIngredient(ingredientCard))
-    }
-
     var body: some View {
         List(cocktails) { cocktail in
             HStack(spacing: 15) {
@@ -52,7 +40,6 @@ struct CocktailList: View {
                 selectedCocktail = cocktail
             }
         }
-        .navigationTitle(ingredientCard.name.capitalizedWords)
         .navigationDestination(item: $selectedCocktail) { cocktail in
             CocktailDetail(cocktail: cocktail)
         }
@@ -60,5 +47,5 @@ struct CocktailList: View {
 }
 
 #Preview {
-    CocktailList(ingredientCard: CardIngredient.mocks, viewModel: PatchBay.patch.makeCocktailViewModel())
+    CocktailList(cocktails: Cocktail.mocksArray)
 }
