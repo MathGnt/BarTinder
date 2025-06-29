@@ -12,30 +12,29 @@ extension Home {
     
     struct HomeToolbar: ToolbarContent {
         
-        @Environment(\.swiftData) private var dataBase
-        @Binding var viewModel: CocktailViewModel
+        @Environment(CocktailViewModel.self) private var viewModel
+        @Environment(\.swiftData) private var swiftData
         @Binding var finishSwiping: Bool
         @Binding var sortOption: CocktailSortDescriptor
         @Binding var hasFetched: Bool
         
-        @State private var cocktail = Cocktail(isPossible: true)
+        let namespace: Namespace.ID
         
         var body: some ToolbarContent {
+            @Bindable var viewModel = viewModel
+            
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    cocktail = Cocktail(isPossible: true)
                     viewModel.showCreationSheet = true
                 } label: {
                     Image(systemName: "plus")
                         .foregroundStyle(.primary)
                 }
                 .buttonStyle(.plain)
-                .sheet(isPresented: $viewModel.showCreationSheet) {
-                    NavigationStack {
-                        CreateEditCocktail(cocktail: cocktail)
-                    }
-                }
+                
             }
+            .matchedTransitionSource(id: "ingredients-sheet", in: namespace)
+            
             
             ToolbarItem {
                 NavigationLink(destination: Bar()) {
@@ -72,10 +71,10 @@ extension Home {
                     Image(systemName: "arrow.counterclockwise")
                         .foregroundStyle(.applered)
                 }
-                .alert("Are you sure you want to reset back to swiping cards?", isPresented: $viewModel.resetConfirmation) {
+                .alert("Are you sure you want to reset to swiping cards?", isPresented: $viewModel.resetConfirmation) {
                     Button("Reset", role: .destructive) {
                         hasFetched = false
-                        dataBase.contextDeleteAll(Cocktail.self)
+                        swiftData.contextDeleteAll(Cocktail.self)
                         finishSwiping = false
                     }
                 }

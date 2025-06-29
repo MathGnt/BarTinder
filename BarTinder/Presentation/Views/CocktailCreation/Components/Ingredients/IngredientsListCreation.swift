@@ -10,13 +10,14 @@ import SwiftData
 
 struct IngredientsListCreation: View {
 
-    @Bindable var viewModel: CocktailCreationViewModel
+    @Environment(CocktailCreationViewModel.self) private var viewModel
     @Bindable var cocktail: Cocktail
     @FocusState.Binding var focus: Focus?
     
     var body: some View {
+        @Bindable var viewModel = viewModel
         List {
-            Section("Added") {
+            Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(spacing: 15) {
                         IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
@@ -43,5 +44,5 @@ struct IngredientsListCreation: View {
 
 #Preview {
     @Previewable @FocusState var focus: Focus?
-    IngredientsListCreation(viewModel: PatchBay.patch.makeCocktailCreationViewModel(), cocktail: Cocktail.mocks, focus: $focus)
+    IngredientsListCreation(cocktail: Cocktail.mocks, focus: $focus)
 }

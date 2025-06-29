@@ -27,11 +27,14 @@ final class CocktailCreationViewModel {
         }
     }
     var showIngredientsSheet = false
+    var currentIngredientsState: [Ingredient] = []
+    var missingFocus: Focus?
     
-    /// Alerts
+    /// Alerts & confirmations
     var generalCocktailFieldsMissing = false
     var measuresFieldMissing = false
     var photosError = false
+    var askForDiscard = false
     
     init(useCase: CreationUseCase) {
         self.ingredients = CardIngredient.ingredientCards
@@ -91,7 +94,7 @@ final class CocktailCreationViewModel {
         }
     }
     
-    func checkAndInsertIngredients(_ ingredients: [Ingredient]) throws(CreationErrors) {
+    func checkForIngredients(_ ingredients: [Ingredient]) throws(CreationErrors) {
         try useCase.executeIngredientsChecking(ingredients)
     }
     

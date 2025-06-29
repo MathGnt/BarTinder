@@ -1,5 +1,5 @@
 //
-//  Cocktail.swift
+//  CocktailDTO.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 17/04/2025.
@@ -15,7 +15,7 @@ struct CocktailDTO: Decodable {
     let technique: String
     let abv: String
     let flavor: String
-    let difficulty: Int
+    let difficulty: String
     let cocktailDescription: String
     let stock: Bool
   

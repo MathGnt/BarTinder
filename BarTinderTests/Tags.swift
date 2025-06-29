@@ -10,4 +10,5 @@ import Testing
 
 extension Tag {
     @Tag static var throwable: Self
+    @Tag static var textFieldChecker: Self
 }

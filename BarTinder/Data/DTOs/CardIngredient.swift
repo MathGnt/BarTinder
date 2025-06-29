@@ -1,5 +1,5 @@
 //
-//  Ingredient.swift
+//  CardIngredient.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 26/04/2025.

@@ -86,8 +86,6 @@ final class SwipeViewModel {
         
         cardOffsets.removeValue(forKey: card.id)
         cardRotations.removeValue(forKey: card.id)
-        
-        print("removed \(card.name)")
     }
     
     func removeSelectedIngredients() {

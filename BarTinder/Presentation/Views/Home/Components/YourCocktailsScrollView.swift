@@ -12,7 +12,7 @@ extension Home {
     
     struct YourCocktailsScrollView: View {
         
-        let viewModel: CocktailViewModel
+        @Bindable var viewModel: CocktailViewModel
         @Namespace private var namespace
         
         @Query private var cocktails: [Cocktail]
@@ -42,10 +42,9 @@ extension Home {
         }
     }
     
-    struct CocktailImageSource: View {
+    private struct CocktailImageSource: View {
         
-        @Environment(SwipeViewModel.self) private var swipeViewModel
-        @Environment(\.swiftData) private var dataBase
+        @Environment(\.swiftData) private var swiftData
         let cocktail: Cocktail
         
         var body: some View {
@@ -68,42 +67,14 @@ extension Home {
                     }
                     Button(role: .destructive) {
                         withAnimation {
-                            if cocktail.stock {
-                                cocktail.isPossible = false
-                            } else {
-                                dataBase.contextDelete(cocktail)
-                            }
+                            swiftData.contextDelete(cocktail)
                         }
-                        swipeViewModel.removeSelectedIngredients()
+                        
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }
                     .animation(.easeInOut, value: cocktail)
                 }
-        }
-    }
-    
-    struct HorizontalScrollBar: View {
-        let viewModel: CocktailViewModel
-        let summer: Bool
-        
-        var body: some View {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(CardIngredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
-                        Image(ingredient.image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 150, height: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .onTapGesture {
-                                viewModel.selectedIngredient = ingredient
-                            }
-                    }
-                }
-            }
-            .scrollIndicators(.hidden)
-            .contentMargins(18)
         }
     }
 }

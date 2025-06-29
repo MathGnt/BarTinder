@@ -20,7 +20,7 @@ extension IngredientsListCreation {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Done", role: .confirm) {
                     do {
-                        try viewModel.checkAndInsertIngredients(cocktail.ingredients)
+                        try viewModel.checkForIngredients(cocktail.ingredients)
                         dismiss()
                     } catch {
                         viewModel.measuresFieldMissing = true
@@ -35,8 +35,8 @@ extension IngredientsListCreation {
             
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel", role: .cancel) {
-                    cocktail.ingredients = []
                     dismiss()
+                    cocktail.ingredients = viewModel.currentIngredientsState
                 }
             }
             KeyboardReturnButton(focus: $focus)

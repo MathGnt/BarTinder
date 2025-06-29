@@ -37,8 +37,9 @@ enum CocktailSortDescriptor: String, CaseIterable {
     }
 }
 
-enum CocktailFilterPredicate: String, CaseIterable {
-    case possibleCocktails = "Your cocktails"
+enum CocktailFilterPredicate: String, CaseIterable, Hashable {
+    case possibleCocktails = "All cocktails"
+    case created = "Created"
     case gin = "Gin"
     case vodka = "Vodka"
     case vermouth = "Vermouth"
@@ -66,6 +67,8 @@ enum CocktailFilterPredicate: String, CaseIterable {
         switch self {
         case .possibleCocktails:
             return #Predicate<Cocktail> { $0.isPossible == true }
+        case .created:
+            return #Predicate<Cocktail> { $0.stock == false }
         case .gin:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible == true &&
@@ -99,8 +102,8 @@ enum CocktailFilterPredicate: String, CaseIterable {
 // Pickers for cocktail creation
 
 enum CocktailStyle: String, Identifiable, CaseIterable, Codable {
-    case longDrink = "longdrink"
-    case shortDrink = "shortdrink"
+    case longDrink = "long drink"
+    case shortDrink = "short drink"
     
     var id: String { self.rawValue }
 }
@@ -131,10 +134,10 @@ enum CocktailMixingTechnique: String, Identifiable, CaseIterable, Codable {
     var id: String { self.rawValue }
 }
 
-enum CocktailDifficulty: Int, Codable {
-    case easy = 1
-    case medium = 2
-    case hard = 3
+enum CocktailDifficulty: String, Codable, CaseIterable {
+    case easy = "easy"
+    case medium = "medium"
+    case hard = "hard"
 }
 
 enum Units: String, CaseIterable, Identifiable, Codable {

@@ -14,7 +14,6 @@ struct SwipeTests {
     
     let container: ModelContainer
     let context: ModelContext
-    
     let swiftData: SwiftDataSource
     let repo: RepositoryMock
     
@@ -34,29 +33,27 @@ struct SwipeTests {
         
         viewModel.getCocktails()
         
-        let ingredients: [CardIngredient] = [
-            .init(image: "mint", name: "mint", otherName: nil, AVB: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
-            .init(image: "tequila", name: "tequila", otherName: nil, AVB: "38", location: "Mexico", summer: false, unit: "Cl"),
-            .init(image: "sparkling", name: "sparkling water", otherName: nil, AVB: nil, location: "Switzerland", summer: true, unit: "Cl"),
-            .init(image: "lime", name: "lime", otherName: "lime juice", AVB: nil, location: "Malaysia", summer: true, unit: "Cl"),
-            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, AVB: nil, location: "Caribbean", summer: false, unit: "Cl"),
-            .init(image: "cointreau", name: "triple sec", otherName: nil, AVB: "40", location: "France", summer: false, unit: "Cl"),
-            .init(image: "whiskey", name: "whisky", otherName: nil, AVB: "40", location: "Scotland", summer: false, unit: "Cl"),
-            .init(image: "vodka", name: "vodka", otherName: nil, AVB: "40", location: "Russia", summer: true, unit: "Cl"),
-            .init(image: "cranberryjuice", name: "cranberry juice", otherName: nil, AVB: nil, location: "United States", summer: false, unit: "Cl"),
-            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, AVB: nil, location: "Caribbean", summer: false, unit: "Cl"),
+        let swipedRightIngredients: [CardIngredient] = [
+            .init(image: "mint", name: "mint", otherName: nil, abv: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
+            .init(image: "tequila", name: "tequila", otherName: nil, abv: "38", location: "Mexico", summer: false, unit: "Cl"),
+            .init(image: "sparkling", name: "sparkling water", otherName: nil, abv: nil, location: "Switzerland", summer: true, unit: "Cl"),
+            .init(image: "lime", name: "lime", otherName: "lime juice", abv: nil, location: "Malaysia", summer: true, unit: "Cl"),
+            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
+            .init(image: "cointreau", name: "triple sec", otherName: nil, abv: "40", location: "France", summer: false, unit: "Cl"),
+            .init(image: "whiskey", name: "whisky", otherName: nil, abv: "40", location: "Scotland", summer: false, unit: "Cl"),
+            .init(image: "vodka", name: "vodka", otherName: nil, abv: "40", location: "Russia", summer: true, unit: "Cl"),
+            .init(image: "cranberryjuice", name: "cranberry juice", otherName: nil, abv: nil, location: "United States", summer: false, unit: "Cl"),
+            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
         ]
         
-        for selectedIngredient in ingredients {
+        for selectedIngredient in swipedRightIngredients {
             viewModel.addIngredient(selectedIngredient)
         }
-        
-        let descriptor = FetchDescriptor<Cocktail>()
-        let results = try context.fetch(descriptor)
-        
-        let possibleCocktails                                                                                                                                                                                        = results.filter(\.isPossible).map(\.name).sorted()
+
+        let possibleCocktails = swiftData.getContextContent(Cocktail.self).filter(\.isPossible).map(\.name).sorted()
         
         let isSuperset = Set(possibleCocktails).isSuperset(of: Set(["Cosmopolitan", "Margarita"]))
+        
         #expect(isSuperset, "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")
         
     }
@@ -84,7 +81,7 @@ struct CocktailCreationTests {
         self.viewModel = CocktailCreationViewModel(useCase: useCase)
     }
     
-    @Test("Should validate ingredients creation", arguments: [Units.topUp, .toRinse])
+    @Test("Should validate ingredients creation", .tags(.textFieldChecker), arguments: [Units.topUp, .toRinse])
     func ingredientsValidationFields(unit: Units) throws {
         
         let newCocktail = Cocktail(ingredients: [
@@ -94,10 +91,10 @@ struct CocktailCreationTests {
         ]
         )
         
-        try viewModel.checkAndInsertIngredients(newCocktail.ingredients)
+        try viewModel.checkForIngredients(newCocktail.ingredients)
     }
 
-    @Test("Should throw empty measures", .tags(.throwable), arguments: ["    ", ""])
+    @Test("Should throw empty measures", .tags(.throwable, .textFieldChecker), arguments: ["    ", ""])
     func ingredientsThrowingFields(invalideMeasure: String) throws {
         
         let newCocktail = Cocktail(ingredients: [
@@ -108,11 +105,11 @@ struct CocktailCreationTests {
         )
         
         #expect(throws: CreationErrors.emptyMeasuresFields) {
-            try viewModel.checkAndInsertIngredients(newCocktail.ingredients)
+            try viewModel.checkForIngredients(newCocktail.ingredients)
         }
     }
     
-    @Test("Should validate cocktail creation")
+    @Test("Should validate cocktail creation", .tags(.textFieldChecker))
     func cocktailValidationFields() throws {
         
         let ingredients: [Ingredient] = [
@@ -126,16 +123,48 @@ struct CocktailCreationTests {
         try viewModel.checkAndInsertCocktail(newCocktail)
     }
     
-    @Test("Should throw empty cocktail fields", .tags(.throwable), arguments: [(true, false), (false, true)])
-    func cocktailThrowingFields(emptyIngredients: Bool, emptyTextfield: Bool) throws {
-        let name = emptyTextfield ? "" : "Gin Tonic"
-        let ingredients = emptyIngredients ? [] : [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
+    @Test("Should throw empty cocktail-ingredients fields", .tags(.throwable))
+    func cocktailThrowingIngredientsFields() throws {
 
-        let newCocktail = Cocktail(name: name, ingredients: ingredients, abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
+        let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
         
-        #expect(throws: CreationErrors.emptyCocktailFields) {
+        #expect(throws: CreationErrors.emptyCocktailFields(.measure)) {
             try viewModel.checkAndInsertCocktail(newCocktail)
         }
+    }
+    
+    @Test("Should throw empty general cocktail fields", .tags(.throwable, .textFieldChecker), arguments: [
+        ("", "Gin Tonic", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.name)),
+        ("Gin & Tonic", "", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.description)),
+        ("Gin & Tonic", "Gin Tonic", "", "Sweet", CreationErrors.emptyCocktailFields(.abv)),
+        ("Gin & Tonic", "Gin Tonic", "13.2", "", CreationErrors.emptyCocktailFields(.flavor))
+    ])
+    func cocktailThrowingGeneralFields(name: String, description: String, abv: String, flavor: String, expectedError: CreationErrors) throws {
+        
+        let ingredients = [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
+        let newCocktail = Cocktail(name: name, ingredients: ingredients, abv: abv, flavor: flavor, cocktailDescription: description)
+        
+        #expect(throws: expectedError) {
+            try viewModel.checkAndInsertCocktail(newCocktail)
+        }
+    }
+    
+    @Test("Should delete from base and remove possible from stock", arguments: [
+        true, false
+    ])
+    func correctDeleting(isStock: Bool) throws {
+        
+        let newCocktail = Cocktail(stock: isStock)
+        swiftData.contextInsert(newCocktail)
+        swiftData.contextDelete(newCocktail)
+        
+        let cocktails = swiftData.getContextContent(Cocktail.self)
+        
+        let expected = isStock ? 
+            cocktails.filter { $0.isPossible == false }.contains { $0.id == newCocktail.id } :
+            !cocktails.contains { $0.id == newCocktail.id }
+        
+        #expect(expected)
     }
 }
 

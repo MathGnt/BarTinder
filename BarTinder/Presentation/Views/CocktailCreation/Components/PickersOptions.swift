@@ -7,122 +7,111 @@
 
 import SwiftUI
 
-struct PickersOptions: View {
-    @Bindable var viewModel: CocktailCreationViewModel
+extension CreateEditCocktail {
     
-    @Bindable var cocktail: Cocktail
-    
-    var body: some View {
-        cocktailStylePicker
-        cocktailGlassPicker
-        cocktailPreparationPicker
-        cocktailDifficultyPicker
-        addToBarPicker
-    }
-}
-
-private extension PickersOptions {
-    
-    private var cocktailStylePicker: some View {
-        HStack(spacing: 15) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 5)
-                    .frame(width: 29, height: 27)
-                    .foregroundStyle(.yellow)
-                pickerImage(title: cocktail.style.rawValue, color: .yellow)
-                
-            }
-            Picker("Cocktail Style", selection: $cocktail.style) {
-                Text("Long Drink").tag(CocktailStyle.longDrink)
-                Text("Short Drink").tag(CocktailStyle.shortDrink)
-            }
-            .onChange(of: cocktail.style) { _, newValue in
+    struct PickersOptions: View {
+        @Bindable var cocktail: Cocktail
+        
+        var body: some View {
+            CocktailPicker(
+                imageTitle: cocktail.style.rawValue,
+                color: .yellow,
+                system: false,
+                pickerTitle: "Cocktail Style",
+                selection: $cocktail.style
+            ) { newValue in
                 cocktail.styleValue = newValue.rawValue
             }
-        }
-    }
-    
-    private var cocktailGlassPicker: some View {
-        HStack(spacing: 15) {
-            ZStack {
-                pickerImage(title: cocktail.glass.rawValue, color: .blue.opacity(0.6))
-                
-            }
-            Picker("Cocktail Glass", selection: $cocktail.glass) {
-                ForEach(CocktailGlass.allCases) { glass in
-                    Text(glass.rawValue.capitalized).tag(glass)
-                }
-            }
-            .onChange(of: cocktail.glass) { _, newValue in
+            
+            CocktailPicker(
+                imageTitle: cocktail.glass.rawValue,
+                color: .blue.opacity(
+                    0.6
+                ),
+                system: false,
+                pickerTitle: "Cocktail Glass",
+                selection: $cocktail.glass
+            ) { newValue in
                 cocktail.glassValue = newValue.rawValue
             }
-        }
-    }
-    
-    private var cocktailPreparationPicker: some View {
-        HStack(spacing: 15) {
-            ZStack {
-                pickerImageSys(title: "wand.and.rays", color: .green)
-            }
-            Picker("Preparation Method", selection: $cocktail.mixingTechnique) {
-                ForEach(CocktailMixingTechnique.allCases) { method in
-                    Text(method.rawValue.capitalized).tag(method)
-                }
-            }
-            .onChange(of: cocktail.mixingTechnique) { _, newValue in
+            
+            CocktailPicker(
+                imageTitle: "wand.and.rays",
+                color: .green,
+                system: true,
+                pickerTitle: "Mixing Technique",
+                selection: $cocktail.mixingTechnique
+            ) { newValue in
                 cocktail.mixingTechniqueValue = newValue.rawValue
             }
-        }
-    }
-    
-    private var cocktailDifficultyPicker: some View {
-        HStack(spacing: 15) {
-            pickerImageSys(title: "gauge", color: .brown)
             
-            Picker("Difficulty", selection: $cocktail.difficulty) {
-                Text("Easy").tag(CocktailDifficulty.easy)
-                Text("Medium").tag(CocktailDifficulty.medium)
-                Text("Hard").tag(CocktailDifficulty.hard)
-            }
-            .onChange(of: cocktail.difficulty) { _, newValue in
+            CocktailPicker(
+                imageTitle: "gauge",
+                color: .brown,
+                system: true,
+                pickerTitle: "Cocktail Difficulty",
+                selection: $cocktail.difficulty
+            ) { newValue in
                 cocktail.difficultyValue = newValue.rawValue
             }
+
+            addToBarToggle
         }
-    }
-    
-    private var addToBarPicker: some View {
-        HStack(spacing: 15) {
-            pickerImageSys(title: "wineglass", color: .applered)
-            Toggle("Add To Bar", isOn: $cocktail.isInBar)
-                .tint(.turborider)
-        }
-    }
-    
-    
-    // Helper Views
-    private func pickerImage(title: String, color: Color) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 29, height: 27)
-                .foregroundStyle(color)
-            Image(title)
-                .resizable()
-                .frame(width: 23, height: 23)
-                .foregroundStyle(.black)
-        }
-    }
-    
-    private func pickerImageSys(title: String, color: Color) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 29, height: 27)
-                .foregroundStyle(color)
-            Image(systemName: title)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 18)
-                .foregroundStyle(.black)
+        
+        private var addToBarToggle: some View {
+            HStack(spacing: 15) {
+                pickerImage(title: "wineglass", color: .applered, system: true)
+                Toggle("Add To Bar", isOn: $cocktail.isInBar)
+                    .tint(.turborider)
+            }
         }
     }
 }
 
+
+private struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: View where T.RawValue == String {
+    let imageTitle: String
+    let color: Color
+    let system: Bool
+    let pickerTitle: String
+    @Binding var selection: T
+    let onChange: (T) -> Void
+
+    var body: some View {
+        HStack(spacing: 15) {
+            pickerImage(title: imageTitle, color: color, system: system)
+            Picker(pickerTitle, selection: $selection) {
+                ForEach(Array(T.allCases), id: \.self) { option in
+                    Text(option.rawValue.capitalized).tag(option)
+                }
+            }
+            .onChange(of: selection) { _, newValue in
+                onChange(newValue)
+            }
+        }
+    }
+}
+
+
+fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some View {
+    ZStack {
+        RoundedRectangle(cornerRadius: 5)
+            .frame(width: 29, height: 27)
+            .foregroundStyle(color)
+            .overlay {
+                if system {
+                    Image(systemName: title)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 18)
+                        .foregroundStyle(.black)
+                } else {
+                    Image(title)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 23, height: 23)
+                        .foregroundStyle(.black)
+                }
+            }
+    }
+}

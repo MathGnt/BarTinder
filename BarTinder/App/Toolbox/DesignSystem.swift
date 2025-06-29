@@ -1,5 +1,5 @@
 //
-//  ViewModifiers.swift
+//  DesignSystem.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 26/06/2025.
@@ -17,7 +17,7 @@ extension BarTinderApp {
 
 // INGREDIENT CARD
 
-struct CardTitle: ViewModifier {
+private struct CardTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .lineLimit(1)
@@ -27,7 +27,7 @@ struct CardTitle: ViewModifier {
     }
 }
 
-struct CardABV: ViewModifier {
+private struct CardABV: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 25, weight: .regular, design: .rounded))
@@ -35,7 +35,7 @@ struct CardABV: ViewModifier {
     }
 }
 
-struct CardLocation: ViewModifier {
+private struct CardLocation: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 18, weight: .semibold, design: .rounded))
@@ -60,7 +60,7 @@ extension View {
 }
 
 
-struct CharacterLimitModifier: ViewModifier {
+private struct CharacterLimitModifier: ViewModifier {
     let limit: Int
     @Binding var text: String
     

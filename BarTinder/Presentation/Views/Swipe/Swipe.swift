@@ -10,17 +10,12 @@ import SwiftData
 
 struct Swipe: View {
     
-    /// Only for Swift Data setup
-    @Environment(\.modelContext) private var context
+    @Binding var hasFetchedCocktails: Bool
+    @Binding var finishSwiping: Bool
     
-    @AppStorage("fetched-cocktails") private var hasFetchedCocktails = false
-    @AppStorage("finish-swiping") private var finishSwiping: Bool = false
     @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
-  
-    
     var body: some View {
         ZStack {
-            if finishSwiping == false {
                 ZStack {
                     Color(.white)
                         .ignoresSafeArea()
@@ -53,16 +48,16 @@ struct Swipe: View {
                         
                         HStack(spacing: 50) {
                             if let topCard = viewModel.ingredients.first {
-                                bottomButtons(image: "xmark", color: .applered) {
+                                BottomButtons(image: "xmark", color: .applered) {
                                     viewModel.triggerSwipeLeft(card: topCard)
                                 }
                                 
-                                bottomButtons(image: "wineglass.fill", color: .blue) {
+                                BottomButtons(image: "wineglass.fill", color: .blue) {
                                     // Unused
                                 }
                                 .opacity(0)
                                 
-                                bottomButtons(image: "heart.fill", color: .turborider) {
+                                BottomButtons(image: "heart.fill", color: .validate) {
                                     viewModel.triggerSwipeRight(card: topCard)
                                 }
                             }
@@ -77,17 +72,7 @@ struct Swipe: View {
                     }
                 }
                 .transition(.opacity.combined(with: .scale))
-            }
-            
-            if finishSwiping {
-                Home(finishSwiping: $finishSwiping, hasFetched: $hasFetchedCocktails)
-                    .transition(.opacity.combined(with: .move(edge: .trailing)))
-                    .environment(viewModel)
-            }
-            
         }
-        .animation(.easeInOut(duration: 0.6), value: finishSwiping)
-        .environment(\.swiftData, SwiftDataSource(context: context)) // Implementation
         .alert("Server Error", isPresented: $viewModel.fetchingError) {
             Button("Cancel") {}
         } message: {
@@ -97,30 +82,10 @@ struct Swipe: View {
 }
 
 #Preview {
-    Swipe()
+    Swipe(hasFetchedCocktails: .constant(true), finishSwiping: .constant(true))
 }
-    
-//MARK: - View Function
 
-private extension Swipe {
-    
-    private func bottomButtons(image: String, color: Color, action: @escaping () -> Void) -> some View {
-        Button {
-            action()
-        } label: {
-            ZStack {
-                Circle()
-                    .frame(height: 60)
-                    .foregroundStyle(.white)
-                    .shadow(radius: 5)
-                Image(systemName: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: image != "wineglass.fill" ? 20 : 15, height: 20)
-                    .foregroundStyle(color)
-            }
-        }
-    }
-}
+
+
 
 

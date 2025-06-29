@@ -18,13 +18,13 @@ struct BarTinderApp: App {
             container = try ModelContainer(for: Cocktail.self)
             PatchBay.patch.setContext(container.mainContext)
         } catch {
-            fatalError("Failed to create Context")
+            fatalError("Failed to create Context - migration required")
         }
     }
     
     var body: some Scene {
         WindowGroup {
-            Swipe()
+            Switching()
                 .modelContainer(container)
         }
     }

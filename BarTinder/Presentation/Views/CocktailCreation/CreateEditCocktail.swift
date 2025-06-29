@@ -1,5 +1,5 @@
 //
-//  CocktailCreation.swift
+//  CreateEditCocktail.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 12/05/2025.
@@ -20,7 +20,7 @@ struct CreateEditCocktail: View {
     var body: some View {
         List {
             Section {
-                CocktailPreviewHeader(viewModel: viewModel, selectedImage: $viewModel.selectedPic, cocktail: cocktail)
+                CocktailPreviewHeader(selectedImage: $viewModel.selectedPic, cocktail: cocktail)
             }
             
             Section {
@@ -32,16 +32,12 @@ struct CreateEditCocktail: View {
             Section {
                 Button {
                     viewModel.showIngredientsSheet = true
+                    viewModel.currentIngredientsState = cocktail.ingredients
                 } label: {
-                    selectYourIngredientsLabel(cocktail)
+                    SelectYourIngredientsLabel(cocktail: cocktail)
+                        .contentShape(.rect)
                 }
                 .buttonStyle(.plain)
-                .sheet(isPresented: $viewModel.showIngredientsSheet) {
-                    NavigationStack {
-                        IngredientsListCreation(viewModel: viewModel, cocktail: cocktail, focus: $focus)
-                            .interactiveDismissDisabled()
-                    }
-                }
                 
                 ForEach(cocktail.ingredients) { ingredient in
                     ingredientPreviewer(ingredient)
@@ -57,25 +53,24 @@ struct CreateEditCocktail: View {
             }
             
             Section {
-                PickersOptions(viewModel: viewModel, cocktail: cocktail)
+                PickersOptions(cocktail: cocktail)
             }
             
         }
         .navigationTitle("New Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            CreationToolbar(viewModel: viewModel, generalCocktailFieldsMissing: $viewModel.generalCocktailFieldsMissing, focus: $focus, cocktail: cocktail)
+            CreationToolbar(focus: $focus, cocktail: cocktail)
+        }
+        .environment(viewModel)
+        .sheet(isPresented: $viewModel.showIngredientsSheet) {
+            NavigationStack {
+                IngredientsListCreation(cocktail: cocktail, focus: $focus)
+                    .interactiveDismissDisabled()
+                    .environment(viewModel)
+            }
         }
     }
-    
-}
-
-#Preview {
-    CreateEditCocktail(cocktail: Cocktail.mocks)
-}
-
-
-private extension CreateEditCocktail {
     
     private func ingredientPreviewer(_ ingredient: Ingredient) -> some View {
         HStack(spacing: 0) {
@@ -84,31 +79,14 @@ private extension CreateEditCocktail {
                 .scaledToFill()
                 .padding(.trailing, 15)
                 .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-               
+            
             Text(ingredient.name.capitalizedWords)
             Spacer()
             Text(ingredient.measure + " " + ingredient.unit.rawValue)
         }
     }
-    
-    private func selectYourIngredientsLabel(_ cocktail: Cocktail) -> some View {
-        HStack(spacing: 15) {
-            let isEmpty = cocktail.ingredients.isEmpty
-            Image(systemName: "flask.fill")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 24, height: 24)
-           
-                .foregroundStyle(.bartinderclr)
-                .overlay {
-                    Image(systemName: isEmpty ? "plus.circle.fill" : "minus.circle.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 14, height: 14)
-                        .foregroundStyle(isEmpty ? .validate : .applered)
-                        .offset(x: 10, y: -5)
-                }
-            Text(isEmpty ? "Select your ingredients" : "Modify your ingredients")
-        }
-    }
+}
+
+#Preview {
+    CreateEditCocktail(cocktail: Cocktail.mocks)
 }

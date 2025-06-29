@@ -22,15 +22,26 @@ class CreationUseCase {
     
     func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
         guard !cocktail.ingredients.isEmpty else {
-            throw .emptyCocktailFields
+            throw .emptyCocktailFields(.measure)
         }
-        if !textValid(cocktail.abv, cocktail.cocktailDescription, cocktail.name, cocktail.flavor) {
-            throw .emptyCocktailFields
-        }
+        guard let invalidField = firstInvalidField(cocktail) else { return }
+        throw .emptyCocktailFields(invalidField)
     }
     
-    private func textValid(_ strings: String...) -> Bool {
-        return strings.allSatisfy { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    func firstInvalidField(_ cocktail: Cocktail) -> Focus? {
+        if cocktail.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .name
+        }
+        if cocktail.cocktailDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .description
+        }
+        if cocktail.abv.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .abv
+        }
+        if cocktail.flavor.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return .flavor
+        }
+        return nil
     }
     
     func executeIngredientsChecking(_ ingredients: [Ingredient]) throws(CreationErrors) {

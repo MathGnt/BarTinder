@@ -1,5 +1,5 @@
 //
-//  Mocks.swift
+//  DomainMocks.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 24/05/2025.

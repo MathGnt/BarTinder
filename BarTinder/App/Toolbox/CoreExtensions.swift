@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  CoreExtensions.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 05/05/2025.

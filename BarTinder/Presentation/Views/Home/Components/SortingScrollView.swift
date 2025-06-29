@@ -10,12 +10,10 @@ import SwiftUI
 extension Home {
     
     struct SortingScrollView: View {
-        let viewModel: CocktailViewModel
+        @Environment(CocktailViewModel.self) private var viewModel
         
         let title: String
         let filterOption: CocktailFilterPredicate
-        let width: CGFloat
-        let height: CGFloat
         
         var body: some View {
             Button(title) {
@@ -24,12 +22,12 @@ extension Home {
                 }
             }
             .foregroundStyle(.white)
-            .frame(width: width, height: height)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
             .background(viewModel.filterOption == filterOption ? .applered : .gray.opacity(0.6))
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
             .padding(.bottom, 5)
             .scaleEffect(viewModel.filterOption == filterOption ? 1.05 : 1)
         }
     }
-    
 }

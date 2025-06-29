@@ -74,7 +74,7 @@ extension CreateEditCocktail {
             case .abv:
                 return .next
             case .flavor:
-                return .next
+                return .done
             }
         }
         

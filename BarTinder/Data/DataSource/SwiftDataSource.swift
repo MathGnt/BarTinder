@@ -18,10 +18,16 @@ final class SwiftDataSource {
     
     func contextInsert<T: PersistentModel>(_ item: T) {
         context?.insert(item)
+        contextSave()
     }
     
-    func contextDelete<T: PersistentModel>(_ item: T) {
-        context?.delete(item)
+    func contextDelete(_ cocktail: Cocktail) {
+        if cocktail.stock {
+            cocktail.isPossible = false
+        }  else {
+            context?.delete(cocktail)
+        }
+        contextSave()
     }
     
     func contextSave() {
