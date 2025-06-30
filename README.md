@@ -85,10 +85,10 @@ the Environment pattern provides flexibility for simple, direct operations:
 cocktailUseCase.createCocktail(with: ingredients)
 
 // For simple UI actions: Direct environment access
-@Environment(\.swiftData) private var dataBase
+@Environment(\.swiftData) private var swiftData
 
 Button("Reset") {
-    dataBase.contextDeleteAll(Cocktail.self)
+    swiftData.contextDeleteAll(Cocktail.self)
     finishSwiping = false
 }
 ```
@@ -111,7 +111,7 @@ Button("Reset") {
 
 ---
 
-## 📱 **Screenshots**
+## **Screenshots**
 
 *Coming soon!*
 
@@ -170,15 +170,6 @@ Contributions are welcome! Feel free to:
 - Suggest features  
 - Submit pull requests
 - Star the project
-
----
-
-## **Author**
-
-**Mathis Gaignet**
-- iOS Developer from France
-- Audio Engineering background
-- Passionate about SwiftUI & Apple ecosystem
 
 ---
 
