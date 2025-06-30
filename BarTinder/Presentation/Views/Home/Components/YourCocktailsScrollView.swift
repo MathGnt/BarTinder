@@ -79,3 +79,6 @@ private struct CocktailImageSource: View {
     }
 }
 
+#Preview(traits: .queryMocks) {
+    Home.YourCocktailsScrollView(viewModel: PatchBay.patch.makeCocktailViewModel())
+}

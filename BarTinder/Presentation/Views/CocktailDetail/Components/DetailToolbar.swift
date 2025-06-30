@@ -45,12 +45,20 @@ extension CocktailDetail {
                                 .foregroundStyle(cocktail.isInBar ? .primary : Color(.green))
                         }
                     }
-                    
                 } label: {
                     Image(systemName: "ellipsis")
                 }
             }
         }
     }
-    
+}
+
+#Preview {
+    NavigationStack {
+        Text("Detail Toolbar")
+            .toolbar {
+                CocktailDetail.DetailToolbar(cocktail: Cocktail.ginto)
+            }
+            .environment(PatchBay.patch.makeCocktailViewModel())
+    }
 }

@@ -10,10 +10,11 @@ import SwiftUI
 extension IngredientsListCreation {
     
     struct IngredientRow: View {
-        
+    
         @FocusState.Binding var focus: Focus?
         @Bindable var ingredient: Ingredient
-        let viewModel: CocktailCreationViewModel
+        let viewModel: CreationViewModel
+        
         var body: some View {
             VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 HStack {
@@ -40,7 +41,7 @@ extension IngredientsListCreation {
                     }
                 }
                 
-                Picker("Unit", selection: $ingredient.unit) {
+                Picker("Unit:", selection: $ingredient.unit) {
                     ForEach(Units.allCases) { unit in
                         Text(unit.rawValue).tag(unit)
                     }
@@ -53,4 +54,9 @@ extension IngredientsListCreation {
     }
 }
 
-
+#Preview {
+    @Previewable @FocusState var focus: Focus?
+    List {
+        IngredientsListCreation.IngredientRow(focus: $focus, ingredient: Ingredient.gin, viewModel: PatchBay.patch.makeCreationViewModel())
+    }
+}

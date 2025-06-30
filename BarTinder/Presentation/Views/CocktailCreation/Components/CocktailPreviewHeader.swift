@@ -11,7 +11,7 @@ import PhotosUI
 extension CreateEditCocktail {
     
     struct CocktailPreviewHeader: View {
-        @Environment(CocktailCreationViewModel.self) private var viewModel
+        @Environment(CreationViewModel.self) private var viewModel
         let selectedImage: Binding<PhotosPickerItem?>
         let cocktail: Cocktail
         
@@ -81,3 +81,7 @@ private struct PhotoPlaceHolder: View {
 }
 
 
+#Preview {
+    CreateEditCocktail.CocktailPreviewHeader(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
+        .environment(PatchBay.patch.makeCreationViewModel())
+}

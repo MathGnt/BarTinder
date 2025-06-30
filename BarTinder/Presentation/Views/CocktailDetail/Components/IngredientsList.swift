@@ -31,5 +31,8 @@ extension CocktailDetail {
             }
         }
     }
-    
+}
+
+#Preview {
+    CocktailDetail.IngredientsList(cocktail: Cocktail.ginto)
 }

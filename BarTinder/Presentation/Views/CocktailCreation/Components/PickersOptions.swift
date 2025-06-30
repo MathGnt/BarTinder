@@ -115,3 +115,9 @@ fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some 
             }
     }
 }
+
+#Preview {
+    List {
+        CreateEditCocktail.PickersOptions(cocktail: Cocktail.ginto)
+    }
+}

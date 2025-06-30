@@ -10,7 +10,7 @@ import SwiftData
 
 struct IngredientsListCreation: View {
 
-    @Environment(CocktailCreationViewModel.self) private var viewModel
+    @Environment(CreationViewModel.self) private var viewModel
     @Bindable var cocktail: Cocktail
     @FocusState.Binding var focus: Focus?
     
@@ -45,4 +45,5 @@ struct IngredientsListCreation: View {
 #Preview {
     @Previewable @FocusState var focus: Focus?
     IngredientsListCreation(cocktail: Cocktail.ginto, focus: $focus)
+        .environment(PatchBay.patch.makeCreationViewModel())
 }

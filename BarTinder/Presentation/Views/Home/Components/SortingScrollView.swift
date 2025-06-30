@@ -31,3 +31,8 @@ extension Home {
         }
     }
 }
+
+#Preview {
+    Home.SortingScrollView(title: "Gin", filterOption: CocktailFilterPredicate.gin)
+        .environment(PatchBay.patch.makeCocktailViewModel())
+}

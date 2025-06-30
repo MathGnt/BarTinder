@@ -91,5 +91,4 @@ extension CreateEditCocktail {
             }
         }
     }
-    
 }

@@ -82,3 +82,15 @@ extension Home {
         }
     }
 }
+
+
+#Preview {
+    @Previewable @Namespace var namespace
+    NavigationStack {
+        Text("Home Toolbar")
+            .toolbar {
+                Home.HomeToolbar(finishSwiping: .constant(true), sortOption: .constant(.glass), hasFetched: .constant(true), namespace: namespace)
+            }
+            .environment(PatchBay.patch.makeCocktailViewModel())
+    }
+}

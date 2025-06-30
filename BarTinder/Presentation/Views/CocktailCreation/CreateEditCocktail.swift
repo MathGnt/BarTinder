@@ -12,17 +12,18 @@ import PhotosUI
 struct CreateEditCocktail: View {
     
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel = PatchBay.patch.makeCocktailCreationViewModel()
+    @State private var viewModel = PatchBay.patch.makeCreationViewModel()
     @FocusState private var focus: Focus?
     
     @Bindable var cocktail: Cocktail
     
     var body: some View {
         List {
+            
             Section {
                 CocktailPreviewHeader(selectedImage: $viewModel.selectedPic, cocktail: cocktail)
             }
-            
+    
             Section {
                 CocktailTextField(title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name, focus: $focus)
                 CocktailTextField(title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description, focus: $focus)

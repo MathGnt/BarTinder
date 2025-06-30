@@ -71,3 +71,8 @@ extension CocktailDetail {
         }
     }
 }
+
+
+#Preview {
+    CocktailDetail.CocktailHeaderInfos(cocktail: Cocktail.ginto)
+}

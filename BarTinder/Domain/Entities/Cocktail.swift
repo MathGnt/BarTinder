@@ -74,22 +74,3 @@ extension Cocktail {
        }
 }
 
-//MARK: Ingredients Relationship
-
-@Model
-nonisolated final class Ingredient: Identifiable {
-    var name: String
-    var measure: String
-    var unit: Units
-    
-    var cocktail: Cocktail?
-    
-    var id = UUID()
-    
-    init(name: String = "", measure: String = "", unit: Units = Units.cl, cocktail: Cocktail? = nil) {
-        self.name = name
-        self.measure = measure
-        self.unit = unit
-        self.cocktail = cocktail
-    }
-}

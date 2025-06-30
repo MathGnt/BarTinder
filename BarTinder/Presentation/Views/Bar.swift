@@ -30,6 +30,6 @@ struct Bar: View {
 }
 
 
-#Preview {
+#Preview(traits: .queryMocks) {
     Bar()
 }

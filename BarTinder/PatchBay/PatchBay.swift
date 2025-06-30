@@ -50,8 +50,8 @@ final class PatchBay {
         SwipeViewModel(useCase: makeSwipeUseCase())
     }
     
-    func makeCocktailCreationViewModel() -> CocktailCreationViewModel {
-        CocktailCreationViewModel(useCase: makeCreationUseCase())
+    func makeCreationViewModel() -> CreationViewModel {
+        CreationViewModel(useCase: makeCreationUseCase())
     }
     
     func makeCocktailViewModel() -> CocktailViewModel {

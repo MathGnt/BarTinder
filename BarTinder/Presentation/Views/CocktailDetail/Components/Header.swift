@@ -55,5 +55,9 @@ extension CocktailDetail {
             .ignoresSafeArea()
         }
     }
-    
+}
+
+
+#Preview {
+    CocktailDetail.CocktailHeaderPicture(cocktail: Cocktail.ginto)
 }

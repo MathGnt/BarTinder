@@ -23,7 +23,7 @@ class SwipeUseCase {
             try repo.getAllCocktails()
             repo.callContextSave()
         } catch {
-            print("Failed to get all cocktails from API")
+            print("Failed to get all cocktails from json")
             throw .failedToGetCocktails
         }
     }

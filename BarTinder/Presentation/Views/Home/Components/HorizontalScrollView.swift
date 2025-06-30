@@ -7,26 +7,35 @@
 
 import SwiftUI
 
-struct HorizontalScrollView: View {
-    @Environment(CocktailViewModel.self) private var viewModel
-    let summer: Bool
+extension Home {
     
-    var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(CardIngredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
-                    Image(ingredient.image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 150, height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .onTapGesture {
-                            viewModel.selectedIngredient = ingredient
-                        }
+    struct HorizontalScrollView: View {
+        @Environment(CocktailViewModel.self) private var viewModel
+        let summer: Bool
+        
+        var body: some View {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(CardIngredient.ingredientCards.filter { $0.summer == summer }, id: \.self) { ingredient in
+                        Image(ingredient.image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 150, height: 200)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .onTapGesture {
+                                viewModel.selectedIngredient = ingredient
+                            }
+                    }
                 }
             }
+            .scrollIndicators(.hidden)
+            .contentMargins(18)
         }
-        .scrollIndicators(.hidden)
-        .contentMargins(18)
     }
+    
+}
+
+#Preview {
+    Home.HorizontalScrollView(summer: true)
+        .environment(PatchBay.patch.makeCocktailViewModel())
 }

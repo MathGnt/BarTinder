@@ -69,7 +69,7 @@ struct CocktailCreationTests {
     let swiftData: SwiftDataSource
     let repo: RepositoryMock
     let useCase: CreationUseCase
-    let viewModel: CocktailCreationViewModel
+    let viewModel: CreationViewModel
     
     init() throws {
         self.container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
@@ -78,7 +78,7 @@ struct CocktailCreationTests {
         self.swiftData = SwiftDataSource(context: context)
         self.repo = RepositoryMock(swiftDataSource: swiftData)
         self.useCase = CreationUseCase(repo: repo)
-        self.viewModel = CocktailCreationViewModel(useCase: useCase)
+        self.viewModel = CreationViewModel(useCase: useCase)
     }
     
     @Test("Should validate ingredients creation", .tags(.textFieldChecker), arguments: [Units.topUp, .toRinse])

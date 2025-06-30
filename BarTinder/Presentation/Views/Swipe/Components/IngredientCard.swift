@@ -56,7 +56,7 @@ extension Swipe {
     }
     
     #Preview {
-        IngredientCard(cardIngredient: CardIngredient.mocks, viewModel: PatchBay.patch.makeSwipeViewModel())
+        IngredientCard(cardIngredient: CardIngredient.gin, viewModel: PatchBay.patch.makeSwipeViewModel())
     }
     
     

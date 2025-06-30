@@ -27,6 +27,6 @@ struct IngredientMatches: View {
     }
 }
 
-#Preview {
-    IngredientMatches(ingredientCard: CardIngredient.mocks)
+#Preview(traits: .queryMocks) {
+    IngredientMatches(ingredientCard: CardIngredient.gin)
 }

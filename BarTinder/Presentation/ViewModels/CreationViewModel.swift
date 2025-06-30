@@ -1,5 +1,5 @@
 //
-//  CocktailCreationViewModel.swift
+//  CreationViewModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 12/05/2025.
@@ -11,7 +11,7 @@ import SwiftUI
 import PhotosUI
 
 @Observable
-final class CocktailCreationViewModel {
+final class CreationViewModel {
     
     let useCase: CreationUseCase
     

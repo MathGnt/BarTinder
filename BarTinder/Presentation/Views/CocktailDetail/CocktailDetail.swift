@@ -50,6 +50,7 @@ struct CocktailDetail: View {
 #Preview {
     NavigationStack {
         CocktailDetail(cocktail: Cocktail.ginto)
+            .environment(PatchBay.patch.makeCocktailViewModel())
     }
 }
 

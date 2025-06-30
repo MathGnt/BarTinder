@@ -8,7 +8,11 @@
 import Foundation
 
 extension CardIngredient {
-    @MainActor static let mocks: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, abv: "40", location: "United Kingdom", summer: true, unit: "Cl")
+    @MainActor static let gin: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, abv: "40", location: "United Kingdom", summer: true, unit: "Cl")
+}
+
+extension Ingredient {
+    @MainActor static let gin: Ingredient = Ingredient(name: "gin", measure: "6", unit: .cl)
 }
 
 extension Cocktail {
@@ -23,7 +27,7 @@ extension Cocktail {
             .init(name: "gin", measure: "6", unit: Units.cl),
             .init(name: "tonic water", measure: "12", unit: Units.cl)
         ],
-        isInBar: false,
+        isInBar: true,
         isPossible: true,
         imageName: "gintonic",
         imageData: nil,

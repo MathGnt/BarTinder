@@ -10,7 +10,7 @@ import SwiftUI
 extension CreateEditCocktail {
     
     struct CreationToolbar: ToolbarContent {
-        @Environment(CocktailCreationViewModel.self) private var viewModel
+        @Environment(CreationViewModel.self) private var viewModel
         @FocusState.Binding var focus: Focus?
         let cocktail: Cocktail
         
@@ -24,7 +24,7 @@ extension CreateEditCocktail {
 }
 
 private struct CreateCocktailButton: ToolbarContent {
-    @Environment(CocktailCreationViewModel.self) private var viewModel
+    @Environment(CreationViewModel.self) private var viewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState.Binding var focus: Focus?
     let cocktail: Cocktail
@@ -67,7 +67,7 @@ private struct CreateCocktailButton: ToolbarContent {
 }
 
 private struct CancelCocktailButton: ToolbarContent {
-    @Environment(CocktailCreationViewModel.self) private var viewModel
+    @Environment(CreationViewModel.self) private var viewModel
     @Environment(\.swiftData) private var swiftData
     @Environment(\.dismiss) private var dismiss
     
@@ -97,5 +97,14 @@ private struct CancelCocktailButton: ToolbarContent {
 
 
 
-
+#Preview {
+    @Previewable @FocusState var focus: Focus?
+    NavigationStack {
+        Text("Creation Toolbar")
+            .toolbar {
+                CreateEditCocktail.CreationToolbar(focus: $focus, cocktail: Cocktail.ginto)
+            }
+            .environment(PatchBay.patch.makeCreationViewModel())
+    }
+}
 

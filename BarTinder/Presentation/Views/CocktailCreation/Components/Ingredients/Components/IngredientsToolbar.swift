@@ -12,7 +12,7 @@ extension IngredientsListCreation {
     
     struct IngredientsToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
-        @Bindable var viewModel: CocktailCreationViewModel
+        @Bindable var viewModel: CreationViewModel
         @FocusState.Binding var focus: Focus?
         let cocktail: Cocktail
         
@@ -42,5 +42,14 @@ extension IngredientsListCreation {
             KeyboardReturnButton(focus: $focus)
         }
     }
-    
+}
+
+#Preview {
+    @Previewable @FocusState var focus: Focus?
+    NavigationStack {
+        Text("IngredientsToolbar")
+            .toolbar {
+                IngredientsListCreation.IngredientsToolbar(viewModel: PatchBay.patch.makeCreationViewModel(), focus: $focus, cocktail: Cocktail.ginto)
+            }
+    }
 }

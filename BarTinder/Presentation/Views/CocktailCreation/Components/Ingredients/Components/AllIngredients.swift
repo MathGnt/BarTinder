@@ -10,7 +10,7 @@ import SwiftUI
 struct AllIngredients: View {
     let cocktail: Cocktail
     let ingredient: CardIngredient
-    let viewModel: CocktailCreationViewModel
+    let viewModel: CreationViewModel
     
     var body: some View {
         HStack {
@@ -34,4 +34,8 @@ struct AllIngredients: View {
             .buttonStyle(.borderless)
         }
     }
+}
+
+#Preview {
+    AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.gin, viewModel: PatchBay.patch.makeCreationViewModel())
 }

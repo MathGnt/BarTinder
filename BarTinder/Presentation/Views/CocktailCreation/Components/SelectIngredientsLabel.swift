@@ -34,3 +34,7 @@ extension CreateEditCocktail {
         }
     }
 }
+
+#Preview {
+    CreateEditCocktail.SelectYourIngredientsLabel(cocktail: Cocktail.ginto)
+}
