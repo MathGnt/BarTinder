@@ -7,8 +7,7 @@
 
 import Foundation
 
-// Filtering and Sorting @Query
-
+/// Filtering, Sorting and Ordering @Query
 enum CocktailSortDescriptor: String, CaseIterable {
     case name = "Name"
     case difficulty = "Difficulty"
@@ -47,7 +46,7 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
     case shortDrink = "Short Drinks"
     case longDrink = "Long Drinks"
     
-    // Static filtering
+    /// Static filtering
     static func byIngredient(_ ingredient: CardIngredient) -> Predicate<Cocktail> {
         let name = ingredient.name
         return #Predicate<Cocktail> {
@@ -57,50 +56,49 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
     
     static var byInBar: Predicate<Cocktail> {
         #Predicate<Cocktail> {
-            $0.isInBar == true
+            $0.isInBar
         }
     }
     
-    // Dynamic filtering
+    /// Dynamic filtering
     var filterPredicate: Predicate<Cocktail> {
     
         switch self {
         case .possibleCocktails:
-            return #Predicate<Cocktail> { $0.isPossible == true }
+            return #Predicate<Cocktail> { $0.isPossible }
         case .created:
             return #Predicate<Cocktail> { $0.stock == false }
         case .gin:
             return #Predicate<Cocktail> { cocktail in
-                cocktail.isPossible == true &&
+                cocktail.isPossible &&
                 cocktail.ingredients.contains { $0.name == "gin" }
             }
         case .vodka:
             return #Predicate<Cocktail> { cocktail in
-                cocktail.isPossible == true &&
+                cocktail.isPossible &&
                 cocktail.ingredients.contains { $0.name == "vodka" }
             }
         case .vermouth:
             return #Predicate<Cocktail> { cocktail in
-                cocktail.isPossible == true &&
+                cocktail.isPossible &&
                 cocktail.ingredients.contains { $0.name == "vermouth" }
             }
         case .whisky:
             return #Predicate<Cocktail> { cocktail in
-                cocktail.isPossible == true &&
+                cocktail.isPossible &&
                 cocktail.ingredients.contains {
                     return $0.name == "whisky" || $0.name == "rye whiskey"
                 }
             }
         case .shortDrink:
-            return #Predicate<Cocktail> { $0.isPossible == true && $0.styleValue == "shortdrink" }
+            return #Predicate<Cocktail> { $0.isPossible && $0.styleValue == "short drink" }
         case .longDrink:
-            return #Predicate<Cocktail> { $0.isPossible == true && $0.styleValue == "longdrink" }
+            return #Predicate<Cocktail> { $0.isPossible && $0.styleValue == "long drink" }
         }
     }
 }
 
-// Pickers for cocktail creation
-
+/// Pickers for cocktail creation
 enum CocktailStyle: String, Identifiable, CaseIterable, Codable {
     case longDrink = "long drink"
     case shortDrink = "short drink"

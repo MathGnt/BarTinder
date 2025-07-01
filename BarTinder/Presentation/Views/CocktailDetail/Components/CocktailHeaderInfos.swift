@@ -8,9 +8,8 @@
 import SwiftUI
 
 extension CocktailDetail {
-    
+    /// A view that shows all the selected cocktail infos.
     struct CocktailHeaderInfos: View {
-        
         let cocktail: Cocktail
         
         private var difficultyLevel: Int {
@@ -71,7 +70,6 @@ extension CocktailDetail {
         }
     }
 }
-
 
 #Preview {
     CocktailDetail.CocktailHeaderInfos(cocktail: Cocktail.ginto)

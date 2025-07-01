@@ -18,7 +18,7 @@ struct CardIngredient: Hashable, Identifiable {
     
     var id: String { self.name }
     
-    static let ingredientCards: [CardIngredient] = [
+    nonisolated static let ingredientCards: [CardIngredient] = [
         .init(image: "absinthe", name: "absinthe", otherName: nil, abv: "56", location: "France", summer: false, unit: "Cl"),
         .init(image: "angostura", name: "angostura bitters", otherName: nil, abv: "44.7", location: "Trinidad and Tobago", summer: false, unit: "Dash"),
         .init(image: "aperol", name: "aperol", otherName: nil, abv: "11", location: "Italy", summer: false, unit: "Cl"),

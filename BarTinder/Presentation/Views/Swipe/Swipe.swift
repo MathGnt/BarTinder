@@ -8,12 +8,11 @@
 import SwiftUI
 import SwiftData
 
+/// The first view of the app that shows many ingredient cards the user can swipe.
 struct Swipe: View {
-    
-    @Binding var hasFetchedCocktails: Bool
-    @Binding var finishSwiping: Bool
-    
+    @Environment(Storage.self) private var appStorage
     @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
+    
     var body: some View {
         ZStack {
                 ZStack {
@@ -35,28 +34,24 @@ struct Swipe: View {
                                 IngredientCard(cardIngredient: card, viewModel: viewModel)
                             }
                         }
-                        
                         .onChange(of: viewModel.ingredients) { oldValue, newValue in
                             if !newValue.isEmpty { return }
-                            
                             viewModel.updatePossibleCocktails()
                             withAnimation(.easeIn) {
-                                finishSwiping = true
+                                appStorage.hasFinshedSwiping = true
                             }
                         }
-                        .animation(.easeInOut, value: finishSwiping)
+                        .animation(.easeInOut, value: appStorage.hasFinshedSwiping)
                         
                         HStack(spacing: 50) {
                             if let topCard = viewModel.ingredients.first {
                                 BottomButtons(image: "xmark", color: .applered) {
                                     viewModel.triggerSwipeLeft(card: topCard)
                                 }
-                                
                                 BottomButtons(image: "wineglass.fill", color: .blue) {
                                     // Unused
                                 }
                                 .opacity(0)
-                                
                                 BottomButtons(image: "heart.fill", color: .validate) {
                                     viewModel.triggerSwipeRight(card: topCard)
                                 }
@@ -66,9 +61,9 @@ struct Swipe: View {
                     }
                 }
                 .onAppear {
-                    if !hasFetchedCocktails {
+                    if !appStorage.hasFetched {
                         viewModel.getCocktails()
-                        hasFetchedCocktails = true
+                        appStorage.hasFetched = true
                     }
                 }
                 .transition(.opacity.combined(with: .scale))
@@ -82,7 +77,8 @@ struct Swipe: View {
 }
 
 #Preview {
-    Swipe(hasFetchedCocktails: .constant(true), finishSwiping: .constant(true))
+    Swipe()
+        .environment(Storage())
 }
 
 

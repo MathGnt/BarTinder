@@ -17,7 +17,6 @@ protocol SwiftDataOperations {
 }
 
 extension SwiftDataOperations {
-    
     func callContextInsert(_ cocktail: Cocktail) {
         swiftDataSource.contextInsert(cocktail)
     }

@@ -10,7 +10,6 @@ import SwiftData
 
 @main
 struct BarTinderApp: App {
-    
     let container: ModelContainer
     
     init() {
@@ -18,7 +17,14 @@ struct BarTinderApp: App {
             container = try ModelContainer(for: Cocktail.self)
             PatchBay.patch.setContext(container.mainContext)
         } catch {
-            fatalError("Failed to create Context - migration required")
+            // Fallback to in-memory container
+            do {
+                let config = ModelConfiguration(isStoredInMemoryOnly: true)
+                container = try ModelContainer(for: Cocktail.self, configurations: config)
+                PatchBay.patch.setContext(container.mainContext)
+            } catch {
+                fatalError("Failed to create fallback in-memory container: \(error)")
+            }
         }
     }
     

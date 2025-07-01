@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension CreateEditCocktail {
-    
+    /// A view that shows all picker options to customize the cocktail.
     struct PickersOptions: View {
         @Bindable var cocktail: Cocktail
         

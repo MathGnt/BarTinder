@@ -8,12 +8,12 @@
 import SwiftUI
 import SwiftData
 
+/// A view that shows all cocktails available to make based on the selected ingredient.
 struct IngredientMatches: View {
-    
-    let ingredientCard: CardIngredient
-    
     @Query private var cocktails: [Cocktail]
     
+    let ingredientCard: CardIngredient
+
     init(ingredientCard: CardIngredient) {
         self.ingredientCard = ingredientCard
         

@@ -8,11 +8,12 @@
 import SwiftUI
 
 extension CocktailDetail {
-    
+    /// The options available to a cocktail - edit, delete, add to bar.
     struct DetailToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
         @Environment(\.swiftData) private var swiftData
         @Environment(CocktailViewModel.self) private var viewModel
+        
         let cocktail: Cocktail
         
         var body: some ToolbarContent {

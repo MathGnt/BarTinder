@@ -61,7 +61,6 @@ nonisolated final class Cocktail {
 
 
 extension Cocktail {
-    
     @Transient
        var displayedImage: Image {
            if let name = imageName {

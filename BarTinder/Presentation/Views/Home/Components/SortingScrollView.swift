@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Home {
-    
+    /// A menu bar to sort and filter the cocktails.
     struct SortingScrollView: View {
         @Environment(CocktailViewModel.self) private var viewModel
         

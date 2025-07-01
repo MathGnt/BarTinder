@@ -9,14 +9,12 @@ import SwiftUI
 import SwiftData
 
 extension Home {
-    
+    /// The main toolbar of the app - create  a cocktail, navigate to bar,  select your filters or reset the app.
     struct HomeToolbar: ToolbarContent {
-        
+        @Environment(Storage.self) private var appStorage
         @Environment(CocktailViewModel.self) private var viewModel
         @Environment(\.swiftData) private var swiftData
-        @Binding var finishSwiping: Bool
         @Binding var sortOption: CocktailSortDescriptor
-        @Binding var hasFetched: Bool
         
         let namespace: Namespace.ID
         
@@ -42,22 +40,22 @@ extension Home {
                         .foregroundStyle(.primary)
                 }
             }
-            
             ToolbarItem {
                 Menu("Sort By", systemImage: "arrow.up.arrow.down") {
+                    
                     Section {
                         Toggle("Reverse order", isOn: $viewModel.isReversed)
                     }
+                    
                     Section {
-                        Picker("Sort By", selection: $sortOption) {
+                        Picker("Sort by...", selection: $sortOption) {
                             ForEach(CocktailSortDescriptor.allCases, id: \.self) { option in
                                 Text(option.rawValue)
                                     .tag(option)
                             }
                         }
-                        .pickerStyle(.menu)
-                        .buttonStyle(.plain)
                     }
+
                 }
                 .tint(.primary)
             }
@@ -73,9 +71,9 @@ extension Home {
                 }
                 .alert("Are you sure you want to reset to swiping cards?", isPresented: $viewModel.resetConfirmation) {
                     Button("Reset", role: .destructive) {
-                        hasFetched = false
+                        appStorage.hasFetched = false
                         swiftData.contextDeleteAll(Cocktail.self)
-                        finishSwiping = false
+                        appStorage.hasFinshedSwiping = false
                     }
                 }
             }
@@ -89,8 +87,9 @@ extension Home {
     NavigationStack {
         Text("Home Toolbar")
             .toolbar {
-                Home.HomeToolbar(finishSwiping: .constant(true), sortOption: .constant(.glass), hasFetched: .constant(true), namespace: namespace)
+                Home.HomeToolbar(sortOption: .constant(.glass), namespace: namespace)
             }
             .environment(PatchBay.patch.makeCocktailViewModel())
+            .environment(Storage())
     }
 }

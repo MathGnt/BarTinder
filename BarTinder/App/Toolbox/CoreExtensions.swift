@@ -9,7 +9,6 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-
 extension String {
     var capitalizedWords: String {
         self.split(separator: " ").map { word in
@@ -23,8 +22,7 @@ extension String {
     }
 }
 
-// Swift Data setup
-
+/// Swift Data setup - Use @Environment(\.swiftData)
 extension EnvironmentValues {
     @Entry var swiftData = SwiftDataSource()
 }

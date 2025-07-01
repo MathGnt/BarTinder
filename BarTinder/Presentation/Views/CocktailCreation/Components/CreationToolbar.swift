@@ -8,10 +8,11 @@
 import SwiftUI
 
 extension CreateEditCocktail {
-    
+    /// The toolbar to create the cocktail - cancel or create.
     struct CreationToolbar: ToolbarContent {
         @Environment(CreationViewModel.self) private var viewModel
         @FocusState.Binding var focus: Focus?
+        
         let cocktail: Cocktail
         
         var body: some ToolbarContent {
@@ -27,6 +28,7 @@ private struct CreateCocktailButton: ToolbarContent {
     @Environment(CreationViewModel.self) private var viewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState.Binding var focus: Focus?
+    
     let cocktail: Cocktail
     
     var body: some ToolbarContent {
@@ -93,9 +95,6 @@ private struct CancelCocktailButton: ToolbarContent {
         }
     }
 }
-
-
-
 
 #Preview {
     @Previewable @FocusState var focus: Focus?

@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension CreateEditCocktail {
-
+    /// A label for the button that will show @IngredientsListCreation
     struct SelectYourIngredientsLabel: View {
         let cocktail: Cocktail
         

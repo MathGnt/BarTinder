@@ -8,10 +8,10 @@
 import SwiftUI
 import SwiftData
 
+/// A sheet allowing the user to select the ingredients for his cocktail.
 struct IngredientsListCreation: View {
-
     @Environment(CreationViewModel.self) private var viewModel
-    @Bindable var cocktail: Cocktail
+    @Bindable var cocktail: Cocktail 
     @FocusState.Binding var focus: Focus?
     
     var body: some View {

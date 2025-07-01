@@ -9,12 +9,11 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
+/// A sheet allowing the user to create or edit his own cocktail.
 struct CreateEditCocktail: View {
-    
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = PatchBay.patch.makeCreationViewModel()
     @FocusState private var focus: Focus?
-    
     @Bindable var cocktail: Cocktail
     
     var body: some View {
@@ -25,8 +24,8 @@ struct CreateEditCocktail: View {
             }
     
             Section {
-                CocktailTextField(title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name, focus: $focus)
-                CocktailTextField(title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description, focus: $focus)
+                CocktailTextField(focus: $focus, title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name)
+                CocktailTextField(focus: $focus, title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description)
                     .lineLimit(5, reservesSpace: true)
             }
             
@@ -49,8 +48,8 @@ struct CreateEditCocktail: View {
             }
             
             Section {
-                CocktailTextField(title: "Abv", binding: $cocktail.abv, axis: .horizontal, config: CreationTextFieldConfig.abv, focus: $focus)
-                CocktailTextField(title: "Flavor", binding: $cocktail.flavor, axis: .horizontal, config: CreationTextFieldConfig.flavor, focus: $focus)
+                CocktailTextField(focus: $focus, title: "Abv", binding: $cocktail.abv, axis: .horizontal, config: CreationTextFieldConfig.abv)
+                CocktailTextField(focus: $focus, title: "Flavor", binding: $cocktail.flavor, axis: .horizontal, config: CreationTextFieldConfig.flavor)
             }
             
             Section {

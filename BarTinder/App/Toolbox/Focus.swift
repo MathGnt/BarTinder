@@ -20,8 +20,8 @@ nonisolated enum Focus {
 
 
 struct KeyboardReturnButton: ToolbarContent {
-    
     @FocusState.Binding var focus: Focus?
+    
     var body: some ToolbarContent {
         ToolbarItem(placement: .keyboard) {
             HStack {

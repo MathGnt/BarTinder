@@ -7,25 +7,26 @@
 
 import SwiftUI
 
+/// A view that act like a railroad switcher to show 'swipe' or 'home' based on if the user already selected the cards.
 struct Switching: View {
-    @Environment(\.modelContext) private var context // SwiftData Setup
-    @AppStorage("fetched-cocktails") private var hasFetchedCocktails = false
-    @AppStorage("finish-swiping") private var finishSwiping: Bool = false
+    @Environment(\.modelContext) private var context /* SwiftData Main Setup */
+    @State private var appStorage = Storage()
 
     var body: some View {
         ZStack {
-            if !finishSwiping {
-                Swipe(hasFetchedCocktails: $hasFetchedCocktails, finishSwiping: $finishSwiping)
+            if !appStorage.hasFinshedSwiping {
+                Swipe()
                     .transition(.opacity.combined(with: .scale))
             } else {
-                Home(finishSwiping: $finishSwiping, hasFetched: $hasFetchedCocktails)
+                Home()
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
                     .environment(\.swiftData, SwiftDataSource(context: context))
+                 
             }
         }
-        .animation(.easeInOut(duration: 0.6), value: finishSwiping)
+        .animation(.easeInOut(duration: 0.6), value: appStorage.hasFinshedSwiping)
+        .environment(appStorage)
     }
-    
 }
 
 #Preview {

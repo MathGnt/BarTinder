@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+/// A view that shows a list of cocktails.
 struct CocktailList: View {
     @State private var selectedCocktail: Cocktail?
+    
     let cocktails: [Cocktail]
     
     var body: some View {

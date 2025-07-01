@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 extension CreateEditCocktail {
-    
+    /// A blueprint for the pickers to select the cocktail options.
     struct CocktailTextField: View {
+        @FocusState.Binding var focus: Focus?
+        
         let title: String
         let binding: Binding<String>
         let axis: Axis
-        
         let config: CreationTextFieldConfig
-        @FocusState.Binding var focus: Focus?
         
         var body: some View {
             TextField(title, text: binding, axis: axis)

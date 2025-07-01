@@ -8,11 +8,11 @@ import Foundation
 import SwiftUI
 
 extension IngredientsListCreation {
-    
+    /// A view that shows a row of a selected ingredient.
     struct IngredientRow: View {
-    
         @FocusState.Binding var focus: Focus?
         @Bindable var ingredient: Ingredient
+        
         let viewModel: CreationViewModel
         
         var body: some View {

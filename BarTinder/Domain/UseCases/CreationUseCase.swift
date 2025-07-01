@@ -8,7 +8,6 @@
 import Foundation
 
 class CreationUseCase {
-    
     let repo: Servable
     
     init(repo: Servable) {

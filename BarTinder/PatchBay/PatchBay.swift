@@ -8,8 +8,7 @@
 import Foundation
 import SwiftData
 
-// Factory for the app
-
+/// Factory for the app
 final class PatchBay {
     static let patch = PatchBay()
     
@@ -36,7 +35,7 @@ final class PatchBay {
         return CocktailRepo(cocktailDataSource: makeCocktailDataSource(), swiftDataSource: makeSwiftDataSource())
     }
     
-    // Use cases
+    /// Use cases
     func makeSwipeUseCase() -> SwipeUseCase {
         SwipeUseCase(repo: makeCocktailRepo())
     }
@@ -45,7 +44,7 @@ final class PatchBay {
         CreationUseCase(repo: makeCocktailRepo())
     }
     
-    // ViewModels
+    /// ViewModels
     func makeSwipeViewModel() -> SwipeViewModel {
         SwipeViewModel(useCase: makeSwipeUseCase())
     }

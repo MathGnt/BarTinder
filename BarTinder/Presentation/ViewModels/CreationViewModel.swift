@@ -12,12 +12,10 @@ import PhotosUI
 
 @Observable
 final class CreationViewModel {
-    
     let useCase: CreationUseCase
     
     private(set) var ingredients: [CardIngredient] = []
-  
-    /// Picker / TF
+
     var selectedPic: PhotosPickerItem?
     var searchableField = ""
     var searchableIngredients: [CardIngredient] {
@@ -26,6 +24,8 @@ final class CreationViewModel {
             $0.name.localizedStandardContains(searchableField)
         }
     }
+    
+    /// Toolbar
     var showIngredientsSheet = false
     var currentIngredientsState: [Ingredient] = []
     var missingFocus: Focus?

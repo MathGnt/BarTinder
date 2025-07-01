@@ -84,6 +84,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2901EF642E12DEFE0064F7D4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				2911C9142DAF57BB005869CB /* BarTinder */,
@@ -146,6 +147,9 @@
 			);
 			mainGroup = 2911C9092DAF57BB005869CB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2901EF622E12DEB40064F7D4 /* XCRemoteSwiftPackageReference "ObservableUserDefault" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2911C9132DAF57BB005869CB /* Products */;
 			projectDirPath = "";
@@ -192,6 +196,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2901EF642E12DEFE0064F7D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 2901EF632E12DEFE0064F7D4 /* ObservableUserDefault */;
+		};
 		299C32E42DDC97360021FF93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2911C9112DAF57BB005869CB /* BarTinder */;
@@ -486,6 +494,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2901EF622E12DEB40064F7D4 /* XCRemoteSwiftPackageReference "ObservableUserDefault" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:davidsteppenbeck/ObservableUserDefault.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2901EF632E12DEFE0064F7D4 /* ObservableUserDefault */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2901EF622E12DEB40064F7D4 /* XCRemoteSwiftPackageReference "ObservableUserDefault" */;
+			productName = ObservableUserDefault;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2911C90A2DAF57BB005869CB /* Project object */;
 }

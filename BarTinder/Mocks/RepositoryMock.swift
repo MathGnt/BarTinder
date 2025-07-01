@@ -10,7 +10,6 @@ import SwiftData
 
 
 final class RepositoryMock: Servable {
-
     let swiftDataSource: SwiftDataSource
     
     init(swiftDataSource: SwiftDataSource) {

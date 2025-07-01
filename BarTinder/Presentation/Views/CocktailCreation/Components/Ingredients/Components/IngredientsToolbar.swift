@@ -9,11 +9,12 @@ import Foundation
 import SwiftUI
 
 extension IngredientsListCreation {
-    
+    /// The toolbar to validate the cocktail's ingredients - cancel or done.
     struct IngredientsToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
         @Bindable var viewModel: CreationViewModel
         @FocusState.Binding var focus: Focus?
+        
         let cocktail: Cocktail
         
         var body: some ToolbarContent {

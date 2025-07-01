@@ -16,7 +16,6 @@ extension Ingredient {
 }
 
 extension Cocktail {
-    
     @MainActor static let mocksArray: [Cocktail] = [
         .ginto, .mule, .spritz, .negroni, .mojito, .martini
     ]
@@ -35,10 +34,14 @@ extension Cocktail {
         glass: .balloon,
         mixingTechnique: .built,
         difficulty: .easy,
+        styleValue: "long drink",
+        glassValue: "balloon",
+        mixingTechniqueValue: "built",
+        difficultyValue: "easy",
         abv: "8",
         flavor: "bitter",
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
-        stock: false
+        stock: true
     )
     
     @MainActor static let mule: Cocktail = Cocktail(
@@ -56,10 +59,14 @@ extension Cocktail {
         glass: .coppermug,
         mixingTechnique: .built,
         difficulty: .medium,
+        styleValue: "long drink",
+        glassValue: "coppermug",
+        mixingTechniqueValue: "built",
+        difficultyValue: "medium",
         abv: "8",
         flavor: "bitter",
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
-        stock: false
+        stock: true
     )
     
     @MainActor static let spritz: Cocktail = Cocktail(
@@ -77,10 +84,14 @@ extension Cocktail {
         glass: .wine,
         mixingTechnique: .built,
         difficulty: .easy,
+        styleValue: "long drink",
+        glassValue: "wine",
+        mixingTechniqueValue: "built",
+        difficultyValue: "easy",
         abv: "11",
         flavor: "bitter-sweet",
         cocktailDescription: "Aperol Spritz is a refreshing Italian cocktail known for its vibrant color and slightly bitter, citrusy taste. Perfect for sunny evenings.",
-        stock: false
+        stock: true
     )
 
     @MainActor static let negroni: Cocktail = Cocktail(
@@ -98,6 +109,10 @@ extension Cocktail {
         glass: .highball,
         mixingTechnique: .stirred,
         difficulty: .medium,
+        styleValue: "short drink",
+        glassValue: "highball",
+        mixingTechniqueValue: "stirred",
+        difficultyValue: "medium",
         abv: "24",
         flavor: "bitter",
         cocktailDescription: "Bold and complex, the Negroni blends gin, vermouth, and Campari into a timeless Italian classic.",
@@ -121,10 +136,14 @@ extension Cocktail {
         glass: .highball,
         mixingTechnique: .built,
         difficulty: .medium,
+        styleValue: "long drink",
+        glassValue: "highball",
+        mixingTechniqueValue: "built",
+        difficultyValue: "medium",
         abv: "10",
         flavor: "fresh",
         cocktailDescription: "A Cuban classic combining rum, mint, and lime. Mojito is the ultimate refreshment for hot summer days.",
-        stock: false
+        stock: true
     )
     
     @MainActor static let martini: Cocktail = Cocktail(
@@ -141,9 +160,13 @@ extension Cocktail {
         glass: .cocktail,
         mixingTechnique: .built,
         difficulty: .medium,
+        styleValue: "short drink",
+        glassValue: "cocktail",
+        mixingTechniqueValue: "built",
+        difficultyValue: "medium",
         abv: "10",
         flavor: "strong",
         cocktailDescription: "A classic served with gin and a slight amount of vermouth on the ice",
-        stock: false
+        stock: true
     )
 }

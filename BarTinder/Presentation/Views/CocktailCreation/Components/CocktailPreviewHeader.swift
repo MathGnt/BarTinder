@@ -9,9 +9,9 @@ import SwiftUI
 import PhotosUI
 
 extension CreateEditCocktail {
-    
     struct CocktailPreviewHeader: View {
         @Environment(CreationViewModel.self) private var viewModel
+        
         let selectedImage: Binding<PhotosPickerItem?>
         let cocktail: Cocktail
         

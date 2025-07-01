@@ -11,7 +11,6 @@ import Observation
 
 @Observable
 final class CocktailViewModel {
-    
     var selectedIngredient: CardIngredient?
     var filterOption: CocktailFilterPredicate = .possibleCocktails
     var sortOption: CocktailSortDescriptor = .name

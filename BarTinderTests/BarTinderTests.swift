@@ -11,7 +11,6 @@ import SwiftData
 
 @Suite("Swiping")
 struct SwipeTests {
-    
     let container: ModelContainer
     let context: ModelContext
     let swiftData: SwiftDataSource
@@ -27,7 +26,6 @@ struct SwipeTests {
     
     @Test("Should return correct cocktails after swiping cards")
     func correctCocktailsAfterSwipe() throws {
-        
         let useCase = SwipeUseCase(repo: repo)
         let viewModel = SwipeViewModel(useCase: useCase)
         
@@ -62,7 +60,6 @@ struct SwipeTests {
 
 @Suite("Creation")
 struct CocktailCreationTests {
-    
     let container: ModelContainer
     let context: ModelContext
     
@@ -83,7 +80,6 @@ struct CocktailCreationTests {
     
     @Test("Should validate ingredients creation", .tags(.textFieldChecker), arguments: [Units.topUp, .toRinse])
     func ingredientsValidationFields(unit: Units) throws {
-        
         let newCocktail = Cocktail(ingredients: [
             Ingredient(name: "tonic water", measure: "6", unit: .cl),
             Ingredient(name: "gin", measure: "12", unit: .cl),
@@ -96,7 +92,6 @@ struct CocktailCreationTests {
 
     @Test("Should throw empty measures", .tags(.throwable, .textFieldChecker), arguments: ["    ", ""])
     func ingredientsThrowingFields(invalideMeasure: String) throws {
-        
         let newCocktail = Cocktail(ingredients: [
             Ingredient(name: "tonic water", measure: invalideMeasure, unit: .cl),
             Ingredient(name: "gin", measure: "12", unit: .cl),
@@ -111,7 +106,6 @@ struct CocktailCreationTests {
     
     @Test("Should validate cocktail creation", .tags(.textFieldChecker))
     func cocktailValidationFields() throws {
-        
         let ingredients: [Ingredient] = [
             Ingredient(name: "tonic water", measure: "14", unit: .cl),
             Ingredient(name: "gin", measure: "12", unit: .cl),
@@ -125,7 +119,6 @@ struct CocktailCreationTests {
     
     @Test("Should throw empty cocktail-ingredients fields", .tags(.throwable))
     func cocktailThrowingIngredientsFields() throws {
-
         let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
         
         #expect(throws: CreationErrors.emptyCocktailFields(.measure)) {
@@ -140,7 +133,6 @@ struct CocktailCreationTests {
         ("Gin & Tonic", "Gin Tonic", "13.2", "", CreationErrors.emptyCocktailFields(.flavor))
     ])
     func cocktailThrowingGeneralFields(name: String, description: String, abv: String, flavor: String, expectedError: CreationErrors) throws {
-        
         let ingredients = [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
         let newCocktail = Cocktail(name: name, ingredients: ingredients, abv: abv, flavor: flavor, cocktailDescription: description)
         
@@ -153,7 +145,6 @@ struct CocktailCreationTests {
         true, false
     ])
     func correctDeleting(isStock: Bool) throws {
-        
         let newCocktail = Cocktail(stock: isStock)
         swiftData.contextInsert(newCocktail)
         swiftData.contextDelete(newCocktail)

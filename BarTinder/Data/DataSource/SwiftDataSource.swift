@@ -9,7 +9,6 @@ import Foundation
 import SwiftData
 
 final class SwiftDataSource {
-    
     let context: ModelContext?
     
     init(context: ModelContext? = nil) {

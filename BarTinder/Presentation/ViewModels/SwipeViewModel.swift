@@ -12,18 +12,18 @@ import SwiftData
 
 @Observable
 final class SwipeViewModel {
-    
     let useCase: SwipeUseCase
+    
     private(set) var ingredients: [CardIngredient] = CardIngredient.ingredientCards
     
-    var fetchingError = false
-    
-    // Animation
+    /// Animation
     private var cardOffsets: [String: CGFloat] = [:]
     private var cardRotations: [String: Double] = [:]
     private var threshold: CGFloat {
         (UIScreen.main.bounds.width / 2) * 0.8
     }
+    
+    var fetchingError = false
     
     init(useCase: SwipeUseCase) {
         self.useCase = useCase

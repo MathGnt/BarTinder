@@ -12,11 +12,17 @@ extension BarTinderApp {
     struct Padding {
         static let image: CGFloat = 40
         static let ingredientSpacing: CGFloat = 15
+        static let scrollViewSpacing: CGFloat = 10
+        static let titleSpacingTop: CGFloat = 15
+        static let titleSpacingBottom: CGFloat = 5
+        static let bigTitleSpacingTop: CGFloat = 30
+        static let bigTitleSpacingBottom: CGFloat = 20
+        static let scrollViewVerticalSpacing: CGFloat = 5
     }
 }
 
 
-// INGREDIENT CARD
+//MARK: Ingredient Card setup
 
 private struct CardTitle: ViewModifier {
     func body(content: Content) -> some View {
@@ -59,6 +65,8 @@ extension View {
         modifier(CardLocation())
     }
 }
+
+//MARK: Own stuff
 
 
 private struct CharacterLimitModifier: ViewModifier {

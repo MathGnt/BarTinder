@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension CocktailDetail {
-    
+    /// A view that list all ingredients of the selected cocktail
     struct IngredientsList: View {
         let cocktail: Cocktail
         

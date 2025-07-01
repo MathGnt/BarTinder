@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+/// A view that shows all the details of a selected cocktail.
 struct CocktailDetail: View {
     let cocktail: Cocktail
     
@@ -57,7 +58,6 @@ struct CocktailDetail: View {
 //MARK: - Small components
 
 private extension CocktailDetail {
-    
     private func header(_ cocktail: Cocktail) -> some View {
         VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
             Text(cocktail.name)
