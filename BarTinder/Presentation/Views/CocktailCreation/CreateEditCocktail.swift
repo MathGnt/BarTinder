@@ -48,11 +48,6 @@ struct CreateEditCocktail: View {
             }
             
             Section {
-                CocktailTextField(focus: $focus, title: "Abv", binding: $cocktail.abv, axis: .horizontal, config: CreationTextFieldConfig.abv)
-                CocktailTextField(focus: $focus, title: "Flavor", binding: $cocktail.flavor, axis: .horizontal, config: CreationTextFieldConfig.flavor)
-            }
-            
-            Section {
                 PickersOptions(cocktail: cocktail)
             }
             

@@ -25,10 +25,6 @@ struct CocktailList: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(cocktail.name)
                         .fontWeight(.semibold)
-                    Text(cocktail.flavor.capitalized)
-                        .font(.callout)
-                        .textScale(.secondary)
-                        .foregroundStyle(.gray)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 

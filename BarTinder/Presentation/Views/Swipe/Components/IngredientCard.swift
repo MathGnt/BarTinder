@@ -30,13 +30,13 @@ extension Swipe {
                     .resizable()
                     .scaledToFill()
                     .frame(width: cardWidth, height: cardHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                 
                 LinearGradient(colors: [.clear, .black],
                                startPoint: .center,
                                endPoint: .bottom)
                 .frame(width: cardWidth, height: cardHeight - 200)
-                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                 
                 CardInfo(title: cardIngredient.name, abv: cardIngredient.abv ?? "", location: cardIngredient.location)
             }

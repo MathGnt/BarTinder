@@ -11,6 +11,7 @@ import SwiftUI
 extension BarTinderApp {
     struct Padding {
         static let image: CGFloat = 40
+        static let mainCornerRadius: CGFloat = 20
         static let ingredientSpacing: CGFloat = 15
         static let scrollViewSpacing: CGFloat = 10
         static let titleSpacingTop: CGFloat = 15
@@ -50,7 +51,7 @@ private struct CardLocation: ViewModifier {
             .padding(.leading, 7)
             .padding(.trailing, 7)
             .background(.thinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
     }
 }
 

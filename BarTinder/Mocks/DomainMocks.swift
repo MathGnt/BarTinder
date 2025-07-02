@@ -8,7 +8,7 @@
 import Foundation
 
 extension CardIngredient {
-    @MainActor static let gin: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, abv: "40", location: "United Kingdom", summer: true, unit: "Cl")
+    @MainActor static let gin: CardIngredient = CardIngredient(image: "gin", name: "gin", otherName: nil, abv: "10", location: "United Kingdom", summer: true, unit: "Cl")
 }
 
 extension Ingredient {
@@ -38,8 +38,6 @@ extension Cocktail {
         glassValue: "balloon",
         mixingTechniqueValue: "built",
         difficultyValue: "easy",
-        abv: "8",
-        flavor: "bitter",
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
         stock: true
     )
@@ -63,8 +61,6 @@ extension Cocktail {
         glassValue: "coppermug",
         mixingTechniqueValue: "built",
         difficultyValue: "medium",
-        abv: "8",
-        flavor: "bitter",
         cocktailDescription: "With roots in colonial India, the Gin Tonic is a crisp and refreshing classic. Ideal for warm afternoons and casual social gatherings.",
         stock: true
     )
@@ -88,8 +84,6 @@ extension Cocktail {
         glassValue: "wine",
         mixingTechniqueValue: "built",
         difficultyValue: "easy",
-        abv: "11",
-        flavor: "bitter-sweet",
         cocktailDescription: "Aperol Spritz is a refreshing Italian cocktail known for its vibrant color and slightly bitter, citrusy taste. Perfect for sunny evenings.",
         stock: true
     )
@@ -113,8 +107,6 @@ extension Cocktail {
         glassValue: "highball",
         mixingTechniqueValue: "stirred",
         difficultyValue: "medium",
-        abv: "24",
-        flavor: "bitter",
         cocktailDescription: "Bold and complex, the Negroni blends gin, vermouth, and Campari into a timeless Italian classic.",
         stock: false
     )
@@ -140,8 +132,6 @@ extension Cocktail {
         glassValue: "highball",
         mixingTechniqueValue: "built",
         difficultyValue: "medium",
-        abv: "10",
-        flavor: "fresh",
         cocktailDescription: "A Cuban classic combining rum, mint, and lime. Mojito is the ultimate refreshment for hot summer days.",
         stock: true
     )
@@ -164,8 +154,6 @@ extension Cocktail {
         glassValue: "cocktail",
         mixingTechniqueValue: "built",
         difficultyValue: "medium",
-        abv: "10",
-        flavor: "strong",
         cocktailDescription: "A classic served with gin and a slight amount of vermouth on the ice",
         stock: true
     )

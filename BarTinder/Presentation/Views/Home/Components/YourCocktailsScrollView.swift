@@ -54,11 +54,11 @@ private struct CocktailImageSource: View {
             cocktail.displayedImage
                 .resizable()
                 .scaledToFill()
-                .frame(width: 220, height: 300)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .frame(width: 200, height: 280)
+                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                 .contentShape(
                     .contextMenuPreview,
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius)
                 )
                 .contextMenu {
                     if !cocktail.stock {

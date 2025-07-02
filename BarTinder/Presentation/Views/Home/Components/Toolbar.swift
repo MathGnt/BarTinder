@@ -41,12 +41,10 @@ extension Home {
                 }
             }
             ToolbarItem {
-                Menu("Sort By", systemImage: "arrow.up.arrow.down") {
-                    
+                Menu("Main controls", systemImage: "arrow.up.arrow.down") {
                     Section {
                         Toggle("Reverse order", isOn: $viewModel.isReversed)
                     }
-                    
                     Section {
                         Picker("Sort by...", selection: $sortOption) {
                             ForEach(CocktailSortDescriptor.allCases, id: \.self) { option in
@@ -54,8 +52,8 @@ extension Home {
                                     .tag(option)
                             }
                         }
+                        .labelsVisibility(.visible)
                     }
-
                 }
                 .tint(.primary)
             }

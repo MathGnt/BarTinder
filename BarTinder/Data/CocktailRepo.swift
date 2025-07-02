@@ -39,8 +39,6 @@ final class CocktailRepo: Servable {
                     glassValue: cocktail.glass,
                     mixingTechniqueValue: cocktail .technique,
                     difficultyValue: cocktail.difficulty,
-                    abv: cocktail.abv,
-                    flavor: cocktail.flavor,
                     cocktailDescription: cocktail.cocktailDescription,
                     stock: true
                 )

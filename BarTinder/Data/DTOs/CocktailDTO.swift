@@ -13,8 +13,6 @@ struct CocktailDTO: Decodable {
     let style: String
     let glass: String
     let technique: String
-    let abv: String
-    let flavor: String
     let difficulty: String
     let cocktailDescription: String
     let stock: Bool

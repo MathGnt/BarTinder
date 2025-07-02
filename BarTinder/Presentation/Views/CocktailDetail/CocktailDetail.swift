@@ -28,7 +28,7 @@ struct CocktailDetail: View {
                             IngredientsList(cocktail: cocktail)
                                 .padding()
                                 .background(.thinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                             
                             Spacer()
                         }

@@ -13,7 +13,6 @@ enum CocktailSortDescriptor: String, CaseIterable {
     case difficulty = "Difficulty"
     case glass = "Glass"
     case technique = "Technique"
-    case abv = "ABV"
     
     func sortDescriptor(reversed: Bool) -> [SortDescriptor<Cocktail>] {
         let order: SortOrder = reversed ? .reverse : .forward
@@ -28,9 +27,6 @@ enum CocktailSortDescriptor: String, CaseIterable {
              SortDescriptor(\Cocktail.name, order: .forward)]
         case .technique:
             [SortDescriptor(\Cocktail.mixingTechniqueValue, order: order),
-             SortDescriptor(\Cocktail.name, order: .forward)]
-        case .abv:
-            [SortDescriptor(\Cocktail.abv, order: order),
              SortDescriptor(\Cocktail.name, order: .forward)]
         }
     }

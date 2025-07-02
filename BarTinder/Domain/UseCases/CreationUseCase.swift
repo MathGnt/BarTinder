@@ -34,12 +34,6 @@ class CreationUseCase {
         if cocktail.cocktailDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return .description
         }
-        if cocktail.abv.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return .abv
-        }
-        if cocktail.flavor.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return .flavor
-        }
         return nil
     }
     

@@ -24,7 +24,7 @@ struct Swipe: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                             Spacer()
                         }
                         .padding(.horizontal)

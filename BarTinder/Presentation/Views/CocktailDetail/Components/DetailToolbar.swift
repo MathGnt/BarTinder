@@ -21,8 +21,8 @@ extension CocktailDetail {
                 Menu {
                     Section {
                         ControlGroup {
-                            Button {
-                                viewModel.showCreationSheet = true
+                            NavigationLink {
+                                CreateEditCocktail(cocktail: cocktail)
                             } label: {
                                 Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
                             }

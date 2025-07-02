@@ -35,11 +35,23 @@ struct Home: View {
                     YourCocktailsScrollView(viewModel: viewModel)
                         .padding(.horizontal)
                         .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+                  
                     sectionTitle(title: "Get inspired")
+                 
+                    
+                    NavigationLink {
+                        GetInspired()
+                    } label: {
+                        GetInspiredCard()
+                            .padding(.horizontal)
+                    }
+                    .buttonStyle(.plain)
+                     
                     sectionTitle(title: "Summer Ideas Ingredients")
-                    HorizontalScrollView(summer: true)
+                    IngredientGrid()
                         .padding(.horizontal)
                         .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+                    
                     Spacer()
                 }
                 .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
@@ -80,8 +92,7 @@ private extension Home {
         }
         .font(.system(size: 22, weight: .semibold, design: .rounded))
         .padding(.horizontal)
-        .padding(.top, title == "Your Cocktails" ? BarTinderApp.Padding.titleSpacingTop : BarTinderApp.Padding.bigTitleSpacingTop)
+        .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
         .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.titleSpacingBottom : BarTinderApp.Padding.bigTitleSpacingBottom)
-     
     }
 }

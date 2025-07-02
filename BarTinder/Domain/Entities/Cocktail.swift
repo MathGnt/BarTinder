@@ -30,14 +30,11 @@ nonisolated final class Cocktail {
     var glassValue: String
     var mixingTechniqueValue: String
     var difficultyValue: String
-    
-    var abv: String
-    var flavor: String
 
     var cocktailDescription: String
     var stock = false
     
-    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, styleValue: String = "shortdrink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: String = "Easy", abv: String = "", flavor: String = "", cocktailDescription: String = "", stock: Bool = false) {
+    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, styleValue: String = "shortdrink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: String = "Easy", cocktailDescription: String = "", stock: Bool = false) {
         self.name = name
         self.ingredients = ingredients
         self.isInBar = isInBar
@@ -52,8 +49,6 @@ nonisolated final class Cocktail {
         self.glassValue = glassValue
         self.mixingTechniqueValue = mixingTechniqueValue
         self.difficultyValue = difficultyValue
-        self.abv = abv
-        self.flavor = flavor
         self.cocktailDescription = cocktailDescription
         self.stock = stock
     }

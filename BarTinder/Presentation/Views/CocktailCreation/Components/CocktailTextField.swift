@@ -21,7 +21,6 @@ extension CreateEditCocktail {
         var body: some View {
             TextField(title, text: binding, axis: axis)
                 .characterLimit(config.characterLimit, text: binding)
-                .keyboardType(config.keyboardType)
                 .focused($focus, equals: config.focus)
                 .submitLabel(config.submitLabel)
                 .onSubmit {
@@ -33,15 +32,6 @@ extension CreateEditCocktail {
     enum CreationTextFieldConfig {
         case name
         case description
-        case abv
-        case flavor
-        
-        var keyboardType: UIKeyboardType {
-            switch self {
-            case .abv: return .numberPad
-            default: return .default
-            }
-        }
         
         var focus: Focus? {
             switch self {
@@ -49,10 +39,6 @@ extension CreateEditCocktail {
                 return .name
             case .description:
                 return .description
-            case .abv:
-                return.abv
-            case .flavor:
-                return .flavor
             }
         }
         
@@ -60,8 +46,6 @@ extension CreateEditCocktail {
             switch self {
             case .name: return 30
             case .description: return 180
-            case .abv: return 3
-            case .flavor: return 15
             }
         }
         
@@ -71,10 +55,6 @@ extension CreateEditCocktail {
                 return .next
             case .description:
                 return .done
-            case .abv:
-                return .next
-            case .flavor:
-                return .done
             }
         }
         
@@ -83,10 +63,6 @@ extension CreateEditCocktail {
             case .name:
                 return .description
             case .description:
-                return .abv
-            case .abv:
-                return .flavor
-            case .flavor:
                 return nil
             }
         }
