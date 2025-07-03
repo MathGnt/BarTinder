@@ -8,50 +8,89 @@
 import SwiftUI
 
 struct GetInspiredCard: View {
+    @State private var animationTimer = Timer.publish(every: 2.0, on: .main, in: .common).autoconnect()
+    @State private var gradientIndex: Int = 0
+    
+    private let colorSets: [[Color]] = [
+        [
+            .pink.opacity(0.9), .purple.opacity(0.8), .orange.opacity(0.7),
+            .red.opacity(0.6), .pink.opacity(0.9), .purple.opacity(0.8),
+            .orange.opacity(0.8), .red.opacity(0.7), .pink.opacity(0.9)
+        ],
+        [
+            .purple.opacity(0.9), .blue.opacity(0.8), .pink.opacity(0.7),
+            .orange.opacity(0.6), .purple.opacity(0.9), .blue.opacity(0.8),
+            .pink.opacity(0.8), .orange.opacity(0.7), .purple.opacity(0.9)
+        ],
+        [
+            .orange.opacity(0.9), .red.opacity(0.8), .purple.opacity(0.7),
+            .pink.opacity(0.6), .orange.opacity(0.9), .red.opacity(0.8),
+            .purple.opacity(0.8), .pink.opacity(0.7), .orange.opacity(0.9)
+        ]
+    ]
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Image("appleintelligence")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: 460, alignment: .bottom)
-            
-            Image("appleintelligence")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: 460, alignment: .bottom)
-                .blur(radius: 12, opaque: true)
-                .brightness(0.2)
-                .mask {
-                    Rectangle()
-                        .fill(
-                            Gradient(stops: [
-                                .init(color: .white, location: 0.0),
-                                .init(color: .clear, location: 0.5)
-                            ])
-                        )
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
+                    [0.0, 0.5], [0.5, 0.5], [1.0, 0.5],
+                    [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
+                ],
+                colors: colorSets[gradientIndex]
+            )
+            .onReceive(animationTimer) { _ in
+                withAnimation(.easeInOut(duration: 1.5)) {
+                    gradientIndex = (gradientIndex + 1) % colorSets.count
                 }
+            }
+            
+            Rectangle()
+                .fill(
+                    RadialGradient(
+                        colors: [.clear, .black.opacity(0.1)],
+                        center: .center,
+                        startRadius: 100,
+                        endRadius: 300
+                    )
+                )
+            
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        stops: [
+                            .init(color: .black.opacity(0.4), location: 0.0),
+                            .init(color: .clear, location: 0.6)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
             
             VStack(alignment: .leading) {
                 Text(" Intelligence")
                     .fontWeight(.semibold)
-                    .font(.system(size: 20))
+                    .font(.system(size: 25))
                 
                 HStack {
                     Text("Ask for")
                     Text("a")
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.writings)
                         .saturation(1.4)
-                    Text("New idea")
-                        .foregroundStyle(.gray)
+                   
                 }
                 .fontWeight(.semibold)
-                
+                Text("Cocktail idea")
+                    .foregroundStyle(.writings)
+                    .fontWeight(.semibold)
             }
             .font(.system(size: 35))
             .foregroundStyle(.white)
             .padding()
         }
-        .frame(height: 450)
+        .frame(height: 400)
         .clipped()
         .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
 

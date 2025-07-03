@@ -112,14 +112,14 @@ struct CocktailCreationTests {
             Ingredient(name: "lime", measure: "1", unit: .wedge)
         ]
         
-        let newCocktail = Cocktail(name: "Gin Tonic", ingredients: ingredients, abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
+        let newCocktail = Cocktail(name: "Gin Tonic", ingredients: ingredients, cocktailDescription: "Enjoy this cocktail during summer")
         
         try viewModel.checkAndInsertCocktail(newCocktail)
     }
     
     @Test("Should throw empty cocktail-ingredients fields", .tags(.throwable))
     func cocktailThrowingIngredientsFields() throws {
-        let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], abv: "13.2", flavor: "Sweet", cocktailDescription: "Enjoy this cocktail during summer")
+        let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], cocktailDescription: "Enjoy this cocktail during summer")
         
         #expect(throws: CreationErrors.emptyCocktailFields(.measure)) {
             try viewModel.checkAndInsertCocktail(newCocktail)
@@ -128,13 +128,11 @@ struct CocktailCreationTests {
     
     @Test("Should throw empty general cocktail fields", .tags(.throwable, .textFieldChecker), arguments: [
         ("", "Gin Tonic", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.name)),
-        ("Gin & Tonic", "", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.description)),
-        ("Gin & Tonic", "Gin Tonic", "", "Sweet", CreationErrors.emptyCocktailFields(.abv)),
-        ("Gin & Tonic", "Gin Tonic", "13.2", "", CreationErrors.emptyCocktailFields(.flavor))
+        ("Gin & Tonic", "", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.description))
     ])
     func cocktailThrowingGeneralFields(name: String, description: String, abv: String, flavor: String, expectedError: CreationErrors) throws {
         let ingredients = [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
-        let newCocktail = Cocktail(name: name, ingredients: ingredients, abv: abv, flavor: flavor, cocktailDescription: description)
+        let newCocktail = Cocktail(name: name, ingredients: ingredients, cocktailDescription: description)
         
         #expect(throws: expectedError) {
             try viewModel.checkAndInsertCocktail(newCocktail)

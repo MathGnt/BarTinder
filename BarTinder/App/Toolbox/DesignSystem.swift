@@ -67,8 +67,21 @@ extension View {
     }
 }
 
-//MARK: Own stuff
+struct GenerateButton: ButtonStyle {
+    let color: Color
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(.white)
+            .fontWeight(.semibold)
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(color)
+            .buttonStyle(.plain)
+            .clipShape(RoundedRectangle(cornerRadius: 50))
+    }
+}
 
+//MARK: Own stuff
 
 private struct CharacterLimitModifier: ViewModifier {
     let limit: Int

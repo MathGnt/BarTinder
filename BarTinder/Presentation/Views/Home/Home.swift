@@ -12,7 +12,10 @@ import SwiftData
 struct Home: View {
     @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @State private var cocktail = Cocktail(isPossible: true)
-    @Namespace private var namespace
+    @State private var notGenerated = true
+    @State private var currentDetent: PresentationDetent = .height(200)
+    @Namespace private var sheetTransition
+    @Namespace private var newIdeaTransition
     
     var body: some View {
         NavigationStack {
@@ -39,11 +42,12 @@ struct Home: View {
                     sectionTitle(title: "Get inspired")
                  
                     
-                    NavigationLink {
-                        GetInspired()
+                    Button {
+                        viewModel.showNewIdeaSheet = true
                     } label: {
                         GetInspiredCard()
                             .padding(.horizontal)
+                            .matchedTransitionSource(id: ("new-idea"), in: newIdeaTransition)
                     }
                     .buttonStyle(.plain)
                      
@@ -54,20 +58,25 @@ struct Home: View {
                     
                     Spacer()
                 }
-                .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
-                    IngredientMatches(ingredientCard: ingredient)
-                }
                 .navigationTitle("Home")
                 .toolbar {
                     HomeToolbar(
                         sortOption: $viewModel.sortOption,
-                        namespace: namespace,
+                        namespace: sheetTransition,
                     )
                 }
                 .sheet(isPresented: $viewModel.showCreationSheet) {
                     NavigationStack {
                         CreateEditCocktail(cocktail: cocktail)
-                            .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: namespace))
+                            .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
+                    }
+                }
+                .sheet(isPresented: $viewModel.showNewIdeaSheet) {
+                    NavigationStack {
+                        GetInspired(currentDetent: $currentDetent)
+                            .navigationTransition(.zoom(sourceID: ("new-idea"), in: newIdeaTransition))
+                            .presentationDetents([.height(200), .large], selection: $currentDetent)
+                            
                     }
                 }
             }

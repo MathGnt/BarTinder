@@ -17,6 +17,7 @@ final class CocktailViewModel {
     var isReversed: Bool = false
     var resetConfirmation = false
     var showCreationSheet = false
+    var showNewIdeaSheet = false
     var askForDelete = false
 
     var yourCocktailsDescriptor: FetchDescriptor<Cocktail> {

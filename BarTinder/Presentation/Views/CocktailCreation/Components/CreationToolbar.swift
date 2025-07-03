@@ -26,6 +26,7 @@ extension CreateEditCocktail {
 
 private struct CreateCocktailButton: ToolbarContent {
     @Environment(CreationViewModel.self) private var viewModel
+    @Environment(CocktailViewModel.self) private var cocktailViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState.Binding var focus: Focus?
     
@@ -39,6 +40,9 @@ private struct CreateCocktailButton: ToolbarContent {
                 do {
                     try viewModel.checkAndInsertCocktail(cocktail)
                     dismiss()
+                    if cocktailViewModel.showNewIdeaSheet {
+                        cocktailViewModel.showNewIdeaSheet.toggle()
+                    }
                 } catch CreationErrors.emptyCocktailFields(let field) {
                     viewModel.missingFocus = field
                     
@@ -52,7 +56,11 @@ private struct CreateCocktailButton: ToolbarContent {
                     .foregroundStyle(.validate)
             }
             .alert("Missing fields", isPresented: $viewModel.generalCocktailFieldsMissing) {
-                Button("Cancel", role: .cancel) {}
+                Button("Cancel", role: .cancel) {
+                    if cocktailViewModel.showNewIdeaSheet {
+                        cocktailViewModel.showNewIdeaSheet.toggle()
+                    }
+                }
                 
                 Button("Fill field", role: .confirm) {
                     focus = viewModel.missingFocus

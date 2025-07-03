@@ -11,6 +11,7 @@ extension Home {
     /// A scrollview of ingredients depending of the season.
     struct IngredientGrid: View {
         @Environment(CocktailViewModel.self) private var viewModel
+        @Namespace private var namespace
     
         let rows = [
             GridItem(.flexible(), spacing: BarTinderApp.Padding.scrollViewSpacing),
@@ -18,6 +19,8 @@ extension Home {
         ]
         
         var body: some View {
+            @Bindable var viewModel = viewModel
+            
             ScrollView(.horizontal) {
                 LazyHGrid(rows: rows, spacing: BarTinderApp.Padding.scrollViewSpacing) {
                     ForEach(CardIngredient.ingredientCards.filter { $0.summer == true }, id: \.self) { ingredient in
@@ -29,10 +32,17 @@ extension Home {
                             .onTapGesture {
                                 viewModel.selectedIngredient = ingredient
                             }
+                            .matchedTransitionSource(id: ingredient.id, in: namespace)
+                           
                     }
                 }
             }
             .scrollIndicators(.hidden)
+            .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
+                IngredientMatches(ingredientCard: ingredient)
+                    .navigationTransition(.zoom(sourceID: ingredient.id, in: namespace))
+                
+            }
         }
     }
 }

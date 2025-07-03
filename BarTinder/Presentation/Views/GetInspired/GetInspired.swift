@@ -8,83 +8,108 @@
 import SwiftUI
 
 struct GetInspired: View {
+    @Environment(\.dismiss) private var dismiss
+    @FocusState private var focus: Focus?
+    @Binding var currentDetent: PresentationDetent
     @State private var cocktail: Cocktail?
     @State private var viewModel = GenerableViewModel()
-    @FocusState private var focus: Focus?
-    @State private var isPresented = true
-    @Environment(CocktailViewModel.self) private var cocktailVM
+    
     var body: some View {
-        VStack {
+        Group {
+            if viewModel.notGenerated {
+                DescribeYourCocktail(viewModel: viewModel, currentDetent: $currentDetent)
+            } else {
+                ScrollView {
+                  
+                        VStack(alignment: .leading, spacing: 0) {
+                            HeaderMesh()
+                                .overlay(alignment: .bottom) {
+                                    titleHeader(viewModel: viewModel)
+                                        .padding(.bottom, 80)
+                                        .padding(.horizontal, 24)
+                                        .foregroundStyle(.white)
+                                }
+                            if viewModel.cocktailIdea != nil {
+                            VStack(spacing: 20) {
+                                InfosCard(viewModel: viewModel)
+                                
+                                if viewModel.showButtons {
+                                    Button {
+                                        self.cocktail = viewModel.createCocktail()
+                                    } label: {
+                                        Label("Make it yours", systemImage: "plus.circle.fill")
+                                            .fontWeight(.semibold)
+                                    }
+                                    .buttonStyle(GenerateButton(color: .blue))
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Label("I don't like it", systemImage: "xmark.diamond")
+                                    }
+                                    .buttonStyle(GenerateButton(color: .red))
+                                }
+                                   
+                            }
+                            .animation(.easeIn, value: viewModel.showButtons)
+                            .padding(.vertical, 24)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+                            .padding(.horizontal)
+                            .offset(y: -60)
+                        }
+                    }
+                }
+                .ignoresSafeArea()
+                .background(
+                    LinearGradient(
+                        stops: [
+                            .init(color: .purple.opacity(0.1), location: 0.0),
+                            .init(color: .purple.opacity(0.05), location: 0.9),
+                            .init(color: .clear, location: 1.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .navigationBarTitleDisplayMode(.large)
+                .onAppear {
+                    cocktail = nil
+                    viewModel.cocktailIdea = nil
+                    viewModel.word = ""
+                }
+                .navigationDestination(item: $cocktail, destination: { Hashable in
+                    CreateEditCocktail(cocktail: Hashable)
+                })
+            }
+        }
+    }
+    
+    private func titleHeader(viewModel: GenerableViewModel) -> some View {
+        VStack(spacing: 15) {
             if let cocktailName = viewModel.cocktailIdea?.name {
                 Text(cocktailName)
+                    .font(.system(size: 35, weight: .semibold, design: .serif))
+                    .minimumScaleFactor(0.7)
+            } else {
+                HStack {
+                    Image(systemName: "sparkles")
+                    Text("Crafting your idea...")
+                }
+                .font(.system(size: 35, weight: .semibold, design: .rounded))
+                .minimumScaleFactor(0.7)
             }
             if let cocktailDescription = viewModel.cocktailIdea?.description {
                 Text(cocktailDescription)
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
             }
-            
-            if let ingredients = viewModel.cocktailIdea?.ingredients {
-          
-                    ForEach(ingredients) { ingredient in
-                        HStack {
-                            if let ingredientLogo = ingredient.name?.logolized() {
-                                Image(ingredientLogo)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                            }
-                            if let ingredientName = ingredient.name {
-                                Text(ingredientName)
-                            }
-                            if let ingredientAmount = ingredient.amount {
-                                Text(String(ingredientAmount))
-                            }
-                            if let ingredientUnit = ingredient.unit {
-                                Text(ingredientUnit)
-                            }
-                        }
-                    }
-                
-            }
-            if let cocktailStyle = viewModel.cocktailIdea?.style {
-                Text(cocktailStyle)
-            }
-            if let cocktailGlass = viewModel.cocktailIdea?.glass {
-                Text(cocktailGlass)
-            }
-            if let cocktailTechnique = viewModel.cocktailIdea?.mixingTechnique {
-                Text(cocktailTechnique)
-            }
-            if let cocktailDifficulty = viewModel.cocktailIdea?.difficulty {
-                Text(cocktailDifficulty)
-            }
-            Button("Create cocktail") {
-                self.cocktail = viewModel.createCocktail()
-            }
-        }
-        .navigationDestination(item: $cocktail, destination: { Hashable in
-            CreateEditCocktail(cocktail: Hashable)
-        })
-        .sheet(isPresented: $isPresented) {
-            VStack {
-                TextField("A word to represent your cocktail", text: $viewModel.mood)
-                    .focused($focus, equals: .word)
-                    .onChange(of: focus) { _, newValue in
-                        if newValue == .word {
-                            viewModel.prewarm()
-                        }
-                    }
-                Button("Generate") {
-                    Task {
-                        isPresented = false
-                        await viewModel.generate()
-                    }
-                }
-            }
-            .presentationDetents([.height(150)])
         }
     }
 }
 
 #Preview {
-    GetInspired()
+    GetInspired(currentDetent: .constant(.large))
+        .environment(PatchBay.patch.makeCocktailViewModel())
 }

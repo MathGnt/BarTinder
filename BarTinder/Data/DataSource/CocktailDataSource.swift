@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CocktailDataSource { /// Managing the JSON entry
+final class CocktailDataSource { /// Managing the JSON input
     func getCocktails() throws -> [CocktailDTO] {
         guard let url = Bundle.main.url(forResource: "cocktails", withExtension: "json") else {
             throw URLError(.badURL)

@@ -54,7 +54,7 @@ private struct CocktailImageSource: View {
             cocktail.displayedImage
                 .resizable()
                 .scaledToFill()
-                .frame(width: 200, height: 280)
+                .frame(width: 180, height: 260)
                 .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                 .contentShape(
                     .contextMenuPreview,

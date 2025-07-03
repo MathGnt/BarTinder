@@ -26,10 +26,6 @@ struct CocktailDetail: View {
                         CocktailHeaderInfos(cocktail: cocktail)
                         HStack {
                             IngredientsList(cocktail: cocktail)
-                                .padding()
-                                .background(.thinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-                            
                             Spacer()
                         }
                         .padding(.top, 15)
@@ -61,7 +57,7 @@ private extension CocktailDetail {
     private func header(_ cocktail: Cocktail) -> some View {
         VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
             Text(cocktail.name)
-                .font(.system(size: 35, weight: .regular, design: .serif))
+                .font(.system(size: 35, design: .serif))
             Text(cocktail.cocktailDescription)
                 .font(.system(size: 14, design: .rounded))
                 .multilineTextAlignment(.center)

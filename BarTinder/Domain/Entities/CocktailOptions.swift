@@ -8,6 +8,8 @@
 import Foundation
 
 /// Filtering, Sorting and Ordering @Query
+//MARK: - SORT DESCRIPTOR
+
 enum CocktailSortDescriptor: String, CaseIterable {
     case name = "Name"
     case difficulty = "Difficulty"
@@ -31,6 +33,8 @@ enum CocktailSortDescriptor: String, CaseIterable {
         }
     }
 }
+
+//MARK: - PREDICATES - à recheck pour rawValue 27 juin
 
 enum CocktailFilterPredicate: String, CaseIterable, Hashable {
     case possibleCocktails = "All cocktails"
@@ -63,7 +67,7 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
         case .possibleCocktails:
             return #Predicate<Cocktail> { $0.isPossible }
         case .created:
-            return #Predicate<Cocktail> { $0.stock == false }
+            return #Predicate<Cocktail> { $0.isPossible && $0.stock == false }
         case .gin:
             return #Predicate<Cocktail> { cocktail in
                 cocktail.isPossible &&
@@ -93,6 +97,8 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
         }
     }
 }
+
+//MARK: - MAIN OPTIONS
 
 /// Pickers for cocktail creation
 enum CocktailStyle: String, Identifiable, CaseIterable, Codable {

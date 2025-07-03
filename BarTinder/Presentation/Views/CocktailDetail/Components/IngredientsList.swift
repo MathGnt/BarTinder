@@ -13,20 +13,49 @@ extension CocktailDetail {
         let cocktail: Cocktail
         
         var body: some View {
-            VStack(alignment: .center, spacing: 4) {
-                Text("Ingredients")
-                    .font(.system(size: 17, design: .serif))
-                Spacer(minLength: BarTinderApp.Padding.ingredientSpacing)
+            VStack(alignment: .center, spacing: 5) {
                 ForEach(cocktail.ingredients) { ingredient in
-                    HStack {
+                    HStack(alignment: .center, spacing: BarTinderApp.Padding.ingredientSpacing) {
+                        // Ingredient image
+                     
                         Image(ingredient.name.logolized())
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-                        Text(ingredient.name.capitalizedWords)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .padding(4)
+                                .clipShape(Circle())
+                                .background(Circle().fill(.gray.opacity(0.1)))
+                         
+                        
+                        
+                        // Ingredient details
+                        VStack(alignment: .leading, spacing: 2) {
+                          
+                            Text(ingredient.name.capitalizedWords)
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                            
+                            
+                            HStack(spacing: 2) {
+                          
+                                Text(ingredient.measure)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                
+                          
+                                Text(ingredient.unit.rawValue)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                
+                            }
+                        }
+                        
                         Spacer()
-                        Text("\(ingredient.measure) \(ingredient.unit.rawValue)")
                     }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    .background(.gray.opacity(0.05), in: RoundedRectangle(cornerRadius: 8))
+                    .padding(.horizontal)
                 }
             }
         }

@@ -12,16 +12,19 @@ import FoundationModels
 final class GenerableViewModel {
     let session: LanguageModelSession
     var cocktailIdea: CocktailIdea.PartiallyGenerated?
-    var mood = ""
-    var streamingError = false
+    var word = ""
+    var guardrailViolation = false
+    var notGenerated = true
+    var showButtons = false
     
     init() {
         self.session = LanguageModelSession(
             instructions: """
         Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients) or \(Cocktail.mule.ingredients). The ingredient pattern should be like: 
-        measure: 5, unit: cl. or measure: 1, unit: wedge. If you're thinking 50ml and you're using "cl" as the unit which means centiliters, you should have measure: 5, unit: cl.
+        measure: 5, unit: cl. or measure: 1, unit: wedge. If you're thinking 50ml and you're using "cl" as the unit which means centiliters, you should have measure: 5, unit: cl. Do not add any liquid type ingredient when using the units "pinch" or "wedge".
         """
         )
+        
     }
     
     func prewarm() {
@@ -29,16 +32,18 @@ final class GenerableViewModel {
     }
     
     func generate() async {
-        let prompt = "Give me an idea for a cocktail that represents the word \(mood)"
-        let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self)
-        print("prompt is: \(prompt)")
+        let prompt = "Give me an idea for a cocktail that represents the word \(word)"
+        let options = GenerationOptions(temperature: 2.0)
+        let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self, options: options)
+
         do {
             for try await cocktailIdea in streamingResponse {
                 self.cocktailIdea = cocktailIdea
             }
+            showButtons = true
         } catch LanguageModelSession.GenerationError.guardrailViolation {
-            streamingError = true
-            print("error during streaming")
+            guardrailViolation = true
+            print("faut pas insulter le robot")
         } catch {
             print("other errror")
         }
@@ -66,6 +71,6 @@ final class GenerableViewModel {
             finalIngredients.append(newIngredient)
             
         }
-        return Cocktail(name: name, ingredients: finalIngredients, style: style, glass: glass, mixingTechnique: mixingTechnique, difficulty: difficulty, cocktailDescription: description)
+        return Cocktail(name: name, ingredients: finalIngredients, isPossible: true, style: style, glass: glass, mixingTechnique: mixingTechnique, difficulty: difficulty, cocktailDescription: description)
     }
 }
