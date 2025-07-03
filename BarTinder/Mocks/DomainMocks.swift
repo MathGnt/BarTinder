@@ -70,7 +70,7 @@ extension Cocktail {
         ingredients: [
             .init(name: "aperol", measure: "6", unit: Units.cl),
             .init(name: "prosecco", measure: "9", unit: Units.cl),
-            .init(name: "sparkling water", measure: "3", unit: Units.cl)
+            .init(name: "sparkling water", measure: "", unit: Units.topUp)
         ],
         isInBar: false,
         isPossible: true,
@@ -140,7 +140,7 @@ extension Cocktail {
         name: "Martini",
         ingredients: [
             .init(name: "gin", measure: "5", unit: Units.cl),
-            .init(name: "vermouth", measure: "1", unit: Units.cl)
+            .init(name: "vermouth", measure: "", unit: Units.toRinse)
         ],
         isInBar: false,
         isPossible: true,

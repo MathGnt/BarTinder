@@ -12,8 +12,6 @@ import SwiftData
 struct Home: View {
     @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @State private var cocktail = Cocktail(isPossible: true)
-    @State private var notGenerated = true
-    @State private var currentDetent: PresentationDetent = .height(200)
     @Namespace private var sheetTransition
     @Namespace private var newIdeaTransition
     
@@ -73,10 +71,8 @@ struct Home: View {
                 }
                 .sheet(isPresented: $viewModel.showNewIdeaSheet) {
                     NavigationStack {
-                        GetInspired(currentDetent: $currentDetent)
+                        GetInspired()
                             .navigationTransition(.zoom(sourceID: ("new-idea"), in: newIdeaTransition))
-                            .presentationDetents([.height(200), .large], selection: $currentDetent)
-                            
                     }
                 }
             }

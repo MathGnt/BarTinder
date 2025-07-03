@@ -10,29 +10,31 @@ import FoundationModels
 
 @Observable
 final class GenerableViewModel {
+//    let useCase: GenerableUseCase
     let session: LanguageModelSession
+    let model = SystemLanguageModel.default
     var cocktailIdea: CocktailIdea.PartiallyGenerated?
-    var word = ""
-    var guardrailViolation = false
-    var notGenerated = true
     var showButtons = false
+    var notAvailable = false
+    
     
     init() {
         self.session = LanguageModelSession(
             instructions: """
-        Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients) or \(Cocktail.mule.ingredients). The ingredient pattern should be like: 
-        measure: 5, unit: cl. or measure: 1, unit: wedge. If you're thinking 50ml and you're using "cl" as the unit which means centiliters, you should have measure: 5, unit: cl. Do not add any liquid type ingredient when using the units "pinch" or "wedge".
+        Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients), \(Cocktail.mule.ingredients), \(Cocktail.spritz), \(Cocktail.martini).
         """
         )
         
     }
     
-    func prewarm() {
-        session.prewarm()
-    }
-    
     func generate() async {
-        let prompt = "Give me an idea for a cocktail that represents the word \(word)"
+        guard checkingAvailability() else {
+            notAvailable = true
+            return
+        }
+        
+        let words: [String] = ["Happiness", "Sweet", "Forest", "Coffee", "Summer", "Winter", "Music"]
+        let prompt = "Give me an idea for a cocktail that represents the word \(words.randomElement() ?? "Courage")"
         let options = GenerationOptions(temperature: 2.0)
         let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self, options: options)
 
@@ -42,10 +44,20 @@ final class GenerableViewModel {
             }
             showButtons = true
         } catch LanguageModelSession.GenerationError.guardrailViolation {
-            guardrailViolation = true
-            print("faut pas insulter le robot")
+            print("faut pas insulter le robot") // No longer asking user's idea
         } catch {
             print("other errror")
+        }
+    }
+    
+    func checkingAvailability() -> Bool {
+        switch model.availability {
+        case .available:
+            return true
+        case .unavailable(.deviceNotEligible):
+            return false
+        default:
+            return false
         }
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class SwipeUseCase {
+final class SwipeUseCase {
     let repo: Servable
     
     private var selectedIngredients: Set<String> = []

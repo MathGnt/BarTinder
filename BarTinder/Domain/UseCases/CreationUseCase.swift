@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CreationUseCase {
+final class CreationUseCase {
     let repo: Servable
     
     init(repo: Servable) {

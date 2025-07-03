@@ -13,7 +13,7 @@ import Playgrounds
 struct CocktailIdea {
     @Guide(description: "A cool name for the cocktail")
     var name: String
-    @Guide(description: "A short story that describe the cocktail")
+    @Guide(description: "A short description for the cocktail")
     var description: String
     @Guide(.anyOf(CocktailGlass.allCases.map { $0.rawValue }))
     var glass: String
@@ -23,8 +23,8 @@ struct CocktailIdea {
     var style: String
     @Guide(.anyOf(CocktailDifficulty.allCases.map { $0.rawValue }))
     var difficulty: String
+    @Guide(description: "The ingredients for the cocktail")
     var ingredients: [IngredientIdea]
-
 }
 
 @Generable

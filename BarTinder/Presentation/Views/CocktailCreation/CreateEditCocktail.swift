@@ -18,7 +18,6 @@ struct CreateEditCocktail: View {
     
     var body: some View {
         List {
-            
             Section {
                 CocktailPreviewHeader(selectedImage: $viewModel.selectedPic, cocktail: cocktail)
             }
@@ -53,6 +52,7 @@ struct CreateEditCocktail: View {
             
         }
         .navigationTitle("New Cocktail")
+        .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             CreationToolbar(focus: $focus, cocktail: cocktail)

@@ -28,16 +28,20 @@ struct IngredientRowGenerable: View {
                         .fontWeight(.medium)
                 }
                 
-                HStack(spacing: 1) {
+                HStack(spacing: 5) {
                     if let ingredientAmount = ingredient?.amount {
-                        Text(String(ingredientAmount))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    if let ingredientUnit = ingredient?.unit {
-                        Text(ingredientUnit)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                        if let ingredientUnit = ingredient?.unit {
+                            if ingredientUnit != "To Rinse" && ingredientUnit != "Top Up" {
+                                let _ = print("ingredient unit is \(ingredientUnit)")
+                                Text(String(ingredientAmount))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            
+                            Text(ingredientUnit)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }

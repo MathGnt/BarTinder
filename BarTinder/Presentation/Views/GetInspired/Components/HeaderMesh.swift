@@ -25,7 +25,7 @@ struct HeaderMesh: View {
         )
         
     
-    .frame(height: 225)
+    .frame(height: 250)
     .frame(maxWidth: .infinity)
     .compositingGroup()
     .mask {
