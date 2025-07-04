@@ -19,7 +19,7 @@ struct Bar: View {
             ContentUnavailableView(
                 "No cocktails in bar",
                 systemImage: "wineglass",
-                description: Text("Add cocktails to your bar by navigating through their details!")
+                description: Text("You can add cocktails to your bar by tapping \(Image(systemName: "ellipsis.circle")) inside a cocktail and choosing Add to Bar.")
             )
         } else {
             CocktailList(cocktails: cocktails)
@@ -29,6 +29,6 @@ struct Bar: View {
 }
 
 
-#Preview(traits: .queryMocks) {
+#Preview {
     Bar()
 }

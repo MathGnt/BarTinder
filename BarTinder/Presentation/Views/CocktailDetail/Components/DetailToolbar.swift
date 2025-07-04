@@ -42,7 +42,7 @@ extension CocktailDetail {
                         Button {
                             cocktail.isInBar.toggle()
                         } label: {
-                            Label(cocktail.isInBar ? "Remove from bar" : "Add in bar", systemImage: cocktail.isInBar ? "wineglass.fill" : "wineglass")
+                            Label(cocktail.isInBar ? "Remove from bar" : "Add to bar", systemImage: cocktail.isInBar ? "wineglass.fill" : "wineglass")
                                 .foregroundStyle(cocktail.isInBar ? .primary : Color(.green))
                         }
                     }

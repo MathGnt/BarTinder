@@ -17,14 +17,7 @@ struct BarTinderApp: App {
             container = try ModelContainer(for: Cocktail.self)
             PatchBay.patch.setContext(container.mainContext)
         } catch {
-            // Fallback to in-memory container
-            do {
-                let config = ModelConfiguration(isStoredInMemoryOnly: true)
-                container = try ModelContainer(for: Cocktail.self, configurations: config)
-                PatchBay.patch.setContext(container.mainContext)
-            } catch {
-                fatalError("Failed to create fallback in-memory container: \(error)")
-            }
+            fatalError("Failed to create Model Context: \(error) migration required")
         }
     }
     

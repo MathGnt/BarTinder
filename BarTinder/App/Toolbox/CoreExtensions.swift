@@ -16,7 +16,7 @@ extension String {
         }.joined(separator: " ")
     }
     
-    // To make image easily
+    /// To make image easily
     func logolized() -> String {
         replacingOccurrences(of: " ", with: "") + "logo"
     }

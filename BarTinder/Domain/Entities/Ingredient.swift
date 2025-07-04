@@ -9,14 +9,12 @@ import Foundation
 import SwiftData
 
 @Model
-nonisolated final class Ingredient: Identifiable {
+nonisolated final class Ingredient {
     var name: String
     var measure: String
     var unit: Units
     
     var cocktail: Cocktail?
-    
-    var id = UUID()
     
     init(name: String = "", measure: String = "", unit: Units = Units.cl, cocktail: Cocktail? = nil) {
         self.name = name

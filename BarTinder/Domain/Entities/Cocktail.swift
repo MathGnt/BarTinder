@@ -20,21 +20,22 @@ nonisolated final class Cocktail {
     var isInBar: Bool
     var isPossible: Bool
     var imageName: String?
+    @Attribute(.externalStorage)
     var imageData: Data?
     var style: CocktailStyle
     var glass: CocktailGlass
     var mixingTechnique: CocktailMixingTechnique
     var difficulty: CocktailDifficulty
-    // Enum rawValues for sorting
+    /// Enum rawValues for sorting
     var styleValue: String
     var glassValue: String
     var mixingTechniqueValue: String
     var difficultyValue: String
-
+    
     var cocktailDescription: String
     var stock = false
     
-    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, styleValue: String = "shortdrink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: String = "Easy", cocktailDescription: String = "", stock: Bool = false) {
+    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = CocktailStyle.shortDrink, glass: CocktailGlass = CocktailGlass.highball, mixingTechnique: CocktailMixingTechnique = CocktailMixingTechnique.built, difficulty: CocktailDifficulty = CocktailDifficulty.easy, styleValue: String = "short drink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: String = "easy", cocktailDescription: String = "", stock: Bool = false) {
         self.name = name
         self.ingredients = ingredients
         self.isInBar = isInBar
@@ -57,14 +58,23 @@ nonisolated final class Cocktail {
 
 extension Cocktail {
     @Transient
-       var displayedImage: Image {
-           if let name = imageName {
-               return Image(name)
-           }
-           if let data = imageData, let uiImage = UIImage(data: data) {
-               return Image(uiImage: uiImage)
-           }
-           return Image("defaultpic")
-       }
+    var displayedImage: Image {
+        if let name = imageName {
+            return Image(name)
+        }
+        if let data = imageData, let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
+        }
+        return Image("defaultpic")
+    }
+    
+    @Transient
+    var difficultyLevel: Int {
+        switch difficulty {
+        case .easy: return 1
+        case .medium: return 2
+        case .hard: return 3
+        }
+    }
 }
 

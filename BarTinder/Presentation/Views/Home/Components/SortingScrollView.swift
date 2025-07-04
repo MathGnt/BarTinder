@@ -26,7 +26,7 @@ extension Home {
             .padding(.vertical, 8)
             .background(viewModel.filterOption == filterOption ? .applered : .gray.opacity(0.6))
             .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-            .scaleEffect(viewModel.filterOption == filterOption ? 1.05 : 1)
+            .scaleEffect(viewModel.filterOption == filterOption ? 1.02 : 1)
         }
     }
 }

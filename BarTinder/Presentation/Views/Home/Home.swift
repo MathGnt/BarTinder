@@ -13,69 +13,73 @@ struct Home: View {
     @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
     @State private var cocktail = Cocktail(isPossible: true)
     @Namespace private var sheetTransition
-    @Namespace private var newIdeaTransition
+    @Namespace private var namespace
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(CocktailFilterPredicate.allCases, id: \.self) { filter in
-                                SortingScrollView(title: filter.rawValue, filterOption: filter)
+            ZStack(alignment: .bottom) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(CocktailFilterPredicate.allCases, id: \.self) { filter in
+                                    SortingScrollView(title: filter.rawValue, filterOption: filter)
+                                }
                             }
+                            .buttonStyle(.plain)
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .padding(.horizontal)
+                            .padding(.top, 10)
+                        }
+                        .scrollIndicators(.hidden)
+                        
+                        sectionTitle(title: "Your Cocktails")
+                        YourCocktailsScrollView(viewModel: viewModel)
+                            .padding(.horizontal)
+                            .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+                        
+                        sectionTitle(title: "Get inspired")
+                        
+                        
+                        Button {
+                            viewModel.showNewIdeaSheet = true
+                        } label: {
+                            GetInspiredCard()
+                                .padding(.horizontal)
                         }
                         .buttonStyle(.plain)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
-                        .padding(.horizontal)
-                        .padding(.top, 10)
-                    }
-                    .scrollIndicators(.hidden)
-                    
-                    sectionTitle(title: "Your Cocktails")
-                    YourCocktailsScrollView(viewModel: viewModel)
-                        .padding(.horizontal)
-                        .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
-                  
-                    sectionTitle(title: "Get inspired")
-                 
-                    
-                    Button {
-                        viewModel.showNewIdeaSheet = true
-                    } label: {
-                        GetInspiredCard()
+                        
+                        sectionTitle(title: "Summer Ideas Ingredients")
+                        IngredientGrid()
                             .padding(.horizontal)
-                            .matchedTransitionSource(id: ("new-idea"), in: newIdeaTransition)
+                            .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+                        
+                        Spacer()
                     }
-                    .buttonStyle(.plain)
-                     
-                    sectionTitle(title: "Summer Ideas Ingredients")
-                    IngredientGrid()
-                        .padding(.horizontal)
-                        .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
-                    
-                    Spacer()
-                }
-                .navigationTitle("Home")
-                .toolbar {
-                    HomeToolbar(
-                        sortOption: $viewModel.sortOption,
-                        namespace: sheetTransition,
-                    )
-                }
-                .sheet(isPresented: $viewModel.showCreationSheet) {
-                    NavigationStack {
-                        CreateEditCocktail(cocktail: cocktail)
-                            .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
+                    .navigationTitle("Home")
+                    .toolbar {
+                        HomeToolbar(
+                            sortOption: $viewModel.sortOption,
+                            namespace: sheetTransition,
+                        )
+                    }
+                    .sheet(isPresented: $viewModel.showCreationSheet) {
+                        NavigationStack {
+                            CreateEditCocktail(cocktail: cocktail)
+                                .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
+                        }
                     }
                 }
-                .sheet(isPresented: $viewModel.showNewIdeaSheet) {
-                    NavigationStack {
-                        GetInspired()
-                            .navigationTransition(.zoom(sourceID: ("new-idea"), in: newIdeaTransition))
-                    }
+                if viewModel.showNewIdeaSheet {
+                    DescribeYourCocktail(showNewIdeaSheet: $viewModel.showNewIdeaSheet, namespace: namespace)
+                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 50))
+                        .padding(.bottom, 5)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .zIndex(1)
+                        .matchedTransitionSource(id: ("get-inspired"), in: namespace)
                 }
             }
+            .animation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0), value: viewModel.showNewIdeaSheet)
         }
         .environment(viewModel)
     }

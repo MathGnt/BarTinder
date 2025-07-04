@@ -35,6 +35,8 @@ final class PatchBay {
         return CocktailRepo(cocktailDataSource: makeCocktailDataSource(), swiftDataSource: makeSwiftDataSource())
     }
     
+
+    
     /// Use cases
     func makeSwipeUseCase() -> SwipeUseCase {
         SwipeUseCase(repo: makeCocktailRepo())
@@ -42,6 +44,10 @@ final class PatchBay {
     
     func makeCreationUseCase() -> CreationUseCase {
         CreationUseCase(repo: makeCocktailRepo())
+    }
+    
+    func makeGenerableUseCase() -> GenerableUseCase {
+        GenerableUseCase()
     }
     
     /// ViewModels
@@ -55,5 +61,9 @@ final class PatchBay {
     
     func makeCocktailViewModel() -> CocktailViewModel {
         CocktailViewModel()
+    }
+    
+    func makeGenerableViewModel() -> GenerableViewModel {
+        return GenerableViewModel(useCase: makeGenerableUseCase())
     }
 }

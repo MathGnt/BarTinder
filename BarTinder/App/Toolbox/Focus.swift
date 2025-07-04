@@ -14,7 +14,6 @@ nonisolated enum Focus {
     case description
     case measure
     case word
-
 }
 
 

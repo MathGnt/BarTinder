@@ -12,14 +12,6 @@ extension CocktailDetail {
     struct CocktailHeaderInfos: View {
         let cocktail: Cocktail
         
-        private var difficultyLevel: Int {
-            switch cocktail.difficulty {
-            case .easy: return 1
-            case .medium: return 2
-            case .hard: return 3
-            }
-        }
-        
         var body: some View {
             HStack(spacing: 20) {
                 VStack(spacing: 4) {
@@ -27,7 +19,7 @@ extension CocktailDetail {
                         .font(.system(size: 15, design: .serif))
                     HStack {
                         ForEach(1...3, id: \.self) { index in
-                            Image(systemName: index <= difficultyLevel ? "wineglass.fill" : "wineglass")
+                            Image(systemName: index <= cocktail.difficultyLevel ? "wineglass.fill" : "wineglass")
                         }
                         .frame(height: 24)
                     }

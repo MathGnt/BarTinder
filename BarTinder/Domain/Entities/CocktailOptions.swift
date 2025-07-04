@@ -110,7 +110,6 @@ enum CocktailStyle: String, Identifiable, CaseIterable, Codable {
 
 
 enum CocktailGlass: String, Identifiable, CaseIterable, Codable {
-    
     case balloon = "balloon"
     case cocktail = "cocktail"
     case coppermug = "coppermug"
