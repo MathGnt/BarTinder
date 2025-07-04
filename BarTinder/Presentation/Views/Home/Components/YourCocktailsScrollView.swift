@@ -18,7 +18,7 @@ extension Home {
         init(viewModel: CocktailViewModel) {
             self.viewModel = viewModel
             
-            // Dynamic filtering & sorting
+            /// Dynamic filtering & sorting
             _cocktails = Query(viewModel.yourCocktailsDescriptor)
         }
         

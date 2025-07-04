@@ -12,6 +12,7 @@ extension GetInspired {
     struct InfosCard: View {
         @Environment(GenerableViewModel.self) private var viewModel
         @State private var value = false
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
                 if let cocktailStyle = viewModel.cocktailIdea?.style,
@@ -79,6 +80,7 @@ extension GetInspired {
     GetInspired.InfosCard()
         .environment(PatchBay.patch.makeGenerableViewModel())
 }
+
 
 
 /// Each row for the generated ingredients.

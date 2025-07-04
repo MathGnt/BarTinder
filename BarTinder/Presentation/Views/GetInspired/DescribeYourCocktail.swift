@@ -12,10 +12,10 @@ extension Home {
     struct DescribeYourCocktail: View {
         @Environment(\.dismiss) private var dismiss
         @State private var viewModel = PatchBay.patch.makeGenerableViewModel()
-        @Binding var showNewIdeaSheet: Bool
-        let namespace: Namespace.ID
-        
         @FocusState private var focus: Focus?
+        @Binding var showNewIdeaSheet: Bool
+        
+        let namespace: Namespace.ID
         
         var body: some View {
             VStack(spacing: 16) {
