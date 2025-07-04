@@ -67,6 +67,9 @@ struct Home: View {
                         NavigationStack {
                             CreateEditCocktail(cocktail: cocktail)
                                 .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
+                                .onDisappear {
+                                    self.cocktail = Cocktail(isPossible: true)
+                                }
                         }
                     }
                 }
