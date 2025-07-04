@@ -16,8 +16,6 @@ extension CocktailDetail {
             VStack(alignment: .center, spacing: 5) {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(alignment: .center, spacing: BarTinderApp.Padding.ingredientSpacing) {
-                        // Ingredient image
-                     
                         Image(ingredient.name.logolized())
                                 .resizable()
                                 .scaledToFill()
@@ -26,9 +24,6 @@ extension CocktailDetail {
                                 .clipShape(Circle())
                                 .background(Circle().fill(.gray.opacity(0.1)))
                          
-                        
-                        
-                        // Ingredient details
                         VStack(alignment: .leading, spacing: 2) {
                           
                             Text(ingredient.name.capitalizedWords)
@@ -46,7 +41,6 @@ extension CocktailDetail {
                                 Text(ingredient.unit.rawValue)
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
-                                
                             }
                         }
                         
