@@ -12,18 +12,19 @@ extension Home {
     /// The main toolbar of the app - create  a cocktail, navigate to bar,  select your filters or reset the app.
     struct HomeToolbar: ToolbarContent {
         @Environment(Storage.self) private var appStorage
-        @Environment(CocktailViewModel.self) private var viewModel
+        @Environment(CocktailModel.self) private var model
         @Environment(\.swiftData) private var swiftData
         @Binding var sortOption: CocktailSortDescriptor
+        @Binding var cocktail: Cocktail?
         
         let namespace: Namespace.ID
         
         var body: some ToolbarContent {
-            @Bindable var viewModel = viewModel
+            @Bindable var model = model
             
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    viewModel.showCreationSheet = true
+                    cocktail = Cocktail(isPossible: true)
                 } label: {
                     Image(systemName: "plus")
                         .foregroundStyle(.primary)
@@ -43,7 +44,7 @@ extension Home {
             ToolbarItem {
                 Menu("Main controls", systemImage: "arrow.up.arrow.down") {
                     Section {
-                        Toggle("Reverse order", isOn: $viewModel.isReversed)
+                        Toggle("Reverse order", isOn: $model.isReversed)
                     }
                     Section {
                         Picker("Sort by...", selection: $sortOption) {
@@ -62,12 +63,12 @@ extension Home {
             
             ToolbarItem {
                 Button {
-                    viewModel.resetConfirmation = true
+                    model.resetConfirmation = true
                 } label: {
                     Image(systemName: "arrow.counterclockwise")
                         .foregroundStyle(.applered)
                 }
-                .alert("Are you sure you want to reset to swiping cards?", isPresented: $viewModel.resetConfirmation) {
+                .alert("Are you sure you want to reset to swiping cards?", isPresented: $model.resetConfirmation) {
                     Button("Reset", role: .destructive) {
                         appStorage.hasFetched = false
                         swiftData.contextDeleteAll(Cocktail.self)
@@ -85,9 +86,9 @@ extension Home {
     NavigationStack {
         Text("Home Toolbar")
             .toolbar {
-                Home.HomeToolbar(sortOption: .constant(.glass), namespace: namespace)
+                Home.HomeToolbar(sortOption: .constant(.glass), cocktail: .constant(Cocktail(isPossible: true)), namespace: namespace)
             }
-            .environment(PatchBay.patch.makeCocktailViewModel())
+            .environment(PatchBay.patch.makeCocktailModel())
             .environment(Storage())
     }
 }

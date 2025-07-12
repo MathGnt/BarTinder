@@ -1,5 +1,5 @@
 //
-//  CreationViewModel.swift
+//  CreationModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 12/05/2025.
@@ -11,7 +11,7 @@ import SwiftUI
 import PhotosUI
 
 @Observable
-final class CreationViewModel {
+final class CreationModel {
     let useCase: CreationUseCase
     
     private(set) var ingredients: [CardIngredient] = []
@@ -95,6 +95,10 @@ final class CreationViewModel {
     }
     
     func checkForIngredients(_ ingredients: [Ingredient]) throws(CreationErrors) {
+        guard !ingredients.isEmpty else {
+            measuresFieldMissing = true
+            return
+        }
         try useCase.executeIngredientsChecking(ingredients)
     }
     

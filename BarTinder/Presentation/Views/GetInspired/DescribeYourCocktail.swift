@@ -11,15 +11,17 @@ extension Home {
     /// A sheet-like view that shows where the user can enter a world to generate a cocktail.
     struct DescribeYourCocktail: View {
         @Environment(\.dismiss) private var dismiss
-        @State private var viewModel = PatchBay.patch.makeGenerableViewModel()
+        @Environment(GenerableModel.self) private var model
         @FocusState private var focus: Focus?
         @Binding var showNewIdeaSheet: Bool
         
         let namespace: Namespace.ID
         
         var body: some View {
+            @Bindable var model = model
+            
             VStack(spacing: 16) {
-                TextField("A word for your future idea", text: $viewModel.word)
+                TextField("A word for your future idea", text: $model.word)
                     .focused($focus, equals: .word)
                     .frame(height: 20)
                     .padding()
@@ -28,17 +30,18 @@ extension Home {
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .onChange(of: focus) { _, newValue in
                         if newValue == .word {
-                            viewModel.prewarm()
+                            model.prewarm()
                         }
                     }
                 
                 Button("Generate your idea") {
                     Task {
-                        await viewModel.generate()
+                        await model.generate()
+                        showNewIdeaSheet = false
                     }
                 }
-                .buttonStyle(GenerateButton(color: viewModel.word.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue))
-                .disabled(viewModel.word.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .buttonStyle(GenerateButton(color: model.word.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .blue))
+                .disabled(model.word.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 
                 Button("Later") {
                     focus = nil
@@ -47,12 +50,12 @@ extension Home {
                 .buttonStyle(GenerateButton(color: .applered))
             }
             .padding()
-            .navigationDestination(isPresented: $viewModel.pushToAI) {
+            .navigationDestination(isPresented: $model.pushToAI) {
                 GetInspired(showNewIdeaSheet: $showNewIdeaSheet)
                     .navigationTransition(.zoom(sourceID: ("get-inspired"), in: namespace))
-                    .environment(viewModel)
+                    .environment(model)
             }
-            .alert("Not available", isPresented: $viewModel.notAvailable) {
+            .alert("Not available", isPresented: $model.notAvailable) {
                 Button("Ok", role: .cancel) {
                     focus = nil
                     showNewIdeaSheet = false

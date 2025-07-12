@@ -35,3 +35,4 @@ struct QueryMocks: PreviewModifier {
 extension PreviewTrait where T == Preview.ViewTraits {
     static var queryMocks: Self = .modifier(QueryMocks())
 }
+

@@ -50,20 +50,20 @@ final class PatchBay {
         GenerableUseCase()
     }
     
-    /// ViewModels
-    func makeSwipeViewModel() -> SwipeViewModel {
-        SwipeViewModel(useCase: makeSwipeUseCase())
+    /// Models
+    func makeSwipeModel() -> SwipeModel {
+        SwipeModel(useCase: makeSwipeUseCase())
     }
     
-    func makeCreationViewModel() -> CreationViewModel {
-        CreationViewModel(useCase: makeCreationUseCase())
+    func makeCreationModel() -> CreationModel {
+        CreationModel(useCase: makeCreationUseCase())
     }
     
-    func makeCocktailViewModel() -> CocktailViewModel {
-        CocktailViewModel()
+    func makeCocktailModel() -> CocktailModel {
+        CocktailModel()
     }
     
-    func makeGenerableViewModel() -> GenerableViewModel {
-        return GenerableViewModel(useCase: makeGenerableUseCase())
+    func makeGenerableModel() -> GenerableModel {
+        return GenerableModel(useCase: makeGenerableUseCase())
     }
 }

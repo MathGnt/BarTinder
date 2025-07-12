@@ -10,34 +10,34 @@ import SwiftData
 
 /// A sheet allowing the user to select the ingredients for his cocktail.
 struct IngredientsListCreation: View {
-    @Environment(CreationViewModel.self) private var viewModel
-    @Bindable var cocktail: Cocktail 
+    @Environment(CreationModel.self) private var model
+    @Bindable var cocktail: Cocktail
     @FocusState.Binding var focus: Focus?
     
     var body: some View {
-        @Bindable var viewModel = viewModel
+        @Bindable var model = model
         List {
             Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-                        IngredientRow(focus: $focus, ingredient: ingredient, viewModel: viewModel)
+                        IngredientRow(focus: $focus, ingredient: ingredient, model: model)
                     }
                 }
                 .onDelete { IndexSet in
-                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
+                    model.removeIngredient(indexSet: IndexSet, cocktail)
                 }
             }
             Section("All Ingredients") {
-                ForEach(viewModel.searchableIngredients) { ingredient in
+                ForEach(model.searchableIngredients) { ingredient in
                     HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-                        AllIngredients(cocktail: cocktail, ingredient: ingredient, viewModel: viewModel)
+                        AllIngredients(cocktail: cocktail, ingredient: ingredient, model: model)
                     }
                 }
             }
         }
-        .searchable(text: $viewModel.searchableField, prompt: "Search for an ingredient")
+        .searchable(text: $model.searchableField, prompt: "Search for an ingredient")
         .toolbar {
-            IngredientsToolbar(viewModel: viewModel, focus: $focus, cocktail: cocktail)
+            IngredientsToolbar(model: model, focus: $focus, cocktail: cocktail)
         }
     }
 }
@@ -45,5 +45,5 @@ struct IngredientsListCreation: View {
 #Preview {
     @Previewable @FocusState var focus: Focus?
     IngredientsListCreation(cocktail: Cocktail.ginto, focus: $focus)
-        .environment(PatchBay.patch.makeCreationViewModel())
+        .environment(PatchBay.patch.makeCreationModel())
 }

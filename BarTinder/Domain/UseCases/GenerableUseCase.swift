@@ -29,16 +29,16 @@ final class GenerableUseCase {
         guard let name = cocktailIdea.name else { return nil }
         guard let description = cocktailIdea.description else { return nil }
         guard let ingredients = cocktailIdea.ingredients else { return nil }
-        guard let style = CocktailStyle(rawValue: cocktailIdea.style!) else { return nil }
-        guard let glass = CocktailGlass(rawValue: cocktailIdea.glass!) else { return nil }
-        guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea.mixingTechnique!) else { return nil }
-        guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea.difficulty!) else { return nil }
+        guard let style = CocktailStyle(rawValue: cocktailIdea.style ?? "short drink") else { return nil }
+        guard let glass = CocktailGlass(rawValue: cocktailIdea.glass ?? "highball") else { return nil }
+        guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea.mixingTechnique ?? "built") else { return nil }
+        guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea.difficulty ?? "easy") else { return nil }
         
         
         for ingredient in ingredients {
             guard let ingredientName = ingredient.name else { return nil }
             guard let ingredientMeasure = ingredient.amount else { return nil }
-            guard let ingredientUnit = Units(rawValue: ingredient.unit!) else { return nil }
+            guard let ingredientUnit = Units(rawValue: ingredient.unit ?? "cl") else { return nil }
             
             let newIngredient = Ingredient(name: ingredientName, measure: String(ingredientMeasure), unit: ingredientUnit)
             finalIngredients.append(newIngredient)

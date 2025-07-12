@@ -10,15 +10,15 @@ import PhotosUI
 
 extension CreateEditCocktail {
     struct CocktailPreviewHeader: View {
-        @Environment(CreationViewModel.self) private var viewModel
+        @Environment(CreationModel.self) private var model
         
         let selectedImage: Binding<PhotosPickerItem?>
         let cocktail: Cocktail
         
         var body: some View {
-            @Bindable var viewModel = viewModel
+            @Bindable var model = model
             
-            let image = viewModel.imageDataToUI(cocktail) /* Swift 6 scoped */
+            let image = model.imageDataToUI(cocktail) /* Swift 6 scoped */
             HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 PhotosPicker(selection: selectedImage, matching: .images) {
                     if let image {
@@ -32,14 +32,14 @@ extension CreateEditCocktail {
                         PhotoPlaceHolder()
                     }
                 }
-                .task(id: viewModel.selectedPic) {
-                    await viewModel.loadSelectedImage(cocktail)
+                .task(id: model.selectedPic) {
+                    await model.loadSelectedImage(cocktail)
                 }
-                .alert("Loading error", isPresented: $viewModel.photosError) {
+                .alert("Loading error", isPresented: $model.photosError) {
                     Button("Cancel", role: .cancel) {}
                     Button("Retry") {
                         Task {
-                            await viewModel.loadSelectedImage(cocktail)
+                            await model.loadSelectedImage(cocktail)
                         }
                     }
                 } message: {
@@ -83,5 +83,5 @@ private struct PhotoPlaceHolder: View {
 
 #Preview {
     CreateEditCocktail.CocktailPreviewHeader(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
-        .environment(PatchBay.patch.makeCreationViewModel())
+        .environment(PatchBay.patch.makeCreationModel())
 }

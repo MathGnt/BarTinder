@@ -14,7 +14,7 @@ extension Swipe {
     struct IngredientCard: View {
         
         let cardIngredient: CardIngredient
-        let viewModel: SwipeViewModel
+        let model: SwipeModel
         
         private var cardWidth: CGFloat {
             UIScreen.main.bounds.width - 20
@@ -40,23 +40,23 @@ extension Swipe {
                 
                 CardInfo(title: cardIngredient.name, abv: cardIngredient.abv ?? "", location: cardIngredient.location)
             }
-            .offset(x: viewModel.getOffset(for: cardIngredient))
-            .rotationEffect(.degrees(viewModel.getRotation(for: cardIngredient)))
-            .animation(.snappy, value: viewModel.getOffset(for: cardIngredient))
+            .offset(x: model.getOffset(for: cardIngredient))
+            .rotationEffect(.degrees(model.getRotation(for: cardIngredient)))
+            .animation(.snappy, value: model.getOffset(for: cardIngredient))
             .gesture(
                 DragGesture()
                     .onChanged { value in
-                        viewModel.onChangedGesture(card: cardIngredient, translation: value.translation.width)
+                        model.onChangedGesture(card: cardIngredient, translation: value.translation.width)
                     }
                     .onEnded { value in
-                        viewModel.onEndedGesture(value, cardIngredient)
+                        model.onEndedGesture(value, cardIngredient)
                     }
             )
         }
     }
     
     #Preview {
-        IngredientCard(cardIngredient: CardIngredient.gin, viewModel: PatchBay.patch.makeSwipeViewModel())
+        IngredientCard(cardIngredient: CardIngredient.gin, model: PatchBay.patch.makeSwipeModel())
     }
     
     

@@ -1,5 +1,5 @@
 //
-//  GenerableViewModel.swift
+//  GenerableModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 02/07/2025.
@@ -9,7 +9,7 @@ import Foundation
 import FoundationModels
 
 @Observable
-final class GenerableViewModel {
+final class GenerableModel {
     let useCase: GenerableUseCase
     let session: LanguageModelSession
 
@@ -19,6 +19,7 @@ final class GenerableViewModel {
     var showButtons = false
     var notAvailable = false
     var pushToAI = false
+    var askedToCreate = false
     
     init(useCase: GenerableUseCase) {
         self.session = LanguageModelSession(

@@ -12,7 +12,7 @@ extension IngredientsListCreation {
     /// The toolbar to validate the cocktail's ingredients - cancel or done.
     struct IngredientsToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
-        @Bindable var viewModel: CreationViewModel
+        @Bindable var model: CreationModel
         @FocusState.Binding var focus: Focus?
         
         let cocktail: Cocktail
@@ -21,13 +21,13 @@ extension IngredientsListCreation {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Done", role: .confirm) {
                     do {
-                        try viewModel.checkForIngredients(cocktail.ingredients)
+                        try model.checkForIngredients(cocktail.ingredients)
                         dismiss()
                     } catch {
-                        viewModel.measuresFieldMissing = true
+                        model.measuresFieldMissing = true
                     }
                 }
-                .alert("Missing fields", isPresented: $viewModel.measuresFieldMissing) {
+                .alert("Missing fields", isPresented: $model.measuresFieldMissing) {
                     
                 } message: {
                     Text(CreationErrors.emptyMeasuresFields.localizedDescription)
@@ -37,7 +37,7 @@ extension IngredientsListCreation {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel", role: .cancel) {
                     dismiss()
-                    cocktail.ingredients = viewModel.currentIngredientsState
+                    cocktail.ingredients = model.currentIngredientsState
                 }
             }
             KeyboardReturnButton(focus: $focus)
@@ -50,7 +50,7 @@ extension IngredientsListCreation {
     NavigationStack {
         Text("IngredientsToolbar")
             .toolbar {
-                IngredientsListCreation.IngredientsToolbar(viewModel: PatchBay.patch.makeCreationViewModel(), focus: $focus, cocktail: Cocktail.ginto)
+                IngredientsListCreation.IngredientsToolbar(model: PatchBay.patch.makeCreationModel(), focus: $focus, cocktail: Cocktail.ginto)
             }
     }
 }

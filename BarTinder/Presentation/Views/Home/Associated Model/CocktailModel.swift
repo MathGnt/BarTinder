@@ -1,5 +1,5 @@
 //
-//  CocktailViewModel.swift
+//  CocktailModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 09/05/2025.
@@ -10,13 +10,12 @@ import SwiftData
 import Observation
 
 @Observable
-final class CocktailViewModel {
+final class CocktailModel {
     var selectedIngredient: CardIngredient?
     var filterOption: CocktailFilterPredicate = .possibleCocktails
     var sortOption: CocktailSortDescriptor = .name
     var isReversed: Bool = false
     var resetConfirmation = false
-    var showCreationSheet = false
     var showNewIdeaSheet = false
     var askForDelete = false
 

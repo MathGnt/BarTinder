@@ -12,14 +12,14 @@ import PhotosUI
 /// A sheet allowing the user to create or edit his own cocktail.
 struct CreateEditCocktail: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel = PatchBay.patch.makeCreationViewModel()
+    @State private var model = PatchBay.patch.makeCreationModel()
     @FocusState private var focus: Focus?
     @Bindable var cocktail: Cocktail
     
     var body: some View {
         List {
             Section {
-                CocktailPreviewHeader(selectedImage: $viewModel.selectedPic, cocktail: cocktail)
+                CocktailPreviewHeader(selectedImage: $model.selectedPic, cocktail: cocktail)
             }
     
             Section {
@@ -30,8 +30,8 @@ struct CreateEditCocktail: View {
             
             Section {
                 Button {
-                    viewModel.showIngredientsSheet = true
-                    viewModel.currentIngredientsState = cocktail.ingredients
+                    model.showIngredientsSheet = true
+                    model.currentIngredientsState = cocktail.ingredients
                 } label: {
                     SelectYourIngredientsLabel(cocktail: cocktail)
                         .contentShape(.rect)
@@ -42,7 +42,7 @@ struct CreateEditCocktail: View {
                     ingredientPreviewer(ingredient)
                 }
                 .onDelete { IndexSet in
-                    viewModel.removeIngredient(indexSet: IndexSet, cocktail)
+                    model.removeIngredient(indexSet: IndexSet, cocktail)
                 }
             }
             
@@ -57,12 +57,12 @@ struct CreateEditCocktail: View {
         .toolbar {
             CreationToolbar(focus: $focus, cocktail: cocktail)
         }
-        .environment(viewModel)
-        .sheet(isPresented: $viewModel.showIngredientsSheet) {
+        .environment(model)
+        .sheet(isPresented: $model.showIngredientsSheet) {
             NavigationStack {
                 IngredientsListCreation(cocktail: cocktail, focus: $focus)
                     .interactiveDismissDisabled()
-                    .environment(viewModel)
+                    .environment(model)
             }
         }
     }

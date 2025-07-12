@@ -12,7 +12,6 @@ extension CocktailDetail {
     struct DetailToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
         @Environment(\.swiftData) private var swiftData
-        @Environment(CocktailViewModel.self) private var viewModel
         
         let cocktail: Cocktail
         
@@ -60,6 +59,5 @@ extension CocktailDetail {
             .toolbar {
                 CocktailDetail.DetailToolbar(cocktail: Cocktail.ginto)
             }
-            .environment(PatchBay.patch.makeCocktailViewModel())
     }
 }

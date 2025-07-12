@@ -10,7 +10,7 @@ import SwiftUI
 extension CreateEditCocktail {
     /// The toolbar to create the cocktail - cancel or create.
     struct CreationToolbar: ToolbarContent {
-        @Environment(CreationViewModel.self) private var viewModel
+        @Environment(CreationModel.self) private var model
         @FocusState.Binding var focus: Focus?
         
         let cocktail: Cocktail
@@ -25,23 +25,23 @@ extension CreateEditCocktail {
 }
 
 private struct CreateCocktailButton: ToolbarContent {
-    @Environment(CreationViewModel.self) private var viewModel
+    @Environment(CreationModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @FocusState.Binding var focus: Focus?
     
     let cocktail: Cocktail
     
     var body: some ToolbarContent {
-        @Bindable var viewModel = viewModel
+        @Bindable var model = model
         
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 do {
-                    try viewModel.checkAndInsertCocktail(cocktail)
+                    try model.checkAndInsertCocktail(cocktail)
                     dismiss()
                 } catch CreationErrors.emptyCocktailFields(let field) {
-                    viewModel.missingFocus = field
-                    viewModel.generalCocktailFieldsMissing = true
+                    model.missingFocus = field
+                    model.generalCocktailFieldsMissing = true
                 } catch {
                     print("Unknown error")
                 }
@@ -50,14 +50,11 @@ private struct CreateCocktailButton: ToolbarContent {
                 Text("Done")
                     .foregroundStyle(.validate)
             }
-            .alert("Missing fields", isPresented: $viewModel.generalCocktailFieldsMissing) {
-                Button("Cancel", role: .cancel) {
-                }
-                
+            .alert("Missing fields", isPresented: $model.generalCocktailFieldsMissing) {
                 Button("Fill field", role: .confirm) {
-                    focus = viewModel.missingFocus
-                    if viewModel.missingFocus == .measure {
-                        viewModel.showIngredientsSheet = true
+                    focus = model.missingFocus
+                    if model.missingFocus == .measure {
+                        model.showIngredientsSheet = true
                     }
                 }
                 
@@ -69,23 +66,23 @@ private struct CreateCocktailButton: ToolbarContent {
 }
 
 private struct CancelCocktailButton: ToolbarContent {
-    @Environment(CreationViewModel.self) private var viewModel
+    @Environment(CreationModel.self) private var model
     @Environment(\.swiftData) private var swiftData
     @Environment(\.dismiss) private var dismiss
     
     let cocktail: Cocktail
     
     var body: some ToolbarContent {
-        @Bindable var viewModel = viewModel
+        @Bindable var model = model
         
         ToolbarItem(placement: .cancellationAction) {
             Button {
-                viewModel.askForDiscard = true
+                model.askForDiscard = true
             } label: {
                 Text("Cancel")
                     .foregroundStyle(.applered)
             }
-            .confirmationDialog("Discard Changes", isPresented: $viewModel.askForDiscard) {
+            .confirmationDialog("Discard Changes", isPresented: $model.askForDiscard) {
                 Button("Discard Changes", role: .destructive) {
                     dismiss()
                 }
@@ -103,7 +100,7 @@ private struct CancelCocktailButton: ToolbarContent {
             .toolbar {
                 CreateEditCocktail.CreationToolbar(focus: $focus, cocktail: Cocktail.ginto)
             }
-            .environment(PatchBay.patch.makeCreationViewModel())
+            .environment(PatchBay.patch.makeCreationModel())
     }
 }
 

@@ -10,15 +10,15 @@ import SwiftUI
 extension GetInspired {
     /// A view that shows all the details about the generated cocktail.
     struct InfosCard: View {
-        @Environment(GenerableViewModel.self) private var viewModel
+        @Environment(GenerableModel.self) private var model
         @State private var value = false
         
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
-                if let cocktailStyle = viewModel.cocktailIdea?.style,
-                   let cocktailTechnique = viewModel.cocktailIdea?.mixingTechnique,
-                   let cocktailGlass = viewModel.cocktailIdea?.glass,
-                   let cocktailDifficulty = viewModel.cocktailIdea?.difficulty {
+                if let cocktailStyle = model.cocktailIdea?.style,
+                   let cocktailTechnique = model.cocktailIdea?.mixingTechnique,
+                   let cocktailGlass = model.cocktailIdea?.glass,
+                   let cocktailDifficulty = model.cocktailIdea?.difficulty {
                     
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
@@ -39,7 +39,7 @@ extension GetInspired {
                         }
                     }
                     .padding(.horizontal)
-                } else if viewModel.cocktailIdea != nil {
+                } else if model.cocktailIdea != nil {
                     PlaceHolderGenerable(
                         image: "circle.dotted.circle.fill", 
                         titleOne: "Designing", 
@@ -48,7 +48,7 @@ extension GetInspired {
                     .transition(.opacity.combined(with: .scale))
                 }
                 
-                if let ingredients = viewModel.cocktailIdea?.ingredients {
+                if let ingredients = model.cocktailIdea?.ingredients {
                     VStack(alignment: .leading, spacing: 12) {
                         ForEach(ingredients) { ingredient in
                             IngredientRowGenerable(ingredient: ingredient)
@@ -58,7 +58,7 @@ extension GetInspired {
                                 .padding(.horizontal)
                         }
                     }
-                } else if viewModel.cocktailIdea != nil {
+                } else if model.cocktailIdea != nil {
                     PlaceHolderGenerable(
                         image: "flask.fill", 
                         titleOne: "Mixing", 
@@ -70,15 +70,15 @@ extension GetInspired {
             .onAppear {
                 value = true
             }
-            .animation(.easeInOut(duration: 0.3), value: viewModel.cocktailIdea?.ingredients != nil)
-            .animation(.easeInOut(duration: 0.3), value: viewModel.cocktailIdea?.style != nil)
+            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.ingredients != nil)
+            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.style != nil)
         }
     }
 }
 
 #Preview {
     GetInspired.InfosCard()
-        .environment(PatchBay.patch.makeGenerableViewModel())
+        .environment(PatchBay.patch.makeGenerableModel())
 }
 
 

@@ -13,7 +13,7 @@ extension IngredientsListCreation {
     struct AllIngredients: View {
         let cocktail: Cocktail
         let ingredient: CardIngredient
-        let viewModel: CreationViewModel
+        let model: CreationModel
         
         var body: some View {
             HStack {
@@ -27,7 +27,7 @@ extension IngredientsListCreation {
                 Spacer()
                 
                 Button {
-                    viewModel.addIngredient(cocktail, ingredient)
+                    model.addIngredient(cocktail, ingredient)
                 } label: {
                     Image(systemName: cocktail.ingredients.contains(where: { $0.name == ingredient.name }) ? "checkmark.circle.fill" : "plus.circle.fill")
                         .resizable()
@@ -35,11 +35,12 @@ extension IngredientsListCreation {
                         .foregroundStyle(cocktail.ingredients.contains(where: { $0.name == ingredient.name }) ? .green : .turborider)
                 }
                 .buttonStyle(.borderless)
+                .disabled(cocktail.ingredients.contains(where: { $0.name == ingredient.name}))
             }
         }
     }
 }
 
 #Preview {
-    IngredientsListCreation.AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.gin, viewModel: PatchBay.patch.makeCreationViewModel())
+    IngredientsListCreation.AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.gin, model: PatchBay.patch.makeCreationModel())
 }

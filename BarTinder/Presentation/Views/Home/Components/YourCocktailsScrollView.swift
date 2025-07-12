@@ -11,32 +11,36 @@ import SwiftData
 extension Home {
     /// A  scrollview that shows all the available cocktails the user have.
     struct YourCocktailsScrollView: View {
-        @Bindable var viewModel: CocktailViewModel
+        @Bindable var model: CocktailModel
         @Namespace private var namespace
         @Query private var cocktails: [Cocktail]
         
-        init(viewModel: CocktailViewModel) {
-            self.viewModel = viewModel
+        init(model: CocktailModel) {
+            self.model = model
             
             /// Dynamic filtering & sorting
-            _cocktails = Query(viewModel.yourCocktailsDescriptor)
+            _cocktails = Query(model.yourCocktailsDescriptor)
         }
         
         var body: some View {
-            ScrollView(.horizontal) {
-                LazyHStack(spacing: BarTinderApp.Padding.scrollViewSpacing) {
-                    ForEach(cocktails) { cocktail in
-                        NavigationLink {
-                            CocktailDetail(cocktail: cocktail)
-                                .navigationTransition(.zoom(sourceID: cocktail.id, in: namespace))
-                        } label: {
-                            CocktailImageSource(cocktail: cocktail)
-                                .matchedTransitionSource(id: cocktail.id, in: namespace)
+            if cocktails.isEmpty {
+                ContentUnavailableView("No cocktails", systemImage: "wineglass", description: Text("You don't have any cocktails that fulfill this search."))
+            } else {
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: BarTinderApp.Padding.scrollViewSpacing) {
+                        ForEach(cocktails) { cocktail in
+                            NavigationLink {
+                                CocktailDetail(cocktail: cocktail)
+                                    .navigationTransition(.zoom(sourceID: cocktail.id, in: namespace))
+                            } label: {
+                                CocktailImageSource(cocktail: cocktail)
+                                    .matchedTransitionSource(id: cocktail.id, in: namespace)
+                            }
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
-            .scrollIndicators(.hidden)
         }
     }
 }
@@ -83,5 +87,5 @@ private struct CocktailImageSource: View {
 }
 
 #Preview(traits: .queryMocks) {
-    Home.YourCocktailsScrollView(viewModel: PatchBay.patch.makeCocktailViewModel())
+    Home.YourCocktailsScrollView(model: PatchBay.patch.makeCocktailModel())
 }

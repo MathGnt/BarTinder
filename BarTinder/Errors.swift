@@ -22,7 +22,7 @@ nonisolated enum CreationErrors: LocalizedError, Equatable {
         case .emptyCocktailFields:
             "Some fields are missing!"
         case .emptyMeasuresFields:
-            "Some ingredients doesn't have measures"
+            "Some ingredients are missing or doesn't have measures"
         }
     }
 }

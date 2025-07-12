@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension BarTinderApp {
-    struct Padding {
+    enum Padding {
         static let image: CGFloat = 40
         static let mainCornerRadius: CGFloat = 20
         static let ingredientSpacing: CGFloat = 15
@@ -104,7 +104,7 @@ private struct CharacterLimitModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: text) { oldValue, newValue in
+            .onChange(of: text) { _, newValue in
                 if newValue.count > limit {
                     text = String(newValue.prefix(limit))
                 }

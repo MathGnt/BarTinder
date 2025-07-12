@@ -11,7 +11,7 @@ import SwiftData
 /// The first view of the app that shows many ingredient cards the user can swipe.
 struct Swipe: View {
     @Environment(Storage.self) private var appStorage
-    @State private var viewModel = PatchBay.patch.makeSwipeViewModel()
+    @State private var model = PatchBay.patch.makeSwipeModel()
     
     var body: some View {
         ZStack {
@@ -30,13 +30,13 @@ struct Swipe: View {
                         .padding(.horizontal)
                         
                         ZStack {
-                            ForEach(viewModel.ingredients.reversed()) { card in
-                                IngredientCard(cardIngredient: card, viewModel: viewModel)
+                            ForEach(model.ingredients.reversed()) { card in
+                                IngredientCard(cardIngredient: card, model: model)
                             }
                         }
-                        .onChange(of: viewModel.ingredients) { oldValue, newValue in
+                        .onChange(of: model.ingredients) { _, newValue in
                             if !newValue.isEmpty { return }
-                            viewModel.updatePossibleCocktails()
+                            model.updatePossibleCocktails()
                             withAnimation(.easeIn) {
                                 appStorage.hasFinshedSwiping = true
                             }
@@ -44,16 +44,16 @@ struct Swipe: View {
                         .animation(.easeInOut, value: appStorage.hasFinshedSwiping)
                         
                         HStack(spacing: 50) {
-                            if let topCard = viewModel.ingredients.first {
+                            if let topCard = model.ingredients.first {
                                 BottomButtons(image: "xmark", color: .applered) {
-                                    viewModel.triggerSwipeLeft(card: topCard)
+                                    model.triggerSwipeLeft(card: topCard)
                                 }
                                 BottomButtons(image: "wineglass.fill", color: .blue) {
                                     // Unused
                                 }
                                 .opacity(0)
                                 BottomButtons(image: "heart.fill", color: .validate) {
-                                    viewModel.triggerSwipeRight(card: topCard)
+                                    model.triggerSwipeRight(card: topCard)
                                 }
                             }
                         }
@@ -62,13 +62,13 @@ struct Swipe: View {
                 }
                 .onAppear {
                     if !appStorage.hasFetched {
-                        viewModel.getCocktails()
+                        model.getCocktails()
                         appStorage.hasFetched = true
                     }
                 }
                 .transition(.opacity.combined(with: .scale))
         }
-        .alert("Server Error", isPresented: $viewModel.fetchingError) {
+        .alert("Server Error", isPresented: $model.fetchingError) {
             Button("Cancel") {}
         } message: {
             Text("Couldnt fetch cocktails for your selection")

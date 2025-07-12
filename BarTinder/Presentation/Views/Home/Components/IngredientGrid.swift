@@ -10,7 +10,7 @@ import SwiftUI
 extension Home {
     /// A scrollview of ingredients depending of the season.
     struct IngredientGrid: View {
-        @Environment(CocktailViewModel.self) private var viewModel
+        @Environment(CocktailModel.self) private var model
         @Namespace private var namespace
     
         let rows = [
@@ -19,7 +19,7 @@ extension Home {
         ]
         
         var body: some View {
-            @Bindable var viewModel = viewModel
+            @Bindable var model = model
             
             ScrollView(.horizontal) {
                 LazyHGrid(rows: rows, spacing: BarTinderApp.Padding.scrollViewSpacing) {
@@ -30,7 +30,7 @@ extension Home {
                             .frame(width: 150, height: 200)
                             .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                             .onTapGesture {
-                                viewModel.selectedIngredient = ingredient
+                                model.selectedIngredient = ingredient
                             }
                             .matchedTransitionSource(id: ingredient.id, in: namespace)
                            
@@ -38,7 +38,7 @@ extension Home {
                 }
             }
             .scrollIndicators(.hidden)
-            .navigationDestination(item: $viewModel.selectedIngredient) { ingredient in
+            .navigationDestination(item: $model.selectedIngredient) { ingredient in
                 IngredientMatches(ingredientCard: ingredient)
                     .navigationTransition(.zoom(sourceID: ingredient.id, in: namespace))
                 
@@ -49,5 +49,5 @@ extension Home {
 
 #Preview {
     Home.IngredientGrid()
-        .environment(PatchBay.patch.makeCocktailViewModel())
+        .environment(PatchBay.patch.makeCocktailModel())
 }

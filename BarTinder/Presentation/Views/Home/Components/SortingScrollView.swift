@@ -10,7 +10,7 @@ import SwiftUI
 extension Home {
     /// A menu bar to sort and filter the cocktails.
     struct SortingScrollView: View {
-        @Environment(CocktailViewModel.self) private var viewModel
+        @Environment(CocktailModel.self) private var model
         
         let title: String
         let filterOption: CocktailFilterPredicate
@@ -18,20 +18,20 @@ extension Home {
         var body: some View {
             Button(title) {
                 withAnimation(.smooth) {
-                    viewModel.filterOption = filterOption
+                    model.filterOption = filterOption
                 }
             }
             .foregroundStyle(.white)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(viewModel.filterOption == filterOption ? .applered : .gray.opacity(0.6))
+            .background(model.filterOption == filterOption ? .applered : .gray.opacity(0.6))
             .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-            .scaleEffect(viewModel.filterOption == filterOption ? 1.02 : 1)
+            .scaleEffect(model.filterOption == filterOption ? 1.02 : 1)
         }
     }
 }
 
 #Preview {
     Home.SortingScrollView(title: "Gin", filterOption: CocktailFilterPredicate.gin)
-        .environment(PatchBay.patch.makeCocktailViewModel())
+        .environment(PatchBay.patch.makeCocktailModel())
 }

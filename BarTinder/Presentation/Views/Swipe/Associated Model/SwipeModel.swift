@@ -1,5 +1,5 @@
 //
-//  SwipeViewModel.swift
+//  SwipeModel.swift
 //  BarTinder
 //
 //  Created by Mathis Gaignet on 22/04/2025.
@@ -11,7 +11,7 @@ import SwiftUI
 import SwiftData
 
 @Observable
-final class SwipeViewModel {
+final class SwipeModel {
     let useCase: SwipeUseCase
     
     private(set) var ingredients: [CardIngredient] = CardIngredient.ingredientCards

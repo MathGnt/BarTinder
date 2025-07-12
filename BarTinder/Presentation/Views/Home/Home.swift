@@ -10,8 +10,9 @@ import SwiftData
 
 /// The main view of the app.
 struct Home: View {
-    @State private var viewModel = PatchBay.patch.makeCocktailViewModel()
-    @State private var cocktail = Cocktail(isPossible: true)
+    @State private var model = PatchBay.patch.makeCocktailModel()
+    @State private var generableModel: GenerableModel?
+    @State private var cocktail: Cocktail? = nil
     @Namespace private var sheetTransition
     @Namespace private var namespace
     
@@ -34,7 +35,7 @@ struct Home: View {
                         .scrollIndicators(.hidden)
                         
                         sectionTitle(title: "Your Cocktails")
-                        YourCocktailsScrollView(viewModel: viewModel)
+                        YourCocktailsScrollView(model: model)
                             .padding(.horizontal)
                             .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
                         
@@ -42,7 +43,8 @@ struct Home: View {
                         
                         
                         Button {
-                            viewModel.showNewIdeaSheet = true
+                            generableModel = PatchBay.patch.makeGenerableModel()
+                            model.showNewIdeaSheet = true
                         } label: {
                             GetInspiredCard()
                                 .padding(.horizontal)
@@ -59,32 +61,43 @@ struct Home: View {
                     .navigationTitle("Home")
                     .toolbar {
                         HomeToolbar(
-                            sortOption: $viewModel.sortOption,
-                            namespace: sheetTransition,
+                            sortOption: $model.sortOption,
+                            cocktail: $cocktail,
+                            namespace: sheetTransition
                         )
                     }
-                    .sheet(isPresented: $viewModel.showCreationSheet) {
+                    .sheet(item: $cocktail, onDismiss: {
+                        cocktail = nil
+                        if generableModel != nil {
+                            generableModel = nil
+                        }
+                    }) { cocktail in
                         NavigationStack {
                             CreateEditCocktail(cocktail: cocktail)
                                 .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
-                                .onDisappear {
-                                    self.cocktail = Cocktail(isPossible: true)
-                                }
                         }
                     }
                 }
-                if viewModel.showNewIdeaSheet {
-                    DescribeYourCocktail(showNewIdeaSheet: $viewModel.showNewIdeaSheet, namespace: namespace)
+                if model.showNewIdeaSheet {
+                    DescribeYourCocktail(showNewIdeaSheet: $model.showNewIdeaSheet, namespace: namespace)
                         .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 50))
                         .padding(.bottom, 5)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .zIndex(1)
                         .matchedTransitionSource(id: ("get-inspired"), in: namespace)
+                        .environment(generableModel)
                 }
             }
-            .animation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0), value: viewModel.showNewIdeaSheet)
+            .animation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0), value: model.showNewIdeaSheet)
+            .onAppear {
+                if let generableModel {
+                    if generableModel.askedToCreate {
+                        cocktail = generableModel.createCocktail()
+                    }
+                }
+            }
         }
-        .environment(viewModel)
+        .environment(model)
     }
 }
 

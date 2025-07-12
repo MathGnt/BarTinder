@@ -13,7 +13,7 @@ extension IngredientsListCreation {
         @FocusState.Binding var focus: Focus?
         @Bindable var ingredient: Ingredient
         
-        let viewModel: CreationViewModel
+        let model: CreationModel
         
         var body: some View {
             VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
@@ -34,7 +34,7 @@ extension IngredientsListCreation {
                         Text("Measure:")
                         Spacer()
                         
-                        TextField(viewModel.textFieldPlaceholder(ingredient.unit), text: $ingredient.measure)
+                        TextField(model.textFieldPlaceholder(ingredient.unit), text: $ingredient.measure)
                             .focused($focus, equals: .measure)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
@@ -47,7 +47,7 @@ extension IngredientsListCreation {
                     }
                 }
                 .onChange(of: ingredient.unit) { _, newValue in
-                    viewModel.removeMeasure(ingredient, newValue)
+                    model.removeMeasure(ingredient, newValue)
                 }
             }
         }
@@ -57,6 +57,6 @@ extension IngredientsListCreation {
 #Preview {
     @Previewable @FocusState var focus: Focus?
     List {
-        IngredientsListCreation.IngredientRow(focus: $focus, ingredient: Ingredient.gin, viewModel: PatchBay.patch.makeCreationViewModel())
+        IngredientsListCreation.IngredientRow(focus: $focus, ingredient: Ingredient.gin, model: PatchBay.patch.makeCreationModel())
     }
 }
