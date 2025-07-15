@@ -36,7 +36,6 @@ final class PatchBay {
     }
     
 
-    
     /// Use cases
     func makeSwipeUseCase() -> SwipeUseCase {
         SwipeUseCase(repo: makeCocktailRepo())

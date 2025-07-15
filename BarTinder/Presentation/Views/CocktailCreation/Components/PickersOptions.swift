@@ -54,7 +54,7 @@ extension CreateEditCocktail {
             ) { newValue in
                 cocktail.difficultyValue = newValue.rawValue
             }
-
+            
             addToBarToggle
         }
         
@@ -76,7 +76,7 @@ private struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: Vi
     let pickerTitle: String
     @Binding var selection: T
     let onChange: (T) -> Void
-
+    
     var body: some View {
         HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
             pickerImage(title: imageTitle, color: color, system: system)
@@ -94,26 +94,24 @@ private struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: Vi
 
 
 fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some View {
-    ZStack {
-        RoundedRectangle(cornerRadius: 5)
-            .frame(width: 29, height: 27)
-            .foregroundStyle(color)
-            .overlay {
-                if system {
-                    Image(systemName: title)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 18)
-                        .foregroundStyle(.black)
-                } else {
-                    Image(title)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 23, height: 23)
-                        .foregroundStyle(.black)
-                }
+    RoundedRectangle(cornerRadius: 5)
+        .frame(width: 29, height: 27)
+        .foregroundStyle(color)
+        .overlay {
+            if system {
+                Image(systemName: title)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 18)
+                    .foregroundStyle(.black)
+            } else {
+                Image(title)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 23, height: 23)
+                    .foregroundStyle(.black)
             }
-    }
+        }
 }
 
 #Preview {

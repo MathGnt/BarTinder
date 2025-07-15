@@ -53,11 +53,9 @@ private struct CreateCocktailButton: ToolbarContent {
             .alert("Missing fields", isPresented: $model.generalCocktailFieldsMissing) {
                 Button("Fill field", role: .confirm) {
                     focus = model.missingFocus
-                    if model.missingFocus == .measure {
-                        model.showIngredientsSheet = true
-                    }
+                    model.fillMissingField()
+                    
                 }
-                
             } message: {
                 Text("Some fields are missing!")
             }

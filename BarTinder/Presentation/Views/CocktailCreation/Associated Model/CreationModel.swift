@@ -106,5 +106,11 @@ final class CreationModel {
         try useCase.executeCocktailChecking(cocktail)
         useCase.createNewCocktail(cocktail)
     }
+    
+    func fillMissingField() {
+        if missingFocus == .measure {
+            showIngredientsSheet = true
+        }
+    }
 }
 

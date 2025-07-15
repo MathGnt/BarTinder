@@ -14,24 +14,22 @@ struct CocktailDetail: View {
     
     var body: some View {
         ScrollView {
-            ZStack {
-                VStack {
-                    CocktailHeaderPicture(cocktail: cocktail)
-                        .overlay(alignment: .bottom) {
-                            header(cocktail)
-                                .offset(y: -30)
-                        }
-                    
-                    VStack(spacing: 25) {
-                        CocktailHeaderInfos(cocktail: cocktail)
-                        HStack {
-                            IngredientsList(cocktail: cocktail)
-                            Spacer()
-                        }
-                        .padding(.top, 15)
-                        .padding(.horizontal)
+            VStack {
+                CocktailHeaderPicture(cocktail: cocktail)
+                    .overlay(alignment: .bottom) {
+                        header(cocktail)
+                            .offset(y: -30)
+                    }
+                
+                VStack(spacing: 25) {
+                    CocktailHeaderInfos(cocktail: cocktail)
+                    HStack {
+                        IngredientsList(cocktail: cocktail)
                         Spacer()
                     }
+                    .padding(.top, 15)
+                    .padding(.horizontal)
+                    Spacer()
                 }
             }
             .toolbarRole(.editor)
