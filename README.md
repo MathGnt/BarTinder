@@ -113,7 +113,27 @@ Button("Reset") {
 
 ## **Screenshots**
 
-*Coming soon!*
+<div align="center">
+
+### **Ingredient Swiping**
+<img src="screenshots/swiping-portrait.png" width="300" alt="Ingredient Swiping Interface">
+
+### **Bar Discovery**
+<img src="screenshots/bar-portrait.png" width="300" alt="Bar Discovery Screen">
+
+### **Cocktail Details**
+<img src="screenshots/cocktaildetail-portrait.png" width="300" alt="Cocktail Detail View">
+
+### **Your Cocktails**
+<img src="screenshots/yourcocktails-portrait.png" width="300" alt="Personal Cocktail Library">
+
+### **Cocktail Creation**
+<img src="screenshots/cocktailcreation-portrait.png" width="300" alt="Cocktail Creation Interface">
+
+### **Ingredient Creation**
+<img src="screenshots/ingredientscreation-portrait.png" width="300" alt="Ingredient Creation Screen">
+
+</div>
 
 ---
 
