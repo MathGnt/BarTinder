@@ -50,6 +50,7 @@ struct Home: View {
                                 .padding(.horizontal)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel("Build a cocktail with AI")
                         
                         sectionTitle(title: "Summer Ideas Ingredients")
                         IngredientGrid()
@@ -113,6 +114,7 @@ private extension Home {
     private func sectionTitle(title: String) -> some View {
         HStack {
             Text(title)
+                .accessibilityAddTraits(.isHeader)
             Spacer()
         }
         .font(.system(size: 22, weight: .semibold, design: .rounded))

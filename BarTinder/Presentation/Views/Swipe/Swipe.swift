@@ -25,6 +25,7 @@ struct Swipe: View {
                                 .scaledToFill()
                                 .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
                                 .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+                                .accessibilityHidden(true)
                             Spacer()
                         }
                         .padding(.horizontal)

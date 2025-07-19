@@ -31,6 +31,8 @@ extension Swipe {
                 
             }
             .glassEffect(.regular.tint(.applered).interactive())
+            .accessibilityLabel(image == "xmark" ? "Dislike this ingredient" : "Like this ingredient")
+            .accessibilityHint("Swipe left to dislike, or right to like")
         }
     }
     

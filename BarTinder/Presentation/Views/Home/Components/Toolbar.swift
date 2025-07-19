@@ -30,6 +30,8 @@ extension Home {
                         .foregroundStyle(.primary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Create a cocktail")
+                .accessibilityHint("Open the sheet to build your own cocktail")
                 
             }
             .matchedTransitionSource(id: "ingredients-sheet", in: namespace)
@@ -40,6 +42,7 @@ extension Home {
                     Image(systemName: "wineglass")
                         .foregroundStyle(.primary)
                 }
+                .accessibilityLabel("Navigate to your bar")
             }
             ToolbarItem {
                 Menu("Main controls", systemImage: "arrow.up.arrow.down") {
@@ -54,6 +57,7 @@ extension Home {
                             }
                         }
                         .labelsVisibility(.visible)
+                        .accessibilityLabel("Sorting and filtering options")
                     }
                 }
                 .tint(.primary)
@@ -68,6 +72,7 @@ extension Home {
                     Image(systemName: "arrow.counterclockwise")
                         .foregroundStyle(.applered)
                 }
+                .accessibilityLabel("Reset the app")
                 .alert("Are you sure you want to reset to swiping cards?", isPresented: $model.resetConfirmation) {
                     Button("Reset", role: .destructive) {
                         appStorage.hasFetched = false

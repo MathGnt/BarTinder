@@ -52,6 +52,15 @@ extension Swipe {
                         model.onEndedGesture(value, cardIngredient)
                     }
             )
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(cardIngredient.name) from \(cardIngredient.location)")
+            .accessibilityAddTraits(.isButton)
+            .accessibilityAction(named: "Like") {
+                model.triggerSwipeRight(card: cardIngredient)
+            }
+            .accessibilityAction(named: "Dislike") {
+                model.triggerSwipeLeft(card: cardIngredient)
+            }
         }
     }
     
