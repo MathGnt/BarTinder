@@ -29,6 +29,7 @@ final class SwipeModel {
         self.useCase = useCase
     }
     
+    
     func setOffset(for card: CardIngredient, value: CGFloat) {
         cardOffsets[card.id] = value
     }

@@ -12,6 +12,7 @@ import PhotosUI
 /// A sheet allowing the user to create or edit his own cocktail.
 struct CreateEditCocktail: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.swiftData) private var swiftData
     @State private var model = PatchBay.patch.makeCreationModel()
     @FocusState private var focus: Focus?
     @Bindable var cocktail: Cocktail
@@ -21,7 +22,7 @@ struct CreateEditCocktail: View {
             Section {
                 CocktailPreviewHeader(selectedImage: $model.selectedPic, cocktail: cocktail)
             }
-    
+            
             Section {
                 CocktailTextField(focus: $focus, title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name)
                 CocktailTextField(focus: $focus, title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description)
@@ -51,7 +52,7 @@ struct CreateEditCocktail: View {
             }
             
         }
-        .navigationTitle("New Cocktail")
+        .navigationTitle(swiftData.getContextContent(Cocktail.self).contains(cocktail) ? "Edit Cocktail" : "New Cocktail")
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -85,3 +86,8 @@ struct CreateEditCocktail: View {
 #Preview {
     CreateEditCocktail(cocktail: Cocktail.ginto)
 }
+
+
+
+
+
