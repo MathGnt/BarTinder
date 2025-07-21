@@ -42,7 +42,7 @@ final class SwipeUseCase {
     func executeUpdatePossibleCocktails() {
         let cocktails = repo.callGetContextContent()
         for cocktail in cocktails {
-            let ingredientNames = Set(cocktail.ingredients.map { $0.name })
+            let ingredientNames = Set(cocktail.ingredients.map(\.name))
             if selectedIngredients.isSuperset(of: ingredientNames) {
                 cocktail.isPossible = true
             }
@@ -50,3 +50,4 @@ final class SwipeUseCase {
         repo.callContextSave()
     }
 }
+

@@ -15,13 +15,13 @@ struct CocktailIdea {
     var name: String
     @Guide(description: "A short description for the cocktail")
     var description: String
-    @Guide(.anyOf(CocktailGlass.allCases.map { $0.rawValue }))
+    @Guide(.anyOf(CocktailGlass.allCases.map(\.rawValue)))
     var glass: String
-    @Guide(.anyOf(CocktailMixingTechnique.allCases.map { $0.rawValue }))
+    @Guide(.anyOf(CocktailMixingTechnique.allCases.map(\.rawValue)))
     var mixingTechnique: String
-    @Guide(.anyOf(CocktailStyle.allCases.map { $0.rawValue }))
+    @Guide(.anyOf(CocktailStyle.allCases.map(\.rawValue)))
     var style: String
-    @Guide(.anyOf(CocktailDifficulty.allCases.map { $0.rawValue }))
+    @Guide(.anyOf(CocktailDifficulty.allCases.map(\.rawValue)))
     var difficulty: String
     @Guide(description: "The ingredients for the cocktail")
     var ingredients: [IngredientIdea]
@@ -29,11 +29,11 @@ struct CocktailIdea {
 
 @Generable
 struct IngredientIdea {
-    @Guide(.anyOf(CardIngredient.ingredientCards.map { $0.name}))
+    @Guide(.anyOf(CardIngredient.ingredientCards.map(\.name)))
     var name: String
     @Guide(description: "A number that represent the amount", .range(1...20))
     var amount: Int
-    @Guide(.anyOf(Units.allCases.map { $0.rawValue }))
+    @Guide(.anyOf(Units.allCases.map(\.rawValue)))
     var unit: String
 }
 
