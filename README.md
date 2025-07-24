@@ -120,10 +120,7 @@ Button("Reset") {
 <div align="center">
 
 ### **App Demo**
-<video width="300" controls autoplay loop muted>
-  <source src="screenshots/demo.mov" type="video/quicktime">
-  Your browser does not support the video tag.
-</video>
+<img src="screenshots/demo.gif" width="300" alt="BarTinder App Demo">
 
 </div>
 
