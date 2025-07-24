@@ -49,6 +49,10 @@ Built with a robust **Clean Architecture** approach, ensuring:
 - **Maintainability**: Scalable and readable codebase
 - **SOLID Principles**: Following best practices for iOS development
 
+<div align="center">
+<img src="screenshots/cleanarchi.png" width="600" alt="Clean Architecture Diagram">
+</div>
+
 ### **SwiftData Integration**
 
 The app leverages **SwiftData** with a custom abstraction layer to keep data logic out of views:
