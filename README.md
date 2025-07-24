@@ -115,6 +115,20 @@ Button("Reset") {
 
 ---
 
+## **Demo**
+
+<div align="center">
+
+### **App Demo**
+<video width="300" controls autoplay loop muted>
+  <source src="screenshots/demo.mov" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
+
+</div>
+
+---
+
 ## **Screenshots**
 
 <div align="center">
