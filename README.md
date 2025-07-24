@@ -119,8 +119,10 @@ Button("Reset") {
 
 <div align="center">
 
-### **App Demo**
-<img src="screenshots/demo.gif" width="300" alt="BarTinder App Demo">
+### **📱 Watch the Full App Demo**
+[![BarTinder Demo Video](https://img.shields.io/badge/▶️_Watch_Demo-2m44s-red?style=for-the-badge&logo=youtube)](https://github.com/MathGnt/BarTinder/releases/download/v1.0/BarTinder.mov)
+
+*Full app walkthrough showing ingredient swiping, cocktail discovery, and creation features*
 
 </div>
 
