@@ -74,14 +74,12 @@ private struct CancelCocktailButton: ToolbarContent {
         @Bindable var model = model
         
         ToolbarItem(placement: .cancellationAction) {
-            Button {
+            Button("Cancel", systemImage: "xmark") {
                 model.askForDiscard = true
-            } label: {
-                Text("Cancel")
-                    .foregroundStyle(.applered)
             }
+            .tint(.red)
             .confirmationDialog("Discard Changes", isPresented: $model.askForDiscard) {
-                Button("Discard Changes", role: .destructive) {
+                Button("Discard Changes", systemImage: "checkmark") {
                     dismiss()
                 }
             } message: {

@@ -13,7 +13,7 @@ final class GenerableModel {
     let useCase: GenerableUseCase
     let session: LanguageModelSession
 
-    var cocktailIdea: CocktailIdea.PartiallyGenerated?
+    var cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?
     var word = ""
     var guardrailViolation = false
     var showButtons = false

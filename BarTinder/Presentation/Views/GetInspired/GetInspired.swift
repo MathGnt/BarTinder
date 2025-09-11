@@ -108,7 +108,7 @@ private struct TitleHeader: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            if let cocktailName = model.cocktailIdea?.name {
+            if let cocktailName = model.cocktailIdea?.content.name {
                 Text(cocktailName)
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .lineLimit(2)
@@ -121,7 +121,7 @@ private struct TitleHeader: View {
                 .font(.system(size: 28, weight: .bold, design: .rounded))
             }
             
-            if let cocktailDescription = model.cocktailIdea?.description {
+            if let cocktailDescription = model.cocktailIdea?.content.description {
                 Text(cocktailDescription)
                     .font(.system(size: 15, weight: .regular, design: .default))
                     .lineLimit(4)

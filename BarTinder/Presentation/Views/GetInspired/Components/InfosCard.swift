@@ -15,17 +15,16 @@ extension GetInspired {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
-                if let cocktailStyle = model.cocktailIdea?.style,
-                   let cocktailTechnique = model.cocktailIdea?.mixingTechnique,
-                   let cocktailGlass = model.cocktailIdea?.glass,
-                   let cocktailDifficulty = model.cocktailIdea?.difficulty {
+                if let cocktailStyle = model.cocktailIdea?.content.style,
+                   let cocktailGlass = model.cocktailIdea?.content.glass,
+                   let cocktailDifficulty = model.cocktailIdea?.content.difficulty {
                     
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Image(cocktailGlass)
                                 .resizable()
                                 .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                            Text("\(cocktailTechnique.capitalized) • \(cocktailStyle.capitalized)")
+                            Text("\(cocktailStyle.capitalized) \(cocktailStyle.capitalized)")
                                 .font(.subheadline)
                                 .fontWeight(.medium)
                             
@@ -48,7 +47,7 @@ extension GetInspired {
                     .transition(.opacity.combined(with: .scale))
                 }
                 
-                if let ingredients = model.cocktailIdea?.ingredients {
+                if let ingredients = model.cocktailIdea?.content.ingredients {
                     VStack(alignment: .leading, spacing: 12) {
                         ForEach(ingredients) { ingredient in
                             IngredientRowGenerable(ingredient: ingredient)
@@ -58,7 +57,7 @@ extension GetInspired {
                                 .padding(.horizontal)
                         }
                     }
-                } else if model.cocktailIdea != nil {
+                } else if model.cocktailIdea?.content != nil {
                     PlaceHolderGenerable(
                         image: "flask.fill", 
                         titleOne: "Mixing", 
@@ -70,8 +69,8 @@ extension GetInspired {
             .onAppear {
                 value = true
             }
-            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.ingredients != nil)
-            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.style != nil)
+            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.content.ingredients != nil)
+            .animation(.easeInOut(duration: 0.3), value: model.cocktailIdea?.content.style != nil)
         }
     }
 }

@@ -22,17 +22,16 @@ final class GenerableUseCase {
         }
     }
     
-    func executeCreateCocktail(cocktailIdea: CocktailIdea.PartiallyGenerated?) -> Cocktail? {
+    func executeCreateCocktail(cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?) -> Cocktail? {
         var finalIngredients: [Ingredient] = []
         
-        guard let cocktailIdea else { return nil }
-        guard let name = cocktailIdea.name else { return nil }
-        guard let description = cocktailIdea.description else { return nil }
-        guard let ingredients = cocktailIdea.ingredients else { return nil }
-        guard let style = CocktailStyle(rawValue: cocktailIdea.style ?? "short drink") else { return nil }
-        guard let glass = CocktailGlass(rawValue: cocktailIdea.glass ?? "highball") else { return nil }
-        guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea.mixingTechnique ?? "built") else { return nil }
-        guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea.difficulty ?? "easy") else { return nil }
+        guard let name = cocktailIdea?.content.name else { return nil }
+        guard let description = cocktailIdea?.content.description else { return nil }
+        guard let ingredients = cocktailIdea?.content.ingredients else { return nil }
+        guard let style = CocktailStyle(rawValue: cocktailIdea?.content.style ?? "short drink") else { return nil }
+        guard let glass = CocktailGlass(rawValue: cocktailIdea?.content.glass ?? "highball") else { return nil }
+        guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea?.content.mixingTechnique ?? "built") else { return nil }
+        guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea?.content.difficulty ?? "easy") else { return nil }
         
         
         for ingredient in ingredients {

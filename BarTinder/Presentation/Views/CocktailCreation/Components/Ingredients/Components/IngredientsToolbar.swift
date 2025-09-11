@@ -19,7 +19,7 @@ extension IngredientsListCreation {
         
         var body: some ToolbarContent {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Done", role: .confirm) {
+                Button("Done", systemImage: "checkmark") {
                     do {
                         try model.checkForIngredients(cocktail.ingredients)
                         dismiss()
@@ -28,6 +28,8 @@ extension IngredientsListCreation {
                     }
                 }
                 .alert("Missing fields", isPresented: $model.measuresFieldMissing) {
+                
+                        
                     
                 } message: {
                     Text(CreationErrors.emptyMeasuresFields.localizedDescription)
@@ -35,7 +37,7 @@ extension IngredientsListCreation {
             }
             
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel", role: .cancel) {
+                Button("Cancel", systemImage: "xmark") {
                     dismiss()
                     cocktail.ingredients = model.currentIngredientsState
                 }
