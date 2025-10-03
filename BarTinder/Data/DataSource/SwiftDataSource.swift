@@ -37,6 +37,23 @@ final class SwiftDataSource {
         }
     }
     
+    func makeDraftContext(cocktailID: PersistentIdentifier) -> (ModelContext, any PersistentModel) {
+        
+        guard let context else {
+            return (ModelContext(try! ModelContainer(
+                for: Cocktail.self,
+                configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+            )), Cocktail())
+        }
+        
+        let modelContext = ModelContext(context.container)
+        modelContext.autosaveEnabled = false
+        
+        let cocktail = modelContext.model(for: cocktailID)
+        
+        return (modelContext, cocktail)
+    }
+    
     func getContextContent<T: PersistentModel>(_ type: T.Type) -> [T] {
         do {
             let fetch = try context?.fetch(FetchDescriptor<T>())

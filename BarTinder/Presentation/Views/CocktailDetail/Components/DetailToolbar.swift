@@ -21,7 +21,7 @@ extension CocktailDetail {
                     Section {
                         ControlGroup {
                             NavigationLink {
-                                CreateEditCocktail(cocktail: cocktail)
+                                CreateEditCocktail(cocktailID: cocktail.persistentModelID, in: swiftData.context!.container)
                             } label: {
                                 Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
                             }

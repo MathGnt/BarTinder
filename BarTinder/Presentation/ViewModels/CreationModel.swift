@@ -27,7 +27,7 @@ final class CreationModel {
     
     /// Toolbar
     var showIngredientsSheet = false
-    var currentIngredientsState: [Ingredient] = []
+//    var currentIngredientsState: [Ingredient] = []
     var missingFocus: Focus?
     
     /// Alerts & confirmations
@@ -102,9 +102,9 @@ final class CreationModel {
         try useCase.executeIngredientsChecking(ingredients)
     }
     
-    func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) {
+    func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) -> Bool {
         try useCase.executeCocktailChecking(cocktail)
-        useCase.createNewCocktail(cocktail)
+        return true
     }
     
     func fillMissingField() {

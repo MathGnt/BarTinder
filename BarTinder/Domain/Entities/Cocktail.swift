@@ -12,7 +12,7 @@ import SwiftUI
 @Model
 nonisolated final class Cocktail {
     #Index<Cocktail>([\.isInBar, \.isPossible])
-    
+
     @Attribute(.unique)
     var name: String
     @Relationship(deleteRule: .cascade, inverse: \Ingredient.cocktail)

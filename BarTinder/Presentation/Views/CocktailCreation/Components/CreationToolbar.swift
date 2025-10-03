@@ -27,6 +27,7 @@ extension CreateEditCocktail {
 private struct CreateCocktailButton: ToolbarContent {
     @Environment(CreationModel.self) private var model
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.draftContext) private var draftContext
     @FocusState.Binding var focus: Focus?
     
     let cocktail: Cocktail
@@ -37,7 +38,10 @@ private struct CreateCocktailButton: ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 do {
-                    try model.checkAndInsertCocktail(cocktail)
+                    if try model.checkAndInsertCocktail(cocktail) {
+                        draftContext?.insert(cocktail)
+                        try? draftContext?.save()
+                    }
                     dismiss()
                 } catch CreationErrors.emptyCocktailFields(let field) {
                     model.missingFocus = field

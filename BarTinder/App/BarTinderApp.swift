@@ -15,6 +15,7 @@ struct BarTinderApp: App {
     init() {
         do {
             container = try ModelContainer(for: Cocktail.self)
+            container.mainContext.autosaveEnabled = false
             PatchBay.patch.setContext(container.mainContext)
         } catch {
             fatalError("Failed to create Model Context: \(error) migration required")

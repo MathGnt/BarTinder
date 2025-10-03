@@ -63,7 +63,6 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
     
     /// Dynamic filtering
     var filterPredicate: Predicate<Cocktail> {
-    
         switch self {
         case .possibleCocktails:
             return #Predicate<Cocktail> { $0.isPossible }

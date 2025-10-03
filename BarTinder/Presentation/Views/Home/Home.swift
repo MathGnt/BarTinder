@@ -10,6 +10,7 @@ import SwiftData
 
 /// The main view of the app.
 struct Home: View {
+    @Environment(\.swiftData) private var swiftData
     @State private var model = PatchBay.patch.makeCocktailModel()
     @State private var generableModel: GenerableModel?
     @State private var cocktail: Cocktail? = nil
@@ -74,7 +75,7 @@ struct Home: View {
                         }
                     }) { cocktail in
                         NavigationStack {
-                            CreateEditCocktail(cocktail: cocktail)
+                            CreateEditCocktail(newCocktail: cocktail, in: swiftData.context!.container)
                                 .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
                         }
                     }

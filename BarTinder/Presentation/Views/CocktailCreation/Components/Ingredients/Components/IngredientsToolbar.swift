@@ -12,6 +12,7 @@ extension IngredientsListCreation {
     /// The toolbar to validate the cocktail's ingredients - cancel or done.
     struct IngredientsToolbar: ToolbarContent {
         @Environment(\.dismiss) private var dismiss
+        @Environment(\.swiftData) private var swiftData
         @Bindable var model: CreationModel
         @FocusState.Binding var focus: Focus?
         
@@ -23,6 +24,7 @@ extension IngredientsListCreation {
                     do {
                         try model.checkForIngredients(cocktail.ingredients)
                         dismiss()
+                        print("the current cockctail is \(cocktail)")
                     } catch {
                         model.measuresFieldMissing = true
                     }
@@ -39,7 +41,8 @@ extension IngredientsListCreation {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel", systemImage: "xmark") {
                     dismiss()
-                    cocktail.ingredients = model.currentIngredientsState
+                  
+//                    cocktail.ingredients = model.currentIngredientsState
                 }
             }
             KeyboardReturnButton(focus: $focus)

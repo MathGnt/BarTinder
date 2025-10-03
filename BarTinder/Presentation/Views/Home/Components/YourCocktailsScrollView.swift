@@ -67,7 +67,7 @@ private struct CocktailImageSource: View {
                 .contextMenu {
                     if !cocktail.stock {
                         NavigationLink {
-                            CreateEditCocktail(cocktail: cocktail)
+                            CreateEditCocktail(cocktailID: cocktail.persistentModelID, in: swiftData.context!.container)
                         } label: {
                             Label("Edit", systemImage: "rectangle.and.pencil.and.ellipsis")
                         }
