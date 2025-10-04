@@ -15,7 +15,7 @@ final class CreationModel {
     let useCase: CreationUseCase
     
     private(set) var ingredients: [CardIngredient] = []
-
+    
     var selectedPic: PhotosPickerItem?
     var searchableField = ""
     var searchableIngredients: [CardIngredient] {
@@ -27,7 +27,7 @@ final class CreationModel {
     
     /// Toolbar
     var showIngredientsSheet = false
-//    var currentIngredientsState: [Ingredient] = []
+    //    var currentIngredientsState: [Ingredient] = []
     var missingFocus: Focus?
     
     /// Alerts & confirmations
@@ -102,9 +102,9 @@ final class CreationModel {
         try useCase.executeIngredientsChecking(ingredients)
     }
     
-    func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) -> Bool {
+    func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) {
         try useCase.executeCocktailChecking(cocktail)
-        return true
+        useCase.createNewCocktail(cocktail)
     }
     
     func fillMissingField() {

@@ -75,7 +75,7 @@ struct Home: View {
                         }
                     }) { cocktail in
                         NavigationStack {
-                            CreateEditCocktail(newCocktail: cocktail, in: swiftData.context!.container)
+                            CreateEditCocktail(cocktail: cocktail)
                                 .navigationTransition(.zoom(sourceID: "ingredients-sheet", in: sheetTransition))
                         }
                     }
