@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-nonisolated final class Ingredient {
+final class Ingredient {
     var name: String
     var measure: String
     var unit: Units
@@ -23,5 +23,3 @@ nonisolated final class Ingredient {
         self.cocktail = cocktail
     }
 }
-
-

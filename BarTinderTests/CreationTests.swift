@@ -13,7 +13,7 @@ import SwiftData
 struct CocktailCreationTests {
     let container: ModelContainer
     let context: ModelContext
-    
+
     let swiftData: SwiftDataSource
     let repo: RepositoryMock
     let useCase: CreationUseCase

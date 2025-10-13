@@ -13,7 +13,7 @@ enum NetworkErrors: Error {
     case failedToGetCocktails
 }
 
-nonisolated enum CreationErrors: LocalizedError, Equatable {
+enum CreationErrors: LocalizedError, Equatable {
     case emptyCocktailFields(Focus)
     case emptyMeasuresFields
     

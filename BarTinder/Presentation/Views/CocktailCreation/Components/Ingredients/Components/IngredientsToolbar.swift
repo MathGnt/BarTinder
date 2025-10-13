@@ -31,8 +31,6 @@ extension IngredientsListCreation {
                 }
                 .alert("Missing fields", isPresented: $model.measuresFieldMissing) {
                 
-                        
-                    
                 } message: {
                     Text(CreationErrors.emptyMeasuresFields.localizedDescription)
                 }
@@ -41,8 +39,6 @@ extension IngredientsListCreation {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel", systemImage: "xmark") {
                     dismiss()
-                  
-//                    cocktail.ingredients = model.currentIngredientsState
                 }
             }
             KeyboardReturnButton(focus: $focus)

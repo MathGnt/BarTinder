@@ -35,7 +35,7 @@ extension Home {
                     }
                 
                 Button("Generate your idea") {
-                    Task {
+                    Task(name: "Generate the AI cocktail") {
                         await model.generate()
                         showNewIdeaSheet = false
                     }

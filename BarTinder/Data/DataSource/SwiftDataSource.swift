@@ -76,6 +76,7 @@ final class SwiftDataSource {
     
     func contextDeleteAll<T: PersistentModel>(_ model: T.Type) {
         do {
+            
             try context?.delete(model: model)
         } catch {
             print("Failed to deleteAll from context: \(error)")

@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 @Model
-nonisolated final class Cocktail {
+final class Cocktail {
     #Index<Cocktail>([\.isInBar, \.isPossible])
 
     @Attribute(.unique)
@@ -77,4 +77,3 @@ extension Cocktail {
         }
     }
 }
-

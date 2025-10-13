@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 
 /// Factory for the app
+/// It’s also possible to skip it and inject the view models’ dependencies directly. In that case, SwiftDataSource will only be used in the environment.
 final class PatchBay {
     static let patch = PatchBay()
     

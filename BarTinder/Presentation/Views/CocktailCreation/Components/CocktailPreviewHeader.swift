@@ -38,7 +38,7 @@ extension CreateEditCocktail {
                 .alert("Loading error", isPresented: $model.photosError) {
                     Button("Cancel", role: .cancel) {}
                     Button("Retry") {
-                        Task {
+                        Task(name: "Load the cocktail image") {
                             await model.loadSelectedImage(cocktail)
                         }
                     }

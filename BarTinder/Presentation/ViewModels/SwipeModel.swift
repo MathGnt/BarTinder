@@ -108,7 +108,7 @@ final class SwipeModel {
             setRotation(for: card, value: -12)
         }
         
-        Task {
+        Task(name: "User dislikes") {
             try? await Task.sleep(for: .seconds(0.3))
             removeIngredient(card)
         }
@@ -120,7 +120,7 @@ final class SwipeModel {
             setRotation(for: card, value: 12)
         }
         
-        Task {
+        Task(name: "User likes") {
             try? await Task.sleep(for: .seconds(0.3))
             removeIngredient(card)
             addIngredient(card)
