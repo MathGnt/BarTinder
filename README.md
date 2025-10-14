@@ -38,6 +38,12 @@
 - **Visual Customization**: Upload cocktail photos and select your cocktails options among glassware, flavor, ABV..
 - **Personal Library**: Save and organize your creations
 
+### **AI-Powered Cocktail Generation**
+- **Apple Intelligence Integration**: Leverage Foundation Models to generate creative cocktail ideas
+- **Guided AI Output**: Use existing app data (ingredients, glassware, techniques) to constrain AI generation
+- **One-Word Input**: Simply enter a word (like "Ocean", "Summer", or "Spicy") and let Apple Intelligence create a complete cocktail recipe
+- **Structured Generation**: AI respects your app's domain model using `@Generable` and `@Guide` macros
+
 ---
 
 ## **Technical Architecture**
@@ -103,6 +109,171 @@ Button("Reset") {
 
 ---
 
+### **Apple Intelligence with Foundation Models**
+
+BarTinder leverages **Apple Intelligence** to generate creative cocktail recipes using a unique approach: **guiding AI with existing app data** to ensure generated cocktails respect the app's domain model.
+
+#### **The Challenge**
+Traditional AI generation can produce inconsistent or invalid data. How do you ensure Apple Intelligence generates cocktails that match your app's structure (valid glassware, real ingredients, proper units)?
+
+#### **The Solution: Guided Structured Generation**
+
+Using the `@Generable` and `@Guide` macros from Foundation Models, we constrain AI output to only produce valid cocktails based on **existing app data**:
+
+```swift
+import FoundationModels
+
+@Generable
+struct CocktailIdea {
+    // Free-form text generation
+    @Guide(description: "A cool name for the cocktail")
+    var name: String
+
+    @Guide(description: "A short description for the cocktail")
+    var description: String
+
+    // Constrained to existing app data using .anyOf()
+    @Guide(.anyOf(CocktailGlass.allCases.map(\.rawValue)))
+    var glass: String
+
+    @Guide(.anyOf(CocktailMixingTechnique.allCases.map(\.rawValue)))
+    var mixingTechnique: String
+
+    @Guide(.anyOf(CocktailStyle.allCases.map(\.rawValue)))
+    var style: String
+
+    @Guide(.anyOf(CocktailDifficulty.allCases.map(\.rawValue)))
+    var difficulty: String
+
+    // Nested structured generation with constraints
+    @Guide(description: "The ingredients for the cocktail")
+    var ingredients: [IngredientIdea]
+}
+
+@Generable
+struct IngredientIdea {
+    // Only ingredients that exist in the app
+    @Guide(.anyOf(CardIngredient.ingredientCards.map(\.name)))
+    var name: String
+
+    // Constrained range for realistic amounts
+    @Guide(description: "A number that represent the amount", .range(1...20))
+    var amount: Int
+
+    // Valid units only (cl, ml, wedge, etc.)
+    @Guide(.anyOf(Units.allCases.map(\.rawValue)))
+    var unit: String
+}
+```
+
+#### **How It Works**
+
+**1. User enters a single word** (e.g., "Ocean", "Tropical", "Smoky")
+
+**2. ViewModel initiates streaming generation:**
+```swift
+@Observable
+final class GenerableModel {
+    let session: LanguageModelSession
+    var cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?
+
+    func generate() async {
+        // Check device availability
+        guard useCase.executeCheckingAvailability() else {
+            notAvailable = true
+            return
+        }
+
+        let prompt = "Give me an idea for a cocktail that represents the word \(word)"
+        let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self)
+
+        do {
+            // Real-time streaming updates
+            for try await cocktailIdea in streamingResponse {
+                self.cocktailIdea = cocktailIdea
+            }
+        } catch LanguageModelSession.GenerationError.guardrailViolation {
+            // Handle content safety violations
+            guardrailViolation = true
+        }
+    }
+}
+```
+
+**3. UseCase transforms AI output to domain model:**
+```swift
+final class GenerableUseCase {
+    func executeCreateCocktail(cocktailIdea: Snapshot?) -> Cocktail? {
+        guard let name = cocktailIdea?.content.name else { return nil }
+        guard let ingredients = cocktailIdea?.content.ingredients else { return nil }
+        guard let glass = CocktailGlass(rawValue: cocktailIdea?.content.glass ?? "highball") else { return nil }
+
+        var finalIngredients: [Ingredient] = []
+        for ingredient in ingredients {
+            let newIngredient = Ingredient(
+                name: ingredient.name ?? "",
+                measure: String(ingredient.amount ?? 0),
+                unit: Units(rawValue: ingredient.unit ?? "cl") ?? .cl
+            )
+            finalIngredients.append(newIngredient)
+        }
+
+        return Cocktail(
+            name: name,
+            ingredients: finalIngredients,
+            style: glass,
+            // ... other properties
+        )
+    }
+}
+```
+
+#### **Key Features**
+
+**Device Availability Checking**
+```swift
+switch SystemLanguageModel.default.availability {
+case .available:
+    return true
+case .unavailable(.deviceNotEligible):
+    return false
+}
+```
+
+**Performance Optimization with Prewarming**
+```swift
+// Prewarm model when user focuses on text field
+.onChange(of: focus) { _, newValue in
+    if newValue == .word {
+        model.prewarm()
+    }
+}
+```
+
+**Guardrail Violation Handling**
+```swift
+catch LanguageModelSession.GenerationError.guardrailViolation {
+    guardrailViolation = true
+    // Show appropriate error to user
+}
+```
+
+**Streaming Responses for Real-Time Feedback**
+- Users see cocktail details appear progressively
+- Better UX than waiting for complete generation
+
+#### **Why This Approach Works**
+
+**Data Integrity**: AI can only generate cocktails with valid ingredients, glassware, and units that exist in your app
+
+**Domain Consistency**: Generated cocktails seamlessly integrate into the app's existing architecture
+
+**User Trust**: Users get realistic, actionable cocktail recipes, not random AI hallucinations
+
+**Clean Architecture**: Foundation Models integration respects Use Cases → Repository → Domain model pattern
+
+---
+
 ## **Tech Stack**
 
 | Technology | Purpose |
@@ -110,6 +281,7 @@ Button("Reset") {
 | **SwiftUI** | Modern, declarative UI framework |
 | **SwiftData** | Core Data successor for persistence |
 | **Swift 6** | Latest language features & concurrency |
+| **Foundation Models** | Apple Intelligence for AI-powered cocktail generation |
 | **MVVM + Clean Architecture** | Scalable architectural pattern |
 | **Custom Environment Values** | Dependency injection pattern |
 
