@@ -7,7 +7,7 @@
 
 import Testing
 import SwiftData
-@testable import BarTinder
+@testable import BarTinder_Dev
 
 @Suite("Swiping")
 struct SwipeTests {
