@@ -17,19 +17,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2911C9122DAF57BB005869CB /* BarTinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarTinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarTinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2911C9122DAF57BB005869CB /* BarTinder-Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BarTinder-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		299C32DF2DDC97360021FF93 /* BarTinder-DevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BarTinder-DevTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2911C9142DAF57BB005869CB /* BarTinder */ = {
+		2911C9142DAF57BB005869CB /* BarTinder-Dev */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BarTinder;
+			path = "BarTinder-Dev";
 			sourceTree = "<group>";
 		};
-		299C32E02DDC97360021FF93 /* BarTinderTests */ = {
+		299C32E02DDC97360021FF93 /* BarTinder-DevTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BarTinderTests;
+			path = "BarTinder-DevTests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -55,8 +55,8 @@
 		2911C9092DAF57BB005869CB = {
 			isa = PBXGroup;
 			children = (
-				2911C9142DAF57BB005869CB /* BarTinder */,
-				299C32E02DDC97360021FF93 /* BarTinderTests */,
+				2911C9142DAF57BB005869CB /* BarTinder-Dev */,
+				299C32E02DDC97360021FF93 /* BarTinder-DevTests */,
 				2911C9132DAF57BB005869CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,8 +64,8 @@
 		2911C9132DAF57BB005869CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2911C9122DAF57BB005869CB /* BarTinder.app */,
-				299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */,
+				2911C9122DAF57BB005869CB /* BarTinder-Dev.app */,
+				299C32DF2DDC97360021FF93 /* BarTinder-DevTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2911C9112DAF57BB005869CB /* BarTinder */ = {
+		2911C9112DAF57BB005869CB /* BarTinder-Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2911C91E2DAF57BC005869CB /* Build configuration list for PBXNativeTarget "BarTinder" */;
+			buildConfigurationList = 2911C91E2DAF57BC005869CB /* Build configuration list for PBXNativeTarget "BarTinder-Dev" */;
 			buildPhases = (
 				2911C90E2DAF57BB005869CB /* Sources */,
 				2911C90F2DAF57BB005869CB /* Frameworks */,
@@ -87,18 +87,18 @@
 				2901EF642E12DEFE0064F7D4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				2911C9142DAF57BB005869CB /* BarTinder */,
+				2911C9142DAF57BB005869CB /* BarTinder-Dev */,
 			);
-			name = BarTinder;
+			name = "BarTinder-Dev";
 			packageProductDependencies = (
 			);
 			productName = BarTinder;
-			productReference = 2911C9122DAF57BB005869CB /* BarTinder.app */;
+			productReference = 2911C9122DAF57BB005869CB /* BarTinder-Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
-		299C32DE2DDC97360021FF93 /* BarTinderTests */ = {
+		299C32DE2DDC97360021FF93 /* BarTinder-DevTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinderTests" */;
+			buildConfigurationList = 299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinder-DevTests" */;
 			buildPhases = (
 				299C32DB2DDC97360021FF93 /* Sources */,
 				299C32DC2DDC97360021FF93 /* Frameworks */,
@@ -110,13 +110,13 @@
 				299C32E42DDC97360021FF93 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				299C32E02DDC97360021FF93 /* BarTinderTests */,
+				299C32E02DDC97360021FF93 /* BarTinder-DevTests */,
 			);
-			name = BarTinderTests;
+			name = "BarTinder-DevTests";
 			packageProductDependencies = (
 			);
 			productName = BarTinderTests;
-			productReference = 299C32DF2DDC97360021FF93 /* BarTinderTests.xctest */;
+			productReference = 299C32DF2DDC97360021FF93 /* BarTinder-DevTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2911C90D2DAF57BB005869CB /* Build configuration list for PBXProject "BarTinder" */;
+			buildConfigurationList = 2911C90D2DAF57BB005869CB /* Build configuration list for PBXProject "BarTinder-Dev" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -155,8 +155,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2911C9112DAF57BB005869CB /* BarTinder */,
-				299C32DE2DDC97360021FF93 /* BarTinderTests */,
+				2911C9112DAF57BB005869CB /* BarTinder-Dev */,
+				299C32DE2DDC97360021FF93 /* BarTinder-DevTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,7 +202,7 @@
 		};
 		299C32E42DDC97360021FF93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2911C9112DAF57BB005869CB /* BarTinder */;
+			target = 2911C9112DAF57BB005869CB /* BarTinder-Dev */;
 			targetProxy = 299C32E32DDC97360021FF93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -337,7 +337,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BarTinder/BarTinder.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "BarTinder-Dev/BarTinder-Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -381,7 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BarTinder/BarTinder.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "BarTinder-Dev/BarTinder-Dev.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -437,7 +437,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder-Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder-Dev";
 			};
 			name = Debug;
 		};
@@ -458,7 +458,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTinder-Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarTinder-Dev";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -466,7 +466,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2911C90D2DAF57BB005869CB /* Build configuration list for PBXProject "BarTinder" */ = {
+		2911C90D2DAF57BB005869CB /* Build configuration list for PBXProject "BarTinder-Dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2911C91C2DAF57BC005869CB /* Debug */,
@@ -475,7 +475,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2911C91E2DAF57BC005869CB /* Build configuration list for PBXNativeTarget "BarTinder" */ = {
+		2911C91E2DAF57BC005869CB /* Build configuration list for PBXNativeTarget "BarTinder-Dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2911C91F2DAF57BC005869CB /* Debug */,
@@ -484,7 +484,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinderTests" */ = {
+		299C32E52DDC97360021FF93 /* Build configuration list for PBXNativeTarget "BarTinder-DevTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				299C32E62DDC97360021FF93 /* Debug */,

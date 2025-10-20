@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2911C9112DAF57BB005869CB"
-               BuildableName = "BarTinder.app"
-               BlueprintName = "BarTinder"
-               ReferencedContainer = "container:BarTinder.xcodeproj">
+               BuildableName = "BarTinder-Dev.app"
+               BlueprintName = "BarTinder-Dev"
+               ReferencedContainer = "container:BarTinder-Dev.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "299C32DE2DDC97360021FF93"
-               BuildableName = "BarTinderTests.xctest"
-               BlueprintName = "BarTinderTests"
-               ReferencedContainer = "container:BarTinder.xcodeproj">
+               BuildableName = "BarTinder-DevTests.xctest"
+               BlueprintName = "BarTinder-DevTests"
+               ReferencedContainer = "container:BarTinder-Dev.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2911C9112DAF57BB005869CB"
-            BuildableName = "BarTinder.app"
-            BlueprintName = "BarTinder"
-            ReferencedContainer = "container:BarTinder.xcodeproj">
+            BuildableName = "BarTinder-Dev.app"
+            BlueprintName = "BarTinder-Dev"
+            ReferencedContainer = "container:BarTinder-Dev.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2911C9112DAF57BB005869CB"
-            BuildableName = "BarTinder.app"
-            BlueprintName = "BarTinder"
-            ReferencedContainer = "container:BarTinder.xcodeproj">
+            BuildableName = "BarTinder-Dev.app"
+            BlueprintName = "BarTinder-Dev"
+            ReferencedContainer = "container:BarTinder-Dev.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
