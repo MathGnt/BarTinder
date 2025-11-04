@@ -1,9 +1,9 @@
-//
-//  CardIngredient.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 26/04/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The different ingredients available for the app.
+*/
 
 import Foundation
 

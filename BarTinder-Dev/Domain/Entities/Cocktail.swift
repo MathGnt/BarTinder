@@ -1,9 +1,9 @@
-//
-//  Cocktail.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 24/04/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A SwiftData persistent model to store the cocktails created by the user.
+*/
 
 import Foundation
 import SwiftData
@@ -77,3 +77,43 @@ extension Cocktail {
         }
     }
 }
+
+//extension Cocktail: Rollbackable {
+//    struct Snapshot {
+//        let name: String
+//        let ingredients: [Ingredient]
+//        let isInBar: Bool
+//        let imageData: Data?
+//        let style: CocktailStyle
+//        let glass: CocktailGlass
+//        let mixingTechnique: CocktailMixingTechnique
+//        let difficulty: CocktailDifficulty
+//        let cocktailDescription: String
+//    }
+//
+//    func createSnapshot() -> Snapshot {
+//        Snapshot(
+//            name: name,
+//            ingredients: ingredients,
+//            isInBar: isInBar,
+//            imageData: imageData,
+//            style: style,
+//            glass: glass,
+//            mixingTechnique: mixingTechnique,
+//            difficulty: difficulty,
+//            cocktailDescription: cocktailDescription
+//        )
+//    }
+//
+//    func restore(from snapshot: Snapshot) {
+//        name = snapshot.name
+//        ingredients = snapshot.ingredients
+//        isInBar = snapshot.isInBar
+//        imageData = snapshot.imageData
+//        style = snapshot.style
+//        glass = snapshot.glass
+//        mixingTechnique = snapshot.mixingTechnique
+//        difficulty = snapshot.difficulty
+//        cocktailDescription = snapshot.cocktailDescription
+//    }
+//}

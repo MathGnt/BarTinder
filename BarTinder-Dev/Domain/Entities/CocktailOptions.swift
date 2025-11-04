@@ -1,9 +1,9 @@
-//
-//  CocktailOptions.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 02/06/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A file gathering all the cocktail options available as a picker for the user.
+*/
 
 import Foundation
 

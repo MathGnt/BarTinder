@@ -1,13 +1,11 @@
-//
-//  QueryManager.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 11/07/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The filtering, sorting and ordering options available through predicates and descriptors.
+*/
 
 import Foundation
-
-/// Filtering, Sorting and Ordering @Query
 
 //MARK: - SORT DESCRIPTOR
 

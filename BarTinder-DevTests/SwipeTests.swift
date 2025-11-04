@@ -1,9 +1,9 @@
-//
-//  SwipeTests.swift
-//  SwipeTests
-//
-//  Created by Mathis Gaignet on 20/05/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The SwiftTesting file for the swiping and matching logic.
+*/
 
 import Testing
 import SwiftData
@@ -13,23 +13,22 @@ import SwiftData
 struct SwipeTests {
     let container: ModelContainer
     let context: ModelContext
-    let swiftData: SwiftDataSource
     let repo: RepositoryMock
     
     init() throws {
         self.container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         self.context = ModelContext(container)
-        
-        self.swiftData = SwiftDataSource(context: context)
-        self.repo = RepositoryMock(swiftDataSource: swiftData)
+        self.repo = RepositoryMock()
     }
     
     @Test("Should return correct cocktails after swiping cards")
     func correctCocktailsAfterSwipe() throws {
-        let useCase = SwipeUseCase(repo: repo)
-        let model = SwipeModel(useCase: useCase)
+        let useCase = Fetcher(repo: repo)
+        let model = IngredientsModel(useCase: IngredientUseCase())
         
-        model.getCocktails()
+        for cocktail in useCase.executeGetCocktails() {
+            context.insert(cocktail)
+        }
         
         let swipedRightIngredients: [CardIngredient] = [
             .init(image: "mint", name: "mint", otherName: nil, abv: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
@@ -47,9 +46,10 @@ struct SwipeTests {
         for selectedIngredient in swipedRightIngredients {
             model.addIngredient(selectedIngredient)
         }
-
-        let possibleCocktails = swiftData.getContextContent(Cocktail.self).filter(\.isPossible).map(\.name).sorted()
         
+        model.updatePossibleCocktails(cocktails: context.getContent(for: Cocktail.self))
+
+        let possibleCocktails = context.getContent(for: Cocktail.self).filter(\.isPossible).map(\.name).sorted()
         let isSuperset = Set(possibleCocktails) == Set(["Cosmopolitan", "Margarita"])
         
         #expect(isSuperset, "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")

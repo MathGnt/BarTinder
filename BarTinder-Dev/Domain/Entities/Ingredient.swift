@@ -1,9 +1,9 @@
-//
-//  Ingredient.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 29/06/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A SwiftData persistent model to store the ingredients of a cocktail.
+*/
 
 import Foundation
 import SwiftData

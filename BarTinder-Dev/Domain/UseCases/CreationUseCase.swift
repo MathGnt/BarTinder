@@ -1,28 +1,20 @@
-//
-//  CreationUseCase.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 24/05/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A use case that checks and creates the cocktail the user made.
+*/
 
 import Foundation
 
-final class CreationUseCase {
+struct CreationUseCase {
     let repo: Servable
     
     init(repo: Servable) {
         self.repo = repo
     }
     
-    func createNewCocktail(_ cocktail: Cocktail) {
-        repo.callContextInsert(cocktail)
-        repo.callContextSave()
-    }
-    
     func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
-        guard !cocktail.ingredients.isEmpty else {
-            throw .emptyCocktailFields(.measure)
-        }
         guard let invalidField = firstInvalidField(cocktail) else { return }
         throw .emptyCocktailFields(invalidField)
     }

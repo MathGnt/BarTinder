@@ -1,9 +1,9 @@
-//
-//  CocktailDTO.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 17/04/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The DTOs for the network response.
+*/
 
 import Foundation
 

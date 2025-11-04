@@ -1,9 +1,9 @@
-//
-//  Tags.swift
-//  BarTinderTests
-//
-//  Created by Mathis Gaignet on 26/06/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The different tags available to organize the tests.
+*/
 
 import Foundation
 import Testing

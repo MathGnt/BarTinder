@@ -1,9 +1,9 @@
-//
-//  Focus.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 26/06/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+An enum for the different focus states of BarTinder & the return button.
+*/
 
 import Foundation
 import SwiftUI
@@ -12,7 +12,6 @@ import SwiftUI
 nonisolated enum Focus {
     case name
     case description
-    case measure
     case word
 }
 

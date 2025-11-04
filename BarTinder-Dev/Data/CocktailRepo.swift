@@ -1,9 +1,9 @@
-//
-//  CocktailRepo.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 24/04/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The repository of the app that maps DTOs into entities.
+*/
 
 import Foundation
 import SwiftData
@@ -11,14 +11,13 @@ import SwiftUI
 
 final class CocktailRepo: Servable {
     let cocktailDataSource: CocktailDataSource
-    let swiftDataSource: SwiftDataSource
     
-    init(cocktailDataSource: CocktailDataSource, swiftDataSource: SwiftDataSource) {
+    init(cocktailDataSource: CocktailDataSource) {
         self.cocktailDataSource = cocktailDataSource
-        self.swiftDataSource = swiftDataSource
     }
 
-    func getAllCocktails() throws(NetworkErrors) {
+    func getAllCocktails() throws(NetworkErrors) -> [Cocktail] {
+        var cocktails: [Cocktail] = []
         do {
             let cocktailResponse = try cocktailDataSource.getCocktails()
             cocktailResponse.forEach { cocktail in
@@ -50,11 +49,17 @@ final class CocktailRepo: Servable {
                 
                 newCocktail.ingredients = ingredients
                 
-                swiftDataSource.contextInsert(newCocktail)
+                cocktails.append(newCocktail)
             }
+            return cocktails
         } catch {
             print("error mapping cocktail data: \(error)")
             throw .couldntMapCocktails
         }
     }
+}
+
+enum NetworkErrors: Error {
+    case couldntMapCocktails
+    case failedToGetCocktails
 }

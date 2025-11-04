@@ -1,9 +1,9 @@
-//
-//  GenerableCocktail.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 01/07/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A Generable struct used to handle all the requests made to Apple Intelligence.
+*/
 
 import Foundation
 import FoundationModels
@@ -37,7 +37,7 @@ struct IngredientIdea {
     var unit: String
 }
 
-
+#if DEBUG 
 //#Playground {
 //    let word = "Rain"
 //    let instructions = """
@@ -49,3 +49,4 @@ struct IngredientIdea {
 //    let prompt = "Give me an idea for a cocktail that represents the word \(word)"
 //    let response = try await session.respond(to: prompt, generating: CocktailIdea.self)
 //}
+#endif

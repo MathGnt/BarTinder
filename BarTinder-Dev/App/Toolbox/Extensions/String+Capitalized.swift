@@ -1,9 +1,9 @@
-//
-//  CoreExtensions.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 05/05/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+An extension to capitalize measures except cl.
+*/
 
 import Foundation
 import SwiftData

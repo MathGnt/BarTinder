@@ -1,13 +1,13 @@
-//
-//  CocktailDataSource.swift
-//  BarTinder
-//
-//  Created by Mathis Gaignet on 19/04/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+A network call to the cocktail.json file that decodes all the cocktails.
+*/
 
 import Foundation
 
-final class CocktailDataSource { /// Managing the JSON input
+final class CocktailDataSource {
     func getCocktails() throws -> [CocktailDTO] {
         guard let url = Bundle.main.url(forResource: "cocktails", withExtension: "json") else {
             throw URLError(.badURL)
