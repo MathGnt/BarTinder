@@ -25,10 +25,6 @@ extension IngredientsListCreation {
                         model.measuresFieldMissing = true
                     }
                 }
-                Button("Cancel", systemImage: "xmark") {
-                   
-                  
-                }
                 .alert("Missing fields", isPresented: $model.measuresFieldMissing) {
                 
                 } message: {

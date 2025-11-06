@@ -24,7 +24,7 @@ struct SheetDestinations: ViewModifier {
                             CocktailDetail(cocktail: cocktail)
                         case .cocktailEdit(let cocktail):
                             CreateEditCocktail(cocktail: cocktail)
-                                .environment(\.modelContext, cocktail.modelContext ?? context)
+                                .environment(\.modelContext, cocktail.modelContext!)
                                 .interactiveDismissDisabled()
                         case .ingredientsEdit(let cocktail):
                             IngredientsListCreation(cocktail: cocktail)

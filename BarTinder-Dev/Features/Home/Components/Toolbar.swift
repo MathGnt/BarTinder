@@ -20,7 +20,7 @@ extension Home {
             
             ToolbarItem(placement: .topBarLeading) {
                 Button("Create new cocktail", systemImage: "plus") {
-                    router.presentSheet(.cocktailEdit(Cocktail(isPossible: true)))
+                    router.presentSheet(.cocktailEdit(context.switch(for: Cocktail(isPossible: true))))
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Create a cocktail")

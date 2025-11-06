@@ -45,7 +45,7 @@ private struct CreateCocktailButton: ToolbarContent {
                     print("Unknown error \(error)")
                 }
             }
-            .disabled(!cocktail.isNew && !cocktail.hasChanges)
+//            .disabled(!cocktail.isNew && !cocktail.hasChanges)
             // A voir si je peux faire en sorte qu'il soit enabled seulement quand les fields sont complets (création)
             .alert("Missing fields", isPresented: $model.generalCocktailFieldsMissing) {
                 Button("Fill field", role: .confirm) {

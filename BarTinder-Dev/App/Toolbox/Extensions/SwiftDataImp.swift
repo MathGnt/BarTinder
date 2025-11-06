@@ -55,6 +55,11 @@ extension ModelContext {
     func `switch`<T: PersistentModel>(for model: T) -> T {
         let editContext = ModelContext(self.container)
         editContext.autosaveEnabled = false
-        return editContext.model(for: model.persistentModelID) as? T ?? model
+        if model.modelContext != nil {
+            return editContext.model(for: model.persistentModelID) as? T ?? model
+        } else {
+            editContext.insert(model)
+            return model
+        }
     }
 }
