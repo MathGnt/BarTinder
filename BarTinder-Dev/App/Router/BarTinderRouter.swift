@@ -18,8 +18,8 @@ final class Router {
         }
     }
     
-    var navigationPath: [RouterDestination] = []
-    var sheetPath: [SheetDestination] = []
+    var navigationPaths: [RouterDestination] = []
+    var sheetPaths: [SheetDestination] = []
     var presentedSheet: SheetDestination?
     
     init() {
@@ -27,38 +27,38 @@ final class Router {
     }
     
     func navigateTo(_ destination: RouterDestination) {
-        navigationPath.append(destination)
+        navigationPaths.append(destination)
     }
     
     func goBack() {
         if presentedSheet != nil {
-            sheetPath.removeLast()
+            sheetPaths.removeLast()
         } else {
-            navigationPath.removeLast()
+            navigationPaths.removeLast()
         }
     }
     
-    func backToNavRoot() {
-        navigationPath.removeAll()
+    func popToNavRoot() {
+        navigationPaths.removeAll()
     }
     
-    func backToSheetRoot() {
-        sheetPath.removeAll()
+    func popToSheetRoot() {
+        sheetPaths.removeAll()
     }
     
-    func backToAllRoot() {
-        presentedSheet = nil
-        if !sheetPath.isEmpty {
-            backToSheetRoot()
+    func popToAllRoots() {
+        dismissSheet()
+        if !sheetPaths.isEmpty {
+            popToSheetRoot()
         }
-        backToNavRoot()
+        popToNavRoot()
     }
     
     func presentSheet(_ sheet: SheetDestination) {
         if presentedSheet == nil {
             presentedSheet = sheet
         } else {
-            sheetPath.append(sheet)
+            sheetPaths.append(sheet)
         }
     }
     

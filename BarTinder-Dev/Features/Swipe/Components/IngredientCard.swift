@@ -76,7 +76,7 @@ extension Swipe {
     GeometryReader { proxy in
         Swipe.IngredientCard(
             cardIngredient: CardIngredient.ingredientCards[13],
-            model: IngredientsModel(useCase: IngredientUseCase())
+            model: IngredientsModel()
         )
         .environment(\.screenWidth, proxy.size.width)
         .environment(\.screenHeight, proxy.size.height)

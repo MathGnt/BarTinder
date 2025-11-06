@@ -9,35 +9,11 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-extension EnvironmentValues {
-    @Entry var editContext: ModelContext?
-}
-
 struct CreateEditCocktail: View {
-    @Environment(\.modelContext) private var context
     @Environment(Router.self) private var router
-    @State private var model = CocktailCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource())))
+    @State private var model = CocktailCreationModel()
     @FocusState private var focus: Focus?
     @Bindable var cocktail: Cocktail
-    let editContext: ModelContext
-    
-    init(cocktail: Cocktail, container: ModelContainer) {
-        if !container.mainContext.contains(cocktail) {
-            print("Le cocktail est neuf, c'est une création")
-            self._cocktail = Bindable(wrappedValue: cocktail)
-            self.editContext = container.mainContext
-            print("le context du cocktail du début (création) est \(cocktail.modelContext)")
-        } else {
-            print("Le cocktail existe, c'est un edit")
-            let ctx = ModelContext(container)
-            ctx.autosaveEnabled = false
-            self.editContext = ctx
-            self._cocktail = Bindable(wrappedValue: ctx.model(for: cocktail.persistentModelID) as! Cocktail)
-            print("le context du cocktail du début est \(cocktail.modelContext)")
-        }
-        
-    }
-    
     
     var body: some View {
         List {
@@ -69,18 +45,14 @@ struct CreateEditCocktail: View {
                 PickersOptions(cocktail: cocktail)
             }
         }
-        .onAppear {
-            print("c'est - les ingrédients du cocktail sont \(cocktail.ingredients)")
-        }
         .toolbar {
             CreationToolbar(focus: $focus, cocktail: cocktail)
         }
-        .navigationTitle(context.contains(cocktail) ? "Edit Cocktail" : "New Cocktail")
+        .navigationTitle(cocktail.isNew ? "Edit Cocktail" : "New Cocktail")
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)
         .environment(model)
-        .environment(\.editContext, editContext)
     }
     
     private func ingredientPreviewer(_ ingredient: Ingredient) -> some View {
@@ -100,7 +72,7 @@ struct CreateEditCocktail: View {
 
 #Preview {
     @Previewable @FocusState var focus: Focus?
-    CreateEditCocktail(cocktail: Cocktail.ginto, container: try! ModelContainer(for: Cocktail.self))
+    CreateEditCocktail(cocktail: Cocktail.ginto)
         .environment(Router())
 }
 

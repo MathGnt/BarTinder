@@ -17,8 +17,6 @@ final class CocktailModel {
     var resetConfirmation = false
     var showNewIdeaSheet = false
     var askForDelete = false
-    
-    var cocktail = Cocktail(isPossible: true)
 
     var yourCocktailsDescriptor: FetchDescriptor<Cocktail> {
         FetchDescriptor(predicate: filterOption.filterPredicate, sortBy: sortOption.sortDescriptor(reversed: isReversed))

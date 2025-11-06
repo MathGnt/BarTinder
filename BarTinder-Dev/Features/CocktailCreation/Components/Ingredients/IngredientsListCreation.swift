@@ -9,13 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct IngredientsListCreation: View {
-    @State private var model = IngredientCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource())))
+    @State private var model = IngredientCreationModel()
     let cocktail: Cocktail
     
     var body: some View {
         @Bindable var model = model
         List {
-            let _ = print("le contexte du cocktail passé c'est \(cocktail.modelContext)")
             Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
@@ -46,5 +45,5 @@ struct IngredientsListCreation: View {
 #Preview {
     @Previewable @FocusState var focus: Focus?
     IngredientsListCreation(cocktail: Cocktail.ginto)
-        .environment(CocktailCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))))
+        .environment(CocktailCreationModel())
 }

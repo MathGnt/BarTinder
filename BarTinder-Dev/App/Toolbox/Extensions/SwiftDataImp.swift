@@ -9,62 +9,24 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-//protocol Rollbackable {
-//    associatedtype Snapshot
-//    func createSnapshot() -> Snapshot
-//    func restore(from snapshot: Snapshot)
-//}
-//
-
-
-//extension ModelContext {
-//    private static var snapshots: [ObjectIdentifier: Any] = [:]
-//    
-//    func registerSnapshot<T: PersistentModel & Rollbackable>(_ object: T) {
-//        let key = ObjectIdentifier(object)
-//        ModelContext.snapshots[key] = object.createSnapshot()
-//    }
-//    
-//    func rollbackSnapshot<T: PersistentModel & Rollbackable>(_ object: T) {
-//        let key = ObjectIdentifier(object)
-//        guard let snapshot = ModelContext.snapshots[key] as? T.Snapshot else { return }
-//        object.restore(from: snapshot)
-//        ModelContext.snapshots.removeValue(forKey: key)
-//    }
-//    
-//    func rollbackAllSnapshots() {
-//        // Note: Cette approche nécessiterait de stocker aussi les références aux objets
-//        // ou d'utiliser une structure différente
-//        ModelContext.snapshots.removeAll()
-//    }
-//    
-//    func clearSnapshot<T: PersistentModel & Rollbackable>(_ object: T) {
-//        let key = ObjectIdentifier(object)
-//        ModelContext.snapshots.removeValue(forKey: key)
-//    }
-//}
-
 extension ModelContext {
-    func contextInsert<T: PersistentModel>(_ item: T) {
-        self.insert(item)
-        contextSave()
+    func persist<T: PersistentModel>(_ element: T) {
+        if element.modelContext == nil {
+            self.insert(element)
+            try? self.save()
+        } else {
+            try? self.save()
+        }
     }
     
+    // Could be generic if needed while checking for the stock somewhere else
     func contextDelete(_ cocktail: Cocktail) {
         if cocktail.stock {
             cocktail.isPossible = false
         }  else {
             self.delete(cocktail)
         }
-        contextSave()
-    }
-    
-    private func contextSave() {
-        do {
-            try self.save()
-        } catch {
-            print("Save context failed: \(error)")
-        }
+        try? self.save()
     }
     
     func getContent<T: PersistentModel>(for type: T.Type) -> [T] {
@@ -72,7 +34,7 @@ extension ModelContext {
             let fetch = try self.fetch(FetchDescriptor<T>())
             return fetch
         } catch {
-            print("Failed to getContextContent from type \(type)")
+            print("Failed to get context content from type \(type)")
             return []
         }
     }
@@ -87,13 +49,12 @@ extension ModelContext {
         } catch {
             print("Failed to deleteAll from context: \(error)")
         }
-        contextSave()
+        try? self.save()
     }
     
     func `switch`<T: PersistentModel>(for model: T) -> T {
         let editContext = ModelContext(self.container)
         editContext.autosaveEnabled = false
-        return editContext.model(for: model.persistentModelID) as! T
+        return editContext.model(for: model.persistentModelID) as? T ?? model
     }
 }
-

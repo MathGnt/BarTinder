@@ -22,7 +22,7 @@ final class IngredientCreationModel {
         }
     }
     
-    init(useCase: CreationUseCase) {
+    init(useCase: CreationUseCase = CreationUseCase()) {
         self.useCase = useCase
         self.ingredients = CardIngredient.ingredientCards
     }

@@ -23,13 +23,13 @@ extension CocktailDetail {
                         Section {
                             ControlGroup {
                                 Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                                    router.presentSheet(.cocktailEdit(cocktail, context.container))
+                                    router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                                 }
                                 .disabled(cocktail.stock)
                                 
                                 Button(role: .destructive) {
                                     context.contextDelete(cocktail)
-                                    router.backToAllRoot()
+                                    router.popToAllRoots()
                                     
                                 } label: {
                                     Label("Delete", systemImage: "trash")
@@ -53,18 +53,18 @@ extension CocktailDetail {
             case true:
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add", systemImage: "checkmark") {
-                        context.contextInsert(cocktail)
-                        router.backToAllRoot()
+                        context.persist(cocktail)
+                        router.popToAllRoots()
                     }
                 }
                 ToolbarItem {
                     Button("Edit", systemImage: "pencil") {
-                        router.presentSheet(.cocktailEdit(cocktail, context.container))
+                        router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", systemImage: "xmark") {
-                        router.backToAllRoot()
+                        router.popToAllRoots()
                     }
                 }
             }

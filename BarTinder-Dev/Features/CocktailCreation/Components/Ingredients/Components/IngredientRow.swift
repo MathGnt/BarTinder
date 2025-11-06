@@ -55,6 +55,6 @@ extension IngredientsListCreation {
 #Preview {
     @Previewable @FocusState var focus: Focus?
     List {
-        IngredientsListCreation.IngredientRow(ingredient: Ingredient.gin, model: IngredientCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))))
+        IngredientsListCreation.IngredientRow(ingredient: Ingredient.gin, model: IngredientCreationModel())
     }
 }

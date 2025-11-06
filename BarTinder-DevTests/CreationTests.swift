@@ -14,7 +14,6 @@ struct CocktailCreationTests {
     let container: ModelContainer
     let context: ModelContext
 
-    let repo: RepositoryMock
     let useCase: CreationUseCase
     let cocktailModel: CocktailCreationModel
     let ingredientModel: IngredientCreationModel
@@ -23,8 +22,7 @@ struct CocktailCreationTests {
         self.container = try ModelContainer(for: Cocktail.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         self.context = ModelContext(container)
         
-        self.repo = RepositoryMock()
-        self.useCase = CreationUseCase(repo: repo)
+        self.useCase = CreationUseCase()
         self.cocktailModel = CocktailCreationModel(useCase: useCase)
         self.ingredientModel = IngredientCreationModel(useCase: useCase)
     }
@@ -95,7 +93,7 @@ struct CocktailCreationTests {
     ])
     func correctDeleting(isStock: Bool) throws {
         let newCocktail = Cocktail(stock: isStock)
-        context.contextInsert(newCocktail)
+        context.persist(newCocktail)
         context.contextDelete(newCocktail)
         
         let cocktails = context.getContent(for: Cocktail.self)

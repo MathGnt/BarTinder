@@ -76,6 +76,11 @@ extension Cocktail {
         case .hard: return 3
         }
     }
+    
+    @Transient
+    var isNew: Bool {
+        return self.modelContext == nil
+    }
 }
 
 //extension Cocktail: Rollbackable {

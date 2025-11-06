@@ -10,15 +10,9 @@ import SwiftData
 
 enum SheetDestination: Hashable, Identifiable {
     case cocktailDetail(Cocktail)
-    case cocktailEdit(Cocktail, ModelContainer)
+    case cocktailEdit(Cocktail)
     case ingredientsEdit(Cocktail)
     case askedForCocktail
     
     var id: Int { hashValue }
-}
-
-extension ModelContainer: @retroactive Hashable {
-    public func hash(into hasher: inout Hasher) {
-        //
-    }
 }

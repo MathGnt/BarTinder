@@ -21,7 +21,7 @@ final class CocktailCreationModel {
     var photosError = false
     var askForDiscard = false
     
-    init(useCase: CreationUseCase) {
+    init(useCase: CreationUseCase = CreationUseCase()) {
         self.useCase = useCase
     }
     
@@ -47,7 +47,6 @@ final class CocktailCreationModel {
     func checkAndInsertCocktail(_ cocktail: Cocktail) throws(CreationErrors) {
         try useCase.executeCocktailChecking(cocktail)
     }
-
 }
 
 

@@ -64,7 +64,7 @@ private struct CocktailImageSource: View {
                 .contextMenu {
                     if !cocktail.stock {
                         Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                            router.presentSheet(.cocktailEdit(cocktail, context.container))
+                            router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                         }
                     }
                     Button(role: .destructive) {

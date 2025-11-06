@@ -12,7 +12,7 @@ import SwiftUI
 final class CocktailRepo: Servable {
     let cocktailDataSource: CocktailDataSource
     
-    init(cocktailDataSource: CocktailDataSource) {
+    init(cocktailDataSource: CocktailDataSource = CocktailDataSource()) {
         self.cocktailDataSource = cocktailDataSource
     }
 

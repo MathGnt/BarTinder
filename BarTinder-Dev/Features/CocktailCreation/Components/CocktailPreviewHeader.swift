@@ -83,5 +83,5 @@ private struct PhotoPlaceHolder: View {
 
 #Preview {
     CreateEditCocktail.CocktailPreviewHeader(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
-        .environment(CocktailCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))))
+        .environment(CocktailCreationModel())
 }

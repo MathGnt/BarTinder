@@ -37,9 +37,9 @@ struct CocktailDetail: View {
         }
         .ignoresSafeArea()
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(!router.sheetPath.isEmpty)
+        .navigationBarBackButtonHidden(!router.sheetPaths.isEmpty)
         .toolbar {
-            DetailToolbar(isGeneratedCocktail: !router.sheetPath.isEmpty, cocktail: cocktail)
+            DetailToolbar(isGeneratedCocktail: !router.sheetPaths.isEmpty, cocktail: cocktail)
         }
     }
     

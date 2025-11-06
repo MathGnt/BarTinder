@@ -17,7 +17,7 @@ final class IngredientsModel {
 
     private(set) var ingredients: [CardIngredient] = []
 
-    init(useCase: IngredientUseCase) {
+    init(useCase: IngredientUseCase = IngredientUseCase()) {
         self.useCase = useCase
         self.ingredients = CardIngredient.ingredientCards
     }

@@ -8,12 +8,6 @@ A use case that checks and creates the cocktail the user made.
 import Foundation
 
 struct CreationUseCase {
-    let repo: Servable
-    
-    init(repo: Servable) {
-        self.repo = repo
-    }
-    
     func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
         guard let invalidField = firstInvalidField(cocktail) else { return }
         throw .emptyCocktailFields(invalidField)

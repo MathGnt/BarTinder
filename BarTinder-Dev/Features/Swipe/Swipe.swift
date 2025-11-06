@@ -11,7 +11,7 @@ import SwiftData
 struct Swipe: View {
     @Environment(Router.self) private var router
     @Environment(\.modelContext) private var context
-    @State private var model = IngredientsModel(useCase: IngredientUseCase())
+    @State private var model = IngredientsModel()
     
     var body: some View {
         VStack(spacing: 0) {

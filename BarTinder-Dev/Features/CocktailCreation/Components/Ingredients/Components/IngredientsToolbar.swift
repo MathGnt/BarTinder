@@ -44,7 +44,7 @@ extension IngredientsListCreation {
     NavigationStack {
         Text("IngredientsToolbar")
             .toolbar {
-                IngredientsListCreation.IngredientsToolbar(model: IngredientCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))), cocktail: Cocktail.ginto)
+                IngredientsListCreation.IngredientsToolbar(model: IngredientCreationModel(), cocktail: Cocktail.ginto)
             }
             .environment(Router())
     }

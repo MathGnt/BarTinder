@@ -24,7 +24,7 @@ struct SwipeTests {
     @Test("Should return correct cocktails after swiping cards")
     func correctCocktailsAfterSwipe() throws {
         let useCase = Fetcher(repo: repo)
-        let model = IngredientsModel(useCase: IngredientUseCase())
+        let model = IngredientsModel()
         
         for cocktail in useCase.executeGetCocktails() {
             context.insert(cocktail)

@@ -40,5 +40,5 @@ extension IngredientsListCreation {
 }
 
 #Preview {
-    IngredientsListCreation.AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.ingredientCards[4], model: IngredientCreationModel(useCase: CreationUseCase(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))))
+    IngredientsListCreation.AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.ingredientCards[4], model: IngredientCreationModel())
 }

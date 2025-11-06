@@ -15,7 +15,7 @@ struct Home: View {
     
     var body: some View {
         @Bindable var router = router
-        NavigationStack(path: $router.navigationPath) {
+        NavigationStack(path: $router.navigationPaths) {
             ScrollView {
                 VStack(spacing: 0) {
                     ScrollView(.horizontal) {
