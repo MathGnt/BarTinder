@@ -15,6 +15,7 @@ struct Home: View {
     
     var body: some View {
         @Bindable var router = router
+        
         NavigationStack(path: $router.navigationPaths) {
             ScrollView {
                 VStack(spacing: 0) {
@@ -73,8 +74,6 @@ struct Home: View {
         .environment(Router())
 }
 
-
-//MARK: - Small components
 
 private extension Home {
     func sectionTitle(title: String) -> some View {

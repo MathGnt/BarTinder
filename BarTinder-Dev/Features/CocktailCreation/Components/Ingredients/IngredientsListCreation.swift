@@ -13,8 +13,6 @@ struct IngredientsListCreation: View {
     let cocktail: Cocktail
     
     var body: some View {
-        @Bindable var model = model
-        
         List {
             Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
@@ -45,6 +43,9 @@ struct IngredientsListCreation: View {
 
 #Preview {
     @Previewable @FocusState var focus: Focus?
-    IngredientsListCreation(cocktail: Cocktail.ginto)
-        .environment(CocktailCreationModel())
+    NavigationStack {
+        IngredientsListCreation(cocktail: Cocktail.ginto)
+            .environment(CocktailCreationModel())
+            .environment(Router())
+    }
 }

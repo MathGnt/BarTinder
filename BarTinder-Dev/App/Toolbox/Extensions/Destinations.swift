@@ -41,7 +41,7 @@ extension View {
                 case .ingredientsEdit(let cocktail):
                     IngredientsListCreation(cocktail: cocktail)
                 case .askedForCocktail:
-                    GetInspired()
+                    EmptyView()
                 }
             }
     }

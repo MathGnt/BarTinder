@@ -36,17 +36,17 @@ private struct CreateCocktailButton: ToolbarContent {
             Button("Done", systemImage: "checkmark") {
                 do {
                     try model.checkAndInsertCocktail(cocktail)
-                    context.persist(cocktail)
+                    try? context.save()
                     router.popToAllRoots()
                 } catch CreationErrors.emptyCocktailFields(let field) {
                     model.missingFocus = field
+                    model.generalCocktailFieldsMissing = true
+                } catch CreationErrors.emptyMeasuresFields {
                     model.generalCocktailFieldsMissing = true
                 } catch {
                     print("Unknown error \(error)")
                 }
             }
-//            .disabled(!cocktail.isNew && !cocktail.hasChanges)
-            // A voir si je peux faire en sorte qu'il soit enabled seulement quand les fields sont complets (création)
             .alert("Missing fields", isPresented: $model.generalCocktailFieldsMissing) {
                 Button("Fill field", role: .confirm) {
                     focus = model.missingFocus
@@ -66,7 +66,6 @@ private struct CancelCocktailButton: ToolbarContent {
     @Environment(CocktailCreationModel.self) private var model
     @Environment(CocktailModel.self) private var cocktailModel
     @Environment(Router.self) private var router
-
     @Bindable var cocktail: Cocktail
     
     var body: some ToolbarContent {
@@ -79,7 +78,11 @@ private struct CancelCocktailButton: ToolbarContent {
             .tint(.red)
             .confirmationDialog("Discard Changes", isPresented: $model.askForDiscard) {
                 Button("Discard Changes", systemImage: "checkmark") {
-                    router.popToAllRoots()
+                    if router.sheetPaths.count > 1 {
+                        router.popToAllRoots()
+                    } else {
+                        router.dismissSheet()
+                    }
                 }
             } message: {
                 Text("Do you want to discard changes?")
@@ -88,15 +91,16 @@ private struct CancelCocktailButton: ToolbarContent {
     }
 }
 
-//#Preview {
-//    @Previewable @FocusState var focus: Focus?
-//    NavigationStack {
-//        Text("Creation Toolbar")
-//            .toolbar {
-//                CreateEditCocktail.CreationToolbar(focus: $focus, cocktail: Cocktail.ginto)
-//            }
-//            .environment(CocktailCreationModel(useCase: CreationUseCase()))
-//            .environment(Router())
-//    }
-//}
-//
+#Preview {
+    @Previewable @FocusState var focus: Focus?
+    NavigationStack {
+        Text("Creation Toolbar")
+            .toolbar {
+                CreateEditCocktail.CreationToolbar(focus: $focus, cocktail: Cocktail.ginto)
+            }
+            .environment(CocktailCreationModel())
+            .environment(Router())
+            .environment(CocktailModel())
+    }
+}
+

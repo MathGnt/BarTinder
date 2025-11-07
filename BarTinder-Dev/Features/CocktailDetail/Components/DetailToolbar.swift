@@ -23,7 +23,7 @@ extension CocktailDetail {
                         Section {
                             ControlGroup {
                                 Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                                    router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
+                                    router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
                                 }
                                 .disabled(cocktail.stock)
                                 
@@ -53,13 +53,13 @@ extension CocktailDetail {
             case true:
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add", systemImage: "checkmark") {
-                        context.persist(cocktail)
+                        try? context.save()
                         router.popToAllRoots()
                     }
                 }
                 ToolbarItem {
                     Button("Edit", systemImage: "pencil") {
-                        router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
+                        router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {

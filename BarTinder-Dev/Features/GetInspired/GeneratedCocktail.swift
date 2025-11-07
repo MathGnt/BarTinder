@@ -42,17 +42,7 @@ struct GeneratedCocktail: View {
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
-        .background(
-            LinearGradient(
-                stops: [
-                    .init(color: .purple.opacity(0.1), location: 0.0),
-                    .init(color: .purple.opacity(0.05), location: 0.9),
-                    .init(color: .clear, location: 1.0)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
+        .background(gardientTransition)
         .task {
             if model.cocktailIdea == nil {
                 await model.generate()
@@ -90,6 +80,18 @@ extension GeneratedCocktail {
             Label("I don't like it", systemImage: "xmark.diamond")
         }
         .buttonStyle(GenerateButton(color: .red))
+    }
+    
+    private var gardientTransition: some View {
+        LinearGradient(
+            stops: [
+                .init(color: .purple.opacity(0.1), location: 0.0),
+                .init(color: .purple.opacity(0.05), location: 0.9),
+                .init(color: .clear, location: 1.0)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 }
 

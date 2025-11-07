@@ -7,14 +7,12 @@ A file gathering all the cocktail options available as a picker for the user.
 
 import Foundation
 
-/// Pickers for cocktail creation
 enum CocktailStyle: String, Identifiable, CaseIterable, Codable {
     case longDrink = "long drink"
     case shortDrink = "short drink"
     
     var id: String { self.rawValue }
 }
-
 
 enum CocktailGlass: String, Identifiable, CaseIterable, Codable {
     case balloon = "balloon"

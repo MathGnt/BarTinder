@@ -11,13 +11,11 @@ import SwiftData
 extension Home {
     struct YourCocktailsScrollView: View {
         @Bindable var model: CocktailModel
-        @Query private var cocktails: [Cocktail]
         @Namespace private var cocktailZoom
+        @Query private var cocktails: [Cocktail]
         
         init(model: CocktailModel) {
             self.model = model
-            
-            /// Dynamic filtering & sorting
             _cocktails = Query(model.yourCocktailsDescriptor)
         }
         
@@ -64,16 +62,13 @@ private struct CocktailImageSource: View {
                 .contextMenu {
                     if !cocktail.stock {
                         Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                            router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
+                            router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
                         }
                     }
-                    Button(role: .destructive) {
+                    Button("Delete", systemImage: "trash", role: .destructive) {
                         withAnimation {
                             context.contextDelete(cocktail)
                         }
-                        
-                    } label: {
-                        Label("Delete", systemImage: "trash")
                     }
                     .animation(.easeInOut, value: cocktail)
                 }

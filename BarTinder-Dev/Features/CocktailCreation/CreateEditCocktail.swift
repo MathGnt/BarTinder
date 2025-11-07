@@ -18,31 +18,18 @@ struct CreateEditCocktail: View {
     var body: some View {
         List {
             Section {
-                CocktailPreviewHeader(selectedImage: $model.selectedPic, cocktail: cocktail)
+                CocktailPreviewSection(selectedImage: $model.selectedPic, cocktail: cocktail)
             }
-            
             Section {
                 CocktailTextField(focus: $focus, title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name)
                 CocktailTextField(focus: $focus, title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description)
                     .lineLimit(5, reservesSpace: true)
             }
-            
             Section {
-                Button {
-                    router.presentSheet(.ingredientsEdit(cocktail))
-                } label: {
-                    SelectYourIngredientsLabel(cocktail: cocktail)
-                        .contentShape(.rect)
-                }
-                .buttonStyle(.plain)
-                
-                ForEach(cocktail.ingredients) { ingredient in
-                    ingredientPreviewer(ingredient)
-                }
+                IngredientsSection(cocktail: cocktail)
             }
-            
             Section {
-                PickersOptions(cocktail: cocktail)
+                CocktailOptionsSection(cocktail: cocktail)
             }
         }
         .toolbar {
@@ -54,26 +41,16 @@ struct CreateEditCocktail: View {
         .scrollDismissesKeyboard(.interactively)
         .environment(model)
     }
-    
-    private func ingredientPreviewer(_ ingredient: Ingredient) -> some View {
-        HStack(spacing: 0) {
-            Image(ingredient.name.logolized())
-                .resizable()
-                .scaledToFill()
-                .padding(.trailing, 15)
-                .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-            
-            Text(ingredient.name.capitalizedWords)
-            Spacer()
-            Text(ingredient.measure + " " + ingredient.unit.rawValue)
-        }
-    }
 }
+
 
 #Preview {
     @Previewable @FocusState var focus: Focus?
-    CreateEditCocktail(cocktail: Cocktail.ginto)
-        .environment(Router())
+    NavigationStack {
+        CreateEditCocktail(cocktail: Cocktail.ginto)
+            .environment(Router())
+            .environment(CocktailModel())
+    }
 }
 
 

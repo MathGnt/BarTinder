@@ -22,9 +22,9 @@ struct Swipe: View {
                     .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
                     .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
                     .accessibilityHidden(true)
-                Spacer()
             }
             .padding(.horizontal)
+            .padding(.bottom, 30)
             
             ZStack {
                 ForEach(model.ingredients.reversed()) { card in
@@ -38,34 +38,16 @@ struct Swipe: View {
                     router.hasSwiped = true
                 }
             }
-            
-            HStack(spacing: 50) {
-                if let topCard = model.ingredients.first {
-                    BottomButtons(image: "xmark", color: .applered) {
-                        Task { await model.swipeLeft(card: topCard) }
-                    }
-                    .accessibilityAction(named: "Dislike") {
-                        Task { await model.swipeLeft(card: topCard) }
-                    }
-                    BottomButtons(image: "wineglass.fill", color: .blue) {
-                        // Future feature
-                    }
-                    .opacity(0)
-                    BottomButtons(image: "heart.fill", color: .validate) {
-                        Task { await model.swipeRight(card: topCard) }
-                    }
-                    .accessibilityAction(named: "Like") {
-                        Task { await model.swipeRight(card: topCard) }
-                    }
-                }
-            }
-            .frame(height: 100)
         }
         .transition(.opacity.combined(with: .scale))
     }
 }
 
 #Preview {
-    Swipe()
-        .environment(Router())
+    GeometryReader { proxy in
+        Swipe()
+            .environment(Router())
+            .environment(\.screenWidth, proxy.size.width)
+            .environment(\.screenHeight, proxy.size.height)
+    }
 }

@@ -10,16 +10,17 @@ import SwiftData
 import SwiftUI
 
 extension ModelContext {
-    func persist<T: PersistentModel>(_ element: T) {
-        if element.modelContext == nil {
-            self.insert(element)
-            try? self.save()
-        } else {
-            try? self.save()
+    func prepare<T: PersistentModel>(for model: T) -> T {
+        let ctx = ModelContext(self.container)
+        ctx.autosaveEnabled = false
+        guard model.modelContext != nil else {
+            ctx.insert(model)
+            return model
         }
+        return ctx.model(for: model.persistentModelID) as? T ?? model
     }
     
-    // Could be generic if needed while checking for the stock somewhere else
+    // Could be generic if needed while checking for the `stock` somewhere else
     func contextDelete(_ cocktail: Cocktail) {
         if cocktail.stock {
             cocktail.isPossible = false
@@ -50,16 +51,5 @@ extension ModelContext {
             print("Failed to deleteAll from context: \(error)")
         }
         try? self.save()
-    }
-    
-    func `switch`<T: PersistentModel>(for model: T) -> T {
-        let editContext = ModelContext(self.container)
-        editContext.autosaveEnabled = false
-        if model.modelContext != nil {
-            return editContext.model(for: model.persistentModelID) as? T ?? model
-        } else {
-            editContext.insert(model)
-            return model
-        }
     }
 }

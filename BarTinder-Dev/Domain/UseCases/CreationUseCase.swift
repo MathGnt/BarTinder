@@ -9,6 +9,7 @@ import Foundation
 
 struct CreationUseCase {
     func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
+        guard !cocktail.ingredients.isEmpty else { throw .emptyMeasuresFields }
         guard let invalidField = firstInvalidField(cocktail) else { return }
         throw .emptyCocktailFields(invalidField)
     }

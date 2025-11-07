@@ -6,7 +6,6 @@ An enum that handles all the navigation cases for any sheet.
 */
 
 import Foundation
-import SwiftData
 
 enum SheetDestination: Hashable, Identifiable {
     case cocktailDetail(Cocktail)

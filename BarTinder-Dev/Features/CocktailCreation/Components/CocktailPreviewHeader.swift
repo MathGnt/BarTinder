@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 extension CreateEditCocktail {
-    struct CocktailPreviewHeader: View {
+    struct CocktailPreviewSection: View {
         @Environment(CocktailCreationModel.self) private var model
         
         let selectedImage: Binding<PhotosPickerItem?>
@@ -18,9 +18,8 @@ extension CreateEditCocktail {
         var body: some View {
             @Bindable var model = model
             
-            let image = model.imageDataToUI(cocktail) /* Swift 6 scoped */
             HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-                PhotosPicker(selection: selectedImage, matching: .images) {
+                PhotosPicker(selection: selectedImage, matching: .images) { [image = model.imageDataToUI(cocktail)] in
                     if let image {
                         Image(uiImage: image)
                             .resizable()
@@ -82,6 +81,6 @@ private struct PhotoPlaceHolder: View {
 
 
 #Preview {
-    CreateEditCocktail.CocktailPreviewHeader(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
+    CreateEditCocktail.CocktailPreviewSection(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
         .environment(CocktailCreationModel())
 }

@@ -8,7 +8,7 @@ A SwiftUI view component that displays picker options for customizing cocktail p
 import SwiftUI
 
 extension CreateEditCocktail {
-    struct PickersOptions: View {
+    struct CocktailOptionsSection: View {
         @Bindable var cocktail: Cocktail
         
         var body: some View {
@@ -54,10 +54,6 @@ extension CreateEditCocktail {
                 cocktail.difficultyValue = newValue.rawValue
             }
             
-            addToBarToggle
-        }
-        
-        private var addToBarToggle: some View {
             HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 pickerImage(title: "wineglass", color: .applered, system: true)
                 Toggle("Add To Bar", isOn: $cocktail.isInBar)
@@ -115,6 +111,6 @@ fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some 
 
 #Preview {
     List {
-        CreateEditCocktail.PickersOptions(cocktail: Cocktail.ginto)
+        CreateEditCocktail.CocktailOptionsSection(cocktail: Cocktail.ginto)
     }
 }

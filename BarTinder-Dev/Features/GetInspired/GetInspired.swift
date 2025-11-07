@@ -9,9 +9,10 @@ import SwiftUI
 
 struct GetInspired: View {
     @State private var model = GenerableModel()
+    @Binding var inspiredDetent: PresentationDetent
     
     var body: some View {
-        Group {
+        ZStack {
             if model.askedForIdea {
                 GeneratedCocktail()
             } else {
@@ -19,10 +20,17 @@ struct GetInspired: View {
             }
         }
         .animation(.default, value: model.askedForIdea)
+        .onChange(of: model.word) { _, newValue in
+            if !newValue.isEmpty {
+                inspiredDetent = .large
+            } else {
+                inspiredDetent = .height(260)
+            }
+        }
         .environment(model)
     }
 }
 
 #Preview {
-    GetInspired()
+    GetInspired(inspiredDetent: .constant(.height(260)))
 }

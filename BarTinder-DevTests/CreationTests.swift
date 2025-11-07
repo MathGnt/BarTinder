@@ -93,7 +93,7 @@ struct CocktailCreationTests {
     ])
     func correctDeleting(isStock: Bool) throws {
         let newCocktail = Cocktail(stock: isStock)
-        context.persist(newCocktail)
+        context.insert(newCocktail)
         context.contextDelete(newCocktail)
         
         let cocktails = context.getContent(for: Cocktail.self)

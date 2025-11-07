@@ -18,16 +18,12 @@ extension GetInspired {
             @Bindable var model = model
             
             VStack(spacing: 16) {
-                Text("Describe your cocktail in one word")
-                    .font(.system(.title2, design: .rounded, weight: .semibold))
-                    .frame(height: 100)
                 TextField("A word for your future idea", text: $model.word)
                     .focused($focus, equals: .word)
                     .frame(height: 20)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.tfbg.opacity(0.8))
-                    .clipShape(RoundedRectangle(cornerRadius: 50))
+                    .background(.tfbg.opacity(0.8), in: .capsule)
                     .onChange(of: focus) { _, newValue in
                         if newValue == .word {
                             model.prewarm()

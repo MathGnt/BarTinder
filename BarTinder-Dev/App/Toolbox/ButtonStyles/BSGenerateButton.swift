@@ -16,8 +16,7 @@ struct GenerateButton: ButtonStyle {
             .fontWeight(.semibold)
             .frame(maxWidth: .infinity)
             .frame(height: 50)
-            .background(color)
+            .background(color, in: .capsule)
             .buttonStyle(.plain)
-            .clipShape(RoundedRectangle(cornerRadius: 50))
     }
 }
