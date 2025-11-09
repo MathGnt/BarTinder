@@ -26,7 +26,7 @@ struct SwipeTests {
         let useCase = Fetcher(repo: repo)
         let model = IngredientsModel()
         
-        for cocktail in useCase.executeGetCocktails() {
+        for cocktail in useCase.execute() {
             context.insert(cocktail)
         }
         
