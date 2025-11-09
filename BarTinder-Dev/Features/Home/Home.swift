@@ -32,26 +32,29 @@ struct Home: View {
                     }
                     .scrollIndicators(.hidden)
                     
-                    sectionTitle(title: "Your Cocktails")
-                    YourCocktailsScrollView(model: model)
-                        .padding(.horizontal)
-                        .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
-                    
-                    sectionTitle(title: "Get inspired")
-                    Button {
-                        router.presentSheet(.askedForCocktail)
-                    } label: {
-                        GetInspiredCard()
+                    HomeSection("Your Cocktails") {
+                        YourCocktailsScrollView(model: model)
                             .padding(.horizontal)
+                            .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Build a cocktail with AI")
                     
-                    sectionTitle(title: "Summer Ideas Ingredients")
-                    IngredientGrid()
-                        .padding(.horizontal)
-                        .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
-                    
+                    HomeSection("Get Inspired") {
+                        Button {
+                            router.presentSheet(.askedForCocktail)
+                        } label: {
+                            GetInspiredCard()
+                                .padding(.horizontal)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Build a cocktail with Apple Intelligence")
+                    }
+        
+                    HomeSection("Ingredients Ideas") {
+                        IngredientGrid()
+                            .padding(.horizontal)
+                            .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+                    }
+                 
                     Spacer()
                 }
                 .navigationTitle("Home")
@@ -62,29 +65,38 @@ struct Home: View {
                 }
             }
             .barTinderDestinations()
-            .animation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0), value: model.showNewIdeaSheet)
         }
         .barTinderSheetDestinations()
         .environment(model)
     }
 }
 
-#Preview(traits: .queryMocks) {
+#Preview(traits: .queryMocks, .barTinderEnvironments) {
     Home()
-        .environment(Router())
 }
 
+private struct HomeSection<Content: View>: View {
+    let title: String
+    let content: Content
 
-private extension Home {
-    func sectionTitle(title: String) -> some View {
-        HStack {
-            Text(title)
-                .accessibilityAddTraits(.isHeader)
-            Spacer()
+    init(_ title: String, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.content = content()
+    }
+
+    var body: some View {
+        VStack {
+            HStack {
+                Text(title)
+                    .accessibilityAddTraits(.isHeader)
+                Spacer()
+            }
+            .font(.system(size: 22, weight: .semibold, design: .rounded))
+            .padding(.horizontal)
+            .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
+            .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.titleSpacingBottom : BarTinderApp.Padding.bigTitleSpacingBottom)
         }
-        .font(.system(size: 22, weight: .semibold, design: .rounded))
-        .padding(.horizontal)
-        .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
-        .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.titleSpacingBottom : BarTinderApp.Padding.bigTitleSpacingBottom)
+        content
     }
 }
+

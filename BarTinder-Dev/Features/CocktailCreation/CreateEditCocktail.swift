@@ -12,17 +12,16 @@ import PhotosUI
 struct CreateEditCocktail: View {
     @Environment(Router.self) private var router
     @State private var model = CocktailCreationModel()
-    @FocusState private var focus: Focus?
     @Bindable var cocktail: Cocktail
-    
+
     var body: some View {
         List {
             Section {
                 CocktailPreviewSection(selectedImage: $model.selectedPic, cocktail: cocktail)
             }
             Section {
-                CocktailTextField(focus: $focus, title: "Name", binding: $cocktail.name, axis: .horizontal, config: CreationTextFieldConfig.name)
-                CocktailTextField(focus: $focus, title: "Description", binding: $cocktail.cocktailDescription, axis: .vertical, config: CreationTextFieldConfig.description)
+                NameUITextField(text: $cocktail.name)
+                DescriptionTextField(text: $cocktail.cocktailDescription)
                     .lineLimit(5, reservesSpace: true)
             }
             Section {
@@ -33,7 +32,7 @@ struct CreateEditCocktail: View {
             }
         }
         .toolbar {
-            CreationToolbar(focus: $focus, cocktail: cocktail)
+            CreationToolbar(cocktail: cocktail)
         }
         .navigationTitle(cocktail.isNew ? "Edit Cocktail" : "New Cocktail")
         .navigationBarBackButtonHidden()
@@ -44,12 +43,9 @@ struct CreateEditCocktail: View {
 }
 
 
-#Preview {
-    @Previewable @FocusState var focus: Focus?
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         CreateEditCocktail(cocktail: Cocktail.ginto)
-            .environment(Router())
-            .environment(CocktailModel())
     }
 }
 

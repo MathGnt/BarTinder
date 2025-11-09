@@ -17,7 +17,7 @@ extension EnvironmentValues {
 struct BarTinderApp: App {
     @State private var router = Router()
     @State private var fetcher = Fetcher(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))
-    let container: ModelContainer
+    private let container: ModelContainer
     
     init() {
         do {
@@ -62,7 +62,7 @@ struct BarTinderApp: App {
     }
     
     private func fetchCocktails() {
-        for cocktail in fetcher.executeGetCocktails() {
+        for cocktail in fetcher.execute() {
             container.mainContext.insert(cocktail)
         }
     }

@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 extension ModelContext {
-    func prepare<T: PersistentModel>(for model: T) -> T {
+    func `switch`<T: PersistentModel>(for model: T) -> T {
         let ctx = ModelContext(self.container)
         ctx.autosaveEnabled = false
         guard model.modelContext != nil else {

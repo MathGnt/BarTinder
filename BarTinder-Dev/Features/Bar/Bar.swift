@@ -28,6 +28,6 @@ struct Bar: View {
 }
 
 
-#Preview(traits: .queryMocks) {
+#Preview(traits: .queryMocks, .barTinderEnvironments) {
     Bar()
 }

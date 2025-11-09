@@ -41,6 +41,6 @@ extension GeneratedCocktail {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GeneratedCocktail.HeaderMesh()
 }

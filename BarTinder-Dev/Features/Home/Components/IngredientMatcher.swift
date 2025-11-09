@@ -10,12 +10,10 @@ import SwiftData
 
 struct IngredientMatcher: View {
     @Query private var cocktails: [Cocktail]
-    
     let ingredientCard: CardIngredient
 
     init(ingredientCard: CardIngredient) {
         self.ingredientCard = ingredientCard
-        
         _cocktails = Query(filter: CocktailFilterPredicate.byIngredient(ingredientCard))
     }
     
@@ -25,6 +23,6 @@ struct IngredientMatcher: View {
     }
 }
 
-#Preview(traits: .queryMocks) {
-    IngredientMatcher(ingredientCard: CardIngredient.ingredientCards[7])
+#Preview(traits: .queryMocks, .barTinderEnvironments) {
+    IngredientMatcher(ingredientCard: CardIngredient.ingredientCards[5])
 }

@@ -8,22 +8,15 @@ A SwiftUI view component that displays all available ingredients for selection d
 import SwiftUI
 
 extension IngredientsListCreation {
-    struct AllIngredients: View {
+    struct AvailableIngredientRow: View {
         let cocktail: Cocktail
         let ingredient: CardIngredient
         let model: IngredientCreationModel
         
         var body: some View {
             HStack {
-                Image(ingredient.name.logolized())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                Text(ingredient.name.capitalizedWords)
-                    .fontWeight(.medium)
-                
+                IngredientRowLabel(ingredientName: ingredient.name)
                 Spacer()
-                
                 Button {
                     model.addIngredient(cocktail, ingredient)
                 } label: {
@@ -39,6 +32,6 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview {
-    IngredientsListCreation.AllIngredients(cocktail: Cocktail.ginto, ingredient: CardIngredient.ingredientCards[4], model: IngredientCreationModel())
+#Preview(traits: .barTinderEnvironments) {
+    IngredientsListCreation.AvailableIngredientRow(cocktail: Cocktail.ginto, ingredient: CardIngredient.ingredientCards[4], model: IngredientCreationModel())
 }

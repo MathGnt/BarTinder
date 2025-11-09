@@ -10,13 +10,11 @@ import SwiftData
 
 extension CreateEditCocktail {
     struct CreationToolbar: ToolbarContent {
-        @FocusState.Binding var focus: Focus?
         let cocktail: Cocktail
         
         var body: some ToolbarContent {
-            CreateCocktailButton(focus: $focus, cocktail: cocktail)
+            CreateCocktailButton(cocktail: cocktail)
             CancelCocktailButton(cocktail: cocktail)
-            KeyboardReturnButton(focus: $focus)
         }
     }
     
@@ -26,7 +24,6 @@ private struct CreateCocktailButton: ToolbarContent {
     @Environment(Router.self) private var router
     @Environment(CocktailCreationModel.self) private var model
     @Environment(\.modelContext) private var context
-    @FocusState.Binding var focus: Focus?
     let cocktail: Cocktail
     
     var body: some ToolbarContent {
@@ -38,10 +35,7 @@ private struct CreateCocktailButton: ToolbarContent {
                     try model.checkAndInsertCocktail(cocktail)
                     try? context.save()
                     router.popToAllRoots()
-                } catch CreationErrors.emptyCocktailFields(let field) {
-                    model.missingFocus = field
-                    model.generalCocktailFieldsMissing = true
-                } catch CreationErrors.emptyMeasuresFields {
+                } catch CreationErrors.emptyCocktailFields, CreationErrors.emptyMeasuresFields {
                     model.generalCocktailFieldsMissing = true
                 } catch {
                     print("Unknown error \(error)")
@@ -49,7 +43,6 @@ private struct CreateCocktailButton: ToolbarContent {
             }
             .alert("Missing fields", isPresented: $model.generalCocktailFieldsMissing) {
                 Button("Fill field", role: .confirm) {
-                    focus = model.missingFocus
                     if cocktail.ingredients.isEmpty {
                         router.presentSheet(.ingredientsEdit(cocktail))
                     }
@@ -91,16 +84,11 @@ private struct CancelCocktailButton: ToolbarContent {
     }
 }
 
-#Preview {
-    @Previewable @FocusState var focus: Focus?
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         Text("Creation Toolbar")
             .toolbar {
-                CreateEditCocktail.CreationToolbar(focus: $focus, cocktail: Cocktail.ginto)
+                CreateEditCocktail.CreationToolbar(cocktail: Cocktail.ginto)
             }
-            .environment(CocktailCreationModel())
-            .environment(Router())
-            .environment(CocktailModel())
     }
 }
-

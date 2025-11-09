@@ -20,7 +20,7 @@ extension Home {
             
             ToolbarItem(placement: .topBarLeading) {
                 Button("Create new cocktail", systemImage: "plus") {
-                    router.presentSheet(.cocktailEdit(context.prepare(for: Cocktail(isPossible: true))))
+                    router.presentSheet(.cocktailEdit(context.switch(for: Cocktail(isPossible: true))))
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Create a cocktail")
@@ -74,13 +74,12 @@ extension Home {
 }
 
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
+    @Previewable @State var sortOption: CocktailSortDescriptor = .glass
     NavigationStack {
         Text("Home Toolbar")
             .toolbar {
-                Home.HomeToolbar(sortOption: .constant(.glass))
+                Home.HomeToolbar(sortOption: $sortOption)
             }
-            .environment(CocktailModel())
-            .environment(Router())
     }
 }

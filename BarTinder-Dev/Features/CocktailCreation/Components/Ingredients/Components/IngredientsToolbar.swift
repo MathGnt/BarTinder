@@ -35,13 +35,11 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview {
-    @Previewable @FocusState var focus: Focus?
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         Text("IngredientsToolbar")
             .toolbar {
                 IngredientsListCreation.IngredientsToolbar(model: IngredientCreationModel(), cocktail: Cocktail.ginto)
             }
-            .environment(Router())
     }
 }

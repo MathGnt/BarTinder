@@ -10,7 +10,6 @@ import SwiftUI
 struct GeneratedCocktail: View {
     @Environment(Router.self) private var router
     @Environment(GenerableModel.self) private var model
-    @FocusState private var focus: Focus?
     
     var body: some View {
         @Bindable var model = model
@@ -34,7 +33,7 @@ struct GeneratedCocktail: View {
                     }
                     .animation(.easeIn, value: model.showButtons)
                     .padding(.vertical, 24)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: BarTinderApp.CornerRadius.main))
                     .padding(.horizontal)
                     .offset(y: -60)
                 }
@@ -51,35 +50,30 @@ struct GeneratedCocktail: View {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GeneratedCocktail()
-        .environment(GenerableModel())
-        .environment(Router())
 }
 
 
 
 extension GeneratedCocktail {
     private func makeItYoursButton(model: GenerableModel) -> some View {
-        Button {
+        Button("Make it yours", systemImage: "plus.circle.fill") {
             if let cocktail = model.createCocktail() {
                 router.presentSheet(.cocktailDetail(cocktail))
             }
-        } label: {
-            Label("Make it yours", systemImage: "plus.circle.fill")
-                .fontWeight(.semibold)
         }
         .buttonStyle(GenerateButton(color: .blue))
+        .fontWeight(.semibold)
     }
     
     private var iDontLikeItButton: some View {
-        Button {
+        Button("I don't like it", systemImage: "xmark.diamond") {
             router.dismissSheet()
             model.showButtons = false
-        } label: {
-            Label("I don't like it", systemImage: "xmark.diamond")
         }
         .buttonStyle(GenerateButton(color: .red))
+        .fontWeight(.semibold)
     }
     
     private var gardientTransition: some View {
@@ -123,4 +117,3 @@ private struct TitleHeader: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-

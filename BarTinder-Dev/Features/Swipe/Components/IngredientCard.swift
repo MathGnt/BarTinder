@@ -27,19 +27,16 @@ extension Swipe {
                     .resizable()
                     .scaledToFill()
                     .frame(width: cardWidth, height: cardHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-                
+                    .bartinderRounder()
+
                 LinearGradient(colors: [.clear, Color(.systemGray)],
                                startPoint: .center,
                                endPoint: .bottom)
                 .frame(width: cardWidth, height: cardHeight - 200)
-                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-                
+                .bartinderRounder()
+
                 CardInfo(title: cardIngredient.name, abv: cardIngredient.abv ?? "", location: cardIngredient.location)
             }
-            .offset(x: offset)
-            .rotationEffect(.degrees(rotation))
-            .animation(.default, value: offset)
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -50,6 +47,9 @@ extension Swipe {
                         handleSwipe(value)
                     }
             )
+            .offset(x: offset)
+            .rotationEffect(.degrees(rotation))
+            .animation(.default, value: offset)
             .accessibilityElement(children: .combine)
             .accessibilityLabel("\(cardIngredient.name) from \(cardIngredient.location)")
             .accessibilityAddTraits(.isButton)
@@ -72,7 +72,7 @@ extension Swipe {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GeometryReader { proxy in
         Swipe.IngredientCard(
             cardIngredient: CardIngredient.ingredientCards[13],

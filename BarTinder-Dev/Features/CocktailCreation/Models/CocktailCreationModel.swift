@@ -14,7 +14,6 @@ import PhotosUI
 final class CocktailCreationModel {
     let useCase: CreationUseCase
     var selectedPic: PhotosPickerItem?
-    var missingFocus: Focus?
     
     /// Alerts & confirmations
     var generalCocktailFieldsMissing = false
@@ -24,7 +23,6 @@ final class CocktailCreationModel {
     init(useCase: CreationUseCase = CreationUseCase()) {
         self.useCase = useCase
     }
-    
     
     func imageDataToUI(_ cocktail: Cocktail) -> UIImage? {
         guard let data = cocktail.imageData else { return nil }

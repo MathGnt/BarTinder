@@ -44,10 +44,10 @@ struct CocktailDetail: View {
     }
     
 }
-#Preview {
+
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         CocktailDetail(cocktail: Cocktail.ginto)
-            .environment(Router())
     }
 }
 

@@ -109,7 +109,7 @@ fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some 
         }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     List {
         CreateEditCocktail.CocktailOptionsSection(cocktail: Cocktail.ginto)
     }

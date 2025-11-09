@@ -8,7 +8,7 @@ An enumeration defining validation errors that can occur during cocktail creatio
 import Foundation
 
 enum CreationErrors: LocalizedError, Equatable {
-    case emptyCocktailFields(Focus)
+    case emptyCocktailFields
     case emptyMeasuresFields
     
     var errorDescription: String? {

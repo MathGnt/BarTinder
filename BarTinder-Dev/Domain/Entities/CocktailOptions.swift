@@ -54,4 +54,13 @@ enum Units: String, CaseIterable, Identifiable, Codable {
     case toRinse = "To Rinse"
     
     var id: String { self.rawValue }
+    
+    var needsMeasure: Bool {
+        switch self {
+        case .topUp, .toRinse:
+            return false
+        default:
+            return true
+        }
+    }
 }

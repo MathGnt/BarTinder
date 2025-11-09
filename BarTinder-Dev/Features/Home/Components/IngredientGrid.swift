@@ -25,7 +25,7 @@ extension Home {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 150, height: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+                            .bartinderRounder()
                             .onTapGesture {
                                 router.navigateTo(.cocktailList(ingredient))
                             }
@@ -37,9 +37,8 @@ extension Home {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     Home.IngredientGrid()
-        .environment(Router())
 }
 
 

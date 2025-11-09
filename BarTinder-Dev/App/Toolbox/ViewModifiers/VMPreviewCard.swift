@@ -10,6 +10,7 @@ import SwiftUI
 
 private struct PreviewCard: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
+    
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)

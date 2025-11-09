@@ -57,7 +57,7 @@ final class IngredientCreationModel {
     }
     
     func removeMeasure(_ ingredient: Ingredient, _ newValue: Units) {
-        if newValue == .topUp || newValue == .toRinse {
+        if !newValue.needsMeasure {
             ingredient.measure = ""
         }
     }

@@ -37,16 +37,17 @@ struct IngredientIdea {
     var unit: String
 }
 
-#if DEBUG 
-#Playground {
-    let word = "Rain"
-    let instructions = """
-        Suggest an idea for a creative cocktail. Make sure to add a name, ingredients, and options to it. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients) or \(Cocktail.mule.ingredients). The ingredient pattern should be like: 
-        measure: 5, unit: cl. or measure: 1, unit: wedge. Don't mix them. The amount should ALWAYS be a number. Please be careful about them, if you're thinking 50ml and you're using "cl" as the unit which means centiliters, you should have measure: 5, unit: cl. If you want to use "To Rinse" are "Top Up" as unit, don't generate any amount. Don't give us the same ingredient twice in the same cocktail.
-        """
-    let session = LanguageModelSession(instructions: instructions)
-    
-    let prompt = "Give me an idea for a cocktail that represents the word \(word)"
-    let response = try await session.respond(to: prompt, generating: CocktailIdea.self)
-}
-#endif
+
+//#Playground {
+//    let word = "Rain"
+//    let instructions = """
+//        Suggest an idea for a creative cocktail. Make sure to add a name, ingredients, and options to it. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients) or \(Cocktail.mule.ingredients). The ingredient pattern should be like: 
+//        measure: 5, unit: cl. or measure: 1, unit: wedge. Don't mix them. The amount should ALWAYS be a number. Please be careful about them, if you're thinking 50ml and you're using "cl" as the unit which means centiliters, you should have measure: 5, unit: cl. If you want to use "To Rinse" are "Top Up" as unit, don't generate any amount. Don't give us the same ingredient twice in the same cocktail.
+//        """
+//    let session = LanguageModelSession(instructions: instructions)
+//    
+//    let prompt = "Give me an idea for a cocktail that represents the word \(word)"
+//    let response = try await session.respond(to: prompt, generating: CocktailIdea.self)
+//}
+
+

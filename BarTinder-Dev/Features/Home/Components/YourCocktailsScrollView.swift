@@ -29,7 +29,7 @@ extension Home {
                             NavigationLink(value: RouterDestination.cocktailDetail(cocktail, cocktailZoom)) {
                                 CocktailImageSource(cocktail: cocktail)
                                     .matchedTransitionSource(id: cocktail.id, in: cocktailZoom)
-                                    // Bug iOS 26 image disappear after dismissing
+                                    // Confirmed iOS 26 bug -> image disappear after dismissing
                             }
                         }
                     }
@@ -53,18 +53,17 @@ private struct CocktailImageSource: View {
             cocktail.displayedImage
                 .resizable()
                 .scaledToFill()
-                .frame(width: 180, height: 260)
-                .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+                .frame(width: BarTinderApp.Size.cardWidth, height: BarTinderApp.Size.cardHeight)
+                .bartinderRounder()
                 .contentShape(
                     .contextMenuPreview,
-                    RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius)
+                    RoundedRectangle(cornerRadius: BarTinderApp.CornerRadius.main)
                 )
                 .contextMenu {
-                    if !cocktail.stock {
-                        Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                            router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
-                        }
+                    Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
+                        router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                     }
+                    .disabled(cocktail.stock)
                     Button("Delete", systemImage: "trash", role: .destructive) {
                         withAnimation {
                             context.contextDelete(cocktail)
@@ -76,7 +75,6 @@ private struct CocktailImageSource: View {
     }
 }
 
-#Preview(traits: .queryMocks) {
+#Preview(traits: .queryMocks, .barTinderEnvironments) {
     Home.YourCocktailsScrollView(model: CocktailModel())
-        .environment(Router())
 }

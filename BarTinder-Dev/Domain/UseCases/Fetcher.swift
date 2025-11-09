@@ -14,7 +14,7 @@ struct Fetcher {
         self.repo = repo
     }
     
-    func executeGetCocktails() -> [Cocktail] {
+    func execute() -> [Cocktail] {
         do {
             return try repo.getAllCocktails()
         } catch {

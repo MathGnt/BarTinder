@@ -6,6 +6,7 @@ An enum that handles all the navigation cases for any sheet.
 */
 
 import Foundation
+import SwiftUI
 
 enum SheetDestination: Hashable, Identifiable {
     case cocktailDetail(Cocktail)
@@ -15,3 +16,4 @@ enum SheetDestination: Hashable, Identifiable {
     
     var id: Int { hashValue }
 }
+

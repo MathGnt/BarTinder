@@ -17,7 +17,7 @@ struct IngredientsListCreation: View {
             Section("Added ingredients") {
                 ForEach(cocktail.ingredients) { ingredient in
                     HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-                        IngredientRow(ingredient: ingredient, model: model)
+                        AddedIngredientRow(ingredient: ingredient, model: model)
                     }
                 }
                 .onDelete { IndexSet in
@@ -27,7 +27,7 @@ struct IngredientsListCreation: View {
             Section("All Ingredients") {
                 ForEach(model.searchableIngredients) { ingredient in
                     HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-                        AllIngredients(cocktail: cocktail, ingredient: ingredient, model: model)
+                        AvailableIngredientRow(cocktail: cocktail, ingredient: ingredient, model: model)
                     }
                 }
             }
@@ -41,11 +41,8 @@ struct IngredientsListCreation: View {
     }
 }
 
-#Preview {
-    @Previewable @FocusState var focus: Focus?
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         IngredientsListCreation(cocktail: Cocktail.ginto)
-            .environment(CocktailCreationModel())
-            .environment(Router())
     }
 }

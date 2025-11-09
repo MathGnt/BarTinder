@@ -10,16 +10,15 @@ import FoundationModels
 
 @Observable
 final class GenerableModel {
-    
-    let useCase = GenerableUseCase()
+    let createUseCase = GenerableCreateUseCase()
+    let errorUseCase = GenerableErrorUseCase()
     let session: LanguageModelSession
-
+   
     var cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?
     var word = ""
     var askedForIdea = false
-    var guardrailViolation = false
     var showButtons = false
-    var notAvailable = false
+    var errorDetails: GenerableErrorUseCase.LanguageError?
     
     init() {
         self.session = LanguageModelSession(
@@ -38,29 +37,34 @@ final class GenerableModel {
         session.prewarm()
     }
     
-    func generate() async {
-        guard useCase.executeCheckingAvailability() else {
-            notAvailable = true
-            return
+    func askForIdea() {
+        if let error = errorUseCase.mapLanguageError() {
+            self.errorDetails = error
+        } else {
+            askedForIdea = true
         }
-        let prompt = "Give me an idea for a cocktail that represents the word \(word)"
-//        let options = GenerationOptions(temperature: 2.0) -> Bug de génération ?
-        let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self)
+    }
 
+    func generate() async {
+        let prompt = "Give me an idea for a cocktail that represents the word \(word)"
+        //        let options = GenerationOptions(temperature: 2.0) -> Bug de génération ?
+        let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self)
+        
         do {
             for try await cocktailIdea in streamingResponse {
                 self.cocktailIdea = cocktailIdea
             }
             showButtons = true
             word = ""
-        } catch LanguageModelSession.GenerationError.guardrailViolation {
-            guardrailViolation = true
+        } catch let error as LanguageModelSession.GenerationError {
+            errorDetails = await errorUseCase.mapGenerationError(error)
         } catch {
-            print("Unknown error \(error)")
+            print("Unknown error")
         }
     }
     
     func createCocktail() -> Cocktail? {
-        useCase.executeCreateCocktail(cocktailIdea: cocktailIdea)
+        createUseCase.execute(cocktailIdea)
     }
 }
+

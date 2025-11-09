@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GetInspired: View {
     @State private var model = GenerableModel()
+    @Environment(Router.self) private var router
     @Binding var inspiredDetent: PresentationDetent
     
     var body: some View {
@@ -27,10 +28,24 @@ struct GetInspired: View {
                 inspiredDetent = .height(260)
             }
         }
+        .alert(
+            Text(model.errorDetails?.title ?? "Error"),
+            isPresented: .isPresent($model.errorDetails),
+            presenting: model.errorDetails
+        ) { _ in
+            Button("Ok", role: .cancel) {
+                model.errorDetails = nil
+                router.dismissSheet()
+            }
+        } message: { details in
+            Text(details.message)
+        }
         .environment(model)
     }
 }
 
-#Preview {
-    GetInspired(inspiredDetent: .constant(.height(260)))
+#Preview(traits: .barTinderEnvironments) {
+    @Previewable @State var inspiredDetent: PresentationDetent = .height(260)
+    GetInspired(inspiredDetent: $inspiredDetent)
 }
+

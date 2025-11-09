@@ -9,36 +9,25 @@ import Foundation
 import SwiftUI
 
 extension IngredientsListCreation {
-    struct IngredientRow: View {
+    struct AddedIngredientRow: View {
         @Bindable var ingredient: Ingredient
-        
         let model: IngredientCreationModel
         
         var body: some View {
             VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 HStack {
-                    Image(ingredient.name.logolized())
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(ingredient.name.capitalizedWords)
-                            .fontWeight(.medium)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    IngredientRowLabel(ingredientName: ingredient.name)
+                Spacer()
                 }
-                if ingredient.unit != .topUp && ingredient.unit != .toRinse {
+                if ingredient.unit.needsMeasure {
                     HStack {
                         Text("Measure:")
                         Spacer()
-                        
                         TextField(model.textFieldPlaceholder(ingredient.unit), text: $ingredient.measure)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.numberPad)
                     }
                 }
-                
                 Picker("Unit:", selection: $ingredient.unit) {
                     ForEach(Units.allCases) { unit in
                         Text(unit.rawValue).tag(unit)
@@ -52,9 +41,8 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview {
-    @Previewable @FocusState var focus: Focus?
+#Preview(traits: .barTinderEnvironments) {
     List {
-        IngredientsListCreation.IngredientRow(ingredient: Ingredient.gin, model: IngredientCreationModel())
+        IngredientsListCreation.AddedIngredientRow(ingredient: Ingredient.gin, model: IngredientCreationModel())
     }
 }

@@ -8,21 +8,8 @@ A use case that creates a cocktail as a persistent model with the idea generated
 import Foundation
 import FoundationModels
 
-final class GenerableUseCase {
-    let model = SystemLanguageModel.default
-    
-    func executeCheckingAvailability() -> Bool {
-        switch model.availability {
-        case .available:
-            return true
-        case .unavailable(.deviceNotEligible):
-            return false
-        default:
-            return false
-        }
-    }
-    
-    func executeCreateCocktail(cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?) -> Cocktail? {
+final class GenerableCreateUseCase {
+    func execute(_ cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?) -> Cocktail? {
         var finalIngredients: [Ingredient] = []
         
         guard let name = cocktailIdea?.content.name else { return nil }
@@ -32,7 +19,6 @@ final class GenerableUseCase {
         guard let glass = CocktailGlass(rawValue: cocktailIdea?.content.glass ?? "highball") else { return nil }
         guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea?.content.mixingTechnique ?? "built") else { return nil }
         guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea?.content.difficulty ?? "easy") else { return nil }
-        
         
         for ingredient in ingredients {
             guard let ingredientName = ingredient.name else { return nil }

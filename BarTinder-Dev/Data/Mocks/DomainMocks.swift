@@ -81,6 +81,6 @@ extension Cocktail {
         mixingTechniqueValue: "built",
         difficultyValue: "easy",
         cocktailDescription: "Aperol Spritz is a refreshing Italian cocktail known for its vibrant color and slightly bitter, citrusy taste. Perfect for sunny evenings.",
-        stock: true
+        stock: false
     )
 }

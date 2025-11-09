@@ -1,10 +1,3 @@
-/*
-See the LICENSE.txt file for this sample's licensing information.
-
-Abstract:
-The custom modifiers used to minimize duplicated code.
-*/
-
 import Foundation
 import SwiftUI
 
@@ -30,6 +23,11 @@ extension View {
             .padding(.leading, 7)
             .padding(.trailing, 7)
             .background(.thinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+            .bartinderRounder()
+    }
+    
+    func bartinderRounder(_ radius: CGFloat = BarTinderApp.CornerRadius.main) -> some View {
+        self
+            .clipShape(RoundedRectangle(cornerRadius: radius))
     }
 }

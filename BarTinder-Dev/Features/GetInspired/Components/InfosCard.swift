@@ -22,7 +22,7 @@ extension GeneratedCocktail {
                         HStack {
                             Image(cocktailGlass)
                                 .resizable()
-                                .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
+                                .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
                             Text("\(cocktailStyle.capitalized) \(cocktailStyle.capitalized)")
                                 .font(.subheadline)
                                 .fontWeight(.medium)
@@ -74,9 +74,8 @@ extension GeneratedCocktail {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GeneratedCocktail.InfosCard()
-        .environment(GenerableModel())
 }
 
 
@@ -91,7 +90,7 @@ private struct IngredientRowGenerable: View {
                 Image(ingredientLogo)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
+                    .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
                     .clipShape(Circle())
                     .background(Circle().fill(.gray.opacity(0.1)))
             }

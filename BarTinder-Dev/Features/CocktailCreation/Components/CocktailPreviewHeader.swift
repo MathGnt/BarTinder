@@ -80,7 +80,6 @@ private struct PhotoPlaceHolder: View {
 }
 
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     CreateEditCocktail.CocktailPreviewSection(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
-        .environment(CocktailCreationModel())
 }

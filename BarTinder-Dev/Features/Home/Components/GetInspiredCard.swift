@@ -87,12 +87,12 @@ extension Home {
             }
             .frame(height: 400)
             .clipped()
-            .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
+            .bartinderRounder()
             
         }
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     Home.GetInspiredCard()
 }

@@ -16,12 +16,16 @@ struct Swipe: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 5) {
-                Image("centeredlogo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                    .clipShape(RoundedRectangle(cornerRadius: BarTinderApp.Padding.mainCornerRadius))
-                    .accessibilityHidden(true)
+                HStack {
+                    Spacer()
+                    Image("centeredlogo")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
+                        .bartinderRounder()
+                        .accessibilityHidden(true)
+                    Spacer()
+                }
             }
             .padding(.horizontal)
             .padding(.bottom, 30)
@@ -43,10 +47,9 @@ struct Swipe: View {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GeometryReader { proxy in
         Swipe()
-            .environment(Router())
             .environment(\.screenWidth, proxy.size.width)
             .environment(\.screenHeight, proxy.size.height)
     }

@@ -11,7 +11,7 @@ extension CocktailDetail {
     struct DetailToolbar: ToolbarContent {
         @Environment(Router.self) private var router
         @Environment(\.modelContext) private var context
-        
+        @State private var askForDelete = false
         let isGeneratedCocktail: Bool
         let cocktail: Cocktail
         
@@ -19,24 +19,19 @@ extension CocktailDetail {
             switch isGeneratedCocktail {
             case false:
                 ToolbarItem {
-                    Menu {
+                    Menu("Options", systemImage: "ellipsis") {
                         Section {
                             ControlGroup {
                                 Button("Edit", systemImage: "rectangle.and.pencil.and.ellipsis") {
-                                    router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
+                                    router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                                 }
                                 .disabled(cocktail.stock)
                                 
-                                Button(role: .destructive) {
-                                    context.contextDelete(cocktail)
-                                    router.popToAllRoots()
-                                    
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
+                                Button("Delete", systemImage: "trash", role: .destructive) {
+                                    askForDelete = true
                                 }
                             }
                         }
-                        
                         Section {
                             Button {
                                 cocktail.isInBar.toggle()
@@ -45,8 +40,16 @@ extension CocktailDetail {
                                     .foregroundStyle(cocktail.isInBar ? .primary : Color(.green))
                             }
                         }
-                    } label: {
-                        Image(systemName: "ellipsis")
+                    }
+                    .confirmationDialog("Delete", isPresented: $askForDelete) {
+                        Button("Delete") {
+                            context.contextDelete(cocktail)
+                            try? context.save()
+                            router.goBack()
+                        }
+                
+                    } message: {
+                        Text("Are you sure you want to delete this cocktail?")
                     }
                 }
                 
@@ -59,7 +62,7 @@ extension CocktailDetail {
                 }
                 ToolbarItem {
                     Button("Edit", systemImage: "pencil") {
-                        router.presentSheet(.cocktailEdit(context.prepare(for: cocktail)))
+                        router.presentSheet(.cocktailEdit(context.switch(for: cocktail)))
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
@@ -72,12 +75,11 @@ extension CocktailDetail {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         Text("Detail Toolbar")
             .toolbar {
                 CocktailDetail.DetailToolbar(isGeneratedCocktail: false, cocktail: Cocktail.ginto)
             }
-            .environment(Router())
     }
 }

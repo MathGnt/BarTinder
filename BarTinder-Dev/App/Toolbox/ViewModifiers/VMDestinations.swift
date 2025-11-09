@@ -32,6 +32,9 @@ struct SheetDestinations: ViewModifier {
                         case .askedForCocktail:
                             GetInspired(inspiredDetent: $inspiredDetent)
                                 .presentationDetents([.height(260), .large], selection: $inspiredDetent)
+                                .onDisappear {
+                                    inspiredDetent = .height(260)
+                                }
                         }
                     }
                     .innerSheetDestination()

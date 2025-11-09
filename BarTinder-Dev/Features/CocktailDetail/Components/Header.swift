@@ -10,7 +10,6 @@ import SwiftUI
 extension CocktailDetail {
     struct CocktailHeaderPicture: View {
         @Environment(\.colorScheme) private var scheme
-        
         let cocktail: Cocktail
         
         var body: some View {
@@ -56,6 +55,6 @@ extension CocktailDetail {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     CocktailDetail.CocktailHeaderPicture(cocktail: Cocktail.ginto)
 }

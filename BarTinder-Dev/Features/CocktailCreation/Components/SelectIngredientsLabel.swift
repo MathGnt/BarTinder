@@ -22,25 +22,16 @@ extension CreateEditCocktail {
             .buttonStyle(.plain)
             
             ForEach(cocktail.ingredients) { ingredient in
-                ingredientPreviewer(ingredient)
-            }
-        }
-        
-        private func ingredientPreviewer(_ ingredient: Ingredient) -> some View {
-            HStack(spacing: 0) {
-                Image(ingredient.name.logolized())
-                    .resizable()
-                    .scaledToFill()
-                    .padding(.trailing, 15)
-                    .frame(width: BarTinderApp.Padding.image, height: BarTinderApp.Padding.image)
-                
-                Text(ingredient.name.capitalizedWords)
-                Spacer()
-                Text(ingredient.measure + " " + ingredient.unit.rawValue)
+                HStack {
+                    IngredientRowLabel(ingredientName: ingredient.name)
+                    Spacer()
+                    Text(ingredient.measure + " " + ingredient.unit.rawValue)
+                }
             }
         }
     }
 }
+
 private struct SelectYourIngredientsLabel: View {
     let cocktail: Cocktail
     
@@ -67,7 +58,6 @@ private struct SelectYourIngredientsLabel: View {
 }
 
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     CreateEditCocktail.IngredientsSection(cocktail: Cocktail.ginto)
-        .environment(Router())
 }

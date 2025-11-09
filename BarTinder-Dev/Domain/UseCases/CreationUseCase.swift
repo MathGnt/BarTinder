@@ -10,30 +10,27 @@ import Foundation
 struct CreationUseCase {
     func executeCocktailChecking(_ cocktail: Cocktail) throws(CreationErrors) {
         guard !cocktail.ingredients.isEmpty else { throw .emptyMeasuresFields }
-        guard let invalidField = firstInvalidField(cocktail) else { return }
-        throw .emptyCocktailFields(invalidField)
+        guard !firstInvalidField(cocktail) else { throw .emptyCocktailFields }
     }
     
-    func firstInvalidField(_ cocktail: Cocktail) -> Focus? {
+    private func firstInvalidField(_ cocktail: Cocktail) -> Bool {
         if cocktail.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return .name
+            return true
         }
         if cocktail.cocktailDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return .description
+            return true
         }
-        return nil
+        return false
     }
     
     func executeIngredientsChecking(_ ingredients: [Ingredient]) throws(CreationErrors) {
-         for ingredient in ingredients {
-             guard !ingredient.measure.trimmingCharacters(in:
-     .whitespacesAndNewlines).isEmpty else {
-                 guard ingredient.unit == .topUp || ingredient.unit ==
-     .toRinse else {
-                     throw .emptyMeasuresFields
-                 }
-                 continue
-             }
-         }
-     }
+        for ingredient in ingredients {
+            let isMeasureEmpty = ingredient.measure
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .isEmpty
+            if isMeasureEmpty && ingredient.unit.needsMeasure {
+                throw .emptyMeasuresFields
+            }
+        }
+    }
 }

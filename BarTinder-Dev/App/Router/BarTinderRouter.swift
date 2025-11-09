@@ -31,8 +31,10 @@ final class Router {
     }
     
     func goBack() {
-        if presentedSheet != nil {
+        if presentedSheet != nil && !sheetPaths.isEmpty {
             sheetPaths.removeLast()
+        } else if presentedSheet != nil && sheetPaths.isEmpty {
+            dismissSheet()
         } else {
             navigationPaths.removeLast()
         }
