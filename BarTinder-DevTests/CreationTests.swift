@@ -70,14 +70,14 @@ struct CocktailCreationTests {
     func cocktailThrowingIngredientsFields() throws {
         let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], cocktailDescription: "Enjoy this cocktail during summer")
         
-        #expect(throws: CreationErrors.emptyCocktailFields(.description)) {
+        #expect(throws: CreationErrors.emptyCocktailFields) {
             try cocktailModel.checkAndInsertCocktail(newCocktail)
         }
     }
     
     @Test("Should throw empty general cocktail fields", .tags(.throwable, .textFieldChecker), arguments: [
-        ("", "Gin Tonic", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.name)),
-        ("Gin & Tonic", "", "13.2", "Sweet", CreationErrors.emptyCocktailFields(.description))
+        ("", "Gin Tonic", "13.2", "Sweet", CreationErrors.emptyCocktailFields),
+        ("Gin & Tonic", "", "13.2", "Sweet", CreationErrors.emptyCocktailFields)
     ])
     func cocktailThrowingGeneralFields(name: String, description: String, abv: String, flavor: String, expectedError: CreationErrors) throws {
         let ingredients = [Ingredient(name: "tonic water", measure: "14", unit: .cl)]
