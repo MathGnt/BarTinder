@@ -32,11 +32,13 @@ struct GenerableErrorUseCase {
                 title: "Apple Intelligence disabled",
                 message: "You need to enable Apple Intelligence in Settings."
             )
-        default:
+        case .unavailable(.modelNotReady):
             return LanguageError(
-                title: "Unavailable",
-                message: "Apple Intelligence is currently unavailable."
+                title: "Apple Intelligence isn't ready yet",
+                message: "Please check your network connection try again in a few moments"
             )
+        case .unavailable(let other):
+            return LanguageError(title: "Something went wrong", message: "Reason: \(other)")
         }
     }
     
@@ -56,6 +58,11 @@ struct GenerableErrorUseCase {
             return LanguageError(
                 title: "Generation failed",
                 message: "Apple Intelligence couldn’t finish mixing your cocktail. Give it another try."
+            )
+        case .assetsUnavailable:
+            return LanguageError(
+                title: "Apple Intelligence assets unavailable",
+                message: "Some required files for Apple Intelligence are missing. Please make sure Apple Intelligence is enabled and try again later"
             )
         default:
             return LanguageError(

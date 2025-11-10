@@ -11,6 +11,7 @@ import PhotosUI
 
 struct CreateEditCocktail: View {
     @Environment(Router.self) private var router
+    @Environment(\.modelContext) private var context
     @State private var model = CocktailCreationModel()
     @Bindable var cocktail: Cocktail
 
@@ -34,7 +35,7 @@ struct CreateEditCocktail: View {
         .toolbar {
             CreationToolbar(cocktail: cocktail)
         }
-        .navigationTitle(cocktail.isNew ? "Edit Cocktail" : "New Cocktail")
+        .navigationTitle(context.insertedModelsArray.isEmpty ? "Edit Item" : "New Item")
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)

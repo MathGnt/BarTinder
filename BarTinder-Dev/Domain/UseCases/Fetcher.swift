@@ -8,7 +8,7 @@ A use case that fetches all cocktails.
 import Foundation
 
 struct Fetcher {
-    let repo: Servable
+    private let repo: Servable
     
     init(repo: Servable) {
         self.repo = repo

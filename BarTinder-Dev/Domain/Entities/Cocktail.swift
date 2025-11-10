@@ -26,7 +26,7 @@ final class Cocktail {
     var glass: CocktailGlass
     var mixingTechnique: CocktailMixingTechnique
     var difficulty: CocktailDifficulty
-    /// Enum rawValues for sorting
+    /// Enum rawValues for sorting :(
     var styleValue: String
     var glassValue: String
     var mixingTechniqueValue: String
@@ -75,10 +75,5 @@ extension Cocktail {
         case .medium: return 2
         case .hard: return 3
         }
-    }
-    
-    @Transient
-    var isNew: Bool {
-        return self.modelContext == nil
     }
 }

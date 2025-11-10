@@ -57,12 +57,12 @@ extension Swipe {
         
         private func handleSwipe(_ value: DragGesture.Value) {
             if value.translation.width >= threshold {
-                offset = IngredientsModel.Constants.swipeOutDistance
-                rotation = IngredientsModel.Constants.maxRotation
+                offset = BarTinderApp.SwipingSettings.swipeOutDistance
+                rotation = BarTinderApp.SwipingSettings.maxRotation
                 Task { await model.swipeRight(card: cardIngredient) }
             } else if value.translation.width <= -threshold {
-                offset = -IngredientsModel.Constants.swipeOutDistance
-                rotation = -IngredientsModel.Constants.maxRotation
+                offset = -BarTinderApp.SwipingSettings.swipeOutDistance
+                rotation = -BarTinderApp.SwipingSettings.maxRotation
                 Task { await model.swipeLeft(card: cardIngredient)  }
             } else {
                 offset = 0

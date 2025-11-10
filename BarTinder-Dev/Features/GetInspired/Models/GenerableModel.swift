@@ -10,13 +10,14 @@ import FoundationModels
 
 @Observable
 final class GenerableModel {
-    let createUseCase = GenerableCreateUseCase()
-    let errorUseCase = GenerableErrorUseCase()
-    let session: LanguageModelSession
+    private let createUseCase = GenerableCreateUseCase()
+    private let errorUseCase = GenerableErrorUseCase()
+    private let session: LanguageModelSession
    
-    var cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?
+    private(set) var cocktailIdea: LanguageModelSession.ResponseStream<CocktailIdea>.Snapshot?
+    private(set) var askedForIdea = false
+    
     var word = ""
-    var askedForIdea = false
     var showButtons = false
     var errorDetails: GenerableErrorUseCase.LanguageError?
     
@@ -67,4 +68,5 @@ final class GenerableModel {
         createUseCase.execute(cocktailIdea)
     }
 }
+
 

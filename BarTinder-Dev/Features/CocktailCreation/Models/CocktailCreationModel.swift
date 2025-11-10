@@ -12,7 +12,7 @@ import PhotosUI
 
 @Observable
 final class CocktailCreationModel {
-    let useCase: CreationUseCase
+    private let useCase: CreationUseCase
     var selectedPic: PhotosPickerItem?
     
     /// Alerts & confirmations

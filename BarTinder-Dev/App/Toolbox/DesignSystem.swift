@@ -29,4 +29,10 @@ extension BarTinderApp {
         static let cardHeight: CGFloat = 260
         static let image: CGFloat = 40
     }
+    
+    enum SwipingSettings {
+        static let swipeOutDistance: CGFloat = 500
+        static let maxRotation: Double = 12
+        static let gradientHeightOffset: CGFloat = 200
+    }
 }

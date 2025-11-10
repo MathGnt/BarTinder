@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 final class IngredientCreationModel {
-    let useCase: CreationUseCase
+    private let useCase: CreationUseCase
     
     private(set) var ingredients: [CardIngredient] = []
     var searchableField = ""

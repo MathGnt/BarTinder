@@ -13,7 +13,7 @@ import SwiftData
 
 @Observable
 final class IngredientsModel {
-    let useCase: IngredientUseCase
+    private let useCase: IngredientUseCase
 
     private(set) var ingredients: [CardIngredient] = []
 
@@ -48,12 +48,6 @@ final class IngredientsModel {
     
     func updatePossibleCocktails(cocktails: [Cocktail]) {
         useCase.executeUpdatePossibleCocktails(cocktails: cocktails)
-    }
-    
-    enum Constants {
-        static let swipeOutDistance: CGFloat = 500
-        static let maxRotation: Double = 12
-        static let gradientHeightOffset: CGFloat = 200
     }
 }
 
