@@ -40,10 +40,6 @@ extension ModelContext {
         }
     }
     
-    func contains<T: PersistentModel>(_ element: T) -> Bool {
-        getContent(for: T.self).contains(element)
-    }
-    
     func deleteAll<T: PersistentModel>(_ model: T.Type) {
         do {
             try self.delete(model: model)
