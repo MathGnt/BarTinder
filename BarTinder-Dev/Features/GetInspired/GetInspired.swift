@@ -48,23 +48,3 @@ struct GetInspired: View {
     @Previewable @State var inspiredDetent: PresentationDetent = .height(260)
     GetInspired(inspiredDetent: $inspiredDetent)
 }
-
-struct GenerationView: View {
-    @State private var model = GenerableModel()
-    
-    var body: some View {
-        VStack {
-            // ...
-        }
-        .alert(
-            Text(model.errorDetails?.title ?? "Error"),
-            isPresented: .isPresent($model.errorDetails),
-            presenting: model.errorDetails
-        ) { _ in
-                // Your buttons
-        } message: { details in
-            Text(details.message)
-        }
-    }
-}
-

@@ -19,7 +19,7 @@ struct IngredientMatcher: View {
     
     var body: some View {
         CocktailList(cocktails: cocktails)
-            .navigationTitle(ingredientCard.name.capitalizedWords)
+            .navigationTitle(ingredientCard.name.capitalized)
     }
 }
 
