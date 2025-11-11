@@ -42,7 +42,6 @@ struct CreateEditCocktail: View {
     }
 }
 
-
 #Preview(traits: .barTinderEnvironments) {
     NavigationStack {
         CreateEditCocktail(cocktail: Cocktail.ginto)
