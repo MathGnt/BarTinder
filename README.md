@@ -340,9 +340,8 @@ func mapLanguageError() -> LanguageError? {
 ## **Getting Started**
 
 ### Prerequisites
-- iOS 17.0+
-- Xcode 15.0+
-- Swift 6.0+
+- iOS 26.0+
+- Xcode 16.0+
 
 ### Installation
 1. Clone the repository
