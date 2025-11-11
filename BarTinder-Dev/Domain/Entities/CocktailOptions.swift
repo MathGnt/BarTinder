@@ -42,6 +42,17 @@ enum CocktailDifficulty: String, Codable, CaseIterable {
     case easy = "easy"
     case medium = "medium"
     case hard = "hard"
+    
+    var level: Int {
+        switch self {
+        case .easy:
+            1
+        case .medium:
+            2
+        case .hard:
+            3
+        }
+    }
 }
 
 enum Units: String, CaseIterable, Identifiable, Codable {

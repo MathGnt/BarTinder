@@ -67,13 +67,4 @@ extension Cocktail {
         }
         return Image("defaultpic")
     }
-    
-    @Transient
-    var difficultyLevel: Int {
-        switch difficulty {
-        case .easy: return 1
-        case .medium: return 2
-        case .hard: return 3
-        }
-    }
 }

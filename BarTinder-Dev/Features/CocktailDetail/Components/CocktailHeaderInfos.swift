@@ -18,7 +18,7 @@ extension CocktailDetail {
                         .font(.system(size: 15, design: .serif))
                     HStack {
                         ForEach(1...3, id: \.self) { index in
-                            Image(systemName: index <= cocktail.difficultyLevel ? "wineglass.fill" : "wineglass")
+                            Image(systemName: index <= cocktail.difficulty.level ? "wineglass.fill" : "wineglass")
                         }
                         .frame(height: 24)
                     }
