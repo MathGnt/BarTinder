@@ -10,7 +10,6 @@ import SwiftData
 import PhotosUI
 
 struct CreateEditCocktail: View {
-    @Environment(Router.self) private var router
     @Environment(\.modelContext) private var context
     @State private var model = CocktailCreationModel()
     @Bindable var cocktail: Cocktail

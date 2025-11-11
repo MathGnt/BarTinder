@@ -20,9 +20,20 @@
 ### **The Magic Flow**
 
 1. **Swipe Ingredients** → Browse ingredient cards with satisfying swipe gestures
-2. **Like or Pass** → Express your taste preferences 
+2. **Like or Pass** → Express your taste preferences
 3. **Discover Cocktails** → Get personalized recommendations based on your choices
 4. **Create Your Own** → Build custom cocktails with unlimited creativity
+
+### **Built for Learning**
+
+BarTinder is developed with the **simplicity and modernity of SwiftUI**, making it an excellent resource for developers at all levels. Whether you're a beginner learning iOS development or an experienced developer exploring the latest iOS 26 features, this project showcases:
+
+- **Clean SwiftUI Views**: See how to structure views effectively
+- **Refactoring Patterns**: Learn how to organize code for maintainability
+- **Routing Architecture**: Understand navigation patterns in SwiftUI
+- **Latest iOS 26 features**: Discover Apple’s newest APIs, including `@Observable`, Foundation Models, Swift Testing, and more!
+
+Feel free to explore the codebase, learn from it, and use it as a reference for your own projects!
 
 ---
 
@@ -55,57 +66,46 @@ Built with a robust **Clean Architecture** approach, ensuring:
 - **Maintainability**: Scalable and readable codebase
 - **SOLID Principles**: Following best practices for iOS development
 
-<div align="center">
-<img src="screenshots/cleanarchi.png" width="600" alt="Clean Architecture Diagram">
-</div>
+```mermaid
+graph TD
+    Data["Data Layer<br/>API"]
+    Domain["Domain Layer<br/>Entities • UseCases"]
+    Features["Features Layer<br/>Views • ViewModels"]
+    Env["@Environment<br/>SwiftData • Router"]
+
+    Features --> Domain
+    Domain --> Data
+    Env -.-> Features
+
+    style Data fill:#e1f5ff,stroke:#01579b,stroke-width:2px,color:#000
+    style Domain fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#000
+    style Features fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Env fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000
+```
 
 ### **SwiftData Integration**
 
-The app leverages **SwiftData** with a custom abstraction layer to keep data logic out of views:
+The app leverages **SwiftData** with a custom abstraction layer to handle draft context and to keep data logic out of views:
 
 ```swift
-// Custom SwiftData wrapper for clean separation
-final class SwiftDataSource {
-    let context: ModelContext?
-    
-    func contextInsert<T: PersistentModel>(_ item: T)
-    func contextDelete<T: PersistentModel>(_ item: T)
-    func getContextContent<T: PersistentModel>(_ type: T.Type) -> [T]
-    // ... more methods
-}
-
-// Environment injection for seamless access
-extension EnvironmentValues {
-    @Entry var swiftData = SwiftDataSource()
+// Custom SwiftData extension for clean separation
+extension ModelContext {
+    func `switch`<T: PersistentModel>(for model: T) -> T {
+        let ctx = ModelContext(self.container)
+        ctx.autosaveEnabled = false
+        guard model.modelContext != nil else {
+            ctx.insert(model)
+            return model
+        }
+        return ctx.model(for: model.persistentModelID) as? T ?? model
+    }
+  // ... 
 }
 ```
 
 **Benefits:**
 - **No Context Pollution**: Views stay focused on presentation
-- **Reusable Logic**: Consistent data operations across the app
-- **Easy Testing**: Mock-friendly architecture
-- **Clean Views**: SwiftUI views remain declarative and simple
-
-### **Hybrid Approach: Best of Both Worlds**
-While most data operations flow through Use Cases via dependency injection, 
-the Environment pattern provides flexibility for simple, direct operations:
-
-```swift
-// For complex business logic: Use Cases handle the flow
-cocktailUseCase.createCocktail(with: ingredients)
-
-// For simple UI actions: Direct environment access
-@Environment(\.swiftData) private var swiftData
-
-Button("Reset") {
-    swiftData.contextDeleteAll(Cocktail.self)
-    finishSwiping = false
-}
-```
-
-**Why this dual approach?:**
-- **Efficiency**: Avoid unnecessary pipelines for simple operations
-- **Pragmatism**: All of your Swift Data operations stay in the same place!
+- **Reusable Logic**: Switch the context for each `PersistentModel` item crossing a creation/edit view
 
 ---
 
@@ -192,9 +192,10 @@ final class GenerableModel {
             for try await cocktailIdea in streamingResponse {
                 self.cocktailIdea = cocktailIdea
             }
-        } catch LanguageModelSession.GenerationError.guardrailViolation {
-            // Handle content safety violations
-            guardrailViolation = true
+        } catch let error as LanguageModelSession.GenerationError {
+            errorDetails = await errorUseCase.mapGenerationError(error)
+        } catch {
+            print("Unknown error")
         }
     }
 }
@@ -232,11 +233,28 @@ final class GenerableUseCase {
 
 **Device Availability Checking**
 ```swift
-switch SystemLanguageModel.default.availability {
-case .available:
-    return true
-case .unavailable(.deviceNotEligible):
-    return false
+func mapLanguageError() -> LanguageError? {
+    switch model.availability {
+    case .available:
+        return nil
+    case .unavailable(.deviceNotEligible):
+        return LanguageError(
+            title: "Device not supported",
+            message: "Your device does not support Apple Intelligence."
+        )
+    case .unavailable(.appleIntelligenceNotEnabled):
+        return LanguageError(
+            title: "Apple Intelligence disabled",
+            message: "You need to enable Apple Intelligence in Settings."
+        )
+    case .unavailable(.modelNotReady):
+        return LanguageError(
+            title: "Apple Intelligence isn't ready yet",
+            message: "Please check your network connection try again in a few moments"
+        )
+    case .unavailable(let other):
+        return LanguageError(title: "Something went wrong", message: "Reason: \(other)")
+    }
 }
 ```
 
@@ -247,14 +265,6 @@ case .unavailable(.deviceNotEligible):
     if newValue == .word {
         model.prewarm()
     }
-}
-```
-
-**Guardrail Violation Handling**
-```swift
-catch LanguageModelSession.GenerationError.guardrailViolation {
-    guardrailViolation = true
-    // Show appropriate error to user
 }
 ```
 
@@ -280,10 +290,11 @@ catch LanguageModelSession.GenerationError.guardrailViolation {
 |------------|---------|
 | **SwiftUI** | Modern, declarative UI framework |
 | **SwiftData** | Core Data successor for persistence |
-| **Swift 6** | Latest language features & concurrency |
+| **Swift 6?2** | Latest language features & concurrency |
 | **Foundation Models** | Apple Intelligence for AI-powered cocktail generation |
 | **MVVM + Clean Architecture** | Scalable architectural pattern |
-| **Custom Environment Values** | Dependency injection pattern |
+| **Swift Testing** | Modern testing framework |
+
 
 ---
 
@@ -349,29 +360,6 @@ open BarTinder.xcodeproj
 
 ---
 
-## **Architecture Highlights**
-
-### **Data Flow**
-```
-SwiftUI Views → ViewModels → UseCases → Repository → SwiftDataSource OR DataSource (API)
-```
-
-### **Layer Separation**
-- **Presentation Layer**: SwiftUI Views + ViewModels
-- **Domain Layer**: Business logic + Use cases  
-- **Data Layer**: SwiftData + Custom abstraction
-
-### **Dependency Injection**
-Using Factory system for clean, testable dependencies:
-
-```swift
- func makeCocktailRepo() -> Servable {
-        return CocktailRepo(cocktailDataSource: makeCocktailDataSource(), swiftDataSource: makeSwiftDataSource())
-    }
-```
-
----
-
 ## **Contributing**
 
 Contributions are welcome! Feel free to:
@@ -384,7 +372,7 @@ Contributions are welcome! Feel free to:
 
 ## **License**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
