@@ -1,5 +1,5 @@
 /*
-See the LICENSE.txt file for this sample's licensing information.
+See the LICENSE file for this project's licensing information.
 
 Abstract:
 A file gathering all the cocktail options available as a picker for the user.

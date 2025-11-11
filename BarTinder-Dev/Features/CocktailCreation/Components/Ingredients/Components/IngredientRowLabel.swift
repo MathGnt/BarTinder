@@ -1,5 +1,5 @@
 /*
-See the LICENSE.txt file for this sample's licensing information.
+See the LICENSE file for this project's licensing information.
 
 Abstract:
 A row component displaying a label for an ingredient.

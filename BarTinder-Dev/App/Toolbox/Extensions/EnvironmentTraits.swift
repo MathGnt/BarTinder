@@ -1,5 +1,5 @@
 /*
-See the LICENSE.txt file for this sample's licensing information.
+See the LICENSE file for this project's licensing information.
 
 Abstract:
 A custom preview trait to share all BarTinder models through the previews.

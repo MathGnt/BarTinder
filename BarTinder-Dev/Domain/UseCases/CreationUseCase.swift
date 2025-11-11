@@ -1,5 +1,5 @@
 /*
-See the LICENSE.txt file for this sample's licensing information.
+See the LICENSE file for this project's licensing information.
 
 Abstract:
 A use case that checks and creates the cocktail the user made.
