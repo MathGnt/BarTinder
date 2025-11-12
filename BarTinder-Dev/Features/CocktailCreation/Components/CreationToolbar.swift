@@ -20,7 +20,7 @@ extension CreateEditCocktail {
 }
 
 private struct CreateCocktailButton: ToolbarContent {
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Environment(CocktailCreationModel.self) private var model
     @Environment(\.modelContext) private var context
     let cocktail: Cocktail
@@ -57,7 +57,7 @@ private struct CreateCocktailButton: ToolbarContent {
 private struct CancelCocktailButton: ToolbarContent {
     @Environment(CocktailCreationModel.self) private var model
     @Environment(CocktailModel.self) private var cocktailModel
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Bindable var cocktail: Cocktail
     
     var body: some ToolbarContent {

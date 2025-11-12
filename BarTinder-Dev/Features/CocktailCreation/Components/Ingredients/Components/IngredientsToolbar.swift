@@ -10,7 +10,7 @@ import SwiftUI
 
 extension IngredientsListCreation {
     struct IngredientsToolbar: ToolbarContent {
-        @Environment(Router.self) private var router
+        @Environment(\.router) private var router
         @Bindable var model: IngredientCreationModel
         
         let cocktail: Cocktail

@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 extension EnvironmentValues {
+    @Entry var router: Router = Router()
     @Entry var screenWidth: CGFloat = 0
     @Entry var screenHeight: CGFloat = 0
 }
@@ -48,7 +49,7 @@ struct BarTinderApp: App {
                 checkState()
             }
             .animation(.easeIn, value: router.appState)
-            .environment(router)
+            .environment(\.router, router)
             .modelContainer(container)
         }
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 extension CreateEditCocktail {
     struct IngredientsSection: View {
-        @Environment(Router.self) private var router
+        @Environment(\.router) private var router
         @Environment(\.modelContext) private var context
         let cocktail: Cocktail
 

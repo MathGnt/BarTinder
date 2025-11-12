@@ -42,7 +42,7 @@ extension Home {
 
 private struct CocktailImageSource: View {
     @Environment(\.modelContext) private var context
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     let cocktail: Cocktail
     
     var body: some View {

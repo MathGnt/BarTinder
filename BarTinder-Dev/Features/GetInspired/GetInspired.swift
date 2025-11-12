@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GetInspired: View {
     @State private var model = GenerableModel()
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Binding var inspiredDetent: PresentationDetent
     
     var body: some View {

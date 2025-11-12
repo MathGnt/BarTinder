@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct CocktailDetail: View {
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Environment(\.modelContext) private var context
     let cocktail: Cocktail
     

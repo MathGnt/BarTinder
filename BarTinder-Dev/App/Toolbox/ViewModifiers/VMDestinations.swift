@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SheetDestinations: ViewModifier {
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Environment(\.modelContext) private var context
     @State private var inspiredDetent: PresentationDetent = .height(260)
 

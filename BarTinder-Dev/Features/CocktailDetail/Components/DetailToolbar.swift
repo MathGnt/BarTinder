@@ -9,7 +9,7 @@ import SwiftUI
 
 extension CocktailDetail {
     struct DetailToolbar: ToolbarContent {
-        @Environment(Router.self) private var router
+        @Environment(\.router) private var router
         @Environment(\.modelContext) private var context
         @State private var askForDelete = false
         let isGeneratedCocktail: Bool

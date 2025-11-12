@@ -10,7 +10,7 @@ import SwiftData
 
 struct Home: View {
     @Environment(\.modelContext) private var context
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @State private var model = CocktailModel()
     
     var body: some View {

@@ -9,7 +9,7 @@ import SwiftUI
 
 extension GetInspired {
     struct DescribeYourCocktail: View {
-        @Environment(Router.self) private var router
+        @Environment(\.router) private var router
         @Environment(GenerableModel.self) private var model
         @Environment(\.dismiss) private var dismiss
         

@@ -10,7 +10,7 @@ import SwiftData
 
 extension Home {
     struct HomeToolbar: ToolbarContent {
-        @Environment(Router.self) private var router
+        @Environment(\.router) private var router
         @Environment(CocktailModel.self) private var model
         @Environment(\.modelContext) private var context
         @Binding var sortOption: CocktailSortDescriptor

@@ -13,7 +13,7 @@ import SwiftData
 @Observable
 final class Router {
     var appState: AppState = .loading
-    let context: ModelContext
+    let context: ModelContext?
 
     var hasSwiped = false {
         didSet {
@@ -24,7 +24,7 @@ final class Router {
     var navigationPaths: [RouterDestination] = []
     var presentedSheet: SheetState?
 
-    init(context: ModelContext) {
+    init(context: ModelContext? = nil) {
         self.hasSwiped = UserDefaults.standard.bool(forKey: "hasSwiped")
         self.context = context
     }
@@ -63,8 +63,9 @@ final class Router {
             presentedSheet?.path.append(destination)
         } else {
             if case let .cocktailEdit(cocktail) = destination {
-                let switched = context.switch(for: cocktail)
-                presentedSheet = SheetState(root: .cocktailEdit(switched))
+                if let switched = context?.switch(for: cocktail) {
+                    presentedSheet = SheetState(root: .cocktailEdit(switched))
+                }
             } else {
                 presentedSheet = SheetState(root: destination)
             }

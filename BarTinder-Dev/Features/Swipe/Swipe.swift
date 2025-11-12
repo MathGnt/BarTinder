@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct Swipe: View {
-    @Environment(Router.self) private var router
+    @Environment(\.router) private var router
     @Environment(\.modelContext) private var context
     @State private var model = IngredientsModel()
     
