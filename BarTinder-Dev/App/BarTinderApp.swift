@@ -64,8 +64,10 @@ struct BarTinderApp: App {
     }
     
     private func fetchCocktails() {
-        for cocktail in fetcher.execute() {
-            container.mainContext.insert(cocktail)
+        if container.mainContext.getContent(for: Cocktail.self).isEmpty {
+            for cocktail in fetcher.execute() {
+                container.mainContext.insert(cocktail)
+            }
         }
     }
 }

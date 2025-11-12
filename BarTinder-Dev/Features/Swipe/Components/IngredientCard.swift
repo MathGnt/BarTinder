@@ -12,6 +12,7 @@ extension Swipe {
     struct IngredientCard: View {
         @State private var offset: CGFloat = 0
         @State private var rotation: Double = 0
+        @State private var isSwiping = false
         @Environment(\.screenWidth) private var screenWidth
         @Environment(\.screenHeight) private var screenHeight
         let cardIngredient: CardIngredient
@@ -47,6 +48,7 @@ extension Swipe {
                         handleSwipe(value)
                     }
             )
+            .disabled(isSwiping)
             .offset(x: offset)
             .rotationEffect(.degrees(rotation))
             .animation(.default, value: offset)
@@ -57,13 +59,25 @@ extension Swipe {
         
         private func handleSwipe(_ value: DragGesture.Value) {
             if value.translation.width >= threshold {
-                offset = BarTinderApp.SwipingSettings.swipeOutDistance
-                rotation = BarTinderApp.SwipingSettings.maxRotation
-                Task { await model.swipeRight(card: cardIngredient) }
+                isSwiping = true
+                withAnimation(.easeOut(duration: 0.3)) {
+                    offset = BarTinderApp.SwipingSettings.swipeOutDistance
+                    rotation = BarTinderApp.SwipingSettings.maxRotation
+                }
+                Task {
+                    try? await Task.sleep(for: .seconds(0.3))
+                    model.swipeRight(card: cardIngredient)
+                }
             } else if value.translation.width <= -threshold {
-                offset = -BarTinderApp.SwipingSettings.swipeOutDistance
-                rotation = -BarTinderApp.SwipingSettings.maxRotation
-                Task { await model.swipeLeft(card: cardIngredient)  }
+                isSwiping = true
+                withAnimation(.easeOut(duration: 0.3)) {
+                    offset = -BarTinderApp.SwipingSettings.swipeOutDistance
+                    rotation = -BarTinderApp.SwipingSettings.maxRotation
+                }
+                Task {
+                    try? await Task.sleep(for: .seconds(0.3))
+                    model.swipeLeft(card: cardIngredient)
+                }
             } else {
                 offset = 0
                 rotation = 0

@@ -22,13 +22,13 @@ final class IngredientsModel {
         self.ingredients = CardIngredient.ingredientCards
     }
 
-    func swipeLeft(card: CardIngredient) async {
-        await removeIngredient(card)
+    func swipeLeft(card: CardIngredient) {
+        removeIngredient(card)
     }
 
-    func swipeRight(card: CardIngredient) async {
+    func swipeRight(card: CardIngredient) {
         addIngredient(card)
-        await removeIngredient(card)
+        removeIngredient(card)
     }
     
     
@@ -36,9 +36,9 @@ final class IngredientsModel {
         useCase.executeAddIngredient(card)
     }
     
-    func removeIngredient(_ card: CardIngredient) async {
+    func removeIngredient(_ card: CardIngredient) {
+        print("removed \(card)")
         guard let index = ingredients.firstIndex(where: { $0.id == card.id }) else { return }
-        try? await Task.sleep(for: .seconds(0.3))
         ingredients.remove(at: index)
     }
     

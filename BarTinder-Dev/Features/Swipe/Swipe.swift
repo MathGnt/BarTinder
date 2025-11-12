@@ -33,6 +33,7 @@ struct Swipe: View {
             ZStack {
                 ForEach(model.ingredients.reversed()) { card in
                     IngredientCard(cardIngredient: card, model: model)
+
                 }
             }
             .onChange(of: model.ingredients) { _, newValue in
