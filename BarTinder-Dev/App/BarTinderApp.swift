@@ -15,13 +15,14 @@ extension EnvironmentValues {
 
 @main
 struct BarTinderApp: App {
-    @State private var router = Router()
-    @State private var fetcher = Fetcher(repo: CocktailRepo(cocktailDataSource: CocktailDataSource()))
+    @State private var router: Router
+    @State private var fetcher = Fetcher()
     private let container: ModelContainer
     
     init() {
         do {
             container = try ModelContainer(for: Cocktail.self)
+            self._router = State(wrappedValue: Router(context: container.mainContext))
         } catch {
             fatalError("Couldn't create a model container")
         }

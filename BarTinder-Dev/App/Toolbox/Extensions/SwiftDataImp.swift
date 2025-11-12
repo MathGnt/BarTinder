@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 extension ModelContext {
+    /// Switches a PersistentModel to a draft context (new ModelContext with autosave disabled).
     func `switch`<T: PersistentModel>(for model: T) -> T {
         let ctx = ModelContext(self.container)
         ctx.autosaveEnabled = false
@@ -19,8 +20,8 @@ extension ModelContext {
         }
         return ctx.model(for: model.persistentModelID) as? T ?? model
     }
-    
-    // Could be generic if needed while checking for the `stock` somewhere else
+
+    /// Could be generic if needed while checking for the `stock` somewhere else
     func contextDelete(_ cocktail: Cocktail) {
         if cocktail.stock {
             cocktail.isPossible = false

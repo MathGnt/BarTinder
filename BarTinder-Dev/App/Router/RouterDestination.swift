@@ -6,6 +6,7 @@ An enum that handles all the navigation cases for classic navigation.
 */
 import Foundation
 import SwiftUI
+import SwiftData
 
 enum RouterDestination: Hashable, Identifiable {
     case cocktailDetail(Cocktail, Namespace.ID?)
@@ -15,4 +16,3 @@ enum RouterDestination: Hashable, Identifiable {
 
     var id: Int { hashValue }
 }
-

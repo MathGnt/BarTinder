@@ -11,7 +11,7 @@ import SwiftUI
 struct BarTinderEnvironments: PreviewModifier {
     func body(content: Content, context: Void) -> some View {
         content
-            .environment(Router())
+//            .environment(Router())
             .environment(GenerableModel())
             .environment(CocktailModel())
             .environment(CocktailCreationModel())

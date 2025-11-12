@@ -10,7 +10,7 @@ import Foundation
 struct Fetcher {
     private let repo: Servable
     
-    init(repo: Servable) {
+    init(repo: Servable = CocktailRepo(cocktailDataSource: CocktailDataSource())) {
         self.repo = repo
     }
     

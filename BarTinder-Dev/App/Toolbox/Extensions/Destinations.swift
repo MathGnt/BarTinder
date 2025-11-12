@@ -29,20 +29,4 @@ extension View {
                 }
             }
     }
-    
-    func innerSheetDestination() -> some View {
-        self
-            .navigationDestination(for: SheetDestination.self) { destination in
-                switch destination {
-                case .cocktailDetail(let cocktail):
-                    CocktailDetail(cocktail: cocktail)
-                case .cocktailEdit(let cocktail):
-                    CreateEditCocktail(cocktail: cocktail)
-                case .ingredientsEdit(let cocktail):
-                    IngredientsListCreation(cocktail: cocktail)
-                case .askedForCocktail:
-                    EmptyView()
-                }
-            }
-    }
 }

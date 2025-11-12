@@ -10,8 +10,9 @@ import SwiftUI
 extension CreateEditCocktail {
     struct IngredientsSection: View {
         @Environment(Router.self) private var router
+        @Environment(\.modelContext) private var context
         let cocktail: Cocktail
-        
+
         var body: some View {
             Button {
                 router.presentSheet(.ingredientsEdit(cocktail))

@@ -12,34 +12,41 @@ struct SheetDestinations: ViewModifier {
     @Environment(Router.self) private var router
     @Environment(\.modelContext) private var context
     @State private var inspiredDetent: PresentationDetent = .height(260)
-    
+
     func body(content: Content) -> some View {
         @Bindable var router = router
-        
+
         content
-            .sheet(item: $router.presentedSheet) { sheet in
-                NavigationStack(path: $router.sheetPaths) {
-                    Group {
-                        switch sheet {
-                        case .cocktailDetail(let cocktail):
-                            CocktailDetail(cocktail: cocktail)
-                        case .cocktailEdit(let cocktail):
-                            CreateEditCocktail(cocktail: cocktail)
-                                .environment(\.modelContext, cocktail.modelContext!)
-                                .interactiveDismissDisabled()
-                        case .ingredientsEdit(let cocktail):
-                            IngredientsListCreation(cocktail: cocktail)
-                        case .askedForCocktail:
-                            GetInspired(inspiredDetent: $inspiredDetent)
-                                .presentationDetents([.height(260), .large], selection: $inspiredDetent)
-                                .onDisappear {
-                                    inspiredDetent = .height(260)
-                                }
+            .sheet(item: $router.presentedSheet) { sheetState in
+                @Bindable var sheetState = sheetState
+
+                NavigationStack(path: $sheetState.path) {
+                    sheetView(for: sheetState.root)
+                        .navigationDestination(for: SheetDestination.self) { destination in
+                            sheetView(for: destination)
                         }
-                    }
-                    .innerSheetDestination()
                 }
             }
+    }
+
+    @ViewBuilder
+    private func sheetView(for destination: SheetDestination) -> some View {
+        switch destination {
+        case .cocktailDetail(let cocktail):
+            CocktailDetail(cocktail: cocktail)
+        case .cocktailEdit(let cocktail):
+            CreateEditCocktail(cocktail: cocktail)
+                .environment(\.modelContext, cocktail.modelContext!)
+                .interactiveDismissDisabled()
+        case .ingredientsEdit(let cocktail):
+            IngredientsListCreation(cocktail: cocktail)
+        case .askedForCocktail:
+            GetInspired(inspiredDetent: $inspiredDetent)
+                .presentationDetents([.height(260), .large], selection: $inspiredDetent)
+                .onDisappear {
+                    inspiredDetent = .height(260)
+                }
+        }
     }
 }
 

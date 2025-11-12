@@ -17,7 +17,6 @@ extension CreateEditCocktail {
             CancelCocktailButton(cocktail: cocktail)
         }
     }
-    
 }
 
 private struct CreateCocktailButton: ToolbarContent {
@@ -71,7 +70,7 @@ private struct CancelCocktailButton: ToolbarContent {
             .tint(.red)
             .confirmationDialog("Discard Changes", isPresented: $model.askForDiscard) {
                 Button("Discard Changes", systemImage: "checkmark") {
-                    if router.sheetPaths.count > 1 {
+                    if router.presentedSheet?.path.count ?? 0 > 1 {
                         router.popToAllRoots()
                     } else {
                         router.dismissSheet()

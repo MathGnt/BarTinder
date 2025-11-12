@@ -11,7 +11,7 @@ import SwiftData
 struct IngredientsListCreation: View {
     @State private var model = IngredientCreationModel()
     let cocktail: Cocktail
-    
+
     var body: some View {
         List {
             Section("Added ingredients") {
