@@ -1,9 +1,9 @@
-//
-//  SwipeTip.swift
-//  BarTinder-Dev
-//
-//  Created by Mathis Gaignet on 13/11/2025.
-//
+/*
+See the LICENSE file for this project's licensing information.
+
+Abstract:
+A SwiftUI view component that shows a Tip to guide the user on the swipe gesture.
+*/
 
 import Foundation
 import TipKit
