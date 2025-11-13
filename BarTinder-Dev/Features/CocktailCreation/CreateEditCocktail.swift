@@ -34,7 +34,7 @@ struct CreateEditCocktail: View {
         .toolbar {
             CreationToolbar(cocktail: cocktail)
         }
-        .navigationTitle(context.insertedModelsArray.isEmpty ? "Edit Item" : "New Item")
+        .navigationTitle(context.insertedModelsArray.isEmpty ? "Edit Cocktail" : "New Cocktail")
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)

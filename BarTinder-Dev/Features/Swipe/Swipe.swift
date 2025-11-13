@@ -44,6 +44,7 @@ struct Swipe: View {
             }
         }
         .transition(.opacity.combined(with: .scale))
+        .padding(.top, BarTinderApp.Padding.titleSpacingTop)
     }
 }
 
