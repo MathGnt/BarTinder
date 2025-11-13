@@ -2,7 +2,7 @@
 See the LICENSE file for this project's licensing information.
 
 Abstract:
-A SwiftUI background component that displays a gradient for the 'generate' sheet.
+A SwiftUI component that shows a mesh gradient on top of the sheet.
 */
 
 import SwiftUI

@@ -68,5 +68,3 @@ final class GenerableModel {
         createUseCase.execute(cocktailIdea)
     }
 }
-
-
