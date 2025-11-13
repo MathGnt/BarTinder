@@ -7,6 +7,7 @@ The entry point for BarTinder.
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 extension EnvironmentValues {
     @Entry var router: Router = Router()
@@ -24,6 +25,7 @@ struct BarTinderApp: App {
         do {
             container = try ModelContainer(for: Cocktail.self)
             self._router = State(wrappedValue: Router(context: container.mainContext))
+            configureTipKit()
         } catch {
             fatalError("Couldn't create a model container")
         }
@@ -60,6 +62,14 @@ struct BarTinderApp: App {
         } else {
             router.appState = .swiping
             fetchCocktails()
+        }
+    }
+    
+    private func configureTipKit() {
+        do {
+            try Tips.configure()
+        } catch {
+            print("Error initializing tips: \(error)")
         }
     }
     

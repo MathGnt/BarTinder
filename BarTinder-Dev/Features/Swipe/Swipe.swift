@@ -7,6 +7,7 @@ A SwiftUI view that presents ingredient cards for users to swipe and select thei
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct Swipe: View {
     @Environment(\.router) private var router
@@ -28,11 +29,12 @@ struct Swipe: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.bottom, 30)
+            .padding(.bottom, 15)
             
             ZStack {
                 ForEach(model.ingredients.reversed()) { card in
                     IngredientCard(cardIngredient: card, model: model)
+                        .popoverTip(SwipeTip())
                 }
             }
             .onChange(of: model.ingredients) { _, newValue in

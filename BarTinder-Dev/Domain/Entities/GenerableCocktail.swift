@@ -50,4 +50,3 @@ struct IngredientIdea {
 //    let response = try await session.respond(to: prompt, generating: CocktailIdea.self)
 //}
 
-
