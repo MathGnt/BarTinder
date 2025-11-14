@@ -58,25 +58,30 @@ final class Router {
         dismissSheet()
         popToNavRoot()
     }
-    
+
     func presentSheet(_ destination: SheetDestination) {
         pauseTimeline = true
-        if presentedSheet != nil {
-            presentedSheet?.path.append(destination)
+        let destinationToUse = prepareDestination(destination)
+        
+        if let sheet = presentedSheet {
+            sheet.path.append(destinationToUse)
         } else {
-            if case let .cocktailEdit(cocktail) = destination {
-                if let switched = context?.switch(for: cocktail) {
-                    presentedSheet = SheetState(root: .cocktailEdit(switched))
-                }
-            } else {
-                presentedSheet = SheetState(root: destination)
-            }
+            presentedSheet = SheetState(root: destinationToUse)
         }
     }
     
     func dismissSheet() {
         presentedSheet = nil
         pauseTimeline = false
+    }
+    
+    /// The context switching could be done in a better way and isn’t very scalable here, but I only have a single upsert view for now, so it stays as is for the moment.
+    private func prepareDestination(_ destination: SheetDestination) -> SheetDestination {
+        if case let .cocktailEdit(cocktail) = destination,
+           let switched = context?.switch(for: cocktail) {
+            return .cocktailEdit(switched)
+        }
+        return destination
     }
 }
 
