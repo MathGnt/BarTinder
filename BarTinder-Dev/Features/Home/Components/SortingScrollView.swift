@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Home {
     struct SortingScrollView: View {
-        @Environment(CocktailModel.self) private var model
+        @Environment(HomeModel.self) private var model
         let title: String
         let filterOption: CocktailFilterPredicate
         

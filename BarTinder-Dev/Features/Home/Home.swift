@@ -11,7 +11,7 @@ import SwiftData
 struct Home: View {
     @Environment(\.modelContext) private var context
     @Environment(\.router) private var router
-    @State private var model = CocktailModel()
+    @State private var model = HomeModel()
     
     var body: some View {
         @Bindable var router = router
@@ -33,7 +33,7 @@ struct Home: View {
                     .scrollIndicators(.hidden)
                     
                     HomeSection("Your Cocktails") {
-                        YourCocktailsScrollView(model: model)
+                        YourCocktailsScrollView(descriptor: model.yourCocktailsDescriptor)
                             .padding(.horizontal)
                             .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
                     }
@@ -59,9 +59,7 @@ struct Home: View {
                 }
                 .navigationTitle("Home")
                 .toolbar {
-                    HomeToolbar(
-                        sortOption: $model.sortOption,
-                    )
+                    HomeToolbar()
                 }
             }
             .barTinderDestinations()

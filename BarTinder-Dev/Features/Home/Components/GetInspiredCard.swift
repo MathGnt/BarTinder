@@ -9,13 +9,15 @@ import SwiftUI
 
 extension Home {
     struct GetInspiredCard: View {
+        @Environment(\.router) private var router
+        
         var body: some View {
             ZStack(alignment: .topLeading) {
-                TimelineView(.animation) { context in
+                TimelineView(.animation(paused: router.pauseTimeline)) { context in
                     let time = context.date.timeIntervalSince1970
                     let offsetX = Float(sin(time)) * 0.4
                     let offsetY = Float(cos(time)) * 0.4
-
+                    
                     MeshGradient(
                         width: 3,
                         height: 3,
@@ -31,35 +33,13 @@ extension Home {
                             [1.0, 1.0]
                         ],
                         colors: [
-                              .purple, .indigo, .purple, .yellow,
-                              .pink, .purple, .pink, .yellow,
-                              .orange, .pink, .yellow, .orange,
-                              .yellow, .orange, .pink, .purple
-                          ]
+                            .purple, .indigo, .purple, .yellow,
+                            .pink, .purple, .pink, .yellow,
+                            .orange, .pink, .yellow, .orange,
+                            .yellow, .orange, .pink, .purple
+                        ]
                     )
                 }
-                
-                Rectangle()
-                    .fill(
-                        RadialGradient(
-                            colors: [.clear, .black.opacity(0.1)],
-                            center: .center,
-                            startRadius: 100,
-                            endRadius: 300
-                        )
-                    )
-                
-                Rectangle()
-                    .fill(
-                        LinearGradient(
-                            stops: [
-                                .init(color: .black.opacity(0.4), location: 0.0),
-                                .init(color: .clear, location: 0.6)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
                 
                 Image("cocktailglasspreview")
                     .resizable()

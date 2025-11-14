@@ -33,7 +33,11 @@ private struct CreateCocktailButton: ToolbarContent {
                 do {
                     try model.checkAndInsertCocktail(cocktail)
                     try? context.save()
-                    router.popToAllRoots()
+                    if router.presentedSheet?.path.count ?? 0 > 1 {
+                        router.popToAllRoots()
+                    } else {
+                        router.dismissSheet()
+                    }
                 } catch CreationErrors.emptyCocktailFields, CreationErrors.emptyMeasuresFields {
                     model.generalCocktailFieldsMissing = true
                 } catch {
@@ -56,7 +60,7 @@ private struct CreateCocktailButton: ToolbarContent {
 
 private struct CancelCocktailButton: ToolbarContent {
     @Environment(CocktailCreationModel.self) private var model
-    @Environment(CocktailModel.self) private var cocktailModel
+    @Environment(HomeModel.self) private var cocktailModel
     @Environment(\.router) private var router
     @Bindable var cocktail: Cocktail
     

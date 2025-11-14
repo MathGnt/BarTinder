@@ -13,7 +13,7 @@ struct BarTinderEnvironments: PreviewModifier {
         content
             .environment(Router())
             .environment(GenerableModel())
-            .environment(CocktailModel())
+            .environment(HomeModel())
             .environment(CocktailCreationModel())
             .environment(IngredientsModel())
             .environment(IngredientCreationModel())

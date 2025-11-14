@@ -10,7 +10,7 @@ import SwiftData
 import Observation
 
 @Observable
-final class CocktailModel {
+final class HomeModel {
     var filterOption: CocktailFilterPredicate = .possibleCocktails
     var sortOption: CocktailSortDescriptor = .name
     var isReversed: Bool = false

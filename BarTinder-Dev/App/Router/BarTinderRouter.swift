@@ -12,6 +12,7 @@ import SwiftData
 /// Can be turned into a generic SPM package if needed.
 @Observable
 final class Router {
+    var pauseTimeline = false
     var appState: AppState = .loading
     let context: ModelContext?
 
@@ -33,7 +34,7 @@ final class Router {
         navigationPaths.append(destination)
     }
 
-    func goBack() {
+    func popNavigation() {
         if let sheet = presentedSheet, !sheet.path.isEmpty {
             sheet.path.removeLast()
         }
@@ -59,6 +60,7 @@ final class Router {
     }
     
     func presentSheet(_ destination: SheetDestination) {
+        pauseTimeline = true
         if presentedSheet != nil {
             presentedSheet?.path.append(destination)
         } else {
@@ -74,6 +76,7 @@ final class Router {
     
     func dismissSheet() {
         presentedSheet = nil
+        pauseTimeline = false
     }
 }
 

@@ -20,7 +20,7 @@ extension IngredientsListCreation {
                 Button("Done", systemImage: "checkmark") {
                     do {
                         try model.checkForIngredients(cocktail.ingredients)
-                        router.goBack()
+                        router.popNavigation()
                     } catch {
                         model.measuresFieldMissing = true
                     }

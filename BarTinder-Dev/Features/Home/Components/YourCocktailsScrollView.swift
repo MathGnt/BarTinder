@@ -10,13 +10,11 @@ import SwiftData
 
 extension Home {
     struct YourCocktailsScrollView: View {
-        @Bindable var model: CocktailModel
         @Namespace private var cocktailZoom
         @Query private var cocktails: [Cocktail]
         
-        init(model: CocktailModel) {
-            self.model = model
-            _cocktails = Query(model.yourCocktailsDescriptor)
+        init(descriptor: FetchDescriptor<Cocktail>) {
+            _cocktails = Query(descriptor)
         }
         
         var body: some View {
@@ -76,5 +74,5 @@ private struct CocktailImageSource: View {
 }
 
 #Preview(traits: .queryMocks, .barTinderEnvironments) {
-    Home.YourCocktailsScrollView(model: CocktailModel())
+    Home.YourCocktailsScrollView(descriptor: FetchDescriptor<Cocktail>())
 }

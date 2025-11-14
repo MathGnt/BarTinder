@@ -11,9 +11,8 @@ import SwiftData
 extension Home {
     struct HomeToolbar: ToolbarContent {
         @Environment(\.router) private var router
-        @Environment(CocktailModel.self) private var model
+        @Environment(HomeModel.self) private var model
         @Environment(\.modelContext) private var context
-        @Binding var sortOption: CocktailSortDescriptor
         
         var body: some ToolbarContent {
             @Bindable var model = model
@@ -39,7 +38,7 @@ extension Home {
                         Toggle("Reverse order", isOn: $model.isReversed)
                     }
                     Section {
-                        Picker("Sort by...", selection: $sortOption) {
+                        Picker("Sort by...", selection: $model.sortOption) {
                             ForEach(CocktailSortDescriptor.allCases, id: \.self) { option in
                                 Text(option.rawValue)
                                     .tag(option)
@@ -79,7 +78,7 @@ extension Home {
     NavigationStack {
         Text("Home Toolbar")
             .toolbar {
-                Home.HomeToolbar(sortOption: $sortOption)
+                Home.HomeToolbar()
             }
     }
 }
