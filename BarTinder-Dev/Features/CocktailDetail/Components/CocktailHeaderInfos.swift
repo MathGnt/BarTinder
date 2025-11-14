@@ -34,7 +34,7 @@ extension CocktailDetail {
                 VStack(spacing: 9) {
                     Text("Technique")
                         .font(.system(size: 15, design: .serif))
-                    Text(cocktail.mixingTechniqueValue.capitalizedWords)
+                    Text(cocktail.mixingTechniqueValue.capitalized)
                         .font(.system(size: 16, design: .rounded))
                     
                 }
