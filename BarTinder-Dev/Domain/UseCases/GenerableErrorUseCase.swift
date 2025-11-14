@@ -44,6 +44,11 @@ struct GenerableErrorUseCase {
     
     func mapGenerationError(_ error: LanguageModelSession.GenerationError) async -> LanguageError {
         switch error {
+        case .guardrailViolation:
+            return LanguageError(
+                title: "Request not allowed",
+                message: "Your prompt contains content that goes beyond the permitted guidelines for Apple Intelligence."
+            )
         case .unsupportedLanguageOrLocale:
             return LanguageError(
                 title: "Unsupported language",
