@@ -25,7 +25,7 @@ final class GenerableModel {
         self.session = LanguageModelSession(
             instructions: """
         Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients), \(Cocktail.mule.ingredients), \(Cocktail.spritz)."
-        Wedge unit is for ingredients that can be cut in wedges, so not the liquid or juices.
+        Wedge unit is for ingredients that can be cut in wedges, so not the liquid or juices. Don't EVER put the same ingredient twice in the same cocktail.
         """
         )
     }
