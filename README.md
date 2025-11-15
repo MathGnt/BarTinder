@@ -316,24 +316,15 @@ func mapLanguageError() -> LanguageError? {
 <div align="center">
 
 <p>
-  <strong>Ingredient Swiping</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cocktail Details</strong>
-</p>
-<p>
   <img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
   <img src="screenshots/detail.png" width="300" alt="Cocktail Detail View">
 </p>
 
 <p>
-  <strong>Your Cocktails</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cocktail Creation</strong>
-</p>
-<p>
   <img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
   <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
 </p>
 
-<p>
-  <strong>Ingredient Creation</strong>
-</p>
 <p>
   <img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
 </p>
