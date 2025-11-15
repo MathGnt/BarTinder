@@ -16,7 +16,7 @@ struct QueryMocks: PreviewModifier {
         
         container.mainContext.insert(Cocktail.ginto)
         container.mainContext.insert(Cocktail.mule)
-        container.mainContext.insert(Cocktail.spritz)
+        container.mainContext.insert(Cocktail.custom)
         
         try? container.mainContext.save()
         

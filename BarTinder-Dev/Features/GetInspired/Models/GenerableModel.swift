@@ -24,8 +24,8 @@ final class GenerableModel {
     init() {
         self.session = LanguageModelSession(
             instructions: """
-        Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients), \(Cocktail.mule.ingredients), \(Cocktail.spritz)."
-        Wedge unit is for ingredients that can be cut in wedges, so not the liquid or juices. Don't EVER put the same ingredient twice in the same cocktail.
+        Suggest an idea for a creative cocktail. For the measure and unit, you can help you with \(Cocktail.ginto.ingredients), \(Cocktail.mule.ingredients), \(Cocktail.custom)."
+        Assign the unit that best matches the ingredient (wedge for ingredients that can be cut, pinch for salt, etc.). Don't EVER put the same ingredient twice in the same cocktail.
         """
         )
     }
@@ -48,7 +48,6 @@ final class GenerableModel {
 
     func generate() async {
         let prompt = "Give me an idea for a cocktail that represents the word \(word)"
-        //        let options = GenerationOptions(temperature: 2.0) -> Bug de génération ?
         let streamingResponse = session.streamResponse(to: prompt, generating: CocktailIdea.self)
         
         do {

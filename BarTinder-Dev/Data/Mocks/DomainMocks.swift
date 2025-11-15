@@ -13,7 +13,7 @@ extension Ingredient {
 
 extension Cocktail {
     @MainActor static let mocksArray: [Cocktail] = [
-        .ginto, .mule, .spritz
+        .ginto, .mule, .custom
     ]
     
     @MainActor static let ginto: Cocktail = Cocktail(
@@ -61,11 +61,13 @@ extension Cocktail {
         stock: true
     )
     
-    @MainActor static let spritz: Cocktail = Cocktail(
+    @MainActor static let custom: Cocktail = Cocktail(
         name: "Aperol Spritz",
         ingredients: [
             .init(name: "aperol", measure: "6", unit: Units.cl),
-            .init(name: "prosecco", measure: "9", unit: Units.cl),
+            .init(name: "celerysalt", measure: "9", unit: Units.pinch),
+            .init(name: "lime", measure: "1", unit: Units.wedge),
+            .init(name: "angostura", measure: "2", unit: Units.dash),
             .init(name: "sparkling water", measure: "", unit: Units.topUp)
         ],
         isInBar: false,
