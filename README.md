@@ -290,7 +290,7 @@ func mapLanguageError() -> LanguageError? {
 |------------|---------|
 | **SwiftUI** | Modern, declarative UI framework |
 | **SwiftData** | Core Data successor for persistence |
-| **Swift 6?2** | Latest language features & concurrency |
+| **Swift 6.2** | Latest language features & concurrency |
 | **Foundation Models** | Apple Intelligence for AI-powered cocktail generation |
 | **MVVM + Clean Architecture** | Scalable architectural pattern |
 | **Swift Testing** | Modern testing framework |
@@ -315,23 +315,34 @@ func mapLanguageError() -> LanguageError? {
 
 <div align="center">
 
-### **Ingredient Swiping**
-<img src="screenshots/swiping-portrait.png" width="300" alt="Ingredient Swiping Interface">
-
-### **Bar Discovery**
-<img src="screenshots/bar-portrait.png" width="300" alt="Bar Discovery Screen">
-
-### **Cocktail Details**
-<img src="screenshots/cocktaildetail-portrait.png" width="300" alt="Cocktail Detail View">
-
-### **Your Cocktails**
-<img src="screenshots/yourcocktails-portrait.png" width="300" alt="Personal Cocktail Library">
-
-### **Cocktail Creation**
-<img src="screenshots/cocktailcreation-portrait.png" width="300" alt="Cocktail Creation Interface">
-
-### **Ingredient Creation**
-<img src="screenshots/ingredientscreation-portrait.png" width="300" alt="Ingredient Creation Screen">
+<table>
+<tr>
+<td align="center">
+<strong>Ingredient Swiping</strong><br/>
+<img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
+</td>
+<td align="center">
+<strong>Cocktail Details</strong><br/>
+<img src="screenshots/detail.png" width="300" alt="Cocktail Detail View">
+</td>
+</tr>
+<tr>
+<td align="center">
+<strong>Your Cocktails</strong><br/>
+<img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
+</td>
+<td align="center">
+<strong>Cocktail Creation</strong><br/>
+<img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+<strong>Ingredient Creation</strong><br/>
+<img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
+</td>
+</tr>
+</table>
 
 </div>
 
