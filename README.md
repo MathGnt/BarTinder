@@ -315,34 +315,28 @@ func mapLanguageError() -> LanguageError? {
 
 <div align="center">
 
-<table style="border: none; border-collapse: collapse;">
-<tr>
-<td align="center" style="border: none;">
-<strong>Ingredient Swiping</strong><br/>
-<img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
-</td>
-<td align="center" style="border: none;">
-<strong>Cocktail Details</strong><br/>
-<img src="screenshots/detail.png" width="300" alt="Cocktail Detail View">
-</td>
-</tr>
-<tr>
-<td align="center" style="border: none;">
-<strong>Your Cocktails</strong><br/>
-<img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
-</td>
-<td align="center" style="border: none;">
-<strong>Cocktail Creation</strong><br/>
-<img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
-</td>
-</tr>
-<tr>
-<td align="center" colspan="2" style="border: none;">
-<strong>Ingredient Creation</strong><br/>
-<img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
-</td>
-</tr>
-</table>
+<p>
+  <strong>Ingredient Swiping</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cocktail Details</strong>
+</p>
+<p>
+  <img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
+  <img src="screenshots/detail.png" width="300" alt="Cocktail Detail View">
+</p>
+
+<p>
+  <strong>Your Cocktails</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Cocktail Creation</strong>
+</p>
+<p>
+  <img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
+  <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
+</p>
+
+<p>
+  <strong>Ingredient Creation</strong>
+</p>
+<p>
+  <img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
+</p>
 
 </div>
 
