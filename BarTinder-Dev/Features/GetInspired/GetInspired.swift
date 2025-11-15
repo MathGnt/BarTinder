@@ -10,7 +10,6 @@ import SwiftUI
 struct GetInspired: View {
     @State private var model = GenerableModel()
     @Environment(\.router) private var router
-    @Binding var inspiredDetent: PresentationDetent
     
     var body: some View {
         ZStack {
@@ -21,13 +20,6 @@ struct GetInspired: View {
             }
         }
         .animation(.default, value: model.askedForIdea)
-        .onChange(of: model.word) { _, newValue in
-            if !newValue.isEmpty {
-                inspiredDetent = .large
-            } else {
-                inspiredDetent = .height(260)
-            }
-        }
         .alert(
             Text(model.errorDetails?.title ?? "Error"),
             isPresented: .isPresent($model.errorDetails),
@@ -45,6 +37,5 @@ struct GetInspired: View {
 }
 
 #Preview(traits: .barTinderEnvironments) {
-    @Previewable @State var inspiredDetent: PresentationDetent = .height(260)
-    GetInspired(inspiredDetent: $inspiredDetent)
+    GetInspired()
 }

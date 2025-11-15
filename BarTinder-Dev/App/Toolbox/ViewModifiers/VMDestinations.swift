@@ -11,7 +11,6 @@ import SwiftUI
 struct SheetDestinations: ViewModifier {
     @Environment(\.router) private var router
     @Environment(\.modelContext) private var context
-    @State private var inspiredDetent: PresentationDetent = .height(260)
 
     func body(content: Content) -> some View {
         @Bindable var router = router
@@ -41,11 +40,7 @@ struct SheetDestinations: ViewModifier {
         case .ingredientsEdit(let cocktail):
             IngredientsListCreation(cocktail: cocktail)
         case .askedForCocktail:
-            GetInspired(inspiredDetent: $inspiredDetent)
-                .presentationDetents([.height(260), .large], selection: $inspiredDetent)
-                .onDisappear {
-                    inspiredDetent = .height(260)
-                }
+            GetInspired()
         }
     }
 }
