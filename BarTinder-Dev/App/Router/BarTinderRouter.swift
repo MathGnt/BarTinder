@@ -75,7 +75,15 @@ final class Router {
         pauseTimeline = false
     }
     
-    /// The context switching could be done in a better way and isn’t very scalable here, but I only have a single upsert view for now, so it stays as is for the moment.
+    func creationDismiss() {
+        if presentedSheet?.path.count ?? 0 > 1 {
+            popToAllRoots()
+        } else {
+            dismissSheet()
+        }
+    }
+    
+    /// Currently supports a single upsert view; scalable solution could be implemented if multiple views are needed.
     private func prepareDestination(_ destination: SheetDestination) -> SheetDestination {
         if case let .cocktailEdit(cocktail) = destination,
            let switched = context?.switch(for: cocktail) {

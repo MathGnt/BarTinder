@@ -45,7 +45,7 @@ extension CocktailDetail {
                         Button("Delete") {
                             context.contextDelete(cocktail)
                             try? context.save()
-                            router.goBack()
+                            router.popNavigation()
                         }
                 
                     } message: {

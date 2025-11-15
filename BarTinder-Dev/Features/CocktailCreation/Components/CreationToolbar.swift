@@ -33,11 +33,7 @@ private struct CreateCocktailButton: ToolbarContent {
                 do {
                     try model.checkAndInsertCocktail(cocktail)
                     try? context.save()
-                    if router.presentedSheet?.path.count ?? 0 > 1 {
-                        router.popToAllRoots()
-                    } else {
-                        router.dismissSheet()
-                    }
+                    router.creationDismiss()
                 } catch CreationErrors.emptyCocktailFields, CreationErrors.emptyMeasuresFields {
                     model.generalCocktailFieldsMissing = true
                 } catch {
@@ -49,7 +45,6 @@ private struct CreateCocktailButton: ToolbarContent {
                     if cocktail.ingredients.isEmpty {
                         router.presentSheet(.ingredientsEdit(cocktail))
                     }
-                    
                 }
             } message: {
                 Text("Some fields are missing!")
@@ -74,11 +69,7 @@ private struct CancelCocktailButton: ToolbarContent {
             .tint(.red)
             .confirmationDialog("Discard Changes", isPresented: $model.askForDiscard) {
                 Button("Discard Changes", systemImage: "checkmark") {
-                    if router.presentedSheet?.path.count ?? 0 > 1 {
-                        router.popToAllRoots()
-                    } else {
-                        router.dismissSheet()
-                    }
+                    router.creationDismiss()
                 }
             } message: {
                 Text("Do you want to discard changes?")
