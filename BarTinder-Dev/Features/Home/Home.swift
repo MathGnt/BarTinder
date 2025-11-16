@@ -35,7 +35,7 @@ struct Home: View {
                         YourCocktailsScrollView(descriptor: model.yourCocktailsDescriptor)
 
                     }
-                    
+                
                     HomeSection("Get Inspired") {
                         Button {
                             router.presentSheet(.askedForCocktail)

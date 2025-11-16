@@ -31,16 +31,16 @@ struct SwipeTests {
         }
         
         let swipedRightIngredients: [CardIngredient] = [
-            .init(image: "mint", name: "mint", otherName: nil, abv: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
-            .init(image: "tequila", name: "tequila", otherName: nil, abv: "38", location: "Mexico", summer: false, unit: "Cl"),
-            .init(image: "sparkling", name: "sparkling water", otherName: nil, abv: nil, location: "Switzerland", summer: true, unit: "Cl"),
-            .init(image: "lime", name: "lime", otherName: "lime juice", abv: nil, location: "Malaysia", summer: true, unit: "Cl"),
-            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
-            .init(image: "cointreau", name: "triple sec", otherName: nil, abv: "40", location: "France", summer: false, unit: "Cl"),
-            .init(image: "whiskey", name: "whisky", otherName: nil, abv: "40", location: "Scotland", summer: false, unit: "Cl"),
-            .init(image: "vodka", name: "vodka", otherName: nil, abv: "40", location: "Russia", summer: true, unit: "Cl"),
-            .init(image: "cranberryjuice", name: "cranberry juice", otherName: nil, abv: nil, location: "United States", summer: false, unit: "Cl"),
-            .init(image: "syrup", name: "sugar cane syrup", otherName: nil, abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
+            .init(image: "mint", name: "mint", otherName: [], abv: nil, location: "Mediterranean Region", summer: true, unit: "Leaf"),
+            .init(image: "tequila", name: "tequila", otherName: [], abv: "38", location: "Mexico", summer: false, unit: "Cl"),
+            .init(image: "sparkling", name: "sparkling water", otherName: [], abv: nil, location: "Switzerland", summer: true, unit: "Cl"),
+            .init(image: "lime", name: "lime", otherName: ["lime juice"], abv: nil, location: "Malaysia", summer: true, unit: "Cl"),
+            .init(image: "syrup", name: "sugar cane syrup", otherName: [], abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
+            .init(image: "cointreau", name: "triple sec", otherName: [], abv: "40", location: "France", summer: false, unit: "Cl"),
+            .init(image: "whiskey", name: "whisky", otherName: ["rye whiskey"], abv: "40", location: "Scotland", summer: false, unit: "Cl"),
+            .init(image: "vodka", name: "vodka", otherName: [], abv: "40", location: "Russia", summer: true, unit: "Cl"),
+            .init(image: "cranberryjuice", name: "cranberry juice", otherName: [], abv: nil, location: "United States", summer: false, unit: "Cl"),
+            .init(image: "syrup", name: "sugar cane syrup", otherName: [], abv: nil, location: "Caribbean", summer: false, unit: "Cl"),
         ]
         
         for selectedIngredient in swipedRightIngredients {
