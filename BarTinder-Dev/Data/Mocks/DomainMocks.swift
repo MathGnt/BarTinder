@@ -67,7 +67,7 @@ extension Cocktail {
             .init(name: "aperol", measure: "13", unit: Units.cl),
             .init(name: "celerysalt", measure: "9", unit: Units.pinch),
             .init(name: "lime", measure: "1", unit: Units.wedge),
-            .init(name: "angostura", measure: "2", unit: Units.dash),
+            .init(name: "angostura bitters", measure: "2", unit: Units.dash),
             .init(name: "sparkling water", measure: "", unit: Units.topUp)
         ],
         isInBar: false,

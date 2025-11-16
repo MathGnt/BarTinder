@@ -18,7 +18,7 @@ struct Home: View {
         
         NavigationStack(path: $router.navigationPaths) {
             ScrollView {
-                VStack(spacing: 0) {
+                VStack {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(CocktailFilterPredicate.allCases, id: \.self) { filter in
@@ -27,15 +27,12 @@ struct Home: View {
                                 }
                             }
                         }
-                        .padding(.horizontal)
-                        .padding(.top, 10)
                     }
                     .scrollClipDisabled()
                     .scrollIndicators(.hidden)
                     
                     HomeSection("Your Cocktails") {
                         YourCocktailsScrollView(descriptor: model.yourCocktailsDescriptor)
-                            .padding(.horizontal)
 
                     }
                     
@@ -44,7 +41,6 @@ struct Home: View {
                             router.presentSheet(.askedForCocktail)
                         } label: {
                             GetInspiredCard()
-                                .padding(.horizontal)
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel("Build a cocktail with Apple Intelligence")
@@ -52,12 +48,12 @@ struct Home: View {
         
                     HomeSection("Ingredients Ideas") {
                         IngredientGrid()
-                            .padding(.horizontal)
                             .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
                     }
                  
                     Spacer()
                 }
+                .padding(.horizontal)
                 .navigationTitle("Home")
                 .toolbar {
                     HomeToolbar()
@@ -92,9 +88,7 @@ extension Home {
                     Spacer()
                 }
                 .font(.system(size: 22, weight: .semibold, design: .rounded))
-                .padding(.horizontal)
-                .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
-                .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.tightSpacing : BarTinderApp.Padding.bigTitleSpacingBottom)
+                .padding(.top, BarTinderApp.Padding.titleSpacingTop)
             }
             content
         }
