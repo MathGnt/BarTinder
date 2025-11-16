@@ -15,10 +15,10 @@ final class GenerableCreateUseCase {
         guard let name = cocktailIdea?.content.name else { return nil }
         guard let description = cocktailIdea?.content.description else { return nil }
         guard let ingredients = cocktailIdea?.content.ingredients else { return nil }
-        guard let style = CocktailStyle(rawValue: cocktailIdea?.content.style ?? "short drink") else { return nil }
-        guard let glass = CocktailGlass(rawValue: cocktailIdea?.content.glass ?? "highball") else { return nil }
-        guard let mixingTechnique = CocktailMixingTechnique(rawValue: cocktailIdea?.content.mixingTechnique ?? "built") else { return nil }
-        guard let difficulty = CocktailDifficulty(rawValue: cocktailIdea?.content.difficulty ?? "easy") else { return nil }
+        let style = cocktailIdea?.content.style.flatMap { CocktailStyle(rawValue: $0) } ?? .shortDrink
+        let glass = cocktailIdea?.content.glass.flatMap { CocktailGlass(rawValue: $0) } ?? .highball
+        let mixingTechnique = cocktailIdea?.content.mixingTechnique.flatMap { CocktailMixingTechnique(rawValue: $0) } ?? .built
+        let difficulty = cocktailIdea?.content.difficulty.flatMap { CocktailDifficulty(rawValue: $0) } ?? .easy
         
         for ingredient in ingredients {
             guard let ingredientName = ingredient.name else { return nil }

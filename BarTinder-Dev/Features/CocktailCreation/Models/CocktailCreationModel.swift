@@ -25,8 +25,7 @@ final class CocktailCreationModel {
     }
     
     func imageDataToUI(_ cocktail: Cocktail) -> UIImage? {
-        guard let data = cocktail.imageData else { return nil }
-        return UIImage(data: data)
+        cocktail.imageData.flatMap { UIImage(data: $0) }
     }
     
     
