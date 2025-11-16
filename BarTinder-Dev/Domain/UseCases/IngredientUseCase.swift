@@ -13,9 +13,7 @@ final class IngredientUseCase {
     
     func executeAddIngredient(_ card: CardIngredient) {
         selectedIngredients.insert(card.name)
-        if let otherName = card.otherName {
-            selectedIngredients.insert(otherName)
-        }
+        card.otherName.forEach { selectedIngredients.insert($0) }
     }
     
     func executeRemoveAllIngredients() {

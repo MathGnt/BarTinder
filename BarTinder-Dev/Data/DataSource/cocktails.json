@@ -820,36 +820,5 @@
         "unit": "cl"
       }
     ]
-  },
-  {
-    "name": "Irish Coffee",
-    "style": "short drink",
-    "glass": "tumbler",
-    "technique": "built",
-    "difficulty": "easy",
-    "cocktailDescription": "Created in mid-20th-century Ireland, the Irish Coffee is a warming blend of whisky and coffee. Best savored on cold evenings or after a hearty meal.",
-    "stock": true,
-    "ingredients": [
-      {
-        "name": "irish whisky",
-        "measure": "4",
-        "unit": "cl"
-      },
-      {
-        "name": "coffee",
-        "measure": "9",
-        "unit": "cl"
-      },
-      {
-        "name": "sugar",
-        "measure": "1.5",
-        "unit": "cl"
-      },
-      {
-        "name": "cream",
-        "measure": "2",
-        "unit": "cl"
-      }
-    ]
   }
 ]
