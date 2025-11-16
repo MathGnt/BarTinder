@@ -13,7 +13,7 @@ struct IngredientRowLabel: View {
     var body: some View {
         Image(ingredientName.logolized())
             .resizable()
-            .scaledToFill()
+            .scaledToFit()
             .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
         Text(ingredientName.capitalized)
             .fontWeight(.medium)
@@ -21,5 +21,5 @@ struct IngredientRowLabel: View {
 }
 
 #Preview(traits: .barTinderEnvironments) {
-    IngredientRowLabel(ingredientName: "gin")
+    IngredientRowLabel(ingredientName: "prosecco")
 }
