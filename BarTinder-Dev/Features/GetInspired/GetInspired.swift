@@ -16,7 +16,7 @@ struct GetInspired: View {
             if model.askedForIdea {
                 GeneratedCocktail()
             } else {
-                DescribeYourCocktail()
+                CreateAppleIntelligence()
             }
         }
         .animation(.default, value: model.askedForIdea)

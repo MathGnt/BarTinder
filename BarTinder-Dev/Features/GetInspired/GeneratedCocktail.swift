@@ -63,7 +63,7 @@ extension GeneratedCocktail {
                 router.presentSheet(.cocktailDetail(cocktail))
             }
         }
-        .buttonStyle(GenerateButton(color: .blue))
+        .buttonStyle(GenerateButtonStyle(color: .blue))
         .fontWeight(.semibold)
     }
     
@@ -72,7 +72,7 @@ extension GeneratedCocktail {
             router.dismissSheet()
             model.showButtons = false
         }
-        .buttonStyle(GenerateButton(color: .red))
+        .buttonStyle(GenerateButtonStyle(color: .red))
         .fontWeight(.semibold)
     }
     

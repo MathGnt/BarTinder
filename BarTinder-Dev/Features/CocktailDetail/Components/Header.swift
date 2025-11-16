@@ -16,18 +16,21 @@ extension CocktailDetail {
             cocktail.displayedImage
                 .resizable()
                 .scaledToFill()
+                .frame(height: 480)
                 .clipped()
                 .overlay(alignment: .bottom) {
-                    LinearGradient(
-                        stops: [
-                            .init(color: .clear, location: 0.3),
-                            .init(color: Color(uiColor: .systemBackground), location: 0.8)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+                    Rectangle()
+                        .fill(
+                            .linearGradient(colors: [
+                                .inverted.opacity(0),
+                                .inverted.opacity(0.1),
+                                .inverted.opacity(0.3),
+                                .inverted.opacity(0.5),
+                                .inverted.opacity(0.8),
+                                .inverted.opacity(1)
+                            ], startPoint: .top, endPoint: .bottom)
+                        )
                 }
-                .frame(height: 400)
         }
     }
 }

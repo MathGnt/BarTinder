@@ -22,20 +22,21 @@ struct Home: View {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(CocktailFilterPredicate.allCases, id: \.self) { filter in
-                                SortingScrollView(title: filter.rawValue, filterOption: filter)
+                                GlassEffectContainer {
+                                    SortingButton(title: filter.rawValue, filterOption: filter)
+                                }
                             }
                         }
-                        .buttonStyle(.plain)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                         .padding(.horizontal)
                         .padding(.top, 10)
                     }
+                    .scrollClipDisabled()
                     .scrollIndicators(.hidden)
                     
                     HomeSection("Your Cocktails") {
                         YourCocktailsScrollView(descriptor: model.yourCocktailsDescriptor)
                             .padding(.horizontal)
-                            .padding(.bottom, BarTinderApp.Padding.scrollViewVerticalSpacing)
+
                     }
                     
                     HomeSection("Get Inspired") {
@@ -92,7 +93,7 @@ private struct HomeSection<Content: View>: View {
             .font(.system(size: 22, weight: .semibold, design: .rounded))
             .padding(.horizontal)
             .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
-            .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.titleSpacingBottom : BarTinderApp.Padding.bigTitleSpacingBottom)
+            .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.tightSpacing : BarTinderApp.Padding.bigTitleSpacingBottom)
         }
         content
     }

@@ -64,7 +64,7 @@ extension Cocktail {
     @MainActor static let custom: Cocktail = Cocktail(
         name: "Aperol Spritz",
         ingredients: [
-            .init(name: "aperol", measure: "6", unit: Units.cl),
+            .init(name: "aperol", measure: "13", unit: Units.cl),
             .init(name: "celerysalt", measure: "9", unit: Units.pinch),
             .init(name: "lime", measure: "1", unit: Units.wedge),
             .init(name: "angostura", measure: "2", unit: Units.dash),

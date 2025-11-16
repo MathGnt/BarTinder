@@ -8,7 +8,7 @@ A SwiftUI view component that provides filter buttons for cocktail sorting and f
 import SwiftUI
 
 extension Home {
-    struct SortingScrollView: View {
+    struct SortingButton: View {
         @Environment(HomeModel.self) private var model
         let title: String
         let filterOption: CocktailFilterPredicate
@@ -19,21 +19,12 @@ extension Home {
                     model.filterOption = filterOption
                 }
             }
-            .buttonStyle(.plain)
-            .frame(height: 50)
-            .foregroundStyle(model.filterOption == filterOption ? .selecText : .unselecText)
-            .fontWeight(.medium)
-       
-            .padding(.horizontal)
-           
-            .bartinderRounder()
-            .scaleEffect(model.filterOption == filterOption ? 1.02 : 1)
-            .glassEffect(.regular.tint(model.filterOption == filterOption ? .selecBackground : .unselecBackground).interactive())
-       
+            .buttonStyle(SortingButonStyle(filterOption: filterOption))
+            .accessibilityHint("Cocktails are sorted by \(title)")
         }
     }
 }
 
 #Preview(traits: .barTinderEnvironments) {
-    Home.SortingScrollView(title: "Gin", filterOption: CocktailFilterPredicate.gin)
+    Home.SortingButton(title: "Gin", filterOption: CocktailFilterPredicate.gin)
 }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 final class IngredientUseCase {
-    private var selectedIngredients: Set<String> = []
+    private(set) var selectedIngredients: Set<String> = []
     
     func executeAddIngredient(_ card: CardIngredient) {
         selectedIngredients.insert(card.name)

@@ -24,7 +24,7 @@ extension GeneratedCocktail {
                     .turborider.opacity(0.8), .pink.opacity(0.8), .blue.opacity(0.9)
                 ]
             )
-            .frame(height: 300)
+            .frame(height: 250)
             .frame(maxWidth: .infinity)
             .compositingGroup()
             .mask {

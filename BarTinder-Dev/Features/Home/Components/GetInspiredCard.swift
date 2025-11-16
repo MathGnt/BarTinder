@@ -56,19 +56,20 @@ extension Home {
                         .font(.system(size: 25))
                     
                     VStack(alignment: .leading) {
-                        Text("Ask for a")
-                        Text("Cocktail idea")
+                        Text("Mix ideas")
+                        Text("Into reality")
                     }
                     .fontWeight(.semibold)
+                    .padding(.top, 2)
                 }
-                .font(.system(size: 35))
+                .font(.system(size: 40))
                 .foregroundStyle(.white)
                 .padding()
+
             }
             .frame(height: 400)
             .clipped()
             .bartinderRounder()
-            
         }
     }
 }

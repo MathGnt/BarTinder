@@ -8,7 +8,7 @@ A custom button style for the 'generate' buttons.
 import Foundation
 import SwiftUI
 
-struct GenerateButton: ButtonStyle {
+struct GenerateButtonStyle: ButtonStyle {
     let color: Color
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

@@ -12,33 +12,42 @@ extension CocktailDetail {
         let cocktail: Cocktail
         
         var body: some View {
-            HStack(spacing: 20) {
-                VStack(spacing: 4) {
-                    Text("Difficulty")
-                        .font(.system(size: 15, design: .serif))
-                    HStack {
-                        ForEach(1...3, id: \.self) { index in
-                            Image(systemName: index <= cocktail.difficulty.level ? "wineglass.fill" : "wineglass")
+            VStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
+                Text(cocktail.name)
+                    .font(.system(size: 35, design: .serif))
+                Text(cocktail.cocktailDescription)
+                    .font(.system(size: 14, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
+                HStack(spacing: 20) {
+                    VStack(spacing: 4) {
+                        Text("Difficulty")
+                            .font(.system(size: 15, design: .serif))
+                        HStack {
+                            ForEach(1...3, id: \.self) { index in
+                                Image(systemName: index <= cocktail.difficulty.level ? "wineglass.fill" : "wineglass")
+                            }
+                            .frame(height: 24)
                         }
-                        .frame(height: 24)
+                        .font(.system(size: 15))
                     }
-                    .font(.system(size: 15))
-                }
-                
-                separator
-                cocktailDetail(title: "Style", image: cocktail.style.rawValue)
-                separator
-                cocktailDetail(title: "Glass", image: cocktail.glass.rawValue)
-                separator
-        
-                VStack(spacing: 9) {
-                    Text("Technique")
-                        .font(.system(size: 15, design: .serif))
-                    Text(cocktail.mixingTechniqueValue.capitalized)
-                        .font(.system(size: 16, design: .rounded))
+                    
+                    separator
+                    cocktailDetail(title: "Style", image: cocktail.style.rawValue)
+                    separator
+                    cocktailDetail(title: "Glass", image: cocktail.glass.rawValue)
+                    separator
+                    
+                    VStack(spacing: 9) {
+                        Text("Technique")
+                            .font(.system(size: 15, design: .serif))
+                        Text(cocktail.mixingTechniqueValue.capitalized)
+                            .font(.system(size: 16, design: .rounded))
+                        
+                    }
                     
                 }
-                
             }
         }
         
