@@ -23,7 +23,7 @@ struct CocktailIdea {
     var style: String
     @Guide(.anyOf(CocktailDifficulty.allCases.map(\.rawValue)))
     var difficulty: String
-    @Guide(description: "The ingredients for the cocktail")
+    @Guide(description: "The ingredients for the cocktail", .maximumCount(8))
     var ingredients: [IngredientIdea]
 }
 
@@ -31,7 +31,7 @@ struct CocktailIdea {
 struct IngredientIdea {
     @Guide(.anyOf(CardIngredient.ingredientCards.map(\.name)))
     var name: String
-    @Guide(description: "A number that represent the amount", .range(1...20))
+    @Guide(description: "A number that represent the amount", .range(1...10))
     var amount: Int
     @Guide(.anyOf(Units.allCases.map(\.rawValue)))
     var unit: String

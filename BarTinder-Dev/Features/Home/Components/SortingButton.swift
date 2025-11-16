@@ -19,12 +19,17 @@ extension Home {
                     model.filterOption = filterOption
                 }
             }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(model.filterOption == filterOption ? .applered : .gray.opacity(0.6))
+            .buttonStyle(.plain)
+            .frame(height: 50)
+            .foregroundStyle(model.filterOption == filterOption ? .selecText : .unselecText)
+            .fontWeight(.medium)
+       
+            .padding(.horizontal)
+           
             .bartinderRounder()
             .scaleEffect(model.filterOption == filterOption ? 1.02 : 1)
+            .glassEffect(.regular.tint(model.filterOption == filterOption ? .selecBackground : .unselecBackground).interactive())
+       
         }
     }
 }
