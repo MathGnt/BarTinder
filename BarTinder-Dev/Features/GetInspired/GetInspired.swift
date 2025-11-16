@@ -13,10 +13,12 @@ struct GetInspired: View {
     
     var body: some View {
         ZStack {
-            if model.askedForIdea {
+            switch model.askedForIdea {
+            case true:
                 GeneratedCocktail()
-            } else {
+            case false:
                 CreateAppleIntelligence()
+                    .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
             }
         }
         .animation(.default, value: model.askedForIdea)

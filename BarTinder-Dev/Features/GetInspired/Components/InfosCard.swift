@@ -23,7 +23,7 @@ extension GeneratedCocktail {
                             Image(cocktailGlass)
                                 .resizable()
                                 .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
-                            Text("\(cocktailStyle.capitalized) \(cocktailStyle.capitalized)")
+                            Text(cocktailStyle.capitalized)
                                 .font(.subheadline)
                                 .fontWeight(.medium)
                             

@@ -23,7 +23,6 @@ extension GetInspired {
                     .foregroundStyle(.secondary)
                 Spacer()
             }
-         
         }
         private var header: some View {
             Text("Shake up your idea")
@@ -46,6 +45,6 @@ extension GetInspired {
     }
 }
 
-#Preview {
+#Preview(traits: .barTinderEnvironments) {
     GetInspired.CreateAppleIntelligence()
 }
