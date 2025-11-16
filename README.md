@@ -317,15 +317,16 @@ func mapLanguageError() -> LanguageError? {
 
 <p>
   <img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
-  <img src="screenshots/detail.png" width="300" alt="Cocktail Detail View">
+  <img src="screenshots/cocktaildetail.png" width="300" alt="Cocktail Detail View">
 </p>
 
 <p>
   <img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
-  <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
+  <img src="screenshots/homepagedark.png" width="300" alt="Personal Cocktail Library Dark Mode">
 </p>
 
 <p>
+  <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
   <img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
 </p>
 
