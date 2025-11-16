@@ -2,7 +2,7 @@
 See the LICENSE file for this project's licensing information.
 
 Abstract:
-The use case handling all errors for Foundation Models.
+The use case handling and mapping all errors related to Foundation Models.
 */
 
 import Foundation

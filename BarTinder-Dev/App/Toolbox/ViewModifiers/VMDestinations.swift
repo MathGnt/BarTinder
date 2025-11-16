@@ -8,7 +8,7 @@ A view modifier that handles the BarTinder destinations.
 import Foundation
 import SwiftUI
 
-struct SheetDestinations: ViewModifier {
+private struct SheetDestinations: ViewModifier {
     @Environment(\.router) private var router
     @Environment(\.modelContext) private var context
 

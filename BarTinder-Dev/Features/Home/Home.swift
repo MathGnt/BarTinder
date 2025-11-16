@@ -74,28 +74,29 @@ struct Home: View {
     Home()
 }
 
-private struct HomeSection<Content: View>: View {
-    let title: String
-    let content: Content
-
-    init(_ title: String, @ViewBuilder content: () -> Content) {
-        self.title = title
-        self.content = content()
-    }
-
-    var body: some View {
-        VStack {
-            HStack {
-                Text(title)
-                    .accessibilityAddTraits(.isHeader)
-                Spacer()
-            }
-            .font(.system(size: 22, weight: .semibold, design: .rounded))
-            .padding(.horizontal)
-            .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
-            .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.tightSpacing : BarTinderApp.Padding.bigTitleSpacingBottom)
+extension Home {
+    struct HomeSection<Content: View>: View {
+        let title: String
+        let content: Content
+        
+        init(_ title: String, @ViewBuilder content: () -> Content) {
+            self.title = title
+            self.content = content()
         }
-        content
+        
+        var body: some View {
+            VStack {
+                HStack {
+                    Text(title)
+                        .accessibilityAddTraits(.isHeader)
+                    Spacer()
+                }
+                .font(.system(size: 22, weight: .semibold, design: .rounded))
+                .padding(.horizontal)
+                .padding(.top, BarTinderApp.Padding.bigTitleSpacingTop)
+                .padding(.bottom, title == "Your Cocktails" ? BarTinderApp.Padding.tightSpacing : BarTinderApp.Padding.bigTitleSpacingBottom)
+            }
+            content
+        }
     }
 }
-

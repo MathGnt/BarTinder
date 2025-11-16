@@ -13,7 +13,6 @@ struct Bar: View {
     @Query(filter: CocktailFilterPredicate.byInBar) private var cocktails: [Cocktail]
     
     var body: some View {
-        
         if cocktails.isEmpty {
             ContentUnavailableView(
                 "No cocktails in bar",

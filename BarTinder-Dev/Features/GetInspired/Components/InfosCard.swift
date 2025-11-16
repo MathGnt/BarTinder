@@ -80,70 +80,73 @@ extension GeneratedCocktail {
 
 
 
-/// Each row for the generated ingredients.
-private struct IngredientRowGenerable: View {
-    let ingredient: IngredientIdea.PartiallyGenerated?
-    
-    var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            if let ingredientLogo = ingredient?.name?.logolized() {
-                Image(ingredientLogo)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
-                    .clipShape(Circle())
-                    .background(Circle().fill(.gray.opacity(0.1)))
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                if let ingredientName = ingredient?.name {
-                    Text(ingredientName.capitalizedWords)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
+extension GeneratedCocktail.InfosCard {
+    /// Each row for the generated ingredients.
+    struct IngredientRowGenerable: View {
+        let ingredient: IngredientIdea.PartiallyGenerated?
+        
+        var body: some View {
+            HStack(alignment: .center, spacing: 12) {
+                if let ingredientLogo = ingredient?.name?.logolized() {
+                    Image(ingredientLogo)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
+                        .clipShape(Circle())
+                        .background(Circle().fill(.gray.opacity(0.1)))
                 }
                 
-                HStack(spacing: 5) {
-                    if let ingredientAmount = ingredient?.amount {
-                        if let ingredientUnit = ingredient?.unit {
-                            if ingredientUnit != "To Rinse" && ingredientUnit != "Top Up" {
-                                Text(String(ingredientAmount))
+                VStack(alignment: .leading, spacing: 2) {
+                    if let ingredientName = ingredient?.name {
+                        Text(ingredientName.capitalizedWords)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                    }
+                    
+                    HStack(spacing: 5) {
+                        if let ingredientAmount = ingredient?.amount {
+                            if let ingredientUnit = ingredient?.unit {
+                                if ingredientUnit != "To Rinse" && ingredientUnit != "Top Up" {
+                                    Text(String(ingredientAmount))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                Text(ingredientUnit)
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
-                            Text(ingredientUnit)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
                         }
                     }
                 }
+                Spacer()
             }
-            Spacer()
         }
     }
 }
 
-
-/// The placeholder when it's not generated yet.
-private struct PlaceHolderGenerable: View {
-    let image: String
-    let titleOne: String
-    let titleTwo: String
- 
-    var body: some View {
-        HStack {
-            Image(systemName: image)
-            HStack(spacing: 5) {
-                Text(titleOne)
-                    .fontWeight(titleOne == "Designing" ? .semibold : .regular)
-                Text(titleTwo)
-                    .fontWeight(titleOne != "Designing" ? .semibold : .regular)
+extension GeneratedCocktail.InfosCard {
+    /// The placeholder when it's not generated yet.
+    struct PlaceHolderGenerable: View {
+        let image: String
+        let titleOne: String
+        let titleTwo: String
+        
+        var body: some View {
+            HStack {
+                Image(systemName: image)
+                HStack(spacing: 5) {
+                    Text(titleOne)
+                        .fontWeight(titleOne == "Designing" ? .semibold : .regular)
+                    Text(titleTwo)
+                        .fontWeight(titleOne != "Designing" ? .semibold : .regular)
+                }
+                .font(.system(size: 17))
             }
-            .font(.system(size: 17))
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .padding()
+            .previewCard()
+            .padding()
         }
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
-        .padding()
-        .previewCard()
-        .padding()
     }
 }

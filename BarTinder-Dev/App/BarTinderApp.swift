@@ -9,12 +9,6 @@ import SwiftUI
 import SwiftData
 import TipKit
 
-extension EnvironmentValues {
-    @Entry var router: Router = Router()
-    @Entry var screenWidth: CGFloat = 0
-    @Entry var screenHeight: CGFloat = 0
-}
-
 @main
 struct BarTinderApp: App {
     @State private var router: Router

@@ -97,29 +97,29 @@ extension Swipe {
     }
 }
 
-
-private struct CardInfo: View {
-    let title: String
-    let abv: String
-    let location: String
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(title.capitalized)
-                        .cardTitle()
-                    
-                    Text(abv)
-                        .cardABV()
+extension Swipe.IngredientCard {
+    struct CardInfo: View {
+        let title: String
+        let abv: String
+        let location: String
+        
+        var body: some View {
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(title.capitalized)
+                            .cardTitle()
+                        
+                        Text(abv)
+                            .cardABV()
+                    }
+                    Text("From \(location)")
+                        .cardLocation()
                 }
-                Text("From \(location)")
-                    .cardLocation()
+                .padding(.horizontal, 50)
+                .padding(.bottom, 15)
+                Spacer()
             }
-            .padding(.horizontal, 50)
-            .padding(.bottom, 15)
-            Spacer()
         }
     }
 }
-

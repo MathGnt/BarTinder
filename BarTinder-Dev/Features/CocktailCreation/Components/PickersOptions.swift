@@ -63,25 +63,26 @@ extension CreateEditCocktail {
     }
 }
 
-
-private struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: View where T.RawValue == String {
-    let imageTitle: String
-    let color: Color
-    let system: Bool
-    let pickerTitle: String
-    @Binding var selection: T
-    let onChange: (T) -> Void
-    
-    var body: some View {
-        HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
-            pickerImage(title: imageTitle, color: color, system: system)
-            Picker(pickerTitle, selection: $selection) {
-                ForEach(Array(T.allCases), id: \.self) { option in
-                    Text(option.rawValue.capitalized).tag(option)
+extension CreateEditCocktail.CocktailOptionsSection {
+    struct CocktailPicker<T: CaseIterable & Hashable & RawRepresentable>: View where T.RawValue == String {
+        let imageTitle: String
+        let color: Color
+        let system: Bool
+        let pickerTitle: String
+        @Binding var selection: T
+        let onChange: (T) -> Void
+        
+        var body: some View {
+            HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
+                pickerImage(title: imageTitle, color: color, system: system)
+                Picker(pickerTitle, selection: $selection) {
+                    ForEach(Array(T.allCases), id: \.self) { option in
+                        Text(option.rawValue.capitalized).tag(option)
+                    }
                 }
-            }
-            .onChange(of: selection) { _, newValue in
-                onChange(newValue)
+                .onChange(of: selection) { _, newValue in
+                    onChange(newValue)
+                }
             }
         }
     }

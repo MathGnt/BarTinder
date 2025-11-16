@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct QueryMocks: PreviewModifier {
+private struct QueryMocks: PreviewModifier {
     static func makeSharedContext() throws -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: Cocktail.self, configurations: config)

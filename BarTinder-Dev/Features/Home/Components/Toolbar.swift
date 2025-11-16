@@ -32,6 +32,7 @@ extension Home {
                 }
                 .accessibilityLabel("Navigate to your bar")
             }
+            
             ToolbarItem {
                 Menu("Main controls", systemImage: "arrow.up.arrow.down") {
                     Section {
