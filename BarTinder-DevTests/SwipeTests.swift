@@ -21,7 +21,7 @@ struct SwipeTests {
         self.repo = RepositoryMock()
     }
     
-    @Test("Should return correct cocktails after swiping cards")
+    @Test("Should return correct cocktails after swiping cards", .tags(.successful))
     func correctCocktailsAfterSwipe() throws {
         let useCase = Fetcher(repo: repo)
         let model = IngredientsModel()

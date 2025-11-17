@@ -27,7 +27,7 @@ struct CocktailCreationTests {
         self.ingredientModel = IngredientCreationModel(useCase: useCase)
     }
     
-    @Test("Should validate ingredients creation", .tags(.textFieldChecker), arguments: [Units.topUp, .toRinse])
+    @Test("Should validate ingredients creation", .tags(.textFieldChecker, .successful), arguments: [Units.topUp, .toRinse])
     func ingredientsValidationFields(unit: Units) throws {
         let newCocktail = Cocktail(ingredients: [
             Ingredient(name: "tonic water", measure: "6", unit: .cl),
@@ -53,7 +53,7 @@ struct CocktailCreationTests {
         }
     }
     
-    @Test("Should validate cocktail creation", .tags(.textFieldChecker))
+    @Test("Should validate cocktail creation", .tags(.textFieldChecker, .successful))
     func cocktailValidationFields() throws {
         let ingredients: [Ingredient] = [
             Ingredient(name: "tonic water", measure: "14", unit: .cl),
@@ -66,7 +66,7 @@ struct CocktailCreationTests {
         try cocktailModel.checkAndInsertCocktail(newCocktail)
     }
     
-    @Test("Should throw empty cocktail-ingredients fields", .tags(.throwable), .disabled())
+    @Test("Should throw empty cocktail-ingredients fields", .tags(.throwable))
     func cocktailThrowingIngredientsFields() throws {
         let newCocktail = Cocktail(name: "Gin & Tonic", ingredients: [], cocktailDescription: "Enjoy this cocktail during summer")
         
@@ -88,7 +88,7 @@ struct CocktailCreationTests {
         }
     }
     
-    @Test("Should delete from base and remove possible from stock", arguments: [
+    @Test("Should delete from base and remove possible from stock", .tags(.successful), arguments: [
         true, false
     ])
     func correctDeleting(isStock: Bool) throws {
