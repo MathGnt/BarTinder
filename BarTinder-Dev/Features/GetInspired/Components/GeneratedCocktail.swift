@@ -56,7 +56,7 @@ struct GeneratedCocktail: View {
 }
 
 
-
+/// Small UI components 
 extension GeneratedCocktail {
     private func makeItYoursButton(model: GenerableModel) -> some View {
         Button("Make it yours", systemImage: "plus.circle.fill") {

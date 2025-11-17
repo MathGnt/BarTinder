@@ -24,6 +24,7 @@ extension GetInspired {
                 Spacer()
             }
         }
+        
         private var header: some View {
             Text("Shake up your idea")
                 .font(.largeTitle)
