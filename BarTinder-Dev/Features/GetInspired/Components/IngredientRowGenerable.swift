@@ -12,40 +12,19 @@ extension GeneratedCocktail.InfosCard {
         let ingredient: IngredientIdea.PartiallyGenerated?
         
         var body: some View {
-            HStack(alignment: .center, spacing: 12) {
-                if let ingredientLogo = ingredient?.name?.logolized() {
-                    Image(ingredientLogo)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: BarTinderApp.Size.image, height: BarTinderApp.Size.image)
-                        .clipShape(Circle())
-                        .background(Circle().fill(.gray.opacity(0.1)))
-                }
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    if let ingredientName = ingredient?.name {
-                        Text(ingredientName.capitalizedWords)
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                    }
-                    
-                    HStack(spacing: 5) {
-                        if let ingredientAmount = ingredient?.amount {
-                            if let ingredientUnit = ingredient?.unit {
-                                if ingredientUnit != "To Rinse" && ingredientUnit != "Top Up" {
-                                    Text(String(ingredientAmount))
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Text(ingredientUnit)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
+                if let ingredientName = ingredient?.name,
+                   let ingredientMeasure = ingredient?.amount,
+                   let ingredientUnit = ingredient?.unit {
+                    HStack {
+                        IngredientRowLabel(ingredientName: ingredientName)
+                        Spacer()
+                        HStack(spacing: BarTinderApp.Padding.tightSpacing) {
+                            Text(ingredientMeasure, format: .number)
+                            Text(ingredientUnit)
                         }
                     }
+                   
                 }
-                Spacer()
-            }
         }
     }
 }

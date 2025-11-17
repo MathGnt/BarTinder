@@ -52,7 +52,7 @@ extension GeneratedCocktail {
                             IngredientRowGenerable(ingredient: ingredient)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(.gray.opacity(0.05), in: RoundedRectangle(cornerRadius: 8))
+                                .background(.ingredientCapsule, in: .capsule)
                                 .padding(.horizontal)
                         }
                     }
