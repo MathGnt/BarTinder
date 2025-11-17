@@ -15,7 +15,26 @@
 
 ## **What is BarTinder?**
 
-**BarTinder** is the ultimate cocktail discovery app that revolutionizes how you explore and create drinks. Think Tinder, but for cocktail ingredients! 
+**BarTinder** is the ultimate cocktail discovery app that revolutionizes how you explore and create drinks. Think Tinder, but for cocktail ingredients!
+
+<div align="center">
+
+<p>
+  <img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
+  <img src="screenshots/cocktaildetail.png" width="300" alt="Cocktail Detail View">
+</p>
+
+<p>
+  <img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
+  <img src="screenshots/homepagedark.png" width="300" alt="Personal Cocktail Library Dark Mode">
+</p>
+
+<p>
+  <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
+  <img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
+</p>
+
+</div>
 
 ### **The Magic Flow**
 
@@ -306,29 +325,6 @@ func mapLanguageError() -> LanguageError? {
 [![BarTinder Demo Video](https://img.shields.io/badge/▶️_Watch_Demo-2m44s-red?style=for-the-badge&logo=youtube)](https://github.com/MathGnt/BarTinder/releases/download/1.0/BarTinder.mov)
 
 *Full app walkthrough showing ingredient swiping, cocktail discovery, and creation features*
-
-</div>
-
----
-
-## **Screenshots**
-
-<div align="center">
-
-<p>
-  <img src="screenshots/swipegrenadine.png" width="300" alt="Ingredient Swiping Interface">
-  <img src="screenshots/cocktaildetail.png" width="300" alt="Cocktail Detail View">
-</p>
-
-<p>
-  <img src="screenshots/homepage.png" width="300" alt="Personal Cocktail Library">
-  <img src="screenshots/homepagedark.png" width="300" alt="Personal Cocktail Library Dark Mode">
-</p>
-
-<p>
-  <img src="screenshots/createcocktail.png" width="300" alt="Cocktail Creation Interface">
-  <img src="screenshots/createingredients.png" width="300" alt="Ingredient Creation Screen">
-</p>
 
 </div>
 
