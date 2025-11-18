@@ -133,7 +133,7 @@ extension ModelContext {
 BarTinder leverages **Apple Intelligence** to generate creative cocktail recipes using a unique approach: **guiding AI with existing app data** to ensure generated cocktails respect the app's domain model.
 
 <div align="center">
-  <img src="screenshots/foundationmodels.png" width="600" alt="Foundation Models Integration">
+  <img src="screenshots/foundationmodels.png" width="400" alt="Foundation Models Integration">
 </div>
 
 #### **The Challenge**
