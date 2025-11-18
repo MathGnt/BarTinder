@@ -20,8 +20,8 @@ extension GeneratedCocktail {
                 ],
                 colors: [
                     .pink.opacity(0.8), .purple.opacity(0.7), .blue.opacity(0.6),
-                    .orange.opacity(0.8), .red.opacity(0.7), .purple.opacity(0.8),
-                    .turborider.opacity(0.8), .pink.opacity(0.8), .blue.opacity(0.9)
+                    .pink.opacity(0.8), .red.opacity(0.7), .purple.opacity(0.8),
+                    .applered.opacity(1), .applered.opacity(0.8), .blue.opacity(0.9)
                 ]
             )
             .frame(height: 250)

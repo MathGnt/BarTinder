@@ -28,10 +28,9 @@ extension GeneratedCocktail {
                 }
                 if let cocktailDescription = model.cocktailIdea?.content.description {
                     Text(cocktailDescription)
-                        .font(.system(size: 15, weight: .regular, design: .default))
+                        .font(.system(size: 15, weight: .medium, design: .default))
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
-                        .opacity(0.9)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

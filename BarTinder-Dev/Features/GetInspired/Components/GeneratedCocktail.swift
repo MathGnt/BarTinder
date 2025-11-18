@@ -27,9 +27,13 @@ struct GeneratedCocktail: View {
                         InfosCard()
                         
                         if model.showButtons {
-                            makeItYoursButton(model: model)
-                            iDontLikeItButton
+                            Group {
+                                makeItYoursButton(model: model)
+                                iDontLikeItButton
+                            }
+                            .padding(.horizontal)
                         }
+                            
                     }
                     .animation(.easeIn, value: model.showButtons)
                     .padding(.vertical, 24)
