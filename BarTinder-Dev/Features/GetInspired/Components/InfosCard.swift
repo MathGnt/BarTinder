@@ -74,7 +74,7 @@ extension GeneratedCocktail {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GeneratedCocktail.InfosCard()
 }
 

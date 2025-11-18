@@ -66,7 +66,7 @@ struct Home: View {
     }
 }
 
-#Preview(traits: .queryMocks, .barTinderEnvironments) {
+#Preview(traits: .queryMocks, .modelsEnvironment) {
     Home()
 }
 

@@ -74,7 +74,7 @@ extension Home {
 }
 
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     @Previewable @State var sortOption: CocktailSortDescriptor = .glass
     NavigationStack {
         Text("Home Toolbar")

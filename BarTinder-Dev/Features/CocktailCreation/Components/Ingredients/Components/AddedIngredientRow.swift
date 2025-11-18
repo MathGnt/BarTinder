@@ -41,7 +41,7 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     List {
         IngredientsListCreation.AddedIngredientRow(ingredient: Ingredient.gin, model: IngredientCreationModel())
     }

@@ -75,7 +75,7 @@ extension CocktailDetail {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         Text("Detail Toolbar")
             .toolbar {

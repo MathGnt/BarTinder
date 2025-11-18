@@ -110,7 +110,7 @@ fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some 
         }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     List {
         CreateEditCocktail.CocktailOptionsSection(cocktail: Cocktail.ginto)
     }

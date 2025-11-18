@@ -32,6 +32,6 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     IngredientsListCreation.AvailableIngredientRow(cocktail: Cocktail.ginto, ingredient: CardIngredient.ingredientCards[4], model: IngredientCreationModel())
 }

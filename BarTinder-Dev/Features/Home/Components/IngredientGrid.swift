@@ -35,7 +35,7 @@ extension Home {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     Home.IngredientGrid()
 }
 

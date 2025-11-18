@@ -36,7 +36,7 @@ struct CocktailList: View {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         CocktailList(cocktails: Cocktail.mocksArray)
     }

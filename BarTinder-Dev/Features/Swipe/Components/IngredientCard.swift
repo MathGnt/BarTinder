@@ -86,7 +86,7 @@ extension Swipe {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GeometryReader { proxy in
         Swipe.IngredientCard(
             cardIngredient: CardIngredient.ingredientCards[13],

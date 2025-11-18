@@ -38,7 +38,7 @@ extension Home {
     }
 }
 
-#Preview(traits: .queryMocks, .barTinderEnvironments) {
+#Preview(traits: .queryMocks, .modelsEnvironment) {
     Home.YourCocktailsScrollView(descriptor: FetchDescriptor<Cocktail>())
 }
 

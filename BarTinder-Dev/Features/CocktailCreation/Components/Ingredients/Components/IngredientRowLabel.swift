@@ -20,6 +20,6 @@ struct IngredientRowLabel: View {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     IngredientRowLabel(ingredientName: "prosecco")
 }

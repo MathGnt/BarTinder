@@ -45,6 +45,6 @@ extension Home.YourCocktailsScrollView {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     Home.YourCocktailsScrollView.CocktailImageSource(cocktail: Cocktail.ginto)
 }

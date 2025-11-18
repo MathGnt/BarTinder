@@ -35,7 +35,7 @@ extension IngredientsListCreation {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         Text("IngredientsToolbar")
             .toolbar {

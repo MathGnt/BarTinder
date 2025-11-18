@@ -39,6 +39,6 @@ extension CocktailDetail {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     CocktailDetail.CocktailHeaderPicture(cocktail: Cocktail.ginto)
 }

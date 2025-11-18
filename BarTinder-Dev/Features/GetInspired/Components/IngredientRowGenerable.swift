@@ -29,6 +29,6 @@ extension GeneratedCocktail.InfosCard {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GeneratedCocktail.InfosCard.IngredientRowGenerable(ingredient: nil)
 }

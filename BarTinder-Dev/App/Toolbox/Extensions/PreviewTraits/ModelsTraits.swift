@@ -5,10 +5,9 @@ Abstract:
 A custom preview trait to share all BarTinder models through the previews.
 */
 
-import Foundation
 import SwiftUI
 
-private struct BarTinderEnvironments: PreviewModifier {
+private struct ModelsEnvironment: PreviewModifier {
     func body(content: Content, context: Void) -> some View {
         content
             .environment(Router())
@@ -21,7 +20,7 @@ private struct BarTinderEnvironments: PreviewModifier {
 }
 
 extension PreviewTrait where T == Preview.ViewTraits {
-    static var barTinderEnvironments: Self = .modifier(BarTinderEnvironments())
+    static var modelsEnvironment: Self = .modifier(ModelsEnvironment())
 }
 
 

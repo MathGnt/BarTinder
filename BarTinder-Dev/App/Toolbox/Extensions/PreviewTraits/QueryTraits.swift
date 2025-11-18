@@ -5,7 +5,6 @@ Abstract:
 A custom preview trait to preview the SwiftData database easily.
 */
 
-import Foundation
 import SwiftUI
 import SwiftData
 

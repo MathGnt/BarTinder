@@ -55,7 +55,7 @@ extension CreateEditCocktail {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     @Previewable @State var text = "Cocktail"
     CreateEditCocktail.DescriptionTextField(text: $text)
 }

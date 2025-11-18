@@ -38,6 +38,6 @@ struct GetInspired: View {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GetInspired()
 }

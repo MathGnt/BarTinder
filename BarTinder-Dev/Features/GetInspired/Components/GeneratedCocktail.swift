@@ -55,7 +55,7 @@ struct GeneratedCocktail: View {
 }
 
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GeneratedCocktail()
 }
 

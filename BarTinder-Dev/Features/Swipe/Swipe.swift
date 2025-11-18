@@ -50,7 +50,7 @@ struct Swipe: View {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GeometryReader { proxy in
         Swipe()
             .environment(\.screenWidth, proxy.size.width)

@@ -39,7 +39,7 @@ extension GetInspired.CreateAppleIntelligence {
     }
 }
 
-#Preview("Create", traits: .barTinderEnvironments) {
+#Preview("Create", traits: .modelsEnvironment) {
     GetInspired.CreateAppleIntelligence()
 }
 

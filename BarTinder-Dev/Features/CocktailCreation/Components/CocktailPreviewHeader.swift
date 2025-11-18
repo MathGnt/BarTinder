@@ -81,6 +81,6 @@ extension CreateEditCocktail.CocktailPreviewSection {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     CreateEditCocktail.CocktailPreviewSection(selectedImage: .constant(nil), cocktail: Cocktail.ginto)
 }

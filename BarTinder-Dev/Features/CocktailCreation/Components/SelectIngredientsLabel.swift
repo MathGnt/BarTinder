@@ -60,6 +60,6 @@ extension CreateEditCocktail.IngredientsSection {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     CreateEditCocktail.IngredientsSection(cocktail: Cocktail.ginto)
 }

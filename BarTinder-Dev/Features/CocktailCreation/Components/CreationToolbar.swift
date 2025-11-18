@@ -81,7 +81,7 @@ extension CreateEditCocktail.CreationToolbar {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         Text("Creation Toolbar")
             .toolbar {

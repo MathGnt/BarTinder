@@ -46,7 +46,7 @@ struct CocktailDetail: View {
     
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         CocktailDetail(cocktail: Cocktail.ginto)
     }

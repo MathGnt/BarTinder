@@ -23,6 +23,6 @@ struct IngredientMatcher: View {
     }
 }
 
-#Preview(traits: .queryMocks, .barTinderEnvironments) {
+#Preview(traits: .queryMocks, .modelsEnvironment) {
     IngredientMatcher(ingredientCard: CardIngredient.ingredientCards[5])
 }

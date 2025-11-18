@@ -25,6 +25,6 @@ extension Home {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     Home.SortingButton(title: "Gin", filterOption: CocktailFilterPredicate.gin)
 }

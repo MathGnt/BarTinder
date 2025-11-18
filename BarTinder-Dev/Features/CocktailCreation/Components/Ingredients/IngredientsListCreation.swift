@@ -41,7 +41,7 @@ struct IngredientsListCreation: View {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     NavigationStack {
         IngredientsListCreation(cocktail: Cocktail.ginto)
     }

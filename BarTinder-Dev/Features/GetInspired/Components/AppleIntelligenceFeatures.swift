@@ -61,6 +61,6 @@ extension GetInspired.AppleIntelligenceFeatures {
     }
 }
 
-#Preview(traits: .barTinderEnvironments) {
+#Preview(traits: .modelsEnvironment) {
     GetInspired.AppleIntelligenceFeatures()
 }
