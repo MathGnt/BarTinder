@@ -343,14 +343,10 @@ func mapLanguageError() -> LanguageError? {
 ### Installation
 1. Clone the repository
 ```bash
-git clone https://github.com/mathisgaignet/BarTinder.git
+git clone https://github.com/MathGnt/BarTinder.git
 ```
 
 2. Open in Xcode
-```bash
-cd BarTinder
-open BarTinder.xcodeproj
-```
 
 3. Build and run!
 
