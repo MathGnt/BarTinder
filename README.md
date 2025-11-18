@@ -132,6 +132,10 @@ extension ModelContext {
 
 BarTinder leverages **Apple Intelligence** to generate creative cocktail recipes using a unique approach: **guiding AI with existing app data** to ensure generated cocktails respect the app's domain model.
 
+<div align="center">
+  <img src="screenshots/foundationmodels.png" width="600" alt="Foundation Models Integration">
+</div>
+
 #### **The Challenge**
 Traditional AI generation can produce inconsistent or invalid data. How do you ensure Apple Intelligence generates cocktails that match your app's structure (valid glassware, real ingredients, proper units)?
 
