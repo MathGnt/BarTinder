@@ -1,7 +1,7 @@
-# 🍸 BarTinder
-
 <div align="center">
-  
+
+  <img src="screenshots/bartinderlogo.png" width="400" alt="BarTinder Logo">
+
   ### *Swipe your way to the perfect cocktail* 🥂
   
   ![Swift](https://img.shields.io/badge/Swift-6.2-orange.svg)
