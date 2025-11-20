@@ -6,7 +6,6 @@ An observable model that manages ingredient selection and swipe interactions.
 */
 
 import Foundation
-import Observation
 import SwiftUI
 import SwiftData
 
