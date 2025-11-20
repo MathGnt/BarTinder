@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="screenshots/bartinderlogo.png" width="400" alt="BarTinder Logo">
+  <img src="screenshots/bartinderlogo.png" width="600" alt="BarTinder Logo">
 
   ### *Swipe your way to the perfect cocktail* 🥂
   
