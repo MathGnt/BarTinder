@@ -44,7 +44,7 @@ struct SwipeTests {
         ]
         
         for selectedIngredient in swipedRightIngredients {
-            model.addIngredient(selectedIngredient)
+            model.swipeRight(card: selectedIngredient)
         }
         
         model.updatePossibleCocktails(cocktails: context.getContent(for: Cocktail.self))
@@ -53,6 +53,5 @@ struct SwipeTests {
         let isSuperset = Set(possibleCocktails) == Set(["Cosmopolitan", "Margarita"])
         
         #expect(isSuperset, "Expected only Margarita and Cosmopolitan as possible cocktails, got: \(possibleCocktails)")
-        
     }
 }

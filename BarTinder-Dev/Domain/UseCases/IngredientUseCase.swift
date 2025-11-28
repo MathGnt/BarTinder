@@ -16,10 +16,6 @@ final class IngredientUseCase {
         card.otherName.forEach { selectedIngredients.insert($0) }
     }
     
-    func executeRemoveAllIngredients() {
-        selectedIngredients.removeAll()
-    }
-    
     func executeUpdatePossibleCocktails(cocktails: [Cocktail]) {
         for cocktail in cocktails {
             let ingredientNames = Set(cocktail.ingredients.map(\.name))

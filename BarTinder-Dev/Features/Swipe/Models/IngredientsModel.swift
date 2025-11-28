@@ -30,7 +30,6 @@ final class IngredientsModel {
         removeIngredient(card)
     }
     
-    
     func addIngredient(_ card: CardIngredient) {
         useCase.executeAddIngredient(card)
     }
@@ -39,10 +38,6 @@ final class IngredientsModel {
         print("removed \(card)")
         guard let index = ingredients.firstIndex(where: { $0.id == card.id }) else { return }
         ingredients.remove(at: index)
-    }
-    
-    func removeSelectedIngredients() {
-        useCase.executeRemoveAllIngredients()
     }
     
     func updatePossibleCocktails(cocktails: [Cocktail]) {
