@@ -87,7 +87,7 @@ Built with a robust **Clean Architecture** approach, ensuring:
 
 ```mermaid
 graph TD
-    Data["Data Layer<br/>API"]
+    Data["Data Layer<br/>Repository • API"]
     Domain["Domain Layer<br/>Entities • UseCases"]
     Features["Features Layer<br/>Views • ViewModels"]
     Env["@Environment<br/>SwiftData • Router"]
