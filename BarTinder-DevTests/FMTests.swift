@@ -12,7 +12,6 @@ import FoundationModels
 
 @Suite("Foundation Models", .timeLimit(.minutes(1)))
 struct FoundationModelsTests {
-    
     @Test("Should return a generated cocktail", .tags(.successful))
     func generatedCocktail() async throws {
         let model = GenerableModel()
@@ -40,7 +39,6 @@ struct FoundationModelsTests {
 
 @Suite("FM Errors", .timeLimit(.minutes(1)), .tags(.throwable))
 struct FoundationModelsErrors {
-    
     @Test("Should throw guardrail violation", arguments: [
         "for pregnant woman",
         "for a baby",
