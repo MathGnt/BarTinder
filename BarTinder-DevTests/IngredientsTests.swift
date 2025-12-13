@@ -13,7 +13,7 @@ import Testing
 struct IngredientsTests {
     let model = IngredientCreationModel()
     
-    @Test("Should return searched ingredient")
+    @Test("Should return searched ingredient", .tags(.successful))
     func searchedIngredient() {
         model.searchableField = "co"
         
