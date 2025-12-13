@@ -5,7 +5,6 @@ Abstract:
 The different tags available to organize the tests.
 */
 
-import Foundation
 import Testing
 
 extension Tag {
