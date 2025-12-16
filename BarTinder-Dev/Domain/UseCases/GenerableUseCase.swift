@@ -20,15 +20,23 @@ final class GenerableCreateUseCase {
         let mixingTechnique = cocktailIdea?.content.mixingTechnique.flatMap { CocktailMixingTechnique(rawValue: $0) } ?? .built
         let difficulty = cocktailIdea?.content.difficulty.flatMap { CocktailDifficulty(rawValue: $0) } ?? .easy
         
-        for ingredient in ingredients {
-            guard let ingredientName = ingredient.name else { return nil }
-            guard let ingredientMeasure = ingredient.amount else { return nil }
-            guard let ingredientUnit = Units(rawValue: ingredient.unit ?? "cl") else { return nil }
+        for ingrdt in ingredients {
+            guard let ingredientName = ingrdt.name else { return nil }
+            guard let ingredientMeasure = ingrdt.amount else { return nil }
+            guard let ingredientUnit = Units(rawValue: ingrdt.unit ?? "cl") else { return nil }
             
             let newIngredient = Ingredient(name: ingredientName, measure: String(ingredientMeasure), unit: ingredientUnit)
             finalIngredients.append(newIngredient)
-            
         }
-        return Cocktail(name: name, ingredients: finalIngredients, isPossible: true, style: style, glass: glass, mixingTechnique: mixingTechnique, difficulty: difficulty, cocktailDescription: description)
+        return Cocktail(
+            name: name,
+            ingredients: finalIngredients,
+            isPossible: true,
+            style: style,
+            glass: glass,
+            mixingTechnique: mixingTechnique,
+            difficulty: difficulty,
+            cocktailDescription: description
+        )
     }
 }

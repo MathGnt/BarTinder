@@ -88,8 +88,7 @@ extension CreateEditCocktail.CocktailOptionsSection {
     }
 }
 
-
-fileprivate func pickerImage(title: String, color: Color, system: Bool) -> some View {
+private func pickerImage(title: String, color: Color, system: Bool) -> some View {
     RoundedRectangle(cornerRadius: 5)
         .frame(width: 29, height: 27)
         .foregroundStyle(color)

@@ -54,7 +54,6 @@ extension CreateEditCocktail.CreationToolbar {
         }
     }
     
-    
     struct CancelCocktailButton: ToolbarContent {
         @Environment(CocktailCreationModel.self) private var model
         @Environment(HomeModel.self) private var cocktailModel

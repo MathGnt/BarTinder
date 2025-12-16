@@ -10,20 +10,37 @@ import SwiftData
 
 
 final class RepositoryMock: Servable {
-    func getAllCocktails() throws(NetworkErrors) -> [Cocktail] {
+    func getAllCocktails() throws(
+        NetworkErrors
+    ) -> [Cocktail] {
         return getMockCocktails()
     }
-
-
+    
     private func getMockCocktails() -> [Cocktail] {
         let cocktails: [Cocktail] =  [
             .init(
                 name: "Old Fashioned",
                 ingredients: [
-                    .init(name: "whisky", measure: "4.5", unit: Units.cl),
-                    .init(name: "sugar cane syrup", measure: "1.5", unit: Units.cl),
-                    .init(name: "angostura bitters", measure: "2", unit: Units.dash),
-                    .init(name: "sparkling water", measure: "1", unit: Units.cl)
+                    .init(
+                        name: "whisky",
+                        measure: "4.5",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "sugar cane syrup",
+                        measure: "1.5",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "angostura bitters",
+                        measure: "2",
+                        unit: Units.dash
+                    ),
+                    .init(
+                        name: "sparkling water",
+                        measure: "1",
+                        unit: Units.cl
+                    )
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -39,9 +56,21 @@ final class RepositoryMock: Servable {
             .init(
                 name: "Margarita",
                 ingredients: [
-                    .init(name: "tequila", measure: "4", unit: Units.cl),
-                    .init(name: "triple sec", measure: "2", unit: Units.cl),
-                    .init(name: "lime juice", measure: "2", unit: Units.cl)
+                    .init(
+                        name: "tequila",
+                        measure: "4",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "triple sec",
+                        measure: "2",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "lime juice",
+                        measure: "2",
+                        unit: Units.cl
+                    )
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -57,11 +86,31 @@ final class RepositoryMock: Servable {
             .init(
                 name: "Mojito",
                 ingredients: [
-                    .init(name: "rum", measure: "4", unit: Units.cl),
-                    .init(name: "lime", measure: "1/2", unit: Units.wedge),
-                    .init(name: "mint", measure: "8", unit: Units.topUp),
-                    .init(name: "sugar cane syrup", measure: "2", unit: Units.cl),
-                    .init(name: "sparkling water", measure: "top up", unit: Units.topUp)
+                    .init(
+                        name: "rum",
+                        measure: "4",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "lime",
+                        measure: "1/2",
+                        unit: Units.wedge
+                    ),
+                    .init(
+                        name: "mint",
+                        measure: "8",
+                        unit: Units.topUp
+                    ),
+                    .init(
+                        name: "sugar cane syrup",
+                        measure: "2",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "sparkling water",
+                        measure: "top up",
+                        unit: Units.topUp
+                    )
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -77,10 +126,26 @@ final class RepositoryMock: Servable {
             .init(
                 name: "Cosmopolitan",
                 ingredients: [
-                    .init(name: "vodka", measure: "4", unit: Units.cl),
-                    .init(name: "triple sec", measure: "1.5", unit: Units.cl),
-                    .init(name: "cranberry juice", measure: "3", unit: Units.cl),
-                    .init(name: "lime juice", measure: "1", unit: Units.cl)
+                    .init(
+                        name: "vodka",
+                        measure: "4",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "triple sec",
+                        measure: "1.5",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "cranberry juice",
+                        measure: "3",
+                        unit: Units.cl
+                    ),
+                    .init(
+                        name: "lime juice",
+                        measure: "1",
+                        unit: Units.cl
+                    )
                 ],
                 isInBar: false,
                 isPossible: false,
@@ -94,7 +159,6 @@ final class RepositoryMock: Servable {
                 stock: true
             )
         ]
-
         return cocktails
     }
 }

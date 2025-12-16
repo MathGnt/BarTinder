@@ -59,6 +59,3 @@ extension CreateEditCocktail {
     @Previewable @State var text = "Cocktail"
     CreateEditCocktail.DescriptionTextField(text: $text)
 }
-
-
-

@@ -35,7 +35,24 @@ final class Cocktail {
     var cocktailDescription: String
     var stock = false
     
-    init(name: String = "", ingredients: [Ingredient] = [], isInBar: Bool = false, isPossible: Bool = false, imageName: String? = nil, imageData: Data? = nil, style: CocktailStyle = .shortDrink, glass: CocktailGlass = .highball, mixingTechnique: CocktailMixingTechnique = .built, difficulty: CocktailDifficulty = .easy, styleValue: String = "short drink", glassValue: String = "highball", mixingTechniqueValue: String = "built", difficultyValue: String = "easy", cocktailDescription: String = "", stock: Bool = false) {
+    init(
+        name: String = "",
+        ingredients: [Ingredient] = [],
+        isInBar: Bool = false,
+        isPossible: Bool = false,
+        imageName: String? = nil,
+        imageData: Data? = nil,
+        style: CocktailStyle = .shortDrink,
+        glass: CocktailGlass = .highball,
+        mixingTechnique: CocktailMixingTechnique = .built,
+        difficulty: CocktailDifficulty = .easy,
+        styleValue: String = "short drink",
+        glassValue: String = "highball",
+        mixingTechniqueValue: String = "built",
+        difficultyValue: String = "easy",
+        cocktailDescription: String = "",
+        stock: Bool = false
+    ) {
         self.name = name
         self.ingredients = ingredients
         self.isInBar = isInBar

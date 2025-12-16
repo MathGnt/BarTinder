@@ -12,7 +12,6 @@ extension IngredientsListCreation {
     struct IngredientsToolbar: ToolbarContent {
         @Environment(\.router) private var router
         @Bindable var model: IngredientCreationModel
-        
         let cocktail: Cocktail
         
         var body: some ToolbarContent {
@@ -26,7 +25,6 @@ extension IngredientsListCreation {
                     }
                 }
                 .alert("Missing fields", isPresented: $model.measuresFieldMissing) {
-                
                 } message: {
                     Text(CreationErrors.emptyMeasuresFields.localizedDescription)
                 }

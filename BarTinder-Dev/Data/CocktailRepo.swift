@@ -42,13 +42,10 @@ final class CocktailRepo: Servable {
                     stock: true
                 )
                 
-            
                 let ingredients = cocktail.ingredients.map {
                     Ingredient(name: $0.name, measure: $0.measure, unit: Units.init(rawValue: $0.unit) ?? .cl)
                 }
-
                 newCocktail.ingredients = ingredients
-                
                 cocktails.append(newCocktail)
             }
             return cocktails

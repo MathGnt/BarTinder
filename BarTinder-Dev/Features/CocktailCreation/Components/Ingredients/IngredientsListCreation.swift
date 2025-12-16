@@ -20,8 +20,8 @@ struct IngredientsListCreation: View {
                         AddedIngredientRow(ingredient: ingredient, model: model)
                     }
                 }
-                .onDelete { IndexSet in
-                    model.removeIngredient(indexSet: IndexSet, cocktail)
+                .onDelete { indexSet in
+                    model.removeIngredient(indexSet: indexSet, cocktail)
                 }
             }
             Section("All Ingredients") {

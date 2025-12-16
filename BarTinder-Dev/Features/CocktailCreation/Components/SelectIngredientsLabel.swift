@@ -44,7 +44,6 @@ extension CreateEditCocktail.IngredientsSection {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 24, height: 24)
-                
                     .foregroundStyle(.bartinderclr)
                     .overlay {
                         Image(systemName: isEmpty ? "plus.circle.fill" : "minus.circle.fill")

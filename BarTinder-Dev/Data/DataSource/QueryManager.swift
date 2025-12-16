@@ -7,8 +7,7 @@ The filtering, sorting and ordering options available through predicates and des
 
 import Foundation
 
-//MARK: - SORT DESCRIPTOR
-
+// MARK: - SORT DESCRIPTOR
 enum CocktailSortDescriptor: String, CaseIterable {
     case name = "Name"
     case difficulty = "Difficulty"
@@ -34,7 +33,6 @@ enum CocktailSortDescriptor: String, CaseIterable {
 }
 
 //MARK: - PREDICATES
-
 enum CocktailFilterPredicate: String, CaseIterable, Hashable {
     case possibleCocktails = "All cocktails"
     case created = "Created"
