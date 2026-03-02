@@ -49,10 +49,6 @@ final class Router {
     func popToNavRoot() {
         navigationPaths.removeAll()
     }
-
-    func popToSheetRoot() {
-        presentedSheet?.path.removeAll()
-    }
     
     func popToAllRoots() {
         dismissSheet()
