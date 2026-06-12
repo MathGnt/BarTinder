@@ -6,6 +6,7 @@ A view modifier that handles the BarTinder destinations.
 */
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 private struct SheetDestinations: ViewModifier {

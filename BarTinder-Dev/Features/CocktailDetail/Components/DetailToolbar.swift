@@ -6,6 +6,7 @@ A toolbar component that provides actions for editing, deleting, and managing co
 */
 
 import SwiftUI
+import SwiftData
 
 extension CocktailDetail {
     struct DetailToolbar: ToolbarContent {

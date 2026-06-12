@@ -26,11 +26,6 @@ final class Cocktail {
     var glass: CocktailGlass
     var mixingTechnique: CocktailMixingTechnique
     var difficulty: CocktailDifficulty
-    /// Enum rawValues for sorting :(
-    var styleValue: String
-    var glassValue: String
-    var mixingTechniqueValue: String
-    var difficultyValue: String
     
     var cocktailDescription: String
     var stock = false
@@ -63,10 +58,6 @@ final class Cocktail {
         self.glass = glass
         self.mixingTechnique = mixingTechnique
         self.difficulty = difficulty
-        self.styleValue = styleValue
-        self.glassValue = glassValue
-        self.mixingTechniqueValue = mixingTechniqueValue
-        self.difficultyValue = difficultyValue
         self.cocktailDescription = cocktailDescription
         self.stock = stock
     }

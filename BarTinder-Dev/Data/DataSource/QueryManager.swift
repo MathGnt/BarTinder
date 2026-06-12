@@ -20,13 +20,13 @@ enum CocktailSortDescriptor: String, CaseIterable {
         case .name:
             [SortDescriptor(\Cocktail.name, order: order)]
         case .difficulty:
-            [SortDescriptor(\Cocktail.difficultyValue, order: order),
+            [SortDescriptor(\Cocktail.difficulty.rawValue, order: order),
              SortDescriptor(\Cocktail.name, order: .forward)]
         case .glass:
-            [SortDescriptor(\Cocktail.glassValue, order: order),
+            [SortDescriptor(\Cocktail.glass.rawValue, order: order),
              SortDescriptor(\Cocktail.name, order: .forward)]
         case .technique:
-            [SortDescriptor(\Cocktail.mixingTechniqueValue, order: order),
+            [SortDescriptor(\Cocktail.mixingTechnique.rawValue, order: order),
              SortDescriptor(\Cocktail.name, order: .forward)]
         }
     }
@@ -87,9 +87,9 @@ enum CocktailFilterPredicate: String, CaseIterable, Hashable {
                 }
             }
         case .shortDrink:
-            return #Predicate<Cocktail> { $0.isPossible && $0.styleValue == "short drink" }
+            return #Predicate<Cocktail> { $0.isPossible && $0.style.rawValue == "short drink" }
         case .longDrink:
-            return #Predicate<Cocktail> { $0.isPossible && $0.styleValue == "long drink" }
+            return #Predicate<Cocktail> { $0.isPossible && $0.style.rawValue == "long drink" }
         }
     }
 }

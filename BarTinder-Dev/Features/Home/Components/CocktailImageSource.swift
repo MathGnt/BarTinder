@@ -5,7 +5,7 @@ Abstract:
 A SwiftUI view component that shows a cocktail image card.
 */
 
-
+import SwiftData
 import SwiftUI
 
 extension Home.YourCocktailsScrollView {

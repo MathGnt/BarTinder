@@ -6,6 +6,7 @@
  */
 
 import SwiftUI
+import SwiftData
 
 extension CreateEditCocktail {
     struct IngredientsSection: View {

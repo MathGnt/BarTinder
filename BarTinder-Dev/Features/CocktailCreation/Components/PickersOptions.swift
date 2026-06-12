@@ -18,9 +18,7 @@ extension CreateEditCocktail {
                 system: false,
                 pickerTitle: "Cocktail Style",
                 selection: $cocktail.style
-            ) { newValue in
-                cocktail.styleValue = newValue.rawValue
-            }
+            )
             
             CocktailPicker(
                 imageTitle: cocktail.glass.rawValue,
@@ -30,9 +28,7 @@ extension CreateEditCocktail {
                 system: false,
                 pickerTitle: "Cocktail Glass",
                 selection: $cocktail.glass
-            ) { newValue in
-                cocktail.glassValue = newValue.rawValue
-            }
+            )
             
             CocktailPicker(
                 imageTitle: "wand.and.rays",
@@ -40,9 +36,7 @@ extension CreateEditCocktail {
                 system: true,
                 pickerTitle: "Mixing Technique",
                 selection: $cocktail.mixingTechnique
-            ) { newValue in
-                cocktail.mixingTechniqueValue = newValue.rawValue
-            }
+            )
             
             CocktailPicker(
                 imageTitle: "gauge",
@@ -50,9 +44,7 @@ extension CreateEditCocktail {
                 system: true,
                 pickerTitle: "Cocktail Difficulty",
                 selection: $cocktail.difficulty
-            ) { newValue in
-                cocktail.difficultyValue = newValue.rawValue
-            }
+            )
             
             HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
                 pickerImage(title: "wineglass", color: .applered, system: true)
@@ -70,7 +62,6 @@ extension CreateEditCocktail.CocktailOptionsSection {
         let system: Bool
         let pickerTitle: String
         @Binding var selection: T
-        let onChange: (T) -> Void
         
         var body: some View {
             HStack(spacing: BarTinderApp.Padding.ingredientSpacing) {
@@ -79,9 +70,6 @@ extension CreateEditCocktail.CocktailOptionsSection {
                     ForEach(Array(T.allCases), id: \.self) { option in
                         Text(option.rawValue.capitalized).tag(option)
                     }
-                }
-                .onChange(of: selection) { _, newValue in
-                    onChange(newValue)
                 }
             }
         }
